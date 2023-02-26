@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,6 +18,8 @@ namespace Rise.App.Views
 {
     public sealed partial class ArtistsPage : MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private MainViewModel MViewModel => App.MViewModel;
 
         public ArtistViewModel SelectedItem
@@ -22,8 +27,6 @@ namespace Rise.App.Views
             get => (ArtistViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
-
-        private readonly string Label = "Artists";
 
         public ArtistsPage()
             : base("Name", App.MViewModel.Artists, App.MViewModel.Playlists)
@@ -49,9 +52,14 @@ namespace Rise.App.Views
                     items.Add(itm);
 
             if (playlist == null)
+            {
                 return PlaylistHelper.CreateNewPlaylistAsync(items);
+            }
             else
-                return playlist.AddItemsAsync(items);
+            {
+                playlist.AddItems(items);
+                return PBackend.SaveAsync();
+            }
         }
     }
 
@@ -94,22 +102,29 @@ namespace Rise.App.Views
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            StorageFile file = await picker.PickSingleFileAsync();
-
+            var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                var img = await file.GetBitmapAsync(200, 200);
-
-                var newFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync($@"modified-artist-{SelectedItem.Name}.png", CreationCollisionOption.ReplaceExisting);
-
-                var result = await img.SaveToFileAsync(newFile);
-
-                if (result)
+                // If this throws, there's no image to work with
+                try
                 {
-                    SelectedItem.Picture = $@"ms-appdata:///local/modified-artist-{SelectedItem.Name}.png";
-                    await SelectedItem.SaveAsync();
+                    var img = await file.GetBitmapAsync();
+                    if (img == null)
+                        return;
+
+                    img.Dispose();
                 }
+                catch { return; }
+
+                var artist = SelectedItem;
+                artist.Picture = URIs.ArtistThumb;
+
+                string filename = $@"artist-{artist.Model.Id}{file.FileType}";
+                _ = await file.CopyAsync(ApplicationData.Current.LocalFolder,
+                    filename, NameCollisionOption.ReplaceExisting);
+
+                artist.Picture = $@"ms-appdata:///local/{filename}";
+                await artist.SaveAsync();
             }
         }
 
@@ -117,8 +132,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();

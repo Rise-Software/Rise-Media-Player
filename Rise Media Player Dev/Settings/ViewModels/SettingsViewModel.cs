@@ -578,101 +578,48 @@ namespace Rise.App.ViewModels
     // Getting and setting app settings
     public sealed partial class SettingsViewModel : ViewModel
     {
+        private readonly ApplicationDataContainer LocalSettings
+            = ApplicationData.Current.LocalSettings;
+
         /// <summary>
         /// Gets an app setting.
         /// </summary>
         /// <param name="defaultValue">Default setting value.</param>
-        /// <param name="store">Setting store name.</param>
+        /// <param name="store">Setting container name.</param>
         /// <param name="setting">Setting name.</param>
         /// <returns>App setting value.</returns>
-        /// <remarks>If the store parameter is "Local", a local setting will be returned.</remarks>
         private Type Get<Type>(Type defaultValue, string store = "Local", [CallerMemberName] string setting = null)
         {
-            // If store == "Local", get a local setting
-            if (store == "Local")
-            {
-                // Get app settings
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            // Get the container values, always create it if it doesn't exist
+            var values = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always).Values;
 
-                // Check if the setting exists
-                if (localSettings.Values[setting] == null)
-                    localSettings.Values[setting] = defaultValue;
+            values[setting] ??= defaultValue;
+            var value = (Type)values[setting];
 
-                object val = localSettings.Values[setting];
-
-                // Return the setting if type matches
-                if (val is not Type)
-                {
-                    string format = "Type mismatch for \"{0}\" in local store. Got {1}";
-                    string message = string.Format(format, setting, val.GetType());
-
-                    throw new ArgumentException(message);
-                }
-
-                return (Type)val;
-            }
-
-            // Get desired composite value
-            ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-            ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
-
-            // If the store exists, check if the setting does as well
-            composite ??= new ApplicationDataCompositeValue();
-
-            if (composite[setting] == null)
-            {
-                composite[setting] = defaultValue;
-                roamingSettings.Values[store] = composite;
-            }
-
-            object value = composite[setting];
-
-            // Return the setting if type matches
-            if (value is not Type)
-            {
-                string format = "Type mismatch for \"{0}\" in local store. Current type is {1}";
-                string message = string.Format(format, setting, value.GetType());
-
-                throw new ArgumentException(message);
-            }
-
-            return (Type)value;
+            return value;
         }
 
         /// <summary>
         /// Sets an app setting.
         /// </summary>
         /// <param name="newValue">New setting value.</param>
-        /// <param name="store">Setting store name.</param>
+        /// <param name="store">Setting container name.</param>
         /// <param name="setting">Setting name.</param>
-        /// <remarks>If the store parameter is "Local", a local setting will be set.</remarks>
         private void Set<Type>(Type newValue, string store = "Local", [CallerMemberName] string setting = null)
         {
-            // Try to get the setting, if types don't match, it'll throw an exception
-            _ = Get(newValue, store, setting);
+            // Get the container, always create it if it doesn't exist
+            var values = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always).Values;
 
-            // If store == "Local", set a local setting
-            if (store == "Local")
+            // Check whether type matches
+            object value = values[setting];
+            if (value is not Type && value != null)
             {
-                // Get app settings
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                localSettings.Values[setting] = newValue;
-
-                OnPropertyChanged(setting);
-                return;
+                string message = $"Type mismatch for \"{setting}\" in \"{store}\" container. Current type is {value.GetType()}";
+                throw new ArgumentException(message, nameof(setting));
             }
 
-            // Get desired composite value
-            ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-            ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
-
-            // Store doesn't exist, create it
-            composite ??= new ApplicationDataCompositeValue();
-
             // Set the setting to the desired value
-            composite[setting] = newValue;
-            roamingSettings.Values[store] = composite;
-
+            values[setting] = newValue;
             OnPropertyChanged(setting);
         }
     }

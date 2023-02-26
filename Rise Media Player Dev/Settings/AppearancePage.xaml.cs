@@ -1,6 +1,6 @@
 ﻿using Rise.App.ViewModels;
-using Rise.Common;
 using Rise.Common.Enums;
+using Rise.Common.Extensions.Markup;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -18,17 +18,17 @@ namespace Rise.App.Settings
 
         private readonly List<string> Themes = new()
         {
-            ResourceLoaders.AppearanceLoader.GetString("Light"),
-            ResourceLoaders.AppearanceLoader.GetString("Dark"),
-            ResourceLoaders.AppearanceLoader.GetString("System")
+            ResourceHelper.GetString("Light"),
+            ResourceHelper.GetString("Dark"),
+            ResourceHelper.GetString("UseSystemSetting")
         };
 
         private readonly List<string> ColorThemes = new()
         {
-            "No glaze",
-            "Use system accent colour",
-            "Use custom colour",
-            "Use album art"
+            ResourceHelper.GetString("/Settings/AppearanceNoGlaze"),
+            ResourceHelper.GetString("/Settings/AppearanceSystemGlazeColor"),
+            ResourceHelper.GetString("/Settings/AppearanceCustomGlazeColor"),
+            ResourceHelper.GetString("/Settings/AppearanceGlazeAlbumArt")
         };
 
         private static List<NamedColor> _glazeColors;
@@ -155,14 +155,7 @@ namespace Rise.App.Settings
             ViewModel.GlazeColors = Color.FromArgb(25, col.R, col.G, col.B);
         }
 
-        private void ThemeChange_DropDownClosed(object sender, object e)
-        {
-
-        }
-
         private async void ChangeThemeTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-        {
-            await CoreApplication.RequestRestartAsync("Theme changed");
-        }
+            => _ = await CoreApplication.RequestRestartAsync("ThemeChanged");
     }
 }

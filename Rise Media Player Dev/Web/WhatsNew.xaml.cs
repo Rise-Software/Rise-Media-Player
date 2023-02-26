@@ -1,4 +1,5 @@
-﻿using Rise.Common.Extensions;
+﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -87,9 +88,6 @@ namespace Rise.App.Web
         }
 
         private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            string uriToLaunch = @"https://github.com/Rise-Software/Rise-Media-Player/issues/new/choose";
-            await uriToLaunch.LaunchAsync();
-        }
+            => _ = await URLs.NewIssue.LaunchAsync();
     }
 }

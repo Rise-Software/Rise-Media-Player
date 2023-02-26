@@ -16,6 +16,11 @@ namespace Rise.Common.Interfaces
         string Location { get; }
 
         /// <summary>
+        /// Whether the item is local or online.
+        /// </summary>
+        bool IsLocal { get; }
+
+        /// <summary>
         /// Creates a <see cref="MediaPlaybackItem"/> representation
         /// of this item.
         /// </summary>

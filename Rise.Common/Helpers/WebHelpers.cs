@@ -18,8 +18,9 @@ namespace Rise.Common.Helpers
         public static bool IsInternetAccessAvailable()
         {
             ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
-            return connectionProfile != null && connectionProfile.
-                GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+            return connectionProfile != null 
+                && (connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess
+                || connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.ConstrainedInternetAccess);
         }
 
         /// <summary>

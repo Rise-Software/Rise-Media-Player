@@ -6,9 +6,12 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Rise.Common.Enums"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
@@ -20,8 +23,6 @@
     <uc:MediaPageBase.Resources>
         <conv:BoolToRoundedCorners x:Key="BoolToRounded" />
         <conv:NullToBoolean x:Key="NullToBool" />
-
-        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -33,22 +34,19 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnAlbum"
-            Title="Managing and organising your albums"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnAlbumH}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnAlbumDesc}">
             <muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <TextBlock
-            d:Text="Albums"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=Albums}" />
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -56,28 +54,28 @@
             Background="Transparent"
             DefaultLabelPosition="Right">
             <AppBarButton
-                x:Uid="/Information/Play"
                 Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Play"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}" />
 
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Shuffle"
                 Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                Icon="Shuffle" />
+                Icon="Shuffle"
+                Label="{markup:ResourceHelper Name=Shuffle}" />
 
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}">
+            <AppBarButton IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}" Label="{markup:ResourceHelper Name=AddTo}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout x:Name="AddToBar">
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -89,21 +87,22 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Delete"
                 Icon="Delete"
                 IsEnabled="False"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Label="{markup:ResourceHelper Name=RemoveThing}"
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=RemoveThing}" />
             <AppBarButton
-                x:Uid="/Information/Edit"
                 Command="{x:Bind EditItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Edit"
                 IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=PropertiesInfo}" />
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View">
+            <AppBarButton Label="{markup:ResourceHelper Name=View}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
@@ -113,72 +112,70 @@
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.VerticalTile}"
+                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.VerticalTile)}"
                             GroupName="ViewModes"
-                            Text="Tiles (Vertical)" />
+                            Text="{markup:ResourceHelper Name=TilesVertical}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.HorizontalTile}"
+                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.HorizontalTile)}"
                             GroupName="ViewModes"
-                            Text="Tiles (Horizontal)" />
+                            Text="{markup:ResourceHelper Name=TilesHorizontal}" />
 
                         <MenuFlyoutSeparator />
 
-                        <ToggleMenuFlyoutItem IsEnabled="False" Text="Split online &amp; local media" />
+                        <ToggleMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=CardBackground}" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.RoundedAlbumArt, Mode=TwoWay}" Text="{markup:ResourceHelper Name=RoundedAlbumArt}" />
 
                         <MenuFlyoutSeparator />
 
-                        <ToggleMenuFlyoutItem IsEnabled="False" Text="Card background" />
-                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.RoundedAlbumArt, Mode=TwoWay}" Text="Rounded album art" />
+                        <MenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=MoreOptions}" />
 
-                        <MenuFlyoutSeparator />
+                        <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Show}">
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTitleInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=AlbumTitle}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=AlbumArt}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=Genre}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowReleaseYearInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
-                        <MenuFlyoutItem IsEnabled="False" Text="Additional settings" />
-
-                        <MenuFlyoutSubItem Text="Show">
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTitleInAlbums, Mode=TwoWay}" Text="Album title" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" Text="Album art" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" Text="Artist name" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" Text="Genre" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowReleaseYearInAlbums, Mode=TwoWay}" Text="Release year" />
-
-                            <ToggleMenuFlyoutItem IsEnabled="False" Text="Rating" />
+                            <ToggleMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Rating}" />
                         </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+            <AppBarButton Icon="Sort" Label="{markup:ResourceHelper Name=Sort}">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Title"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Title" />
+                            CommandParameter="Title"
+                            Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Artist"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Artist" />
+                            CommandParameter="Artist"
+                            Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Genre"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Genres" />
+                            CommandParameter="Genres"
+                            Text="{markup:ResourceHelper Name=Genre}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Year"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Year" />
+                            CommandParameter="Year"
+                            Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Ascending"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Ascending}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Descending"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Descending}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -186,12 +183,13 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/MediaLibrary/AddFolders"
                 Click="AddFolders_Click"
-                Icon="NewFolder" />
+                Icon="NewFolder"
+                Label="{markup:ResourceHelper Name=/Settings/AddFolders}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
-        <GridView
+        <tkitctrls:AdaptiveGridView
             x:Name="MainGrid"
             Grid.Row="2"
             Margin="-56,0"
@@ -199,35 +197,36 @@
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
+            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
             SelectionMode="Single">
             <GridView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShuffleAlbum"
                         Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Shuffle" />
+                        Icon="Shuffle"
+                        Text="{markup:ResourceHelper Name=ShuffleAlbum}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShowArtist"
                         Command="{x:Bind GoToArtistCommand}"
                         CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
-                        Icon="People" />
+                        Icon="People"
+                        Text="{markup:ResourceHelper Name=ShowArtist}" />
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -235,29 +234,29 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/Share"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/RemoveThing"
                         Icon="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/MediaData/Properties"
                         Command="{x:Bind EditItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Edit" />
+                        Icon="Edit"
+                        Text="{markup:ResourceHelper Name=PropertiesInfo}" />
                 </MenuFlyout>
             </GridView.ContextFlyout>
 
@@ -266,15 +265,15 @@
                     <uc:AlbumData
                         Album="{x:Bind Mode=OneTime}"
                         GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot, Mode=OneTime}"
-                        ShowArtist="{x:Bind app:App.SViewModel.ShowArtistInAlbums, Mode=OneWay}"
-                        ShowGenres="{x:Bind app:App.SViewModel.ShowGenreInAlbums, Mode=OneWay}"
-                        ShowReleaseYear="{x:Bind app:App.SViewModel.ShowReleaseYearInAlbums, Mode=OneWay}"
-                        ShowThumbnail="{x:Bind app:App.SViewModel.ShowThumbnailInAlbums, Mode=OneWay}"
-                        ShowTitle="{x:Bind app:App.SViewModel.ShowTitleInAlbums, Mode=OneWay}"
-                        ThumbnailCornerRadius="{x:Bind app:App.SViewModel.RoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
-                        ViewMode="{x:Bind app:App.SViewModel.AlbumViewMode, Mode=OneWay}" />
+                        ShowArtist="{x:Bind app:App.SViewModel.ShowArtistInAlbums}"
+                        ShowGenres="{x:Bind app:App.SViewModel.ShowGenreInAlbums}"
+                        ShowReleaseYear="{x:Bind app:App.SViewModel.ShowReleaseYearInAlbums}"
+                        ShowThumbnail="{x:Bind app:App.SViewModel.ShowThumbnailInAlbums}"
+                        ShowTitle="{x:Bind app:App.SViewModel.ShowTitleInAlbums}"
+                        ThumbnailCornerRadius="{x:Bind app:App.SViewModel.RoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
+                        ViewMode="{x:Bind app:App.SViewModel.AlbumViewMode}" />
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </tkitctrls:AdaptiveGridView>
     </Grid>
 </uc:MediaPageBase>

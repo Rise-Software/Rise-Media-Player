@@ -129,13 +129,11 @@
     <Compile Include="Media\NowPlayingDisplayProperties.cs" />
     <Compile Include="Media\MediaPlayerEffect.cs" />
     <Compile Include="Media\Genre.cs" />
-    <Compile Include="Media\Playlist.cs" />
     <Compile Include="Media\Song.cs" />
     <Compile Include="Media\Video.cs" />
     <Compile Include="MusixmatchLyrics.cs" />
     <Compile Include="MusixmatchTrack.cs" />
     <Compile Include="NamedColor.cs" />
-    <Compile Include="Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchItem.cs" />
     <Compile Include="SyncedLyrics.cs" />
@@ -156,7 +154,7 @@
       <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
-      <Version>1.8.116</Version>
+      <Version>1.9.141-beta</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
@@ -10,28 +11,28 @@
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
             <TextBlock
-                x:Uid="/Navigation/GeneralH"
+                Text="{markup:ResourceHelper Name=/Settings/PlaybackGeneralH}"
                 Margin="0,-10,0,0"
                 Style="{StaticResource SubheaderTextBlockStyle}" />
             <uc:ExpanderControl
-                x:Uid="/Appearance/Startup"
+                Title="{markup:ResourceHelper Name=/Settings/AppearanceStartupTitle}"
                 ExpanderStyle="Static"
                 Icon="&#xE7E8;">
                 <ComboBox
                     ItemsSource="{x:Bind Startup}"
-                    PlaceholderText="Songs"
+                    PlaceholderText="{markup:ResourceHelper Name=Songs}"
                     SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
             </uc:ExpanderControl>
 
             <uc:ExpanderControl
-                x:Uid="/Appearance/PickUp"
+                Title="{markup:ResourceHelper Name=/Settings/AppearancePickUp}"
                 ExpanderStyle="Static"
                 Icon="&#xE126;">
                 <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
             </uc:ExpanderControl>
 
             <uc:ExpanderControl
-                x:Uid="/Navigation/Resize"
+                Title="{markup:ResourceHelper Name=/Settings/NavigationResize}"
                 ExpanderStyle="Disabled"
                 Icon="&#xE944;">
                 <ComboBox
@@ -40,17 +41,17 @@
                     SelectedIndex="{x:Bind ViewModel.Resize, Mode=TwoWay}" />
             </uc:ExpanderControl>
 
-
-            <TextBlock x:Uid="/Navigation/AppearanceH" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <TextBlock Text="{markup:ResourceHelper Name=/Settings/NavigationAppearanceH}" Style="{StaticResource SubheaderTextBlockStyle}" />
+            
             <uc:ExpanderControl
-                x:Uid="/Navigation/Hamburger"
+                Title="{markup:ResourceHelper Name=/Settings/NavigationHamburgerTitle}"
                 ExpanderStyle="Disabled"
                 Icon="&#xE700;">
                 <ToggleSwitch IsOn="{x:Bind ViewModel.Hamburger, Mode=TwoWay}" />
             </uc:ExpanderControl>
 
             <uc:ExpanderControl
-                x:Uid="/Navigation/IconStyle"
+                Title="{markup:ResourceHelper Name=/Settings/NavigationIconStyle}"
                 ExpanderStyle="Static"
                 Icon="&#xF354;">
                 <ComboBox
@@ -60,9 +61,9 @@
                     SelectionChanged="IconStyle_SelectionChanged" />
             </uc:ExpanderControl>
 
+            <TextBlock Text="{markup:ResourceHelper Name=/Settings/NavigationAddRemoveH}" Style="{StaticResource SubheaderTextBlockStyle}" />
 
-            <TextBlock x:Uid="/Navigation/AddRemoveH" Style="{StaticResource SubheaderTextBlockStyle}" />
-            <uc:ExpanderControl x:Uid="/Navigation/GeneralItems" Icon="&#xE71D;">
+            <uc:ExpanderControl Title="{markup:ResourceHelper Name=/Settings/NavigationGeneralItems}" Icon="&#xE71D;">
                 <uc:ExpanderControl.HeaderControls>
                     <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllGeneral, Mode=TwoWay}" />
                 </uc:ExpanderControl.HeaderControls>
@@ -72,7 +73,7 @@
                     Orientation="Vertical"
                     Spacing="8">
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/AtAGlance"
+                        Title="{markup:ResourceHelper Name=Home}"
                         Margin="0,-16,0,-8"
                         ExpanderStyle="Transparent"
                         Icon="&#xECA5;">
@@ -96,17 +97,17 @@
                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
 
                 <uc:ExpanderControl
-                    x:Uid="/Navigation/Playlists"
-                    Margin="0,-8"
-                    ExpanderStyle="Transparent"
-                    Icon="&#xE8FD;">
-                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}" />
-                </uc:ExpanderControl>
+                        Title="{markup:ResourceHelper Name=Playlists}"
+                        Margin="0,-8"
+                        ExpanderStyle="Transparent"
+                        Icon="&#xE8FD;">
+                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}" />
+                    </uc:ExpanderControl>
 
                     <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/HelpCentre"
+                        Title="{markup:ResourceHelper Name=Discy}"
                         Margin="0,-8,0,-16"
                         ExpanderStyle="Transparent"
                         Icon="&#xE897;">
@@ -115,7 +116,7 @@
                 </StackPanel>
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl x:Uid="/Navigation/MusicItems" Icon="&#xE189;">
+            <uc:ExpanderControl Title="{markup:ResourceHelper Name=Music}" Icon="&#xE189;">
                 <uc:ExpanderControl.HeaderControls>
                     <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllMusic, Mode=TwoWay}" />
                 </uc:ExpanderControl.HeaderControls>
@@ -125,7 +126,7 @@
                     Orientation="Vertical"
                     Spacing="8">
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/ShowHeader"
+                        Title="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
                         Margin="0,-16,0,-8"
                         ExpanderStyle="Transparent"
                         Icon="&#xE185;">
@@ -138,7 +139,7 @@
                     <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/Songs"
+                        Title="{markup:ResourceHelper Name=Songs}"
                         Margin="0,-8"
                         ExpanderStyle="Transparent"
                         Icon="&#xEC4F;">
@@ -148,7 +149,7 @@
                     <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/Artists"
+                        Title="{markup:ResourceHelper Name=Artists}"
                         Margin="0,-8"
                         ExpanderStyle="Transparent"
                         Icon="&#xE125;">
@@ -158,7 +159,7 @@
                     <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/Albums"
+                        Title="{markup:ResourceHelper Name=Albums}"
                         Margin="0,-8"
                         ExpanderStyle="Transparent"
                         Icon="&#xE93C;">
@@ -167,7 +168,7 @@
                 </StackPanel>
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl x:Uid="/Navigation/VideoItems" Icon="&#xE8B2;">
+            <uc:ExpanderControl Title="{markup:ResourceHelper Name=Videos}" Icon="&#xE8B2;">
                 <uc:ExpanderControl.HeaderControls>
                     <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
                 </uc:ExpanderControl.HeaderControls>
@@ -177,7 +178,7 @@
                     Orientation="Vertical"
                     Spacing="8">
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/ShowHeader"
+                        Title="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
                         Margin="0,-16,0,-8"
                         ExpanderStyle="Transparent"
                         Icon="&#xE185;">
@@ -190,7 +191,7 @@
                     <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                     <uc:ExpanderControl
-                        x:Uid="/Navigation/Local"
+                        Title="{markup:ResourceHelper Name=LocalVideos}"
                         Margin="0,-8,0,-16"
                         ExpanderStyle="Transparent"
                         Icon="&#xE8B2;">

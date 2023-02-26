@@ -17,57 +17,46 @@ namespace Rise.Models
     [Table("Songs")]
     public partial class Song : DbObject, IEquatable<Song>, IMatchable<Song>
     {
-        [Column(nameof(Title))]
         public string Title { get; set; }
 
-        [Column(nameof(Artist))]
         public string Artist { get; set; }
 
-        [Column(nameof(Track))]
         [NotNull]
         public uint Track { get; set; }
 
-        [Column(nameof(Disc))]
         [NotNull]
         public int Disc { get; set; }
 
-        [Column(nameof(Album))]
         public string Album { get; set; }
 
-        [Column(nameof(AlbumArtist))]
         public string AlbumArtist { get; set; }
 
-        [Column(nameof(Genres))]
         public string Genres { get; set; }
 
-        [Column(nameof(Length))]
         public TimeSpan Length { get; set; }
 
-        [Column(nameof(Year))]
         [NotNull]
         public uint Year { get; set; }
 
-        [Column(nameof(Location))]
+        [Unique]
         public string Location { get; set; }
 
-        [Column(nameof(Rating))]
         [NotNull]
         public uint Rating { get; set; }
 
-        [Column(nameof(Bitrate))]
         [NotNull]
         public uint Bitrate { get; set; }
 
-        [Column(nameof(Thumbnail))]
         public string Thumbnail { get; set; }
+
+        [Ignore]
+        public bool IsLocal { get; set; } = true;
 
         /// <summary>
         /// Returns the song title.
         /// </summary>
         public override string ToString()
-        {
-            return Title;
-        }
+            => Title;
     }
 
     // Constructors/Factory methods
@@ -117,7 +106,7 @@ namespace Rise.Models
             }
 
             string albumTitle = musicProperties.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
-            string thumb = URIs.AlbumThumb;
+            string thumb = URIs.MusicThumb;
 
             using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
             string filename = albumTitle.AsValidFileName();
@@ -139,7 +128,8 @@ namespace Rise.Models
                 Year = musicProperties.Year,
                 Location = file.Path,
                 Rating = musicProperties.Rating,
-                Bitrate = musicProperties.Bitrate
+                Bitrate = musicProperties.Bitrate,
+                IsLocal = file.Provider.Id == "computer"
             };
         }
     }

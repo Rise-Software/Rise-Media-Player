@@ -9,7 +9,7 @@
 
         public static readonly string[] PlaylistFiles = new string[]
         {
-            ".m3u", ".m3u8", // ".wpl", ".zpl", ".asx", ".pls", ".xspf"
+            ".m3u", ".m3u8", ".wpl", ".zpl"
         };
 
         public static readonly string[] VideoFiles = new string[]

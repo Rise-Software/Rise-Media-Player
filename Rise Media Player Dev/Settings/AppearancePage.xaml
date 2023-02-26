@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Rise.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:markup="using:Rise.Common.Extensions.Markup"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
@@ -22,13 +22,13 @@
         Spacing="4">
         <muxc:TeachingTip
             x:Name="ChangeThemeTip"
-            Title="App theme changed"
+            Title="{markup:ResourceHelper Name=/Settings/AppThemeChanged}"
             ActionButtonClick="ChangeThemeTip_ActionButtonClick"
-            ActionButtonContent="Restart now"
-            CloseButtonContent="Maybe later"
+            ActionButtonContent="{markup:ResourceHelper Name=RestartNow}"
+            CloseButtonContent="{markup:ResourceHelper Name=MaybeLater}"
             IsLightDismissEnabled="True"
             IsOpen="False"
-            Subtitle="You'll need to restart the app for your changes to take effect."
+            Subtitle="{markup:ResourceHelper Name=RestartChangesEffect}"
             Target="{x:Bind ThemeChange}" />
 
         <Border
@@ -54,7 +54,7 @@
         </Border>
 
         <uc:ExpanderControl
-            x:Uid="/Appearance/ChooseTheme"
+            Title="{markup:ResourceHelper Name=/Settings/AppearanceChooseTheme}"
             Margin="0,8,0,0"
             Padding="0,10,0,0"
             ExpanderStyle="Static"
@@ -67,7 +67,7 @@
 
         <uc:ExpanderControl
             x:Name="ChooseColorExpander"
-            x:Uid="/Appearance/ChooseColor"
+            Title="{markup:ResourceHelper Name=/Settings/AppearanceChooseColor}"
             Icon="&#xE771;">
             <uc:ExpanderControl.HeaderControls>
                 <ComboBox
@@ -83,23 +83,23 @@
                     FontSize="14"
                     FontWeight="Normal"
                     HorizontalTextAlignment="Center"
-                    Text="There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown."
+                    Text="{markup:ResourceHelper Name=/Settings/AppearanceNothing}"
                     TextWrapping="WrapWholeWords" />
 
                 <StackPanel
                     x:Name="CustomColorPanel"
                     Padding="30,0,0,0"
                     Visibility="Collapsed">
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Recent colours" />
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/RecentColors}" />
                     <TextBlock
                         FontSize="14"
                         FontWeight="SemiBold"
-                        Text="Coming soon" />
+                        Text="{markup:ResourceHelper Name=ComingSoon}" />
 
                     <TextBlock
                         Margin="0,20,0,0"
                         Style="{StaticResource BodyTextBlockStyle}"
-                        Text="Windows colours" />
+                        Text="{markup:ResourceHelper Name=/Settings/WindowsColors}" />
                     <GridView
                         x:Name="ColorGrid"
                         MaxWidth="448"
@@ -133,8 +133,8 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Customised colours" />
-                        <Button Grid.Column="1" Content="View colours" />
+                            Text="{markup:ResourceHelper Name=/Settings/CustomizedColors}" />
+                        <Button Grid.Column="1" Content="{markup:ResourceHelper Name=/Settings/ViewColors}" />
                     </Grid>
                 </StackPanel>
             </Grid>

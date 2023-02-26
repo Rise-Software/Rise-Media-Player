@@ -1,5 +1,6 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common;
+using Rise.Common.Extensions.Markup;
 using Rise.Data.Sources;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
@@ -13,25 +14,25 @@ namespace Rise.App.Settings
 
         private readonly List<string> IconPacks = new()
         {
-            ResourceLoaders.NavigationLoader.GetString("Default"),
-            ResourceLoaders.NavigationLoader.GetString("Colorful")
+            ResourceHelper.GetString("Default"),
+            ResourceHelper.GetString("Colorful")
         };
 
         private readonly List<string> Show = new()
         {
-            ResourceLoaders.NavigationLoader.GetString("NoIcons"),
-            ResourceLoaders.NavigationLoader.GetString("OnlyIcons"),
-            ResourceLoaders.NavigationLoader.GetString("Everything")
+            ResourceHelper.GetString("NoIcons"),
+            ResourceHelper.GetString("OnlyIcons"),
+            ResourceHelper.GetString("Everything")
         };
 
         private readonly List<string> Startup = new()
         {
-            ResourceLoaders.AppearanceLoader.GetString("Home"),
-            ResourceLoaders.AppearanceLoader.GetString("Playlists"),
-            ResourceLoaders.AppearanceLoader.GetString("Songs"),
-            ResourceLoaders.AppearanceLoader.GetString("Artists"),
-            ResourceLoaders.AppearanceLoader.GetString("Albums"),
-            ResourceLoaders.AppearanceLoader.GetString("LocalVideos"),
+            ResourceHelper.GetString("Home"),
+            ResourceHelper.GetString("Playlists"),
+            ResourceHelper.GetString("Songs"),
+            ResourceHelper.GetString("Artists"),
+            ResourceHelper.GetString("Albums"),
+            ResourceHelper.GetString("LocalVideos"),
         };
 
         public NavigationPage()

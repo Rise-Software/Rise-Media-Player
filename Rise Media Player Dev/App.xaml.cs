@@ -2,8 +2,8 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
+using Microsoft.UI.Xaml.Controls;
 using Rise.App.ChangeTrackers;
-using Rise.App.DbControllers;
 using Rise.App.Services;
 using Rise.App.ServicesImplementation;
 using Rise.App.ViewModels;
@@ -13,7 +13,9 @@ using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Messages;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
@@ -45,11 +47,12 @@ namespace Rise.App
 
         private static Timer IndexingTimer;
 
-        // ViewModels
-        private readonly static Lazy<MainViewModel> _mViewModel
-            = new(() => new MainViewModel());
-        public static MainViewModel MViewModel => _mViewModel.Value;
+        // No lazy init (used very early on, so lazy init is not needed)
+        public static MainViewModel MViewModel { get; } = new();
+        public static SettingsViewModel SViewModel { get; } = new();
+        public static NavViewDataSource NavDataSource { get; } = new();
 
+        // Lazy init
         private readonly static Lazy<FileBrowserPageViewModel> _fbViewModel
             = new(() => new());
         public static FileBrowserPageViewModel FBViewModel => _fbViewModel.Value;
@@ -58,29 +61,10 @@ namespace Rise.App
             = new(OnMPViewModelRequested);
         public static MediaPlaybackViewModel MPViewModel => _mpViewModel.Value;
 
-        private readonly static Lazy<SettingsViewModel> _sViewModel
-            = new(() => new SettingsViewModel());
-        public static SettingsViewModel SViewModel => _sViewModel.Value;
-
         private readonly static Lazy<LastFMViewModel> _lmViewModel
             = new(OnLFMRequested);
         public static LastFMViewModel LMViewModel => _lmViewModel.Value;
 
-        // Backend controllers
-        private readonly static Lazy<PlaylistsBackendController> _pBackendController
-            = new(() => new PlaylistsBackendController());
-        public static PlaylistsBackendController PBackendController => _pBackendController.Value;
-
-        private readonly static Lazy<NotificationsBackendController> _nBackendController
-            = new(() => new NotificationsBackendController());
-        public static NotificationsBackendController NBackendController => _nBackendController.Value;
-
-        // Data sources
-        private readonly static Lazy<NavViewDataSource> _navDataSource
-            = new(() => new NavViewDataSource());
-        public static NavViewDataSource NavDataSource => _navDataSource.Value;
-
-        // Libraries
         private readonly static Lazy<StorageLibrary> _musicLibrary
             = new(OnStorageLibraryRequested(KnownLibraryId.Music));
         public static StorageLibrary MusicLibrary => _musicLibrary.Value;
@@ -95,9 +79,10 @@ namespace Rise.App
         /// </summary>
         public App()
         {
-            if (SViewModel.Theme == 0)
+            int theme = SViewModel.Theme;
+            if (theme == 0)
                 RequestedTheme = ApplicationTheme.Light;
-            else if (SViewModel.Theme == 1)
+            else if (theme == 1)
                 RequestedTheme = ApplicationTheme.Dark;
 
             // Reset the glaze color before startup if necessary
@@ -175,25 +160,49 @@ namespace Rise.App
             await MPViewModel.PlayFilesAsync(files);
         }
 
+        private async void OnDrop(object sender, DragEventArgs e)
+        {
+            if (!e.DataView.Contains(StandardDataFormats.StorageItems))
+                return;
+
+            var files = (await e.DataView.GetStorageItemsAsync()).OfType<StorageFile>();
+            await MPViewModel.PlayFilesAsync(files);
+        }
+
+        private void OnDragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Link;
+
+            var dragOverride = e.DragUIOverride;
+            if (dragOverride != null)
+            {
+                dragOverride.Caption = ResourceHelper.GetString("PlayMedia");
+                dragOverride.IsContentVisible = true;
+            }
+        }
+
         /// <summary>
-        /// Initializes the main app window.
+        /// Activates the app's window and puts content in there
+        /// if necessary.
         /// </summary>
         /// <param name="previousState">Previous app execution state.</param>
-        /// <returns>The app window's root frame.</returns>
-        private async Task<Frame> InitializeWindowAsync(ApplicationExecutionState previousState)
+        /// <param name="prelaunched">Whether the app was prelaunched.</param>
+        private async Task ActivateAsync(ApplicationExecutionState previousState, bool prelaunched)
         {
             var window = Window.Current;
             if (window.Content is not Frame rootFrame)
             {
-                await Repository.InitializeDatabaseAsync();
-                await MViewModel.GetListsAsync();
-
                 rootFrame = new Frame();
+                window.Content = rootFrame;
+
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 rootFrame.AllowDrop = true;
                 rootFrame.DragOver += OnDragOver;
                 rootFrame.Drop += OnDrop;
 
+                // The backdrop can be applied to the frame directly
+                // https://learn.microsoft.com/en-us/windows/apps/design/style/mica#use-mica-with-winui-2-for-uwp
+                BackdropMaterial.SetApplyToRootOrPageBackground(rootFrame, true);
                 SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
 
                 // Restore the saved session state only when appropriate
@@ -211,41 +220,10 @@ namespace Rise.App
                     }
                 }
 
-                window.Content = rootFrame;
+                await Repository.InitializeDatabaseAsync();
+                await MViewModel.GetListsAsync();
             }
 
-            return rootFrame;
-        }
-
-        private async void OnDrop(object sender, DragEventArgs e)
-        {
-            if (!e.DataView.Contains(StandardDataFormats.StorageItems))
-                return;
-
-            var files = (await e.DataView.GetStorageItemsAsync()).OfType<StorageFile>();
-            await MPViewModel.PlayFilesAsync(files);
-        }
-
-        private void OnDragOver(object sender, DragEventArgs e)
-        {
-            e.AcceptedOperation = DataPackageOperation.Link;
-
-            if (e.DragUIOverride != null)
-            {
-                e.DragUIOverride.Caption = "Play media";
-                e.DragUIOverride.IsContentVisible = true;
-            }
-        }
-
-        /// <summary>
-        /// Activates the app's window and puts content in there
-        /// if necessary.
-        /// </summary>
-        /// <param name="previousState">Previous app execution state.</param>
-        /// <param name="prelaunched">Whether the app was prelaunched.</param>
-        private async Task ActivateAsync(ApplicationExecutionState previousState, bool prelaunched)
-        {
-            var rootFrame = await InitializeWindowAsync(previousState);
             if (!prelaunched)
             {
                 CoreApplication.EnablePrelaunch(true);
@@ -256,7 +234,7 @@ namespace Rise.App
                         : rootFrame.Navigate(typeof(MainPage));
                 }
 
-                Window.Current.Activate();
+                window.Activate();
             }
         }
 
@@ -272,9 +250,7 @@ namespace Rise.App
             var deferral = e.SuspendingOperation.GetDeferral();
             try
             {
-                if (_navDataSource.IsValueCreated)
-                    await NavDataSource.SerializeGroupsAsync();
-
+                await NavDataSource.SerializeGroupsAsync();
                 await SuspensionManager.SaveAsync();
             }
             catch (Exception ex)
@@ -354,10 +330,10 @@ namespace Rise.App
         }
 
         private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
-            => await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
+            => await Task.Run(MViewModel.StartFullCrawlAsync);
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
-            => await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
+            => await Task.Run(MViewModel.StartFullCrawlAsync);
     }
 
     // Error handling
@@ -368,6 +344,7 @@ namespace Rise.App
         /// </summary>
         private void ShowExceptionToast(Exception e)
         {
+            string notifTitle = ResourceHelper.GetString("ErrorOcurred");
             ToastContent content = new ToastContentBuilder()
                 .AddToastActivationInfo(new QueryString()
                 {
@@ -377,8 +354,8 @@ namespace Rise.App
                      { "source", e.Source },
                      { "hresult", $"{e.HResult}" }
                 }.ToString(), ToastActivationType.Foreground)
-                .AddText("An error occurred!")
-                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
+                .AddText(notifTitle)
+                .AddText(ResourceHelper.GetString("CrashStackTrace"))
                 .GetToastContent();
 
             ToastNotification notification = new(content.GetXml());
@@ -386,6 +363,8 @@ namespace Rise.App
 
             var builder = new StringBuilder();
 
+            builder.Append(ResourceHelper.GetString("CrashDetails"));
+            builder.Append("\n\n");
             builder.AppendLine("-----");
             builder.Append("Exception type: ");
             builder.AppendLine(e.GetType().ToString());
@@ -404,7 +383,10 @@ namespace Rise.App
             builder.AppendLine(e.StackTrace);
             builder.AppendLine("-----");
 
-            NBackendController.AddItemAsync("An error occurred!", "Rise Media Player has crashed.\n\n" + builder.ToString(), "\uE8BB").Wait();
+            var notif = new BasicNotification(notifTitle, builder.ToString(), "\uE8BB");
+
+            MViewModel.NBackend.Items.Add(notif);
+            MViewModel.NBackend.Save();
         }
 
         private void OnUnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)

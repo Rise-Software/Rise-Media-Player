@@ -51,7 +51,7 @@ namespace Rise.Common.Extensions
         /// an invalid <paramref name="stepSize"/> is specified.</exception>
         public static async IAsyncEnumerable<StorageFile> IndexAsync(this StorageFolder folder,
             QueryOptions options,
-            uint stepSize = 10)
+            uint stepSize = 50)
         {
             if (stepSize < 1)
             {
@@ -103,14 +103,16 @@ namespace Rise.Common.Extensions
             // This is important because you are going to use indexer for notifications
             queryOptions.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
 
+            folder.TryGetChangeTracker()?.Enable();
+
             StorageFileQueryResult resultSet =
                 folder.CreateFileQueryWithOptions(queryOptions);
 
-            // Indicate to the system the app is ready to change track
-            await resultSet.GetFilesAsync(0, 1);
-
             // Attach an event handler for when something changes on the system
             resultSet.ContentsChanged += queryEventHandler;
+
+            // Indicate to the system the app is ready to change track
+            await resultSet.GetFilesAsync(0, 1);
             return resultSet;
         }
 

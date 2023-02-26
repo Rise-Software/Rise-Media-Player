@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <Grid>
@@ -45,7 +44,7 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 Style="{StaticResource TitleTextBlockStyle}"
-                Text="{markup:ResourceHelper Name=SetupWelcome}" />
+                Text="{markup:ResourceHelper Name=/Setup/Welcome}" />
             <Image
                 Width="Auto"
                 HorizontalAlignment="Center"
@@ -53,14 +52,14 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="{markup:ResourceHelper Name=SetupIntro}"
+                Text="{markup:ResourceHelper Name=/Setup/Intro}"
                 TextAlignment="Center" />
             <Button
                 Width="150"
                 HorizontalAlignment="Center"
                 Click="SetupButton_Click"
-                Content="{markup:ResourceHelper Name=SetupStart}"
-                Style="{StaticResource AccentButtonStyle}" />
+                Content="{markup:ResourceHelper Name=/Setup/Start}"
+                Style="{ThemeResource AccentButtonStyle}" />
         </StackPanel>
     </Grid>
 </Page>

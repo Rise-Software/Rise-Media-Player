@@ -5,6 +5,7 @@
     xmlns:control="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Web"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -33,12 +34,11 @@
                     Margin="12,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Feedback" />
+                    Text="{markup:ResourceHelper Name=Feedback}" />
             </StackPanel>
         </Border>
 
         <Button
-            Name="dropdown"
             Width="32"
             Height="28"
             Margin="98,2,0,0"
@@ -56,7 +56,7 @@
                             <FontIcon Glyph="&#xE8D1;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-                    <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Open in browser">
+                    <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="{markup:ResourceHelper Name=OpenInBrowser}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE12B;" />
                         </MenuFlyoutItem.Icon>
@@ -68,7 +68,6 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout>
-
             </Button.Flyout>
         </Button>
 
@@ -80,8 +79,5 @@
             x:Name="wv2"
             Margin="0,32,0,0"
             Source="https://rise-media.netlify.app/feedback/shell" />
-
     </Grid>
-
-
 </Page>

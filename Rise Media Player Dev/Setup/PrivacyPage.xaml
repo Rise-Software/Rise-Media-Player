@@ -12,7 +12,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupPrivacyH}">
+        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=/Setup/PrivacyH}">
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
@@ -23,11 +23,11 @@
 
             <StackPanel Spacing="20">
                 <StackPanel Spacing="20">
-                    <TextBlock x:Uid="/Privacy/Header" Style="{StaticResource BaseTextBlockStyle}" />
+                    <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/ConnectDesc}" />
 
                     <StackPanel Orientation="Vertical" Spacing="4">
                         <uc:ExpanderControl
-                            x:Uid="/Appearance/History"
+                            Title="{markup:ResourceHelper Name=/Setup/AppearanceHistoryTitle}"
                             Margin="0,0,0,4"
                             ExpanderStyle="Static"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -36,7 +36,8 @@
                         </uc:ExpanderControl>
 
                         <uc:ExpanderControl
-                            x:Uid="/Appearance/CuratedPlaylists"
+                            Title="{markup:ResourceHelper Name=/Setup/AppearanceCuratedPlaylistsTitle}"
+                            Description="{markup:ResourceHelper Name=/Setup/AppearanceCuratedPlaylistsDesc}"
                             ExpanderStyle="Static"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Icon="&#xE8FD;">
@@ -44,7 +45,8 @@
                         </uc:ExpanderControl>
 
                         <uc:ExpanderControl
-                            x:Uid="/Appearance/AtAGlance"
+                            Title="{markup:ResourceHelper Name=/Setup/AppearanceAtAGlanceTitle}"
+                            Description="{markup:ResourceHelper Name=/Setup/AppearanceAtAGlanceDesc}"
                             ExpanderStyle="Disabled"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Icon="&#xECA5;">

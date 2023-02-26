@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.Common.Extensions.Markup;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
@@ -25,7 +26,7 @@ namespace Rise.App.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             uint actualValue = (uint)value;
-            string str = actualValue == 0 ? "Unknown" : actualValue.ToString();
+            string str = actualValue == 0 ? ResourceHelper.GetString("Unknown") : actualValue.ToString();
             return str;
         }
 

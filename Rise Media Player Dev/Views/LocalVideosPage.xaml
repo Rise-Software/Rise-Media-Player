@@ -4,9 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:tkituictrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -29,22 +32,20 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnVideo"
-            Title="Playing videos"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnVideoH}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnVideoDesc}">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
+                <Image Source="ms-appx:///Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <TextBlock
-            d:Text="All Videos"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=LocalVideos}" />
+        
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -52,28 +53,27 @@
             Background="Transparent"
             DefaultLabelPosition="Right">
             <AppBarButton
-                x:Uid="/Information/Play"
                 Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Play"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}" />
 
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Delete"
                 Icon="Delete"
                 IsEnabled="False"
+                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton
-                x:Uid="/Information/Edit"
                 Icon="Rename"
                 IsEnabled="False"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
 
             <AppBarSeparator />
 
-            <AppBarButton Click="PlayFromUrl_Click" Label="Play from URL">
+            <AppBarButton Click="PlayFromUrl_Click" Label="{markup:ResourceHelper Name=PlayFromUrl}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE704;" />
                 </AppBarButton.Icon>
@@ -81,7 +81,7 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
+            <AppBarButton IsEnabled="False" Label="{markup:ResourceHelper Name=View}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
@@ -97,34 +97,34 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+            <AppBarButton Icon="Sort" Label="{markup:ResourceHelper Name=Sort}">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Title"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Title" />
+                            CommandParameter="Title"
+                            Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Year"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Year" />
+                            CommandParameter="Year"
+                            Text="{markup:ResourceHelper Name=ReleaseYear}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Length"
-                            Text="Length" />
+                            Text="{markup:ResourceHelper Name=Length}" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Ascending"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Ascending}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Descending"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Descending}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -132,16 +132,18 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/MediaLibrary/AddFolders"
                 Click="AddFolders_Click"
-                Icon="NewFolder" />
+                Icon="NewFolder"
+                Label="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
-        <GridView
+        <tkituictrls:AdaptiveGridView
             x:Name="MainGrid"
             Grid.Row="2"
             Margin="-56,0"
             Padding="44,0,44,120"
+            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
+            DesiredWidth="200"
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -149,19 +151,19 @@
             <GridView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -169,28 +171,28 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/Share"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/RemoveThing"
                         Icon="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                     <MenuFlyoutItem
                         Icon="Rename"
                         IsEnabled="False"
-                        Text="Rename" />
+                        Text="{markup:ResourceHelper Name=Rename}" />
                 </MenuFlyout>
             </GridView.ContextFlyout>
 
@@ -205,10 +207,7 @@
                             Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
                             CornerRadius="4"
                             ToolTipService.ToolTip="{x:Bind Converter={StaticResource VidToStr}}">
-                            <Image
-                                Width="192"
-                                Height="108"
-                                Stretch="UniformToFill">
+                            <Image Height="108" Stretch="UniformToFill">
                                 <Image.Source>
                                     <BitmapImage
                                         DecodePixelHeight="108"
@@ -220,16 +219,19 @@
                         </Border>
 
                         <TextBlock
-                            Padding="0,7,0,0"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="{x:Bind Title}" />
+                            Grid.Row="1"
+                            Padding="0,6,0,0"
+                            MaxLines="1"
+                            Text="{x:Bind Title}"
+                            TextTrimming="CharacterEllipsis" />
                         <TextBlock
-                            FontSize="13"
+                            Grid.Row="2"
+                            FontSize="12"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Text="{x:Bind Length, Converter={StaticResource TimeToStr}, ConverterParameter=D-S}" />
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </tkituictrls:AdaptiveGridView>
     </Grid>
 </uc:MediaPageBase>

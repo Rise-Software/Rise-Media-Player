@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using System.Linq;
 using Rise.Data.ViewModels;
 using Rise.App.Messages.FileBrowser;
 
@@ -14,10 +15,10 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
 
         public FileBrowserPageViewModel()
         {
-            this.Messenger = new WeakReferenceMessenger();
-            this.FileBrowserHeaderViewModel = new(Messenger);
+            Messenger = new WeakReferenceMessenger();
+            FileBrowserHeaderViewModel = new(Messenger);
 
-            this.Messenger.Register<FileBrowserNavigationRequestedMessage>(this);
+            Messenger.Register(this);
         }
 
         public void Receive(FileBrowserNavigationRequestedMessage message)
@@ -27,10 +28,10 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
 
         public void EnsureInitialized()
         {
-            if (CurrentPageViewModel is null)
+            if (CurrentPageViewModel == null)
                 Messenger.Send(new FileBrowserNavigationRequestedMessage(FileBrowserHomePageViewModel.GetOrCreate(Messenger)));
 
-            if (CurrentPageViewModel is FileBrowserHomePageViewModel homePageViewModel && homePageViewModel.Drives.Count == 0)
+            if (CurrentPageViewModel is FileBrowserHomePageViewModel homePageViewModel && !homePageViewModel.Drives.Any())
                 homePageViewModel.EnumerateDrives();
         }
     }

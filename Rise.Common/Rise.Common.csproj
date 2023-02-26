@@ -122,6 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Attached\GridHelper.cs" />
+    <Compile Include="Constants\AppVersion.cs" />
     <Compile Include="Constants\InvalidChars.cs" />
     <Compile Include="Constants\LastFM.cs" />
     <Compile Include="Constants\SongProperties.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Extensions\IndexingExtensions.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\Markup\ResourceHelper.cs" />
+    <Compile Include="Extensions\SQLiteConnectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Extensions\ViewManagementExtensions.cs" />
@@ -172,7 +174,6 @@
     <Compile Include="Interfaces\IMatchable.cs" />
     <Compile Include="Interfaces\IMediaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceLoaders.cs" />
     <Compile Include="Threading\CoreDispatcherAwaiter.cs" />
     <Compile Include="Threading\ThreadPoolAwaiter.cs" />
     <Compile Include="Threading\ThreadSwitcher.cs" />
@@ -190,6 +191,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>7.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.9.141-beta</Version>
     </PackageReference>
     <PackageReference Include="TagLibSharp">
       <Version>2.3.0</Version>

@@ -6,14 +6,11 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="120"
     d:DesignWidth="256"
     mc:Ignorable="d">
-
-    <UserControl.Resources>
-        <conv:UintToStringConverter x:Key="UintToStringConverter" />
-    </UserControl.Resources>
 
     <Grid
         x:Name="MainGrid"
@@ -28,24 +25,16 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-
-        <Border
+        
+        <tkitctrls:ImageEx
             x:Name="AlbumThumb"
             CornerRadius="{x:Bind ThumbnailCornerRadius}"
+            DecodePixelType="Logical"
+            IsCacheEnabled="True"
+            PlaceholderSource="ms-appx:///Assets/BlankAlbum.png"
+            Source="{x:Bind Album.Thumbnail}"
             ToolTipService.ToolTip="{x:Bind Album.TitleWithArtist}"
-            Visibility="{x:Bind ShowThumbnail}">
-            <Border.Background>
-                <ImageBrush Stretch="UniformToFill">
-                    <ImageBrush.ImageSource>
-                        <BitmapImage
-                            DecodePixelHeight="134"
-                            DecodePixelType="Logical"
-                            DecodePixelWidth="134"
-                            UriSource="{x:Bind Album.Thumbnail}" />
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Border.Background>
-        </Border>
+            Visibility="{x:Bind ShowThumbnail}" />
 
         <StackPanel
             x:Name="InfoPanel"
@@ -77,17 +66,16 @@
                 <TextBlock Text="{x:Bind Album.Artist}" TextTrimming="CharacterEllipsis" />
             </HyperlinkButton>
 
-            <TextBlock FontSize="13" Visibility="{x:Bind ShowReleaseYear}">
-                Release year:
-                <Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
-            </TextBlock>
+            <TextBlock
+                FontSize="13"
+                Text="{x:Bind Album.LocalizedYear}"
+                Visibility="{x:Bind ShowReleaseYear}" />
         </StackPanel>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ViewModes">
                 <VisualState x:Name="VerticalTile">
                     <VisualState.Setters>
-                        <Setter Target="MainGrid.Width" Value="158" />
                         <Setter Target="MainGrid.RowSpacing" Value="4" />
                         <Setter Target="MainGrid.ColumnDefinitions[0].Width" Value="134" />
                         <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="0" />
@@ -101,7 +89,6 @@
 
                 <VisualState x:Name="HorizontalTile">
                     <VisualState.Setters>
-                        <Setter Target="MainGrid.Width" Value="256" />
                         <Setter Target="MainGrid.ColumnSpacing" Value="8" />
                         <Setter Target="MainGrid.RowDefinitions[1].Height" Value="0" />
 

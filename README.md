@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
+  <img src="https://user-images.githubusercontent.com/74561130/206788538-b4d84a04-5aae-419e-9b2a-5357d7c79d4f.png" />
   <div class="row" align="center">
 <a href='https://www.microsoft.com/store/r/9PCSZTMTT55Z'><img src='https://user-images.githubusercontent.com/74561130/160254559-a457ff95-09a9-4910-9776-5517e2b1ea2f.png'alt='Get it from Microsoft' />
   <a href='https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.171.0/Rise.App_0.0.171.0_x86_x64_arm.msixbundle'><img src='https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png'alt='Get it from GitHub' /></a>
 </div>
 </p>
 
+[![Crowdin](https://badges.crowdin.net/rise-media-player/localized.svg)](https://crowdin.com/project/rise-media-player)
 
 **Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)**
 
 ### Download the installer from the download link below or [see building instructions](./BUILD.md)
-
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
@@ -70,7 +70,7 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 
 **If you are an Insider already, just click the Download button and you'll be taken to a page to download :)**
 
-[![Download](https://user-images.githubusercontent.com/74561130/137598555-649c77c7-1719-4aa3-8017-8b41283de730.png)](https://github.com/Rise-Software/Rise-Media-Player/releases)    ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png)    [![Contribute](https://user-images.githubusercontent.com/74561130/137586097-1f64560c-9bb1-47cc-bd44-fa87c1b09e5b.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ1pJWFRWOFA1MDk3MUtVRk5SWVlTQktPWS4u)    [![JoinInsider](https://user-images.githubusercontent.com/74561130/137585885-7f98b4de-5067-41ee-bdb4-2a04fea4b90a.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMUdKWlVSTE0yN0JKMEpXWkc5T1ZBMkpUWC4u)    
+[![Download](https://user-images.githubusercontent.com/74561130/137598555-649c77c7-1719-4aa3-8017-8b41283de730.png)](https://github.com/Rise-Software/Rise-Media-Player/releases)    ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png)    [![JoinInsider](https://user-images.githubusercontent.com/74561130/137585885-7f98b4de-5067-41ee-bdb4-2a04fea4b90a.png)](http://www.bit.ly/risesoftinsider)    
 ## Credits
 
 **Creators**

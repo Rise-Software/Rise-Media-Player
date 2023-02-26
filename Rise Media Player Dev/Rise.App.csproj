@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rise.App</RootNamespace>
     <AssemblyName>Rise Media Player</AssemblyName>
-    <DefaultLanguage>en</DefaultLanguage>
+    <DefaultLanguage>en-GB</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
@@ -26,8 +26,6 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>
-    </PackageCertificateThumbprint>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -234,12 +232,6 @@
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
-    <Compile Include="DbControllers\BaseBackendController.cs" />
-    <Compile Include="DbControllers\NotificationsBackendController.cs" />
-    <Compile Include="DbControllers\PlaylistsBackendController.cs" />
-    <Compile Include="Dialogs\AboutArtist.xaml.cs">
-      <DependentUpon>AboutArtist.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
       <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
     </Compile>
@@ -260,6 +252,9 @@
     </Compile>
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml.cs">
+      <DependentUpon>AlbumPropsSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
@@ -284,9 +279,6 @@
     </Compile>
     <Compile Include="Views\Songs\Properties\SongFilePage.xaml.cs">
       <DependentUpon>SongFilePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
-      <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
@@ -326,7 +318,6 @@
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
@@ -336,8 +327,8 @@
     <Compile Include="Views\Albums\Properties\AlbumPropertiesPage.xaml.cs">
       <DependentUpon>AlbumPropertiesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml.cs">
-      <DependentUpon>AlbumPropsDetailsPagexaml.xaml</DependentUpon>
+    <Compile Include="Views\Albums\Properties\AlbumPropsDetailsPage.xaml.cs">
+      <DependentUpon>AlbumPropsDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
@@ -615,25 +606,144 @@
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
-    <PRIResource Include="Strings\tr-TR\Resources.resw" />
-    <PRIResource Include="Strings\ro-RO\Resources.resw" />
-    <PRIResource Include="Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Strings\no-NO\Setup.resw" />
+    <PRIResource Include="Strings\no-NO\Settings.resw" />
+    <PRIResource Include="Strings\no-NO\Resources.resw" />
+    <PRIResource Include="Strings\no-NO\HelpTips.resw" />
+    <PRIResource Include="Strings\nl-NL\Setup.resw" />
+    <PRIResource Include="Strings\nl-NL\Settings.resw" />
+    <PRIResource Include="Strings\nl-NL\Resources.resw" />
+    <PRIResource Include="Strings\nl-NL\HelpTips.resw" />
+    <PRIResource Include="Strings\ko-KR\Setup.resw" />
+    <PRIResource Include="Strings\ko-KR\Settings.resw" />
+    <PRIResource Include="Strings\ko-KR\Resources.resw" />
+    <PRIResource Include="Strings\ko-KR\HelpTips.resw" />
+    <PRIResource Include="Strings\ja-JP\Setup.resw" />
+    <PRIResource Include="Strings\ja-JP\Settings.resw" />
+    <PRIResource Include="Strings\ja-JP\Resources.resw" />
+    <PRIResource Include="Strings\ja-JP\HelpTips.resw" />
+    <PRIResource Include="Strings\it-IT\Setup.resw" />
+    <PRIResource Include="Strings\it-IT\Settings.resw" />
     <PRIResource Include="Strings\it-IT\Resources.resw" />
+    <PRIResource Include="Strings\it-IT\HelpTips.resw" />
+    <PRIResource Include="Strings\hu-HU\Setup.resw" />
+    <PRIResource Include="Strings\hu-HU\Settings.resw" />
+    <PRIResource Include="Strings\hu-HU\Resources.resw" />
+    <PRIResource Include="Strings\hu-HU\HelpTips.resw" />
+    <PRIResource Include="Strings\hi-IN\Setup.resw" />
+    <PRIResource Include="Strings\hi-IN\Settings.resw" />
     <PRIResource Include="Strings\hi-IN\Resources.resw" />
+    <PRIResource Include="Strings\hi-IN\HelpTips.resw" />
+    <PRIResource Include="Strings\he-IL\Setup.resw" />
+    <PRIResource Include="Strings\he-IL\Settings.resw" />
+    <PRIResource Include="Strings\he-IL\Resources.resw" />
+    <PRIResource Include="Strings\he-IL\HelpTips.resw" />
+    <PRIResource Include="Strings\fr-FR\Setup.resw" />
+    <PRIResource Include="Strings\fr-FR\Settings.resw" />
+    <PRIResource Include="Strings\fr-FR\Resources.resw" />
+    <PRIResource Include="Strings\fr-FR\HelpTips.resw" />
+    <PRIResource Include="Strings\fi-FI\Setup.resw" />
+    <PRIResource Include="Strings\fi-FI\Settings.resw" />
+    <PRIResource Include="Strings\fi-FI\Resources.resw" />
+    <PRIResource Include="Strings\fi-FI\HelpTips.resw" />
+    <PRIResource Include="Strings\es-ES\Setup.resw" />
+    <PRIResource Include="Strings\es-ES\Settings.resw" />
+    <PRIResource Include="Strings\es-ES\Resources.resw" />
+    <PRIResource Include="Strings\es-ES\HelpTips.resw" />
+    <PRIResource Include="Strings\en-US\Setup.resw" />
+    <PRIResource Include="Strings\en-US\Settings.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\en-US\HelpTips.resw" />
+    <PRIResource Include="Strings\en-GB\Setup.resw" />
+    <PRIResource Include="Strings\en-GB\Settings.resw" />
     <PRIResource Include="Strings\en-GB\Resources.resw" />
-    <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
-    <PRIResource Include="Strings\en-GB\Widgets.resw" />
     <PRIResource Include="Strings\en-GB\HelpTips.resw" />
+    <PRIResource Include="Strings\el\Setup.resw" />
+    <PRIResource Include="Strings\el\Settings.resw" />
+    <PRIResource Include="Strings\el\Resources.resw" />
+    <PRIResource Include="Strings\el\HelpTips.resw" />
+    <PRIResource Include="Strings\de-DE\Setup.resw" />
+    <PRIResource Include="Strings\de-DE\Settings.resw" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
+    <PRIResource Include="Strings\de-DE\HelpTips.resw" />
+    <PRIResource Include="Strings\da\Setup.resw" />
+    <PRIResource Include="Strings\da\Settings.resw" />
+    <PRIResource Include="Strings\da\Resources.resw" />
+    <PRIResource Include="Strings\da\HelpTips.resw" />
+    <PRIResource Include="Strings\cs-CZ\Setup.resw" />
+    <PRIResource Include="Strings\cs-CZ\Settings.resw" />
+    <PRIResource Include="Strings\cs-CZ\Resources.resw" />
+    <PRIResource Include="Strings\cs-CZ\HelpTips.resw" />
+    <PRIResource Include="Strings\ca\Setup.resw" />
+    <PRIResource Include="Strings\ca\Settings.resw" />
+    <PRIResource Include="Strings\ca\Resources.resw" />
+    <PRIResource Include="Strings\ca\HelpTips.resw" />
+    <PRIResource Include="Strings\ar-EG\Setup.resw" />
+    <PRIResource Include="Strings\ar-EG\Settings.resw" />
+    <PRIResource Include="Strings\ar-EG\Resources.resw" />
+    <PRIResource Include="Strings\ar-EG\HelpTips.resw" />
+    <PRIResource Include="Strings\ar\Setup.resw" />
+    <PRIResource Include="Strings\ar\Settings.resw" />
+    <PRIResource Include="Strings\ar\Resources.resw" />
+    <PRIResource Include="Strings\ar\HelpTips.resw" />
+    <PRIResource Include="Strings\af\Setup.resw" />
+    <PRIResource Include="Strings\af\Settings.resw" />
+    <PRIResource Include="Strings\af\Resources.resw" />
+    <PRIResource Include="Strings\af\HelpTips.resw" />
+    <PRIResource Include="Strings\zh-Hant\Setup.resw" />
+    <PRIResource Include="Strings\zh-Hant\Settings.resw" />
+    <PRIResource Include="Strings\zh-Hant\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hant\HelpTips.resw" />
+    <PRIResource Include="Strings\zh-Hans\Setup.resw" />
+    <PRIResource Include="Strings\zh-Hans\Settings.resw" />
+    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hans\HelpTips.resw" />
+    <PRIResource Include="Strings\vi\Setup.resw" />
+    <PRIResource Include="Strings\vi\Settings.resw" />
+    <PRIResource Include="Strings\vi\Resources.resw" />
+    <PRIResource Include="Strings\vi\HelpTips.resw" />
+    <PRIResource Include="Strings\uk-UA\Setup.resw" />
+    <PRIResource Include="Strings\uk-UA\Settings.resw" />
+    <PRIResource Include="Strings\uk-UA\Resources.resw" />
+    <PRIResource Include="Strings\uk-UA\HelpTips.resw" />
+    <PRIResource Include="Strings\tr-TR\Setup.resw" />
+    <PRIResource Include="Strings\tr-TR\Settings.resw" />
+    <PRIResource Include="Strings\tr-TR\Resources.resw" />
+    <PRIResource Include="Strings\tr-TR\HelpTips.resw" />
+    <PRIResource Include="Strings\sv-SE\Setup.resw" />
+    <PRIResource Include="Strings\sv-SE\Settings.resw" />
+    <PRIResource Include="Strings\sv-SE\Resources.resw" />
+    <PRIResource Include="Strings\sv-SE\HelpTips.resw" />
+    <PRIResource Include="Strings\sr-SP\Setup.resw" />
+    <PRIResource Include="Strings\sr-SP\Settings.resw" />
+    <PRIResource Include="Strings\sr-SP\Resources.resw" />
+    <PRIResource Include="Strings\sr-SP\HelpTips.resw" />
+    <PRIResource Include="Strings\ru-RU\Setup.resw" />
+    <PRIResource Include="Strings\ru-RU\Settings.resw" />
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
+    <PRIResource Include="Strings\ru-RU\HelpTips.resw" />
+    <PRIResource Include="Strings\ro-RO\Setup.resw" />
+    <PRIResource Include="Strings\ro-RO\Settings.resw" />
+    <PRIResource Include="Strings\ro-RO\Resources.resw" />
+    <PRIResource Include="Strings\ro-RO\HelpTips.resw" />
+    <PRIResource Include="Strings\pt-PT\Setup.resw" />
+    <PRIResource Include="Strings\pt-PT\Settings.resw" />
+    <PRIResource Include="Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Strings\pt-PT\HelpTips.resw" />
+    <PRIResource Include="Strings\pt-BR\Setup.resw" />
+    <PRIResource Include="Strings\pt-BR\Settings.resw" />
+    <PRIResource Include="Strings\pt-BR\Resources.resw" />
+    <PRIResource Include="Strings\pt-BR\HelpTips.resw" />
+    <PRIResource Include="Strings\pl-PL\Setup.resw" />
+    <PRIResource Include="Strings\pl-PL\Settings.resw" />
+    <PRIResource Include="Strings\pl-PL\Resources.resw" />
+    <PRIResource Include="Strings\pl-PL\HelpTips.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\AboutArtist.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\CreatePlaylistDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -710,6 +820,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BrowsePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -739,10 +853,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Songs\Properties\SongFilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\UnavailableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -810,7 +920,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml">
+    <Page Include="Views\Albums\Properties\AlbumPropsDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -988,7 +1098,7 @@
       <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm">
-      <Version>8.0.0</Version>
+      <Version>8.1.0</Version>
     </PackageReference>
     <PackageReference Include="IsExternalInit">
       <Version>1.0.3</Version>
@@ -1013,6 +1123,9 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>7.1.3</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Behaviors">
+      <Version>7.1.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>7.1.3</Version>
     </PackageReference>
@@ -1020,7 +1133,7 @@
       <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.1</Version>
+      <Version>2.8.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
@@ -1044,18 +1157,8 @@
       <Version>2.3.0</Version>
     </PackageReference>
     <PackageReference Include="YoutubeExplode">
-      <Version>6.2.4</Version>
+      <Version>6.2.5</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Language.resw" />
-    <PRIResource Include="Strings\en-GB\About.resw" />
-    <PRIResource Include="Strings\en-GB\Playback.resw" />
-    <PRIResource Include="Strings\en-GB\Navigation.resw" />
-    <PRIResource Include="Strings\en-GB\Appearance.resw" />
-    <PRIResource Include="Strings\en-GB\MediaLibrary.resw" />
-    <PRIResource Include="Strings\en-GB\Information.resw" />
-    <PRIResource Include="Strings\en-GB\Sidebar.resw" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
@@ -1068,12 +1171,6 @@
     <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Terms.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Connect.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1081,109 +1178,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
-    <PRIResource Include="Strings\pt-PT\Terms.resw" />
-    <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
-    <PRIResource Include="Strings\pt-PT\Props.resw" />
-    <PRIResource Include="Strings\pt-PT\Privacy.resw" />
-    <PRIResource Include="Strings\pt-PT\Playback.resw" />
-    <PRIResource Include="Strings\pt-PT\NowPlaying.resw" />
-    <PRIResource Include="Strings\pt-PT\Navigation.resw" />
-    <PRIResource Include="Strings\pt-PT\MediaLibrary.resw" />
-    <PRIResource Include="Strings\pt-PT\MediaData.resw" />
-    <PRIResource Include="Strings\pt-PT\Local.resw" />
-    <PRIResource Include="Strings\pt-PT\Language.resw" />
-    <PRIResource Include="Strings\pt-PT\Information.resw" />
-    <PRIResource Include="Strings\pt-PT\HelpTips.resw" />
-    <PRIResource Include="Strings\pt-PT\Finish.resw" />
-    <PRIResource Include="Strings\pt-PT\File.resw" />
-    <PRIResource Include="Strings\pt-PT\Details.resw" />
-    <PRIResource Include="Strings\pt-PT\Connect.resw" />
-    <PRIResource Include="Strings\pt-PT\Appearance.resw" />
-    <PRIResource Include="Strings\pt-PT\About.resw" />
-    <PRIResource Include="Strings\it-IT\Terms.resw" />
-    <PRIResource Include="Strings\it-IT\Sidebar.resw" />
-    <PRIResource Include="Strings\it-IT\Props.resw" />
-    <PRIResource Include="Strings\it-IT\Privacy.resw" />
-    <PRIResource Include="Strings\it-IT\Playback.resw" />
-    <PRIResource Include="Strings\it-IT\NowPlaying.resw" />
-    <PRIResource Include="Strings\it-IT\Navigation.resw" />
-    <PRIResource Include="Strings\it-IT\MediaLibrary.resw" />
-    <PRIResource Include="Strings\it-IT\MediaData.resw" />
-    <PRIResource Include="Strings\it-IT\Local.resw" />
-    <PRIResource Include="Strings\it-IT\Language.resw" />
-    <PRIResource Include="Strings\it-IT\Information.resw" />
-    <PRIResource Include="Strings\it-IT\HelpTips.resw" />
-    <PRIResource Include="Strings\it-IT\Finish.resw" />
-    <PRIResource Include="Strings\it-IT\File.resw" />
-    <PRIResource Include="Strings\it-IT\Details.resw" />
-    <PRIResource Include="Strings\it-IT\Connect.resw" />
-    <PRIResource Include="Strings\it-IT\Appearance.resw" />
-    <PRIResource Include="Strings\it-IT\About.resw" />
-    <PRIResource Include="Strings\ro-RO\Terms.resw" />
-    <PRIResource Include="Strings\ro-RO\Sidebar.resw" />
-    <PRIResource Include="Strings\ro-RO\Props.resw" />
-    <PRIResource Include="Strings\ro-RO\Privacy.resw" />
-    <PRIResource Include="Strings\ro-RO\Playback.resw" />
-    <PRIResource Include="Strings\ro-RO\NowPlaying.resw" />
-    <PRIResource Include="Strings\ro-RO\Navigation.resw" />
-    <PRIResource Include="Strings\ro-RO\MediaLibrary.resw" />
-    <PRIResource Include="Strings\ro-RO\MediaData.resw" />
-    <PRIResource Include="Strings\ro-RO\Local.resw" />
-    <PRIResource Include="Strings\ro-RO\Language.resw" />
-    <PRIResource Include="Strings\ro-RO\Information.resw" />
-    <PRIResource Include="Strings\ro-RO\HelpTips.resw" />
-    <PRIResource Include="Strings\ro-RO\Finish.resw" />
-    <PRIResource Include="Strings\ro-RO\File.resw" />
-    <PRIResource Include="Strings\ro-RO\Details.resw" />
-    <PRIResource Include="Strings\ro-RO\Connect.resw" />
-    <PRIResource Include="Strings\ro-RO\Appearance.resw" />
-    <PRIResource Include="Strings\ro-RO\About.resw" />
-    <PRIResource Include="Strings\tr-TR\Terms.resw" />
-    <PRIResource Include="Strings\tr-TR\Sidebar.resw" />
-    <PRIResource Include="Strings\tr-TR\Props.resw" />
-    <PRIResource Include="Strings\tr-TR\Privacy.resw" />
-    <PRIResource Include="Strings\tr-TR\Playback.resw" />
-    <PRIResource Include="Strings\tr-TR\NowPlaying.resw" />
-    <PRIResource Include="Strings\tr-TR\Navigation.resw" />
-    <PRIResource Include="Strings\tr-TR\MediaLibrary.resw" />
-    <PRIResource Include="Strings\tr-TR\MediaData.resw" />
-    <PRIResource Include="Strings\tr-TR\Local.resw" />
-    <PRIResource Include="Strings\tr-TR\Language.resw" />
-    <PRIResource Include="Strings\tr-TR\Information.resw" />
-    <PRIResource Include="Strings\tr-TR\HelpTips.resw" />
-    <PRIResource Include="Strings\tr-TR\Finish.resw" />
-    <PRIResource Include="Strings\tr-TR\File.resw" />
-    <PRIResource Include="Strings\tr-TR\Details.resw" />
-    <PRIResource Include="Strings\tr-TR\Connect.resw" />
-    <PRIResource Include="Strings\tr-TR\Appearance.resw" />
-    <PRIResource Include="Strings\tr-TR\About.resw" />
-    <PRIResource Include="Strings\hi-IN\Terms.resw" />
-    <PRIResource Include="Strings\hi-IN\Sidebar.resw" />
-    <PRIResource Include="Strings\hi-IN\Props.resw" />
-    <PRIResource Include="Strings\hi-IN\Privacy.resw" />
-    <PRIResource Include="Strings\hi-IN\Playback.resw" />
-    <PRIResource Include="Strings\hi-IN\NowPlaying.resw" />
-    <PRIResource Include="Strings\hi-IN\Navigation.resw" />
-    <PRIResource Include="Strings\hi-IN\MediaLibrary.resw" />
-    <PRIResource Include="Strings\hi-IN\MediaData.resw" />
-    <PRIResource Include="Strings\hi-IN\Local.resw" />
-    <PRIResource Include="Strings\hi-IN\Language.resw" />
-    <PRIResource Include="Strings\hi-IN\Information.resw" />
-    <PRIResource Include="Strings\hi-IN\HelpTips.resw" />
-    <PRIResource Include="Strings\hi-IN\Finish.resw" />
-    <PRIResource Include="Strings\hi-IN\File.resw" />
-    <PRIResource Include="Strings\hi-IN\Details.resw" />
-    <PRIResource Include="Strings\hi-IN\Connect.resw" />
-    <PRIResource Include="Strings\hi-IN\Appearance.resw" />
-    <PRIResource Include="Strings\hi-IN\About.resw" />
-    <PRIResource Include="Strings\en-GB\MediaData.resw" />
-    <PRIResource Include="Strings\en-GB\NowPlaying.resw" />
-    <PRIResource Include="Strings\en-GB\File.resw" />
-    <PRIResource Include="Strings\en-GB\Details.resw" />
-    <PRIResource Include="Strings\en-GB\Props.resw" />
-    <PRIResource Include="Strings\en-GB\Finish.resw" />
-    <PRIResource Include="Strings\en-GB\Privacy.resw" />
-    <PRIResource Include="Strings\en-GB\Local.resw" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
@@ -1210,6 +1204,11 @@
       <Project>{ea707371-2d34-4839-8187-8e2b0a405af1}</Project>
       <Name>Rise.Storage</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.22000.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

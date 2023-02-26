@@ -3,84 +3,85 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Dialogs"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    Title="{markup:ResourceHelper Name=CreatePlaylist}"
     CloseButtonClick="ContentDialog_CloseButtonClick"
-    CloseButtonText="Cancel"
+    CloseButtonText="{markup:ResourceHelper Name=Cancel}"
+    DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
-    PrimaryButtonText="Create"
+    PrimaryButtonText="{markup:ResourceHelper Name=Create}"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
-    <StackPanel Width="500">
-        <RelativePanel>
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Create playlist" />
-        </RelativePanel>
-        <Grid Margin="0,16,0,0" ColumnSpacing="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition MinWidth="270" />
-            </Grid.ColumnDefinitions>
+    <Grid
+        x:Name="RootGrid"
+        Width="500"
+        Margin="0,16,0,0"
+        ColumnSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition MinWidth="270" />
+        </Grid.ColumnDefinitions>
 
-            <Grid>
-                <Button
-                    Padding="0"
-                    ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
-                    CornerRadius="8"
-                    IsHitTestVisible="False">
-                    <Border CornerRadius="5">
-                        <Image
-                            x:Name="PreviewImage"
-                            Width="200"
-                            Height="200"
-                            Source="/Assets/navigationview/playlistspage/blankplaylist.png"
-                            Stretch="Uniform" />
-                    </Border>
-                </Button>
-            </Grid>
+        <Grid>
             <Button
-                x:Name="UseCustomImageButton"
-                Margin="0,0,10,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom"
-                Click="UseCustomImageButton_Click"
-                Content="Use custom image"
-                Style="{StaticResource AccentButtonStyle}"
+                Padding="0"
+                ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                CornerRadius="8"
+                IsHitTestVisible="False">
+                <Border CornerRadius="5">
+                    <Image
+                        x:Name="PreviewImage"
+                        Width="200"
+                        Height="200"
+                        Stretch="Uniform">
+                        <Image.Source>
+                            <BitmapImage UriSource="{x:Bind NewPlaylist.Icon, Mode=OneWay}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
+            </Button>
+        </Grid>
+
+        <StackPanel
+            Grid.Column="1"
+            Width="270"
+            MaxHeight="200"
+            VerticalAlignment="Top"
+            Spacing="8">
+            <TextBox
+                x:Name="TitleTextBox"
+                IsSpellCheckEnabled="False"
+                PlaceholderText="{markup:ResourceHelper Name=Title}"
+                Text="{x:Bind NewPlaylist.Title, Mode=TwoWay}" />
+            <TextBlock
+                x:Name="ErrorBlock"
+                Margin="0,-4,0,0"
+                Foreground="Yellow"
+                Style="{StaticResource BodyTextBlockStyle}"
                 Visibility="Collapsed" />
 
-            <StackPanel
-                Grid.Column="1"
-                Width="270"
-                MaxHeight="200"
-                Margin="0,0,0,0"
-                Padding="0,0,-8,0"
-                VerticalAlignment="Top">
-                <StackPanel Margin="0,0,0,0" Spacing="10">
-                    <TextBox x:Name="TitleTextBox" PlaceholderText="Title" />
-
-                    <TextBox
-                        x:Name="DescriptionTextBox"
-                        MaxHeight="112"
-                        AcceptsReturn="True"
-                        IsSpellCheckEnabled="False"
-                        PlaceholderText="Description"
-                        TextWrapping="Wrap" />
-                    <Button
-                        x:Name="UseCustomImage"
-                        Margin="0,4,0,0"
-                        HorizontalAlignment="Stretch"
-                        Click="UseCustomImageButton_Click"
-                        Style="{StaticResource AccentButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <FontIcon FontSize="16" Glyph="&#xE158;" />
-                            <TextBlock Margin="8,0,0,0" Text="Use custom image" />
-                        </StackPanel>
-                    </Button>
+            <TextBox
+                x:Name="DescriptionTextBox"
+                MaxHeight="112"
+                AcceptsReturn="True"
+                IsSpellCheckEnabled="False"
+                PlaceholderText="{markup:ResourceHelper Name=Description}"
+                Text="{x:Bind NewPlaylist.Description, Mode=TwoWay}"
+                TextWrapping="Wrap" />
+            <Button
+                x:Name="UseCustomImageButton"
+                Margin="0,4,0,0"
+                HorizontalAlignment="Stretch"
+                Click="UseCustomImageButton_Click"
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon FontSize="16" Glyph="&#xE158;" />
+                    <TextBlock Text="{markup:ResourceHelper Name=UseCustomImage}" />
                 </StackPanel>
-            </StackPanel>
-        </Grid>
-    </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
 </ContentDialog>
