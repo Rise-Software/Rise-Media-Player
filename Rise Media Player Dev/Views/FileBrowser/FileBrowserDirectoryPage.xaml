@@ -12,7 +12,6 @@
     xmlns:vm="using:Rise.App.ViewModels.FileBrowser.Listing"
     x:Name="PageRoot"
     Loaded="FileBrowserDirectoryPage_Loaded"
-    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
 
     <Page.Resources>
