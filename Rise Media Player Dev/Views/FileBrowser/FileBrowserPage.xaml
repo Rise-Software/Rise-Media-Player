@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls.FileBrowser"
     Loaded="FileBrowserPage_Loaded"
+    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
 
     <Grid>

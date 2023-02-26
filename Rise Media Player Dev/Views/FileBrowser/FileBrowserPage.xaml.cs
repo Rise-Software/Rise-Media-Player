@@ -31,7 +31,7 @@ namespace Rise.App.Views
         {
             if (!ViewModel.Messenger.IsRegistered<FileBrowserNavigationRequestedMessage>(this))
             {
-                ViewModel.Messenger.Register<FileBrowserNavigationRequestedMessage>(this);
+                ViewModel.Messenger.Register(this);
             }
 
             if (await StorageService.EnsureFileSystemIsAccessible())
@@ -51,6 +51,9 @@ namespace Rise.App.Views
                 case FileBrowserDirectoryPageViewModel:
                     ContentFrame.Navigate(typeof(FileBrowserDirectoryPage), message.Value, new DrillInNavigationTransitionInfo());
                     break;
+
+                default:
+                    throw new System.Exception("Unknown page type to nav to.");
             }
         }
     }

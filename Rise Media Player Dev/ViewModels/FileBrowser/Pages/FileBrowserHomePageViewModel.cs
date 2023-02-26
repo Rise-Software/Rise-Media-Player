@@ -29,9 +29,6 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
         }
 
         public static FileBrowserHomePageViewModel GetOrCreate(IMessenger messenger)
-        {
-            Instance ??= new(messenger);
-            return Instance;
-        }
+            => Instance ??= new(messenger);
     }
 }

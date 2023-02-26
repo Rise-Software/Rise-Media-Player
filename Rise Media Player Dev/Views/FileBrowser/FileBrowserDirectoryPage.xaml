@@ -10,8 +10,9 @@
     xmlns:uc="using:Rise.App.UserControls.FileBrowser"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:vm="using:Rise.App.ViewModels.FileBrowser.Listing"
-    Loaded="FileBrowserDirectoryPage_Loaded"
     x:Name="PageRoot"
+    Loaded="FileBrowserDirectoryPage_Loaded"
+    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -53,8 +54,14 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MusicDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
-            <ListViewItem Padding="0" Margin="0,2" DoubleTapped="FileBrowserListingItem_DoubleTapped">
-                <ruc:SongData PlayCommand="{Binding PlayItemCommand, ElementName=PageRoot}" Song="{x:Bind (viewmodels:SongViewModel)MediaItem}" ThumbnailSource="{x:Bind Thumbnail, Converter={StaticResource StreamToBitmap}}" />
+            <ListViewItem
+                Margin="0,2"
+                Padding="0"
+                DoubleTapped="FileBrowserListingItem_DoubleTapped">
+                <ruc:SongData
+                    PlayCommand="{Binding PlayItemCommand, ElementName=PageRoot}"
+                    Song="{x:Bind (viewmodels:SongViewModel)MediaItem}"
+                    ThumbnailSource="{x:Bind Thumbnail, Converter={StaticResource StreamToBitmap}}" />
             </ListViewItem>
         </DataTemplate>
         <DataTemplate x:Key="VideosDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
