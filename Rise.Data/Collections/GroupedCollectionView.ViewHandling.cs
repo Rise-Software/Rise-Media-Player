@@ -142,13 +142,40 @@ public sealed partial class GroupedCollectionView
     private object GetItemGroup(object item)
         => _groupDescription?.ValueDelegate?.Invoke(item);
 
-    private void AddItemToGroup(object item)
-    {
-        object key = GetItemGroup(item);
-        if (key == null)
-            return;
+    /// <summary>
+    /// Adds a new group to <see cref="CollectionGroups"/> with the
+    /// given key.
+    /// </summary>
+    /// <param name="key">The group key.</param>
+    /// <returns>The new collection group.</returns>
+    public ICollectionViewGroup AddCollectionGroup(object key)
+        => AddCollectionGroup(key, _collectionGroups.Cast<ICollectionViewGroup>());
 
-        var group = _collectionGroups.Cast<ICollectionViewGroup>().FirstOrDefault(g => Equals(g.Group, key));
+    /// <summary>
+    /// Adds new groups to <see cref="CollectionGroups"/> with the
+    /// given keys.
+    /// </summary>
+    /// <param name="keys">The group keys.</param>
+    /// <returns>The new collection groups.</returns>
+    public IEnumerable<ICollectionViewGroup> AddCollectionGroups(IEnumerable<object> keys)
+    {
+        var groups = _collectionGroups.Cast<ICollectionViewGroup>();
+        var added = new List<ICollectionViewGroup>();
+
+        // If we use yield here, the groups won't be added until
+        // the return value is enumerated, which is not ideal
+        foreach (var key in keys)
+            added.Add(AddCollectionGroup(key, groups));
+
+        return added;
+    }
+
+    private ICollectionViewGroup AddCollectionGroup(object key, IEnumerable<ICollectionViewGroup> groups)
+    {
+        if (key == null)
+            return null;
+
+        var group = groups.FirstOrDefault(g => Equals(g.Group, key));
         if (group == null)
         {
             group = new CollectionViewGroup(key);
@@ -160,6 +187,17 @@ public sealed partial class GroupedCollectionView
 
             _collectionGroups.Insert(groupIndex, group);
         }
+
+        return group;
+    }
+
+    private void AddItemToGroup(object item)
+    {
+        object key = GetItemGroup(item);
+        if (key == null)
+            return;
+
+        var group = AddCollectionGroup(key);
 
         var items = group.GroupItems;
         int index = items.Count;
