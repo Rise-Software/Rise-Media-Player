@@ -1,6 +1,7 @@
 ﻿using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.Globalization.Collation;
 
 namespace Rise.App.Helpers
@@ -59,25 +60,26 @@ namespace Rise.App.Helpers
     // Grouping delegates
     public static partial class CollectionViewDelegates
     {
+        /// <summary>
+        /// Character groupings for the current language.
+        /// </summary>
+        public readonly static CharacterGroupings CharacterGroupings = new();
+
+        /// <summary>
+        /// Gets all labels for the character groupings.
+        /// </summary>
+        public readonly static IEnumerable<string> GroupingLabels = CharacterGroupings.Select(g => g.Label);
+
         private static object GSongTitle(object s)
-            => ToGroupHeader(((SongViewModel)s).Title[0]);
+            => ToGroupHeader(((SongViewModel)s).Title);
 
         private static object GAlbumTitle(object a)
-            => ToGroupHeader(((AlbumViewModel)a).Title[0]);
+            => ToGroupHeader(((AlbumViewModel)a).Title);
 
         private static object GVideoTitle(object v)
-            => ToGroupHeader(((VideoViewModel)v).Title[0]);
+            => ToGroupHeader(((VideoViewModel)v).Title);
 
-        private static char ToGroupHeader(char c)
-        {
-            if (char.IsLetter(c))
-                return char.ToUpper(c);
-            if (char.IsNumber(c))
-                return '#';
-            if (char.IsSymbol(c) || char.IsPunctuation(c) || char.IsSeparator(c))
-                return '&';
-
-            return '\u2026';
-        }
+        private static string ToGroupHeader(string text)
+            => CharacterGroupings.Lookup(text);
     }
 }
