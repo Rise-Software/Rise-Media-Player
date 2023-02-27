@@ -278,7 +278,7 @@
                                     <TextBlock
                                         Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                         Style="{StaticResource SubtitleTextBlockStyle}"
-                                        Text="{Binding}" />
+                                        Text="{Binding Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>
