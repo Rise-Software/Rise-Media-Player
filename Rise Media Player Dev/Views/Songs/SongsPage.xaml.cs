@@ -1,7 +1,9 @@
 ﻿using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions.Markup;
+using Rise.Data.Collections;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,12 +22,18 @@ namespace Rise.App.Views
         }
 
         public SongsPage()
-            : base("SongTitle", App.MViewModel.Songs, App.MViewModel.Playlists)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddSelectedItemToPlaylistCommand);
+
+            var del = CollectionViewDelegates.GetDelegate("SongTitle");
+            var sort = new SortDescription(SortDirection.Ascending, del);
+
+            var groupDel = CollectionViewDelegates.GetDelegate("GSongTitle");
+            CreateViewModel(App.MViewModel.Songs, new[] { sort }, null, groupDel, true);
         }
     }
 
