@@ -112,10 +112,11 @@ namespace Rise.App.UserControls
         public void CreateViewModel(IList dataSource,
             IEnumerable<SortDescription> sorts,
             Predicate<object> filter,
-            Func<object, object> groupDel)
+            Func<object, object> groupDel,
+            bool groupAlphabetically)
         {
             MediaViewModel ??= new(dataSource, sorts, filter, groupDel,
-                App.MViewModel.Songs, App.MPViewModel);
+                groupAlphabetically, App.MViewModel.Songs, App.MPViewModel);
         }
     }
 

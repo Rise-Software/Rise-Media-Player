@@ -96,7 +96,7 @@ namespace Rise.App.Views
             bool IsPartOfAlbum(object s)
                 => ((SongViewModel)s).Album == SelectedAlbum.Title;
 
-            CreateViewModel(App.MViewModel.Songs, sorts, IsPartOfAlbum, null);
+            CreateViewModel(App.MViewModel.Songs, sorts, IsPartOfAlbum, null, false);
 
             var yearSort = CollectionViewDelegates.GetDelegate("AlbumYear");
             bool IsFromSameArtist(object a)

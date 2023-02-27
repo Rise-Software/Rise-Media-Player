@@ -30,9 +30,6 @@ namespace Rise.App.ViewModels
 
         private MediaCollectionViewModel(IList<SongViewModel> songs, MediaPlaybackViewModel pvm)
         {
-            SortByCommand = new(SortBy);
-            UpdateSortDirectionCommand = new(UpdateSortDirection);
-
             _songs = songs;
             _player = pvm;
         }
@@ -54,7 +51,9 @@ namespace Rise.App.ViewModels
             MediaPlaybackViewModel pvm)
             : this(songs, pvm)
         {
+            _groupingAlphabetically = false;
             _currentDelegate = delegateKey;
+
             if (!string.IsNullOrEmpty(delegateKey))
             {
                 var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
@@ -88,6 +87,7 @@ namespace Rise.App.ViewModels
             IEnumerable<SortDescription> sorts,
             Predicate<object> filter,
             Func<object, object> groupDel,
+            bool groupAlphabetically,
             IList<SongViewModel> songs,
             MediaPlaybackViewModel pvm)
             : this(songs, pvm)
@@ -96,6 +96,10 @@ namespace Rise.App.ViewModels
                 Items = new(itemSource, sorts, filter, new(SortDirection.Ascending, groupDel));
             else
                 Items = new(itemSource, sorts, filter);
+
+            _groupingAlphabetically = groupAlphabetically;
+            if (groupAlphabetically)
+                _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
 
         public void Dispose()
@@ -105,39 +109,44 @@ namespace Rise.App.ViewModels
     // Sorting
     public partial class MediaCollectionViewModel
     {
+        private bool _groupingAlphabetically;
+
         private string _currentDelegate;
         private SortDirection _currentDirection = SortDirection.Ascending;
 
-        public RelayCommand<string> SortByCommand { get; }
-        public void SortBy(string delegateKey)
+        [RelayCommand]
+        public void GroupAlphabetically(string delegateKey)
         {
-            if (_currentDelegate == delegateKey)
-                return;
+            _groupingAlphabetically = true;
+            Sort(delegateKey, _currentDirection);
 
-            _currentDelegate = delegateKey;
-
-            var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
-            var sort = new SortDescription(_currentDirection, sortDel);
-
-            bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
-            if (canGroup)
-                Items.ReplaceSortingAndGrouping(new[] { sort }, new(_currentDirection, groupDel));
-            else
-                Items.ReplaceSorting(new[] { sort });
+            _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
 
-        public RelayCommand<SortDirection> UpdateSortDirectionCommand { get; }
+        [RelayCommand]
+        public void SortBy(string delegateKey)
+        {
+            _groupingAlphabetically = false;
+            Sort(delegateKey, _currentDirection);
+        }
+
+        [RelayCommand]
         public void UpdateSortDirection(SortDirection direction)
         {
-            if (_currentDirection == direction)
-                return;
+            Sort(_currentDelegate, direction);
+            if (_groupingAlphabetically)
+                _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+        }
 
+        private void Sort(string delegateKey, SortDirection direction)
+        {
+            _currentDelegate = delegateKey;
             _currentDirection = direction;
 
-            var sortDel = CollectionViewDelegates.GetDelegate(_currentDelegate);
+            var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
             var sort = new SortDescription(direction, sortDel);
 
-            bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{_currentDelegate}", out var groupDel);
+            bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
             if (canGroup)
                 Items.ReplaceSortingAndGrouping(new[] { sort }, new(direction, groupDel));
             else
