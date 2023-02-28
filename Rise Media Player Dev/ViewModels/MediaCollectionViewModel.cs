@@ -18,7 +18,7 @@ namespace Rise.App.ViewModels
     /// A ViewModel for collections of items that can
     /// be played.
     /// </summary>
-    public sealed partial class MediaCollectionViewModel : IDisposable
+    public sealed partial class MediaCollectionViewModel : ViewModel, IDisposable
     {
         private readonly MediaPlaybackViewModel _player;
         private readonly IList<SongViewModel> _songs;
@@ -51,7 +51,7 @@ namespace Rise.App.ViewModels
             MediaPlaybackViewModel pvm)
             : this(songs, pvm)
         {
-            _groupingAlphabetically = false;
+            GroupingAlphabetically = false;
             _currentDelegate = delegateKey;
 
             if (!string.IsNullOrEmpty(delegateKey))
@@ -97,7 +97,7 @@ namespace Rise.App.ViewModels
             else
                 Items = new(itemSource, sorts, filter);
 
-            _groupingAlphabetically = groupAlphabetically;
+            GroupingAlphabetically = groupAlphabetically;
             if (groupAlphabetically)
                 _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
@@ -110,6 +110,15 @@ namespace Rise.App.ViewModels
     public partial class MediaCollectionViewModel
     {
         private bool _groupingAlphabetically;
+        /// <summary>
+        /// Whether the <see cref="Items"/> collection is
+        /// grouped alphabetically.
+        /// </summary>
+        public bool GroupingAlphabetically
+        {
+            get => _groupingAlphabetically;
+            set => Set(ref _groupingAlphabetically, value);
+        }
 
         private string _currentDelegate;
         private SortDirection _currentDirection = SortDirection.Ascending;
@@ -117,7 +126,7 @@ namespace Rise.App.ViewModels
         [RelayCommand]
         public void GroupAlphabetically(string delegateKey)
         {
-            _groupingAlphabetically = true;
+            GroupingAlphabetically = true;
             Sort(delegateKey, _currentDirection);
 
             _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
@@ -126,7 +135,7 @@ namespace Rise.App.ViewModels
         [RelayCommand]
         public void SortBy(string delegateKey)
         {
-            _groupingAlphabetically = false;
+            GroupingAlphabetically = false;
             Sort(delegateKey, _currentDirection);
         }
 

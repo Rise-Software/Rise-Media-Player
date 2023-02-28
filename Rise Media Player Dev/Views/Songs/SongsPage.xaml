@@ -29,16 +29,25 @@
 
         <SolidColorBrush x:Key="ListViewHeaderItemDividerStroke" Color="Transparent" />
 
-        <DataTemplate x:Key="GroupOverviewLetterItemTemplate" x:DataType="ICollectionViewGroup">
-            <Button
-                Padding="0"
-                atch:FrameworkElementExtensions.IsParentEnabled="{x:Bind GroupItems.Count, Mode=OneWay, Converter={StaticResource IntToBool}}"
-                Content="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}"
-                FontSize="{StaticResource SubtitleTextBlockFontSize}"
-                FontWeight="SemiBold"
+        <DataTemplate x:Key="GroupOverviewItemTemplate" x:DataType="ICollectionViewGroup">
+            <TextBlock
+                Width="134"
+                Margin="6,0"
+                VerticalAlignment="Bottom"
                 Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                IsHitTestVisible="False"
-                Style="{StaticResource TransparentButtonStyle}" />
+                HorizontalTextAlignment="End"
+                MaxLines="2"
+                Style="{StaticResource BaseTextBlockStyle}"
+                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}"
+                ToolTipService.ToolTip="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="GroupOverviewLetterItemTemplate" x:DataType="ICollectionViewGroup">
+            <TextBlock
+                atch:FrameworkElementExtensions.IsParentEnabled="{x:Bind GroupItems.Count, Mode=OneWay, Converter={StaticResource IntToBool}}"
+                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
         </DataTemplate>
     </uc:MediaPageBase.Resources>
 
@@ -274,11 +283,11 @@
                     <ListView.GroupStyle>
                         <GroupStyle HidesIfEmpty="True">
                             <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
+                                <DataTemplate x:DataType="x:Object">
                                     <TextBlock
                                         Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                         Style="{StaticResource SubtitleTextBlockStyle}"
-                                        Text="{Binding Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
+                                        Text="{x:Bind Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>
@@ -308,10 +317,10 @@
 
             <SemanticZoom.ZoomedOutView>
                 <GridView
-                    MaxWidth="400"
-                    HorizontalAlignment="Center"
+                    x:Name="ZoomedOutGrid"
+                    Padding="56,0"
                     VerticalAlignment="Center"
-                    ItemTemplate="{StaticResource GroupOverviewLetterItemTemplate}"
+                    ItemTemplate="{StaticResource GroupOverviewItemTemplate}"
                     ItemsSource="{x:Bind MediaViewModel.Items.CollectionGroups}">
                     <GridView.Resources>
                         <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
@@ -320,5 +329,22 @@
                 </GridView>
             </SemanticZoom.ZoomedOutView>
         </SemanticZoom>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SortingStates">
+                <VisualState x:Name="NonAlphabeticalSorting" />
+                <VisualState x:Name="AlphabeticalSorting">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind MediaViewModel.GroupingAlphabetically, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="ZoomedOutGrid.ItemTemplate" Value="{StaticResource GroupOverviewLetterItemTemplate}" />
+                        <Setter Target="ZoomedOutGrid.HorizontalAlignment" Value="Center" />
+                        <Setter Target="ZoomedOutGrid.MaxWidth" Value="400" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </uc:MediaPageBase>
