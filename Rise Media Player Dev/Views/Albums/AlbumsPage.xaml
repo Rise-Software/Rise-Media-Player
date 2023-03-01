@@ -221,7 +221,7 @@
                 <tkitctrls:AdaptiveGridView
                     x:Name="MainGrid"
                     Grid.Row="2"
-                    Padding="56,0,56,120"
+                    Padding="48,0,48,120"
                     tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
                     IsItemClickEnabled="True"
                     ItemClick="MainGrid_ItemClick"

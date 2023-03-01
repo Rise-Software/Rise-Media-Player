@@ -199,7 +199,7 @@
             <SemanticZoom.ZoomedInView>
                 <ListView
                     x:Name="MainList"
-                    Padding="56,0,56,120"
+                    Padding="48,0,48,120"
                     DoubleTapped="MainList_DoubleTapped"
                     IsDoubleTapEnabled="True"
                     ItemContainerStyle="{StaticResource SongListViewItemStyle}"
