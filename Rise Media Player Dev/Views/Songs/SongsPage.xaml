@@ -35,7 +35,6 @@
                 Margin="6,0"
                 VerticalAlignment="Bottom"
                 Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                HorizontalTextAlignment="End"
                 MaxLines="2"
                 Style="{StaticResource BaseTextBlockStyle}"
                 Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}"

@@ -48,6 +48,7 @@ namespace Rise.App.Helpers
             { "PlaylistTitle", p => ((PlaylistViewModel)p).Title },
 
             { "ArtistName", a => ((ArtistViewModel)a).Name },
+            { "GArtistName", GArtistName },
         };
 
         public static Func<object, object> GetDelegate(string key)
@@ -75,6 +76,9 @@ namespace Rise.App.Helpers
 
         private static object GAlbumTitle(object a)
             => ToGroupHeader(((AlbumViewModel)a).Title);
+
+        private static object GArtistName(object a)
+            => ToGroupHeader(((ArtistViewModel)a).Name);
 
         private static object GVideoTitle(object v)
             => ToGroupHeader(((VideoViewModel)v).Title);
