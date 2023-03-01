@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,7 @@ namespace Rise.App.Views
         }
 
         public AlbumsPage()
-            : base("AlbumTitle", App.MViewModel.Albums, App.MViewModel.Playlists)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
@@ -35,6 +37,12 @@ namespace Rise.App.Views
 
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
+
+            var del = CollectionViewDelegates.GetDelegate("AlbumTitle");
+            var sort = new SortDescription(SortDirection.Ascending, del);
+
+            var groupDel = CollectionViewDelegates.GetDelegate("GAlbumTitle");
+            CreateViewModel(App.MViewModel.Albums, new[] { sort }, null, groupDel, true);
         }
     }
 

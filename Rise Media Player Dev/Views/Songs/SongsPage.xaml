@@ -24,7 +24,6 @@
         <conv:BooleanToVisibility x:Key="BoolToVis" />
         <conv:NullToBoolean x:Key="NullToBool" />
         <conv:IntToBoolean x:Key="IntToBool" />
-
         <conv:EmptyStringFallback x:Key="EmptyStrFallback" />
 
         <SolidColorBrush x:Key="ListViewHeaderItemDividerStroke" Color="Transparent" />

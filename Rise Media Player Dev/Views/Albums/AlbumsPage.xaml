@@ -3,10 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
+    xmlns:atch="using:Rise.Common.Attached"
     xmlns:collections="using:Rise.Data.Collections"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Rise.Common.Enums"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -23,6 +25,30 @@
     <uc:MediaPageBase.Resources>
         <conv:BoolToRoundedCorners x:Key="BoolToRounded" />
         <conv:NullToBoolean x:Key="NullToBool" />
+        <conv:IntToBoolean x:Key="IntToBool" />
+        <conv:EmptyStringFallback x:Key="EmptyStrFallback" />
+
+        <SolidColorBrush x:Key="GridViewHeaderItemDividerStroke" Color="Transparent" />
+
+        <DataTemplate x:Key="GroupOverviewItemTemplate" x:DataType="ICollectionViewGroup">
+            <TextBlock
+                Width="134"
+                Margin="6,0"
+                VerticalAlignment="Bottom"
+                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                MaxLines="2"
+                Style="{StaticResource BaseTextBlockStyle}"
+                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}"
+                ToolTipService.ToolTip="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="GroupOverviewLetterItemTemplate" x:DataType="ICollectionViewGroup">
+            <TextBlock
+                atch:FrameworkElementExtensions.IsParentEnabled="{x:Bind GroupItems.Count, Mode=OneWay, Converter={StaticResource IntToBool}}"
+                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
+        </DataTemplate>
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -189,91 +215,138 @@
                 ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
-        <tkitctrls:AdaptiveGridView
-            x:Name="MainGrid"
-            Grid.Row="2"
-            Margin="-56,0"
-            Padding="44,0,44,120"
-            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
-            IsItemClickEnabled="True"
-            ItemClick="MainGrid_ItemClick"
-            ItemsSource="{x:Bind MediaViewModel.Items}"
-            SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-            SelectionMode="Single">
-            <GridView.ContextFlyout>
-                <MenuFlyout Opening="MenuFlyout_Opening">
-                    <MenuFlyoutItem
-                        Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play"
-                        Text="{markup:ResourceHelper Name=Play}" />
-                    <MenuFlyoutItem
-                        Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Shuffle"
-                        Text="{markup:ResourceHelper Name=ShuffleAlbum}" />
+        <SemanticZoom Grid.Row="2" Margin="-56,0">
+            <SemanticZoom.ZoomedInView>
+                <tkitctrls:AdaptiveGridView
+                    x:Name="MainGrid"
+                    Grid.Row="2"
+                    Padding="56,0,56,120"
+                    tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
+                    IsItemClickEnabled="True"
+                    ItemClick="MainGrid_ItemClick"
+                    ItemsSource="{x:Bind MediaViewModel.Items}"
+                    SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+                    SelectionMode="Single">
+                    <GridView.ContextFlyout>
+                        <MenuFlyout Opening="MenuFlyout_Opening">
+                            <MenuFlyoutItem
+                                Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
+                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                Icon="Play"
+                                Text="{markup:ResourceHelper Name=Play}" />
+                            <MenuFlyoutItem
+                                Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
+                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                Icon="Shuffle"
+                                Text="{markup:ResourceHelper Name=ShuffleAlbum}" />
 
-                    <MenuFlyoutItem
-                        Command="{x:Bind GoToArtistCommand}"
-                        CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
-                        Icon="People"
-                        Text="{markup:ResourceHelper Name=ShowArtist}" />
+                            <MenuFlyoutItem
+                                Command="{x:Bind GoToArtistCommand}"
+                                CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
+                                Icon="People"
+                                Text="{markup:ResourceHelper Name=ShowArtist}" />
 
-                    <MenuFlyoutSeparator />
+                            <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
-                        <MenuFlyoutSubItem.Icon>
-                            <FontIcon Glyph="&#xECC8;" />
-                        </MenuFlyoutSubItem.Icon>
+                            <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
+                                <MenuFlyoutSubItem.Icon>
+                                    <FontIcon Glyph="&#xECC8;" />
+                                </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyoutSubItem>
+                                <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
+                                    <MenuFlyoutItem.Icon>
+                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyoutSubItem>
 
-                    <MenuFlyoutItem
-                        Icon="Share"
-                        IsEnabled="False"
-                        Text="{markup:ResourceHelper Name=Share}" />
+                            <MenuFlyoutItem
+                                Icon="Share"
+                                IsEnabled="False"
+                                Text="{markup:ResourceHelper Name=Share}" />
 
-                    <MenuFlyoutSeparator />
+                            <MenuFlyoutSeparator />
 
-                    <MenuFlyoutItem
-                        Click="AskDiscy_Click"
-                        Icon="Help"
-                        Text="{markup:ResourceHelper Name=AskDiscy}" />
+                            <MenuFlyoutItem
+                                Click="AskDiscy_Click"
+                                Icon="Help"
+                                Text="{markup:ResourceHelper Name=AskDiscy}" />
 
-                    <MenuFlyoutSeparator />
+                            <MenuFlyoutSeparator />
 
-                    <MenuFlyoutItem
-                        Icon="Delete"
-                        IsEnabled="False"
-                        Text="{markup:ResourceHelper Name=RemoveThing}" />
+                            <MenuFlyoutItem
+                                Icon="Delete"
+                                IsEnabled="False"
+                                Text="{markup:ResourceHelper Name=RemoveThing}" />
 
-                    <MenuFlyoutItem
-                        Command="{x:Bind EditItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Edit"
-                        Text="{markup:ResourceHelper Name=PropertiesInfo}" />
-                </MenuFlyout>
-            </GridView.ContextFlyout>
+                            <MenuFlyoutItem
+                                Command="{x:Bind EditItemCommand}"
+                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                Icon="Edit"
+                                Text="{markup:ResourceHelper Name=PropertiesInfo}" />
+                        </MenuFlyout>
+                    </GridView.ContextFlyout>
 
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:AlbumViewModel" x:DefaultBindMode="OneWay">
-                    <uc:AlbumData
-                        Album="{x:Bind Mode=OneTime}"
-                        GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot, Mode=OneTime}"
-                        ShowArtist="{x:Bind app:App.SViewModel.ShowArtistInAlbums}"
-                        ShowGenres="{x:Bind app:App.SViewModel.ShowGenreInAlbums}"
-                        ShowReleaseYear="{x:Bind app:App.SViewModel.ShowReleaseYearInAlbums}"
-                        ShowThumbnail="{x:Bind app:App.SViewModel.ShowThumbnailInAlbums}"
-                        ShowTitle="{x:Bind app:App.SViewModel.ShowTitleInAlbums}"
-                        ThumbnailCornerRadius="{x:Bind app:App.SViewModel.RoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
-                        ViewMode="{x:Bind app:App.SViewModel.AlbumViewMode}" />
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </tkitctrls:AdaptiveGridView>
+                    <GridView.GroupStyle>
+                        <GroupStyle HidesIfEmpty="True">
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate x:DataType="x:Object">
+                                    <TextBlock
+                                        Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                        Text="{x:Bind Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </GridView.GroupStyle>
+
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:AlbumViewModel" x:DefaultBindMode="OneWay">
+                            <uc:AlbumData
+                                Album="{x:Bind Mode=OneTime}"
+                                GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot, Mode=OneTime}"
+                                ShowArtist="{x:Bind app:App.SViewModel.ShowArtistInAlbums}"
+                                ShowGenres="{x:Bind app:App.SViewModel.ShowGenreInAlbums}"
+                                ShowReleaseYear="{x:Bind app:App.SViewModel.ShowReleaseYearInAlbums}"
+                                ShowThumbnail="{x:Bind app:App.SViewModel.ShowThumbnailInAlbums}"
+                                ShowTitle="{x:Bind app:App.SViewModel.ShowTitleInAlbums}"
+                                ThumbnailCornerRadius="{x:Bind app:App.SViewModel.RoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
+                                ViewMode="{x:Bind app:App.SViewModel.AlbumViewMode}" />
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </tkitctrls:AdaptiveGridView>
+            </SemanticZoom.ZoomedInView>
+
+            <SemanticZoom.ZoomedOutView>
+                <GridView
+                    x:Name="ZoomedOutGrid"
+                    Padding="56,0"
+                    VerticalAlignment="Center"
+                    ItemTemplate="{StaticResource GroupOverviewItemTemplate}"
+                    ItemsSource="{x:Bind MediaViewModel.Items.CollectionGroups}">
+                    <GridView.Resources>
+                        <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent" />
+                    </GridView.Resources>
+                </GridView>
+            </SemanticZoom.ZoomedOutView>
+        </SemanticZoom>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SortingStates">
+                <VisualState x:Name="NonAlphabeticalSorting" />
+                <VisualState x:Name="AlphabeticalSorting">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind MediaViewModel.GroupingAlphabetically, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="ZoomedOutGrid.ItemTemplate" Value="{StaticResource GroupOverviewLetterItemTemplate}" />
+                        <Setter Target="ZoomedOutGrid.HorizontalAlignment" Value="Center" />
+                        <Setter Target="ZoomedOutGrid.MaxWidth" Value="400" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </uc:MediaPageBase>
