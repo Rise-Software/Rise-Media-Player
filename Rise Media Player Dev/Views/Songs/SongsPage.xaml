@@ -34,8 +34,9 @@
                 Margin="6,0"
                 VerticalAlignment="Bottom"
                 Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                HorizontalTextAlignment="Center"
                 MaxLines="2"
-                Style="{StaticResource BaseTextBlockStyle}"
+                Style="{StaticResource SubtitleTextBlockStyle}"
                 Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}"
                 ToolTipService.ToolTip="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
         </DataTemplate>
