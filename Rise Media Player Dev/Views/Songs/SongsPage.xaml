@@ -340,7 +340,7 @@
                     <VisualState.Setters>
                         <Setter Target="ZoomedOutGrid.ItemTemplate" Value="{StaticResource GroupOverviewLetterItemTemplate}" />
                         <Setter Target="ZoomedOutGrid.HorizontalAlignment" Value="Center" />
-                        <Setter Target="ZoomedOutGrid.MaxWidth" Value="400" />
+                        <Setter Target="ZoomedOutGrid.MaxWidth" Value="450" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
