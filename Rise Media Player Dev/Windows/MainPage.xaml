@@ -323,6 +323,10 @@
                     Icon="UnPin"
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
             </MenuFlyout>
+
+            <Flyout x:Name="QueueFlyout">
+                <uc:DefaultQueueFlyout Width="300" Height="500" />
+            </Flyout>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -834,14 +838,9 @@
                                 IsSkipForwardEnabled="True"
                                 IsZoomButtonVisible="False"
                                 IsZoomEnabled="False"
+                                QueueButtonCommand="{x:Bind OpenQueueCommand}"
                                 OverlayCommand="{x:Bind GoToNowPlayingCommand}"
                                 ShowAndHideAutomatically="False">
-                                <uc:RiseMediaTransportControls.QueueFlyout>
-                                    <Flyout>
-                                        <uc:DefaultQueueFlyout Width="300" Height="300" />
-                                    </Flyout>
-                                </uc:RiseMediaTransportControls.QueueFlyout>
-
                                 <uc:RiseMediaTransportControls.DisplayItem>
                                     <Button
                                         Margin="4"

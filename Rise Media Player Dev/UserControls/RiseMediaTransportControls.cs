@@ -113,6 +113,16 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a command that runs whenever the
+        /// queue button is clicked.
+        /// </summary>
+        public ICommand QueueButtonCommand
+        {
+            get => (ICommand)GetValue(QueueButtonCommandProperty);
+            set => SetValue(QueueButtonCommandProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether a user
         /// can open the now playing page.
         /// </summary>
@@ -247,15 +257,6 @@ namespace Rise.App.UserControls
             get => (DataTemplateSelector)GetValue(DisplayItemTemplateProperty);
             set => SetValue(DisplayItemTemplateProperty, value);
         }
-
-        /// <summary>
-        /// The flyout to display when clicking the queue button.
-        /// </summary>
-        public Flyout QueueFlyout
-        {
-            get => (Flyout)GetValue(QueueFlyoutProperty);
-            set => SetValue(QueueFlyoutProperty, value);
-        }
     }
 
     // Dependency Properties
@@ -313,6 +314,10 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(AddToPlaylistCommand), typeof(ICommand),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
 
+        public readonly static DependencyProperty QueueButtonCommandProperty =
+            DependencyProperty.Register(nameof(QueueButtonCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
         public readonly static DependencyProperty IsOverlayEnabledProperty =
             DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
@@ -348,10 +353,6 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty IsEqualizerButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsEqualizerButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
-
-        public readonly static DependencyProperty QueueFlyoutProperty =
-            DependencyProperty.Register(nameof(QueueFlyout), typeof(Flyout),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
     }
 
     // Constructor, Overrides
@@ -476,7 +477,7 @@ namespace Rise.App.UserControls
                 // TODO: Create our own flyout to avoid this issue
                 var picker = new CastingDevicePicker();
                 picker.Filter.SupportsAudio = true;
-                picker.Filter.SupportsVideo = true;
+                picker.Filter.SupportsVideo = MPViewModel.PlayingItemType == MediaPlaybackType.Video;
 
                 picker.CastingDeviceSelected += OnCastingDeviceSelected;
                 picker.CastingDevicePickerDismissed += OnCastingDevicePickerDismissed;

@@ -304,7 +304,7 @@
 
                                 <AppBarButton
                                     x:Name="QueueButton"
-                                    Flyout="{TemplateBinding QueueFlyout}"
+                                    Command="{TemplateBinding QueueButtonCommand}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
                                     ToolTipService.ToolTip="{markup:ResourceHelper Name=Queue}"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">

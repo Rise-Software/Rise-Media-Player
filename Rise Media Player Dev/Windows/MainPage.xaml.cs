@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
@@ -712,6 +713,13 @@ namespace Rise.App.Views
 
         private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(AllSettingsPage));
+
+        [RelayCommand]
+        private void OpenQueue()
+        {
+            var queueButton = MainPlayer.FindDescendant<AppBarButton>(a => a.Name == "QueueButton");
+            QueueFlyout.ShowAt(queueButton);
+        }
 
         private void DismissButton_Click(object sender, RoutedEventArgs e)
             => _ = VisualStateManager.GoToState(this, "NotScanningState", false);

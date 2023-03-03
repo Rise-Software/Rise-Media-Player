@@ -100,12 +100,6 @@
                     IsZoomButtonVisible="False"
                     ShowAndHideAutomatically="False"
                     TimelineDisplayMode="Minimal">
-                    <uc:RiseMediaTransportControls.QueueFlyout>
-                        <Flyout>
-                            <uc:DefaultQueueFlyout Width="300" Height="300" />
-                        </Flyout>
-                    </uc:RiseMediaTransportControls.QueueFlyout>
-
                     <uc:RiseMediaTransportControls.DisplayItem>
                         <Grid
                             x:Name="InfoGrid"

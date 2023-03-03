@@ -136,13 +136,7 @@
 
                         <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
                     </uc:RiseMediaTransportControls.Resources>
-
-                    <uc:RiseMediaTransportControls.QueueFlyout>
-                        <Flyout>
-                            <uc:DefaultQueueFlyout Width="300" Height="300" />
-                        </Flyout>
-                    </uc:RiseMediaTransportControls.QueueFlyout>
-
+                    
                     <uc:RiseMediaTransportControls.DisplayItem>
                         <Grid>
                             <Grid.ColumnDefinitions>
