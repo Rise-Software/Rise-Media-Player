@@ -105,7 +105,14 @@ namespace Rise.App.Views
                 return album.Title != SelectedAlbum.Title && album.Artist == SelectedAlbum.Artist;
             };
 
-            AlbumsByArtist = new(App.MViewModel.Albums, new SortDescription[] { new(SortDirection.Ascending, yearSort) }, IsFromSameArtist);
+            var (items, defer) = GroupedCollectionView.CreateDeferred();
+            items.Source = App.MViewModel.Albums;
+            items.Filter = IsFromSameArtist;
+
+            items.SortDescriptions.Add(new(SortDirection.Ascending, yearSort));
+            defer.Complete();
+
+            AlbumsByArtist = items;
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)

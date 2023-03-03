@@ -37,6 +37,28 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Initializes a new instance of this ViewModel.
         /// </summary>
+        /// <param name="items">The <see cref="GroupedCollectionView"/> to use for
+        /// the collection.</param>
+        /// <param name="songs">The collection of songs to use. Only needed
+        /// for albums, artists, and genres.</param>
+        /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
+        /// responsible for playback management.</param>
+        public MediaCollectionViewModel(GroupedCollectionView items,
+            bool groupAlphabetically,
+            IList<SongViewModel> songs,
+            MediaPlaybackViewModel pvm)
+            : this(songs, pvm)
+        {
+            _groupingAlphabetically = groupAlphabetically;
+            if (groupAlphabetically)
+                _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+
+            Items = items;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this ViewModel.
+        /// </summary>
         /// <param name="delegateKey">Key for the delegate to use for sorting. Must
         /// be present in <see cref="CollectionViewDelegates"/>.</param>
         /// <param name="itemSource">Source of items for the underlying
@@ -47,59 +69,32 @@ namespace Rise.App.ViewModels
         /// responsible for playback management.</param>
         public MediaCollectionViewModel(string delegateKey,
             IList itemSource,
-            IList<SongViewModel> songs,
-            MediaPlaybackViewModel pvm)
-            : this(songs, pvm)
-        {
-            GroupingAlphabetically = false;
-            _currentDelegate = delegateKey;
-
-            if (!string.IsNullOrEmpty(delegateKey))
-            {
-                var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
-                var sort = new SortDescription(SortDirection.Ascending, sortDel);
-
-                bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
-                if (canGroup)
-                    Items = new(itemSource, new[] { sort }, null, new(SortDirection.Ascending, groupDel));
-                else
-                    Items = new(itemSource, new[] { sort });
-            }
-            else
-            {
-                Items = new(itemSource);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of this ViewModel.
-        /// </summary>
-        /// <param name="itemSource">Source of items for the underlying
-        /// ViewModel.</param>
-        /// <param name="sorts">Sort descriptions to use.</param>
-        /// <param name="groupDel">Group delegates to use.</param>
-        /// <param name="filter">Filter to use.</param>
-        /// <param name="songs">The collection of songs to use. Only needed
-        /// for albums, artists, and genres.</param>
-        /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
-        /// responsible for playback management.</param>
-        public MediaCollectionViewModel(IList itemSource,
-            IEnumerable<SortDescription> sorts,
-            Predicate<object> filter,
-            Func<object, object> groupDel,
             bool groupAlphabetically,
             IList<SongViewModel> songs,
             MediaPlaybackViewModel pvm)
             : this(songs, pvm)
         {
-            if (groupDel != null)
-                Items = new(itemSource, sorts, filter, new(SortDirection.Ascending, groupDel));
-            else
-                Items = new(itemSource, sorts, filter);
+            var (items, defer) = GroupedCollectionView.CreateDeferred();
+            items.Source = itemSource;
 
-            GroupingAlphabetically = groupAlphabetically;
+            _currentDelegate = delegateKey;
+            if (!string.IsNullOrEmpty(delegateKey))
+            {
+                var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
+                items.SortDescriptions.Add(new(SortDirection.Ascending, sortDel));
+
+                bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
+                if (canGroup)
+                    items.GroupDescription = new(SortDirection.Ascending, groupDel);
+            }
+
+            defer.Complete();
+
+            _groupingAlphabetically = groupAlphabetically;
             if (groupAlphabetically)
-                _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+                _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+
+            Items = items;
         }
 
         public void Dispose()
@@ -152,14 +147,17 @@ namespace Rise.App.ViewModels
             _currentDelegate = delegateKey;
             _currentDirection = direction;
 
+            var defer = Items.DeferRefresh();
+            Items.SortDescriptions.Clear();
+
             var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
-            var sort = new SortDescription(direction, sortDel);
+            Items.SortDescriptions.Add(new(direction, sortDel));
 
             bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
             if (canGroup)
-                Items.ReplaceSortingAndGrouping(new[] { sort }, new(direction, groupDel));
-            else
-                Items.ReplaceSorting(new[] { sort });
+                Items.GroupDescription = new(direction, groupDel);
+
+            defer.Complete();
         }
     }
 

@@ -69,7 +69,7 @@ namespace Rise.App.Views
                     FirstOrDefault(p => p.Id == id);
 
                 CreateViewModel(string.Empty, SelectedPlaylist.Songs);
-                VideosViewModel = new(string.Empty, SelectedPlaylist.Videos, null, MPViewModel);
+                VideosViewModel = new(string.Empty, SelectedPlaylist.Videos, false, null, MPViewModel);
             }
         }
 

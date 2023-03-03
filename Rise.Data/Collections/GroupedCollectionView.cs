@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Data;
 
@@ -33,7 +34,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             if (_groupDescription != value)
             {
                 _groupDescription = value;
-                OnGroupChanged();
+                if (_deferCounter == 0)
+                    OnGroupChanged();
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsGrouped));
@@ -67,7 +69,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             if (_filter != value)
             {
                 _filter = value;
-                OnFilterChanged();
+                if (_deferCounter == 0)
+                    OnFilterChanged();
 
                 OnPropertyChanged();
             }
@@ -83,9 +86,6 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
         get => _source;
         set
         {
-            if (value == null)
-                throw new ArgumentNullException("Source cannot be null.");
-
             if (_source == value)
                 return;
 
@@ -96,7 +96,9 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             if (_source is INotifyCollectionChanged ncc)
                 ncc.CollectionChanged += OnSourceCollectionChanged;
 
-            OnSourceChanged();
+            if (_deferCounter == 0)
+                OnSourceChanged();
+
             OnPropertyChanged();
         }
     }
@@ -126,64 +128,31 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GroupedCollectionView"/>
-    /// with the provided data source and sort descriptions.
+    /// Creates a <see cref="GroupedCollectionView"/> that gets immediately
+    /// deferred upon creation.
     /// </summary>
-    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts)
-        : this(source, sorts, null, null) { }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="GroupedCollectionView"/>
-    /// with the provided data source, sort descriptions, and filter.
-    /// </summary>
-    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Predicate<object> filter)
-        : this(source, sorts, filter, null) { }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="GroupedCollectionView"/>
-    /// with the provided data source, sort descriptions, filter, and group description.
-    /// </summary>
-    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Predicate<object> filter, SortDescription group)
+    /// <returns>A tuple with the collection and the deferral.</returns>
+    public static (GroupedCollectionView, Deferral) CreateDeferred()
     {
-        _filter = filter;
+        var collection = new GroupedCollectionView();
+        var deferral = collection.DeferRefresh();
 
-        _groupDescription = group;
-
-        _sortDescriptions = new(sorts);
-        _sortDescriptions.CollectionChanged += OnSortDescriptionsChanged;
-
-        Source = source;
-    }
-
-    /// <summary>
-    /// Replaces all sort descriptions with the provided ones.
-    /// </summary>
-    public void ReplaceSorting(IEnumerable<SortDescription> sorts)
-        => ReplaceSortingAndGrouping(sorts, _groupDescription);
-
-    /// <summary>
-    /// Replaces all sort descriptions with the provided ones, and uses the
-    /// provided delegate for grouping.
-    /// </summary>
-    public void ReplaceSortingAndGrouping(IEnumerable<SortDescription> sorts, SortDescription group)
-    {
-        _groupDescription = group;
-
-        _sortDescriptions.CollectionChanged -= OnSortDescriptionsChanged;
-
-        _sortDescriptions.Clear();
-        foreach (var sort in sorts)
-            _sortDescriptions.Add(sort);
-
-        _sortDescriptions.CollectionChanged += OnSortDescriptionsChanged;
-        OnSortChanged();
+        return (collection, deferral);
     }
 
     private void OnSortDescriptionsChanged(object sender, NotifyCollectionChangedEventArgs e)
-        => OnSortChanged();
+    {
+        if (_deferCounter != 0)
+            return;
+
+        OnSortChanged();
+    }
 
     private void OnSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
+        if (_deferCounter != 0)
+            return;
+
         switch (e.Action)
         {
             case NotifyCollectionChangedAction.Add:
@@ -353,6 +322,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     public void Dispose()
     {
         _filter = null;
+
+        _sortDescriptions.CollectionChanged -= OnSortDescriptionsChanged;
         if (_source is INotifyCollectionChanged ncc)
             ncc.CollectionChanged -= OnSourceCollectionChanged;
     }

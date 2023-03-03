@@ -102,7 +102,7 @@ namespace Rise.App.UserControls
         /// </summary>
         public void CreateViewModel(string delegateKey, IList dataSource)
         {
-            MediaViewModel ??= new(delegateKey, dataSource,
+            MediaViewModel ??= new(delegateKey, dataSource, false,
                 App.MViewModel.Songs, App.MPViewModel);
         }
 
@@ -115,8 +115,21 @@ namespace Rise.App.UserControls
             Func<object, object> groupDel,
             bool groupAlphabetically)
         {
-            MediaViewModel ??= new(dataSource, sorts, filter, groupDel,
-                groupAlphabetically, App.MViewModel.Songs, App.MPViewModel);
+            if (MediaViewModel != null)
+                return;
+
+            var (items, defer) = GroupedCollectionView.CreateDeferred();
+            items.Source = dataSource;
+            items.Filter = filter;
+
+            if (groupDel != null)
+                items.GroupDescription = new(SortDirection.Ascending, groupDel);
+
+            foreach (var sort in sorts)
+                items.SortDescriptions.Add(sort);
+
+            defer.Complete();
+            MediaViewModel = new(items, groupAlphabetically, App.MViewModel.Songs, App.MPViewModel);
         }
     }
 
@@ -274,7 +287,7 @@ namespace Rise.App.UserControls
         }
 
         [RelayCommand]
-        private Task SwitchPlaylistPinningState(PlaylistViewModel playlist)
+        private Task SwitchPlaylistPinningStateAsync(PlaylistViewModel playlist)
         {
             bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
             if (hasItem)

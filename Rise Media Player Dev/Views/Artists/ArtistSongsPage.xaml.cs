@@ -73,7 +73,7 @@ namespace Rise.App.Views
         public ArtistSongsPage()
             : base("GSongTitle", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
-            AlbumsViewModel = new("GAlbumYear", MViewModel.Albums, MViewModel.Songs, MPViewModel);
+            AlbumsViewModel = new("GAlbumYear", MViewModel.Albums, false, MViewModel.Songs, MPViewModel);
 
             InitializeComponent();
 
