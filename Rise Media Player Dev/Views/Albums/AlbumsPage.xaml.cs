@@ -33,8 +33,6 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
-            UpdateViewWithViewMode();
-
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
 
@@ -78,15 +76,6 @@ namespace Rise.App.Views
         private void UpdateViewMode(AlbumViewMode viewMode)
         {
             SViewModel.AlbumViewMode = viewMode;
-            UpdateViewWithViewMode();
-        }
-
-        private void UpdateViewWithViewMode()
-        {
-            if (App.SViewModel.AlbumViewMode == AlbumViewMode.HorizontalTile)
-                MainGrid.DesiredWidth = 256;
-            else
-                MainGrid.DesiredWidth = 158;
         }
 
         private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)

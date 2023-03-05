@@ -218,7 +218,7 @@
 
         <SemanticZoom Grid.Row="2" Margin="-56,0">
             <SemanticZoom.ZoomedInView>
-                <tkitctrls:AdaptiveGridView
+                <GridView
                     x:Name="MainGrid"
                     Grid.Row="2"
                     Padding="48,0,48,120"
@@ -315,7 +315,7 @@
                                 ViewMode="{x:Bind app:App.SViewModel.AlbumViewMode}" />
                         </DataTemplate>
                     </GridView.ItemTemplate>
-                </tkitctrls:AdaptiveGridView>
+                </GridView>
             </SemanticZoom.ZoomedInView>
 
             <SemanticZoom.ZoomedOutView>
