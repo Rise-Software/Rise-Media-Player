@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Xaml.Interactivity;
-using Rise.Common.Extensions;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -13,6 +13,10 @@ namespace Rise.Common.Behaviors;
 
 public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
 {
+    // On Win11, we have access to an extra border to apply the brushes without
+    // needing a CornerRadius of 0
+    private readonly bool HasContract14 = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 14);
+
     public static readonly DependencyProperty AlternateBackgroundProperty = DependencyProperty.Register(
         nameof(AlternateBackground),
         typeof(Brush),
@@ -91,20 +95,9 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
 
         AssociatedObject.ActualThemeChanged += OnActualThemeChanged;
         AssociatedObject.ContainerContentChanging += OnContainerContentChanging;
+
         if (AssociatedObject.Items != null)
             AssociatedObject.Items.VectorChanged += ItemsOnVectorChanged;
-    }
-
-    private void OnActualThemeChanged(FrameworkElement sender, object args)
-    {
-        if (AssociatedObject.Items == null) return;
-        for (int i = 0; i < AssociatedObject.Items.Count; i++)
-        {
-            if (AssociatedObject.ContainerFromIndex(i) is not SelectorItem itemContainer)
-                continue;
-
-            UpdateAlternateLayout(itemContainer, i);
-        }
     }
 
     protected override void OnDetaching()
@@ -118,6 +111,18 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
             AssociatedObject.Items.VectorChanged -= ItemsOnVectorChanged;
     }
 
+    private void OnActualThemeChanged(FrameworkElement sender, object args)
+    {
+        if (AssociatedObject.Items == null) return;
+        for (uint i = 0; i < AssociatedObject.Items.Count; i++)
+        {
+            if (AssociatedObject.ContainerFromIndex((int)i) is not SelectorItem itemContainer)
+                continue;
+
+            UpdateAlternateLayout(itemContainer, i);
+        }
+    }
+
     private void ItemsOnVectorChanged(IObservableVector<object> sender, IVectorChangedEventArgs args)
     {
         // If the index is at the end we can ignore
@@ -128,9 +133,9 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
         // OnContainerContentChanging method
         if (args.CollectionChange is CollectionChange.ItemInserted or CollectionChange.ItemRemoved)
         {
-            for (int i = (int)args.Index; i < sender.Count; i++)
+            for (uint i = args.Index; i < sender.Count; i++)
             {
-                if (AssociatedObject.ContainerFromIndex(i) is not SelectorItem itemContainer)
+                if (AssociatedObject.ContainerFromIndex((int)i) is not SelectorItem itemContainer)
                     continue;
 
                 UpdateAlternateLayout(itemContainer, i);
@@ -140,33 +145,58 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
 
     private void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
     {
-        if (args.Phase > 0 || args.InRecycleQueue) return;
-        UpdateAlternateLayout(args.ItemContainer, args.ItemIndex);
+        if (args.Phase > 0 || args.InRecycleQueue || args.ItemIndex < 0) return;
+        UpdateAlternateLayout(args.ItemContainer, (uint)args.ItemIndex);
     }
 
-    private void UpdateAlternateLayout(SelectorItem itemContainer, int itemIndex)
+    private void UpdateAlternateLayout(SelectorItem itemContainer, uint itemIndex)
     {
-        if (itemIndex < 0) return;
+        if (HasContract14)
+            UpdateAlternateLayoutContract14(itemContainer, itemIndex);
+        else
+            UpdateAlternateLayoutNoContract14(itemContainer, itemIndex);
+    }
 
-        var isEven = itemIndex % 2 == 0;
-        itemContainer.Background = isEven ? AlternateBackground : null;
-
+    // For Windows 11 onwards
+    private void UpdateAlternateLayoutContract14(SelectorItem itemContainer, uint itemIndex)
+    {
         var border = itemContainer.FindDescendant<Border>();
-
-        if (border is not { })
-            return;
-
-        if (isEven)
+        if (itemIndex % 2 == 0)
         {
-            border.Background = AlternateBackground;
-            border.BorderBrush = AlternateBorderBrush;
-            border.BorderThickness = AlternateBorderThickness;
+            itemContainer.Background = AlternateBackground;
+            if (border != null)
+            {
+                border.Background = AlternateBackground;
+                border.BorderBrush = AlternateBorderBrush;
+                border.BorderThickness = AlternateBorderThickness;
+            }
         }
         else
         {
-            border.Background = Background;
-            border.BorderBrush = BorderBrush;
-            border.BorderThickness = BorderThickness;
+            itemContainer.Background = Background;
+            if (border != null)
+            {
+                border.Background = Background;
+                border.BorderBrush = BorderBrush;
+                border.BorderThickness = BorderThickness;
+            }
+        }
+    }
+
+    // For Windows 10
+    private void UpdateAlternateLayoutNoContract14(SelectorItem itemContainer, uint itemIndex)
+    {
+        if (itemIndex % 2 == 0)
+        {
+            itemContainer.Background = AlternateBackground;
+            itemContainer.BorderBrush = AlternateBorderBrush;
+            itemContainer.BorderThickness = AlternateBorderThickness;
+        }
+        else
+        {
+            itemContainer.Background = Background;
+            itemContainer.BorderBrush = BorderBrush;
+            itemContainer.BorderThickness = BorderThickness;
         }
     }
 }
