@@ -27,7 +27,7 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Library Name="Rise.Data">
 
-  	<!-- add directives for your library here -->
+	  <Type Name="Rise.Data.ViewModels.NavViewItemViewModel" Dynamic="Required All" />
 
   </Library>
 </Directives>
