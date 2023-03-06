@@ -17,7 +17,7 @@ namespace Rise.App.Helpers
             { "SongTrack", s => ((SongViewModel)s).Track },
 
             { "SongTitle", s => ((SongViewModel)s).Title },
-            { "SongAlbum", s => ((SongViewModel)s).Track },
+            { "SongAlbum", s => ((SongViewModel)s).Disc },
             { "SongArtist", s => ((SongViewModel)s).Artist },
             { "SongGenres", s => ((SongViewModel)s).Genres },
             { "SongYear", s => ((SongViewModel)s).Year },

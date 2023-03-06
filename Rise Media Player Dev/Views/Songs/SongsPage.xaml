@@ -156,7 +156,7 @@
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="SongAlbum"
+                            CommandParameter="SongAlbum|SongTrack"
                             Text="{markup:ResourceHelper Name=Album}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
