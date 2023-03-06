@@ -79,14 +79,7 @@ namespace Rise.App.ViewModels
 
             _currentDelegate = delegateKey;
             if (!string.IsNullOrEmpty(delegateKey))
-            {
-                var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
-                items.SortDescriptions.Add(new(SortDirection.Ascending, sortDel));
-
-                bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
-                if (canGroup)
-                    items.GroupDescription = new(SortDirection.Ascending, groupDel);
-            }
+                Sort(delegateKey, SortDirection.Ascending);
 
             defer.Complete();
 
@@ -150,12 +143,21 @@ namespace Rise.App.ViewModels
             var defer = Items.DeferRefresh();
             Items.SortDescriptions.Clear();
 
-            var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
-            Items.SortDescriptions.Add(new(direction, sortDel));
+            bool grouped = false;
+            string[] keys = delegateKey.Split('|');
 
-            bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
-            if (canGroup)
-                Items.GroupDescription = new(direction, groupDel);
+            for (int i = 0; i < keys.Length; i++)
+            {
+                var sortDel = CollectionViewDelegates.GetDelegate(keys[i]);
+                Items.SortDescriptions.Add(new(direction, sortDel));
+
+                if (!grouped)
+                {
+                    grouped = CollectionViewDelegates.TryGetDelegate($"G{keys[i]}", out var groupDel);
+                    if (grouped)
+                        Items.GroupDescription = new(direction, groupDel);
+                }
+            }
 
             defer.Complete();
         }
