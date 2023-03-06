@@ -79,7 +79,7 @@ namespace Rise.App.ViewModels
 
             _currentDelegate = delegateKey;
             if (!string.IsNullOrEmpty(delegateKey))
-                Sort(delegateKey, SortDirection.Ascending);
+                Sort(items, delegateKey, SortDirection.Ascending);
 
             defer.Complete();
 
@@ -115,7 +115,7 @@ namespace Rise.App.ViewModels
         public void GroupAlphabetically(string delegateKey)
         {
             GroupingAlphabetically = true;
-            Sort(delegateKey, _currentDirection);
+            Sort(Items, delegateKey, _currentDirection);
 
             _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
@@ -124,24 +124,24 @@ namespace Rise.App.ViewModels
         public void SortBy(string delegateKey)
         {
             GroupingAlphabetically = false;
-            Sort(delegateKey, _currentDirection);
+            Sort(Items, delegateKey, _currentDirection);
         }
 
         [RelayCommand]
         public void UpdateSortDirection(SortDirection direction)
         {
-            Sort(_currentDelegate, direction);
+            Sort(Items, _currentDelegate, direction);
             if (_groupingAlphabetically)
                 _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
 
-        private void Sort(string delegateKey, SortDirection direction)
+        private void Sort(GroupedCollectionView items, string delegateKey, SortDirection direction)
         {
             _currentDelegate = delegateKey;
             _currentDirection = direction;
 
-            var defer = Items.DeferRefresh();
-            Items.SortDescriptions.Clear();
+            var defer = items.DeferRefresh();
+            items.SortDescriptions.Clear();
 
             bool grouped = false;
             string[] keys = delegateKey.Split('|');
@@ -149,13 +149,13 @@ namespace Rise.App.ViewModels
             for (int i = 0; i < keys.Length; i++)
             {
                 var sortDel = CollectionViewDelegates.GetDelegate(keys[i]);
-                Items.SortDescriptions.Add(new(direction, sortDel));
+                items.SortDescriptions.Add(new(direction, sortDel));
 
                 if (!grouped)
                 {
                     grouped = CollectionViewDelegates.TryGetDelegate($"G{keys[i]}", out var groupDel);
                     if (grouped)
-                        Items.GroupDescription = new(direction, groupDel);
+                        items.GroupDescription = new(direction, groupDel);
                 }
             }
 
