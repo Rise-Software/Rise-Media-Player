@@ -34,13 +34,6 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
-    <Style x:Key="ExpanderDividerStyle" TargetType="Rectangle">
-        <Setter Property="Height" Value="1" />
-        <Setter Property="Margin" Value="-16,0" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Fill" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-    </Style>
-
     <media:AttachedCardShadow x:Key="EmptyShadow" Opacity="0" />
     <media:AttachedCardShadow
         x:Key="LightDropShadow"
@@ -75,20 +68,37 @@
         <Setter Property="Padding" Value="44,12" />
     </Style>
 
+    <Style x:Key="ExpanderDividerStyle" TargetType="Rectangle">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Margin" Value="-16,0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Fill" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+    </Style>
+
+    <Thickness x:Key="CardPadding">16,12</Thickness>
     <Style x:Key="SettingsCard" TargetType="Border">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
         <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-        <Setter Property="Padding" Value="16,12" />
+        <Setter Property="Padding" Value="{StaticResource CardPadding}" />
+    </Style>
+
+    <Style x:Key="GridCardStyle" TargetType="Grid">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
+        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
+        <Setter Property="Padding" Value="{StaticResource CardPadding}" />
     </Style>
 
     <Style x:Key="TransparentCard" TargetType="Border">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -101,7 +111,7 @@
         BasedOn="{StaticResource DefaultButtonStyle}"
         TargetType="Button">
         <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
         <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
