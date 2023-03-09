@@ -1,5 +1,6 @@
 ﻿using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -572,48 +573,14 @@ namespace Rise.App.ViewModels
     // Getting and setting app settings
     public sealed partial class SettingsViewModel : ViewModel
     {
-        private readonly ApplicationDataContainer LocalSettings
-            = ApplicationData.Current.LocalSettings;
+        /// <inheritdoc cref="SettingsHelpers.GetLocal{T}(T, string, string)"/>
+        private T Get<T>(T defaultValue, string container = "Local", [CallerMemberName] string setting = "")
+            => SettingsHelpers.GetLocal(defaultValue, container, setting);
 
-        /// <summary>
-        /// Gets an app setting.
-        /// </summary>
-        /// <param name="defaultValue">Default setting value.</param>
-        /// <param name="store">Setting container name.</param>
-        /// <param name="setting">Setting name.</param>
-        /// <returns>App setting value.</returns>
-        private Type Get<Type>(Type defaultValue, string store = "Local", [CallerMemberName] string setting = null)
+        /// <inheritdoc cref="SettingsHelpers.SetLocal{T}(T, string, string)"/>
+        private void Set<T>(T newValue, string container = "Local", [CallerMemberName] string setting = "")
         {
-            // Get the container values, always create it if it doesn't exist
-            var values = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always).Values;
-
-            values[setting] ??= defaultValue;
-            var value = (Type)values[setting];
-
-            return value;
-        }
-
-        /// <summary>
-        /// Sets an app setting.
-        /// </summary>
-        /// <param name="newValue">New setting value.</param>
-        /// <param name="store">Setting container name.</param>
-        /// <param name="setting">Setting name.</param>
-        private void Set<Type>(Type newValue, string store = "Local", [CallerMemberName] string setting = null)
-        {
-            // Get the container, always create it if it doesn't exist
-            var values = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always).Values;
-
-            // Check whether type matches
-            object value = values[setting];
-            if (value is not Type && value != null)
-            {
-                string message = $"Type mismatch for \"{setting}\" in \"{store}\" container. Current type is {value.GetType()}";
-                throw new ArgumentException(message, nameof(setting));
-            }
-
-            // Set the setting to the desired value
-            values[setting] = newValue;
+            SettingsHelpers.SetLocal(newValue, container, setting);
             OnPropertyChanged(setting);
         }
     }
