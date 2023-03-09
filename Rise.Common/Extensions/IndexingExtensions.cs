@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
@@ -59,6 +60,9 @@ namespace Rise.Common.Extensions
             }
 
             int indexedFiles = 0;
+
+            if (PathUtils.PathIsNetworkPath(folder.Path))
+                options.IndexerOption = IndexerOption.DoNotUseIndexer;
 
             // Prepare the query
             StorageFileQueryResult folderQueryResult = folder.CreateFileQueryWithOptions(options);

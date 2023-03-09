@@ -166,7 +166,10 @@ namespace Rise.App.ChangeTrackers
             if (token.IsCancellationRequested)
                 return;
 
-            List<SongViewModel> duplicates = new();
+            List<SongViewModel> songDuplicates = new();
+            List<ArtistViewModel> artistDuplicates = new();
+            List<AlbumViewModel> albumDuplicates = new();
+            List<GenreViewModel> genreDuplicates = new();
 
             // Check for duplicates and remove if any duplicate is found.
             for (int i = 0; i < ViewModel.Songs.Count; i++)
@@ -180,16 +183,85 @@ namespace Rise.App.ChangeTrackers
                         return;
 
                     if (ViewModel.Songs[i].Location == ViewModel.Songs[j].Location)
-                        duplicates.Add(ViewModel.Songs[j]);
+                        songDuplicates.Add(ViewModel.Songs[j]);
                 }
             }
 
-            foreach (SongViewModel song in duplicates)
+            for (int i = 0; i < ViewModel.Artists.Count; i++)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                for (int j = i + 1; j < ViewModel.Artists.Count; j++)
+                {
+                    if (token.IsCancellationRequested)
+                        return;
+
+                    if (ViewModel.Artists[i].Name.Equals(ViewModel.Artists[j].Name))
+                        artistDuplicates.Add(ViewModel.Artists[j]);
+                }
+            }
+
+            for (int i = 0; i < ViewModel.Albums.Count; i++)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                for (int j = i + 1; j < ViewModel.Albums.Count; j++)
+                {
+                    if (token.IsCancellationRequested)
+                        return;
+
+                    if (ViewModel.Albums[i].Title.Equals(ViewModel.Albums[j].Title))
+                        albumDuplicates.Add(ViewModel.Albums[j]);
+                }
+            }
+
+            for (int i = 0; i < ViewModel.Genres.Count; i++)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                for (int j = i + 1; j < ViewModel.Genres.Count; j++)
+                {
+                    if (token.IsCancellationRequested)
+                        return;
+
+                    if (ViewModel.Genres[i].Name.Equals(ViewModel.Genres[j].Name))
+                        genreDuplicates.Add(ViewModel.Genres[j]);
+                }
+            }
+
+            foreach (SongViewModel song in songDuplicates)
             {
                 if (token.IsCancellationRequested)
                     return;
 
                 await song.DeleteAsync(true);
+            }
+
+            foreach (ArtistViewModel artist in artistDuplicates)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                await artist.DeleteAsync(true);
+            }
+
+            foreach (AlbumViewModel album in albumDuplicates)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                await album.DeleteAsync(true);
+            }
+
+            foreach (GenreViewModel genre in genreDuplicates)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                await genre.DeleteAsync(true);
             }
         }
     }
