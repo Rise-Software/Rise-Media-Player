@@ -23,7 +23,6 @@ namespace Rise.App.Views
             InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
 
-            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
             _ = VisualStateManager.GoToState(this, nameof(PointerOutState), false);
         }
 
@@ -56,15 +55,6 @@ namespace Rise.App.Views
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
             _ = VisualStateManager.GoToState(this, nameof(PointerOutState), true);
-        }
-
-        private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
-        {
-            await Dispatcher;
-            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                _ = VisualStateManager.GoToState(this, nameof(VideoItemState), true);
-            else
-                _ = VisualStateManager.GoToState(this, nameof(MusicItemState), true);
         }
     }
 }

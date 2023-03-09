@@ -9,6 +9,7 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:nouac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
+    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     xmlns:uac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:uc="using:Rise.App.UserControls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -51,7 +52,11 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
             <Border.Background>
-                <media:BackdropBlurBrush Amount="10" />
+                <media:AcrylicBrush
+                    BlurAmount="70"
+                    FallbackColor="Transparent"
+                    TintColor="{Binding Color, Source={ThemeResource ApplicationPageBackgroundThemeBrush}}"
+                    TintOpacity="0.7" />
             </Border.Background>
         </Border>
 
@@ -142,11 +147,19 @@
             <VisualStateGroup x:Name="PlaybackItemTypeStates">
                 <VisualState x:Name="MusicItemState" />
                 <VisualState x:Name="VideoItemState">
+                    <VisualState.StateTriggers>
+                        <triggers:IsEqualStateTrigger Value="{x:Bind MPViewModel.PlayingItemType, Mode=OneWay}" To="Video" />
+                    </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="BlurBrushBorder.Visibility" Value="Collapsed" />
+                        
+                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Stretch" />
+                        <Setter Target="MainPlayer.Margin" Value="0" />
 
-                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Bottom" />
+                        <Setter Target="PlayerControls.IsCompact" Value="True" />
+                        <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
                         <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
+                        <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -189,7 +202,7 @@
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                
+
                 <VisualState x:Name="PointerInState">
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames
