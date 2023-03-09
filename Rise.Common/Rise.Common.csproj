@@ -163,8 +163,10 @@
     <Compile Include="Helpers\CompositionControl.cs" />
     <Compile Include="Extensions\CryptographyExtensions.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
+    <Compile Include="Helpers\SettingsHelpers.cs" />
     <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Helpers\ObservableVector.cs" />
+    <Compile Include="Helpers\PathUtils.cs" />
     <Compile Include="Helpers\SafeObservableCollection.cs" />
     <Compile Include="Helpers\SuspensionManager.cs" />
     <Compile Include="Helpers\UwpStorageFileAbstraction.cs" />

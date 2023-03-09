@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Newtonsoft.Json;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
@@ -7,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -119,7 +119,7 @@ namespace Rise.Data.Sources
                 jsonText = await FileIO.ReadTextAsync(file);
             }
 
-            var items = JsonConvert.DeserializeObject<List<NavViewItemViewModel>>(jsonText);
+            var items = JsonSerializer.Deserialize<List<NavViewItemViewModel>>(jsonText);
             foreach (var item in items)
             {
                 if (item.IsFooter)
@@ -141,7 +141,7 @@ namespace Rise.Data.Sources
             var file = await ApplicationData.Current.LocalFolder.
                 CreateFileAsync(_fileName, CreationCollisionOption.ReplaceExisting);
 
-            await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(allItems));
+            await FileIO.WriteTextAsync(file, JsonSerializer.Serialize(allItems));
         }
     }
 
