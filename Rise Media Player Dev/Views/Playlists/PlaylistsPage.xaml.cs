@@ -3,6 +3,7 @@ using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using System;
 using Windows.Storage;
@@ -24,7 +25,7 @@ namespace Rise.App.Views
         }
 
         public PlaylistsPage()
-            : base("PlaylistTitle", App.MViewModel.Playlists)
+            : base("PlaylistTitle", SortDirection.Ascending, false, App.MViewModel.Playlists)
         {
             InitializeComponent();
         }

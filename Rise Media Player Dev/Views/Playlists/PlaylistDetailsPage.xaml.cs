@@ -2,9 +2,9 @@
 using Rise.App.Converters;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using System;
@@ -68,8 +68,8 @@ namespace Rise.App.Views
                 SelectedPlaylist = MViewModel.Playlists.
                     FirstOrDefault(p => p.Id == id);
 
-                CreateViewModel(string.Empty, SelectedPlaylist.Songs);
-                VideosViewModel = new(string.Empty, SelectedPlaylist.Videos, false, null, MPViewModel);
+                CreateViewModel(string.Empty, SortDirection.Ascending, false, SelectedPlaylist.Songs);
+                VideosViewModel = new(string.Empty, SortDirection.Ascending, false, null, SelectedPlaylist.Videos, null, MPViewModel);
             }
         }
 

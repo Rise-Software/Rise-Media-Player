@@ -1,6 +1,7 @@
 ﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -21,7 +22,7 @@ namespace Rise.App.Views
         }
 
         public GenreSongsPage()
-            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
+            : base("SongTitle", SortDirection.Ascending, false, App.MViewModel.Songs, App.MViewModel.Playlists)
         {
             InitializeComponent();
 

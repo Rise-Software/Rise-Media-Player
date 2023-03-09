@@ -1,8 +1,8 @@
 ﻿using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions.Markup;
+using Rise.Common.Helpers;
 using Rise.Data.Collections;
 using System;
 using Windows.UI.Xaml;
@@ -26,14 +26,30 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddSelectedItemToPlaylistCommand);
+        }
 
-            var del = CollectionViewDelegates.GetDelegate("SongTitle");
-            var sort = new SortDescription(SortDirection.Ascending, del);
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            var (del, direction) = GetSavedSortPreferences("Songs");
+            if (!string.IsNullOrEmpty(del))
+            {
+                var (_, alphabetical) = GetSavedGroupPreferences("Songs");
+                CreateViewModel(del, direction, alphabetical, App.MViewModel.Songs);
+            }
+            else
+            {
+                CreateViewModel("SongTitle", SortDirection.Ascending, true, App.MViewModel.Songs);
+            }
+        }
 
-            var groupDel = CollectionViewDelegates.GetDelegate("GSongTitle");
-            CreateViewModel(App.MViewModel.Songs, new[] { sort }, null, groupDel, true);
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            SaveSortingPreferences("Songs");
         }
     }
 

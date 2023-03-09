@@ -66,16 +66,6 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Initializes a new instance of this class with the specified
-        /// property for sorting and ViewModel data source.
-        /// </summary>
-        public MediaPageBase(string delegateKey, IList viewModelSource)
-            : this()
-        {
-            CreateViewModel(delegateKey, viewModelSource);
-        }
-
-        /// <summary>
         /// Initializes a new instance of this class with a data
         /// source for <see cref="PlaylistHelper"/>.
         /// </summary>
@@ -87,49 +77,43 @@ namespace Rise.App.UserControls
 
         /// <summary>
         /// Initializes a new instance of this class with the specified
+        /// property for sorting and ViewModel data source.
+        /// </summary>
+        public MediaPageBase(string delegateKey, SortDirection direction, bool groupAlphabetically, IList viewModelSource)
+            : this()
+        {
+            CreateViewModel(delegateKey, direction, groupAlphabetically, null, viewModelSource);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class with the specified
         /// property for sorting, a ViewModel data source, and a data
         /// source for <see cref="PlaylistHelper"/>.
         /// </summary>
-        public MediaPageBase(string delegateKey, IList viewModelSource, IList<PlaylistViewModel> playlists)
-            : this(delegateKey, viewModelSource)
+        public MediaPageBase(string delegateKey, SortDirection direction, bool groupAlphabetically, IList viewModelSource, IList<PlaylistViewModel> playlists)
+            : this(delegateKey, direction, groupAlphabetically, viewModelSource)
         {
             PlaylistHelper = new(playlists);
         }
 
         /// <summary>
-        /// Initializes <see cref="MediaViewModel"/> with the specified
-        /// delegate key for sorting and data source.
+        /// Initializes <see cref="MediaViewModel"/> with the provided
+        /// parameters.
         /// </summary>
-        public void CreateViewModel(string delegateKey, IList dataSource)
+        public void CreateViewModel(string delegateKey, SortDirection direction, bool groupAlphabetically, IList dataSource)
         {
-            MediaViewModel ??= new(delegateKey, dataSource, false,
+            MediaViewModel ??= new(delegateKey, direction, groupAlphabetically, null, dataSource,
                 App.MViewModel.Songs, App.MPViewModel);
         }
 
         /// <summary>
-        /// Initializes <see cref="MediaViewModel"/> with the provided parameters.
+        /// Initializes <see cref="MediaViewModel"/> with the provided
+        /// parameters.
         /// </summary>
-        public void CreateViewModel(IList dataSource,
-            IEnumerable<SortDescription> sorts,
-            Predicate<object> filter,
-            Func<object, object> groupDel,
-            bool groupAlphabetically)
+        public void CreateViewModel(string delegateKey, SortDirection direction, bool groupAlphabetically, Predicate<object> filter, IList dataSource)
         {
-            if (MediaViewModel != null)
-                return;
-
-            var (items, defer) = GroupedCollectionView.CreateDeferred();
-            items.Source = dataSource;
-            items.Filter = filter;
-
-            if (groupDel != null)
-                items.GroupDescription = new(SortDirection.Ascending, groupDel);
-
-            foreach (var sort in sorts)
-                items.SortDescriptions.Add(sort);
-
-            defer.Complete();
-            MediaViewModel = new(items, groupAlphabetically, App.MViewModel.Songs, App.MPViewModel);
+            MediaViewModel ??= new(delegateKey, direction, groupAlphabetically, filter, dataSource,
+                App.MViewModel.Songs, App.MPViewModel);
         }
     }
 
@@ -325,6 +309,51 @@ namespace Rise.App.UserControls
     // Session state
     public partial class MediaPageBase
     {
+        /// <summary>
+        /// Gets the sort delegate key and sort direction saved in the local settings store.
+        /// </summary>
+        /// <param name="pageKey">A unique key that identifies the current page's settings.</param>
+        /// <returns>A tuple where the first item is the sorting delegate key (empty if not saved),
+        /// and the second one indicates whether the list was grouped alphabetically.</returns>
+        protected (string, SortDirection) GetSavedSortPreferences(string pageKey)
+        {
+            string delegateKey = SettingsHelpers.GetLocal("", "Sorting", $"{pageKey}Sort");
+            if (string.IsNullOrEmpty(delegateKey))
+                return (string.Empty, SortDirection.Ascending);
+
+            var direction = SettingsHelpers.GetLocal<SortDirection>(0, "Sorting", $"{pageKey}Direction");
+            return (delegateKey, direction);
+        }
+
+        /// <summary>
+        /// Gets a group descriptions based on the group delegate key in the local settings store.
+        /// </summary>
+        /// <param name="pageKey">A unique key that identifies the current page's settings.</param>
+        /// <returns>A tuple where the first item is the group delegate key (empty if not saved),
+        /// and the second one indicates whether the list was grouped alphabetically.</returns>
+        protected (string, bool) GetSavedGroupPreferences(string pageKey)
+        {
+            string groupKey = SettingsHelpers.GetLocal("", "Sorting", $"{pageKey}Group");
+            if (string.IsNullOrEmpty(groupKey))
+                return (string.Empty, false);
+
+            bool alphabetical = SettingsHelpers.GetLocal(false, "Sorting", $"{pageKey}Alphabetical");
+            return (groupKey, alphabetical);
+        }
+
+        /// <summary>
+        /// Saves sorting related preferences to the app's settings.
+        /// </summary>
+        /// <param name="pageKey">A unique key that identifies the current page's settings.</param>
+        protected void SaveSortingPreferences(string pageKey)
+        {
+            SettingsHelpers.SetLocal(MediaViewModel.GroupingAlphabetically, "Sorting", $"{pageKey}Alphabetical");
+            SettingsHelpers.SetLocal(MediaViewModel.CurrentGroupDelegate, "Sorting", $"{pageKey}Group");
+
+            SettingsHelpers.SetLocal(MediaViewModel.CurrentDelegate, "Sorting", $"{pageKey}Sort");
+            SettingsHelpers.SetLocal((int)MediaViewModel.CurrentSortDirection, "Sorting", $"{pageKey}Direction");
+        }
+
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             MediaViewModel?.Dispose();

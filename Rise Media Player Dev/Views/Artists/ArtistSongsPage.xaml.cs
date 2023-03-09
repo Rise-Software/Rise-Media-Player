@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using Rise.App.Converters;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -56,6 +55,7 @@ namespace Rise.App.Views
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             PlaylistHelper.AddPlaylistsToSubItem(AddToList, AddSelectedItemToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
@@ -74,19 +74,27 @@ namespace Rise.App.Views
                     FirstOrDefault(a => a.Name == str);
             }
 
-            var albumGroup = CollectionViewDelegates.GetDelegate("GSongAlbum");
+            var (del, direction) = GetSavedSortPreferences("ArtistSongs");
+            if (!string.IsNullOrEmpty(del))
+            {
+                var (_, alphabetical) = GetSavedGroupPreferences("ArtistSongs");
+                CreateViewModel(del, direction, alphabetical, IsFromArtist, App.MViewModel.Songs);
+            }
+            else
+            {
+                CreateViewModel("SongAlbum|SongTrack", SortDirection.Ascending, false, IsFromArtist, App.MViewModel.Songs);
+            }
 
-            var albumSort = CollectionViewDelegates.GetDelegate("SongDisc");
-            var trackSort = CollectionViewDelegates.GetDelegate("SongTrack");
-
-            var sorts = new SortDescription[] { new(SortDirection.Ascending, albumSort), new(SortDirection.Ascending, trackSort) };
             bool IsFromArtist(object s)
             {
                 var song = (SongViewModel)s;
                 return song.Artist == SelectedArtist.Name || song.AlbumArtist == SelectedArtist.Name;
             }
+        }
 
-            CreateViewModel(App.MViewModel.Songs, sorts, IsFromArtist, albumGroup, false);
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            SaveSortingPreferences("ArtistSongs");
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)

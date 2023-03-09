@@ -68,18 +68,20 @@ namespace Rise.App.ViewModels
         /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
         /// responsible for playback management.</param>
         public MediaCollectionViewModel(string delegateKey,
-            IList itemSource,
+            SortDirection direction,
             bool groupAlphabetically,
+            Predicate<object> filter,
+            IList itemSource,
             IList<SongViewModel> songs,
             MediaPlaybackViewModel pvm)
             : this(songs, pvm)
         {
             var (items, defer) = GroupedCollectionView.CreateDeferred();
             items.Source = itemSource;
+            items.Filter = filter;
 
-            _currentDelegate = delegateKey;
             if (!string.IsNullOrEmpty(delegateKey))
-                Sort(items, delegateKey, SortDirection.Ascending);
+                Sort(items, delegateKey, direction);
 
             defer.Complete();
 
@@ -105,11 +107,26 @@ namespace Rise.App.ViewModels
         public bool GroupingAlphabetically
         {
             get => _groupingAlphabetically;
-            set => Set(ref _groupingAlphabetically, value);
+            private set => Set(ref _groupingAlphabetically, value);
         }
 
+        private string _currentGroupDelegate;
+        /// <summary>
+        /// Gets the key for the delegate currently used for grouping.
+        /// </summary>
+        public string CurrentGroupDelegate => _currentGroupDelegate;
+
         private string _currentDelegate;
+        /// <summary>
+        /// Gets the key for the delegate currently used for sorting.
+        /// </summary>
+        public string CurrentDelegate => _currentDelegate;
+
         private SortDirection _currentDirection = SortDirection.Ascending;
+        /// <summary>
+        /// Gets the current sort direction.
+        /// </summary>
+        public SortDirection CurrentSortDirection => _currentDirection;
 
         [RelayCommand]
         public void GroupAlphabetically(string delegateKey)
@@ -155,7 +172,10 @@ namespace Rise.App.ViewModels
                 {
                     grouped = CollectionViewDelegates.TryGetDelegate($"G{keys[i]}", out var groupDel);
                     if (grouped)
+                    {
+                        _currentGroupDelegate = $"G{keys[i]}";
                         items.GroupDescription = new(direction, groupDel);
+                    }
                 }
             }
 

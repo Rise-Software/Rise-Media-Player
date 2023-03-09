@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
@@ -33,14 +32,30 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
+        }
 
-            var del = CollectionViewDelegates.GetDelegate("AlbumTitle");
-            var sort = new SortDescription(SortDirection.Ascending, del);
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            var (del, direction) = GetSavedSortPreferences("Albums");
+            if (!string.IsNullOrEmpty(del))
+            {
+                var (_, alphabetical) = GetSavedGroupPreferences("Albums");
+                CreateViewModel(del, direction, alphabetical, App.MViewModel.Albums);
+            }
+            else
+            {
+                CreateViewModel("AlbumTitle", SortDirection.Ascending, true, App.MViewModel.Albums);
+            }
+        }
 
-            var groupDel = CollectionViewDelegates.GetDelegate("GAlbumTitle");
-            CreateViewModel(App.MViewModel.Albums, new[] { sort }, null, groupDel, true);
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            SaveSortingPreferences("Albums");
         }
     }
 

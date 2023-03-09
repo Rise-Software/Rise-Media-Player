@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -31,18 +30,12 @@ namespace Rise.App.Views
         }
 
         public ArtistsPage()
-            : base(App.MViewModel.Playlists)
+            : base("ArtistName", SortDirection.Ascending, false, App.MViewModel.Artists, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
-
-            var del = CollectionViewDelegates.GetDelegate("ArtistName");
-            var sort = new SortDescription(SortDirection.Ascending, del);
-
-            var groupDel = CollectionViewDelegates.GetDelegate("GArtistName");
-            CreateViewModel(App.MViewModel.Artists, new[] { sort }, null, groupDel, true);
         }
     }
 

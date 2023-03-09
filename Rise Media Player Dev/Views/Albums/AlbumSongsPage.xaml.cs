@@ -89,15 +89,13 @@ namespace Rise.App.Views
                 SelectedAlbum = App.MViewModel.Albums.FirstOrDefault(a => a.Title == str);
             }
 
-            var discSort = CollectionViewDelegates.GetDelegate("SongDisc");
-            var trackSort = CollectionViewDelegates.GetDelegate("SongTrack");
-
-            var sorts = new SortDescription[] { new(SortDirection.Ascending, discSort), new(SortDirection.Ascending, trackSort) };
+            // Main collection
             bool IsPartOfAlbum(object s)
                 => ((SongViewModel)s).Album == SelectedAlbum.Title;
 
-            CreateViewModel(App.MViewModel.Songs, sorts, IsPartOfAlbum, null, false);
+            CreateViewModel("SongDisc|SongTrack", SortDirection.Ascending, false, IsPartOfAlbum, App.MViewModel.Songs);
 
+            // More from this artist
             var yearSort = CollectionViewDelegates.GetDelegate("AlbumYear");
             bool IsFromSameArtist(object a)
             {
