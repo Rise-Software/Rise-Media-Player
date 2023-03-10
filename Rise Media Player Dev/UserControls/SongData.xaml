@@ -123,8 +123,9 @@
             Grid.Column="5"
             Margin="8,0,0,0"
             VerticalAlignment="Center"
-            FontSize="12"
-            Visibility="{x:Bind ShowGenre}">
+            Command="{x:Bind GoToGenreCommand}"
+            CommandParameter="{x:Bind Song.Genres}"
+            FontSize="12">
             <TextBlock
                 d:Text="Unknown Genre"
                 Text="{x:Bind Song.Genres}"
