@@ -6,7 +6,6 @@ using Rise.Common.Helpers;
 using Rise.Data.Collections;
 using Rise.Data.ViewModels;
 using System;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

@@ -40,10 +40,7 @@ namespace Rise.App.Helpers
 
             { "VideoTitle", v => ((VideoViewModel)v).Title },
             { "VideoYear", v => ((VideoViewModel)v).Year },
-            { "VideoLength", v => ((VideoViewModel)v).Year },
-
-            { "GVideoTitle", GVideoTitle },
-            { "GVideoYear", v => ((VideoViewModel)v).Year },
+            { "VideoLength", v => ((VideoViewModel)v).Length },
 
             { "PlaylistTitle", p => ((PlaylistViewModel)p).Title },
 

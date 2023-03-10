@@ -101,7 +101,7 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            Command="{x:Bind MediaViewModel.GroupAlphabeticallyCommand}"
+                            Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="VideoTitle"
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
