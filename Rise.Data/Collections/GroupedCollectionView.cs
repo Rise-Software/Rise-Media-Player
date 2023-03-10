@@ -1,5 +1,4 @@
-﻿using Rise.Common.Extensions;
-using Rise.Common.Helpers;
+﻿using Rise.Common.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,10 +34,9 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             {
                 _groupDescription = value;
                 if (_deferCounter == 0)
-                    OnGroupChanged();
+                    OnSortDescriptionsChanged(CurrentItem);
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(IsGrouped));
             }
         }
     }
@@ -145,7 +143,7 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
         if (_deferCounter != 0)
             return;
 
-        OnSortChanged();
+        OnSortDescriptionsChanged(CurrentItem);
     }
 
     private void OnSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -216,47 +214,30 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             _view.Add(item);
         }
 
-        _view.Sort(this);
-        OnGroupChanged();
-
-        OnVectorChanged(CollectionChange.Reset, 0);
-        OnPropertyChanged(nameof(IsGrouped));
-
-        _ = MoveCurrentTo(current);
+        OnSortDescriptionsChanged(current);
     }
 
-    private void OnGroupChanged()
+    private void OnSortDescriptionsChanged(object currentItem)
     {
+        _view.Sort(this);
+
         _collectionGroups.Clear();
-        if (_groupDescription == null)
-            return;
-
-        var grouped = _view.GroupBy(_groupDescription.ValueDelegate);
-        var comparer = ItemGroupComparer.Get(_groupDescription.SortDirection);
-
-        foreach (var group in grouped)
+        if (_groupDescription != null)
         {
-            var cvw = new CollectionViewGroup(group);
-            int index = _collectionGroups.BinarySearch(cvw, comparer);
-
-            if (index < 0)
-                index = ~index;
-
-            _collectionGroups.Insert(index, cvw);
+            // The view is already sorted, so we just have to add
+            // these groups to the collection
+            var grouped = _view.GroupBy(_groupDescription.ValueDelegate);
+            foreach (var group in grouped)
+            {
+                var cvw = new CollectionViewGroup(group);
+                _collectionGroups.Add(cvw);
+            }
         }
-    }
-
-    private void OnSortChanged()
-    {
-        var current = CurrentItem;
-
-        _view.Sort(this);
-        OnGroupChanged();
 
         OnVectorChanged(CollectionChange.Reset, 0);
         OnPropertyChanged(nameof(IsGrouped));
 
-        _ = MoveCurrentTo(current);
+        _ = MoveCurrentTo(currentItem);
     }
 
     private void OnFilterChanged()
