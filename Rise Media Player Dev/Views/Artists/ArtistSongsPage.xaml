@@ -338,8 +338,8 @@
                     <uc:SongData
                         EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
                         GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
+                        GoToGenreCommand="{Binding GoToGenreCommand, ElementName=PageRoot}"
                         PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
-                        ShowAlbum="True"
                         ShowArtist="False"
                         Song="{x:Bind}" />
                 </DataTemplate>

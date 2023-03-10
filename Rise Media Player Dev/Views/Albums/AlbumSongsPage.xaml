@@ -255,8 +255,8 @@
                     <uc:SongData
                         Height="50"
                         EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
-                        GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
                         GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
+                        GoToGenreCommand="{Binding GoToGenreCommand, ElementName=PageRoot}"
                         PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                         ShowAlbum="False"
                         ShowThumbnail="False"

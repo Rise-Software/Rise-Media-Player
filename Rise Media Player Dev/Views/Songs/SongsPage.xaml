@@ -298,6 +298,7 @@
                                 EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
                                 GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
                                 GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
+                                GoToGenreCommand="{Binding GoToGenreCommand, ElementName=PageRoot}"
                                 PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                                 ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
                                 ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"

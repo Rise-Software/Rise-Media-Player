@@ -194,6 +194,13 @@ namespace Rise.App.UserControls
         protected void GoToArtist(string name)
             => _ = Frame.Navigate(typeof(ArtistSongsPage), name);
 
+        /// <summary>
+        /// Navigates to the genre with the specified name.
+        /// </summary>
+        [RelayCommand]
+        protected void GoToGenre(string name)
+            => _ = Frame.Navigate(typeof(GenreSongsPage), name);
+
         [RelayCommand]
         private Task OpenInExplorerAsync(object parameter)
         {
