@@ -44,8 +44,7 @@
 
         <Border
             x:Name="BackgroundHost"
-            Grid.RowSpan="4"
-            Height="340"
+            Height="330"
             Margin="0,-44,0,0"
             VerticalAlignment="Top"
             Canvas.ZIndex="0"
@@ -130,23 +129,22 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border Width="172" Height="172">
-                            <Border
-                                BorderBrush="{ThemeResource ControlElevationBorderBrush}"
-                                BorderThickness="1"
-                                CornerRadius="86">
-                                <Border.Background>
-                                    <ImageBrush Stretch="UniformToFill">
-                                        <ImageBrush.ImageSource>
-                                            <BitmapImage
-                                                DecodePixelHeight="172"
-                                                DecodePixelType="Logical"
-                                                DecodePixelWidth="172"
-                                                UriSource="{x:Bind SelectedArtist.Picture, Mode=OneWay}" />
-                                        </ImageBrush.ImageSource>
-                                    </ImageBrush>
-                                </Border.Background>
-                            </Border>
+                        <Border
+                            Height="172"
+                            BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="86">
+                            <Border.Background>
+                                <ImageBrush Stretch="UniformToFill">
+                                    <ImageBrush.ImageSource>
+                                        <BitmapImage
+                                            DecodePixelHeight="172"
+                                            DecodePixelType="Logical"
+                                            DecodePixelWidth="172"
+                                            UriSource="{x:Bind SelectedArtist.Picture, Mode=OneWay}" />
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
+                            </Border.Background>
                         </Border>
 
                         <StackPanel

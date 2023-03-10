@@ -40,7 +40,7 @@
         <Border
             x:Name="BackgroundHost"
             Height="330"
-            Margin="0,-44,-52,0"
+            Margin="0,-44,0,0"
             VerticalAlignment="Top"
             Canvas.ZIndex="0"
             SizeChanged="BackgroundHost_SizeChanged" />
@@ -120,139 +120,133 @@
             </ListView.ContextFlyout>
 
             <ListView.Header>
-                <Border
+                <Grid
                     Height="230"
-                    Margin="0,0,0,16"
-                    x:DefaultBindMode="OneWay"
-                    CornerRadius="8">
-                    <Grid>
-                        <Grid Padding="24,0" ColumnSpacing="24">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="172" />
-                                <ColumnDefinition Width="1*" />
-                            </Grid.ColumnDefinitions>
+                    Padding="24,0,24,16"
+                    ColumnSpacing="24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="172" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
 
-                            <Border
-                                Width="172"
-                                Height="172"
-                                ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
-                                BorderBrush="{ThemeResource ControlElevationBorderBrush}"
-                                BorderThickness="1"
-                                CornerRadius="8">
-                                <Border.Background>
-                                    <ImageBrush Stretch="UniformToFill">
-                                        <ImageBrush.ImageSource>
-                                            <BitmapImage DecodePixelType="Logical" UriSource="{x:Bind SelectedAlbum.Thumbnail}" />
-                                        </ImageBrush.ImageSource>
-                                    </ImageBrush>
-                                </Border.Background>
-                            </Border>
+                    <Border
+                        Height="172"
+                        ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                        BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Border.Background>
+                            <ImageBrush Stretch="UniformToFill">
+                                <ImageBrush.ImageSource>
+                                    <BitmapImage DecodePixelType="Logical" UriSource="{x:Bind SelectedAlbum.Thumbnail, Mode=OneWay}" />
+                                </ImageBrush.ImageSource>
+                            </ImageBrush>
+                        </Border.Background>
+                    </Border>
 
-                            <StackPanel
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock
-                                    x:Name="AlbumName"
-                                    FontSize="32"
-                                    MaxLines="1"
-                                    Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="{x:Bind SelectedAlbum.Title}" />
-                                <HyperlinkButton
-                                    Margin="-2,0,0,8"
-                                    Padding="0"
-                                    Command="{x:Bind GoToArtistCommand, Mode=OneTime}"
-                                    CommandParameter="{x:Bind SelectedAlbum.Artist}"
-                                    FontSize="16"
-                                    FontWeight="SemiBold">
-                                    <TextBlock Text="{x:Bind SelectedAlbum.Artist}" TextTrimming="CharacterEllipsis" />
-                                </HyperlinkButton>
+                    <StackPanel
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <TextBlock
+                            x:Name="AlbumName"
+                            FontSize="32"
+                            MaxLines="1"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{x:Bind SelectedAlbum.Title, Mode=OneWay}" />
+                        <HyperlinkButton
+                            Margin="-2,0,0,8"
+                            Padding="0"
+                            Command="{x:Bind GoToArtistCommand}"
+                            CommandParameter="{x:Bind SelectedAlbum.Artist, Mode=OneWay}"
+                            FontSize="16"
+                            FontWeight="SemiBold">
+                            <TextBlock Text="{x:Bind SelectedAlbum.Artist, Mode=OneWay}" TextTrimming="CharacterEllipsis" />
+                        </HyperlinkButton>
 
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        x:Name="TrackCountName"
-                                        Margin="0"
-                                        FontSize="16"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedAlbum.LocalizedTrackCount}" />
-                                    <TextBlock
-                                        Margin="4,0"
-                                        FontSize="16"
-                                        Text="•" />
-                                    <TextBlock
-                                        Margin="0"
-                                        FontSize="16"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedAlbum.Year}" />
-                                    <TextBlock
-                                        Margin="4,0"
-                                        FontSize="16"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="•" />
-                                    <TextBlock
-                                        Margin="0"
-                                        FontSize="16"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedAlbum.Genres}" />
-                                    <TextBlock
-                                        Margin="4,0"
-                                        FontSize="16"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="•" />
-                                    <TextBlock
-                                        x:Name="AlbumDuration"
-                                        FontSize="16"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                                </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                x:Name="TrackCountName"
+                                Margin="0"
+                                FontSize="16"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind SelectedAlbum.LocalizedTrackCount, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="4,0"
+                                FontSize="16"
+                                Text="•" />
+                            <TextBlock
+                                Margin="0"
+                                FontSize="16"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind SelectedAlbum.Year, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="4,0"
+                                FontSize="16"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="•" />
+                            <TextBlock
+                                Margin="0"
+                                FontSize="16"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind SelectedAlbum.Genres, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="4,0"
+                                FontSize="16"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="•" />
+                            <TextBlock
+                                x:Name="AlbumDuration"
+                                FontSize="16"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
 
-                                <CommandBar
-                                    Margin="-16,36,-12,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Bottom"
-                                    Background="Transparent"
-                                    DefaultLabelPosition="Right">
-                                    <AppBarButton
-                                        Command="{x:Bind MediaViewModel.PlayFromItemCommand, Mode=OneTime}"
-                                        CommandParameter="{x:Bind SelectedItem}"
-                                        Icon="Play"
-                                        Label="{markup:ResourceHelper Name=PlayAll}" />
+                        <CommandBar
+                            Margin="-16,36,-12,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Background="Transparent"
+                            DefaultLabelPosition="Right">
+                            <AppBarButton
+                                Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
+                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                Icon="Play"
+                                Label="{markup:ResourceHelper Name=PlayAll}" />
 
-                                    <AppBarSeparator />
+                            <AppBarSeparator />
 
-                                    <AppBarButton
-                                        Command="{x:Bind MediaViewModel.ShuffleFromItemCommand, Mode=OneTime}"
-                                        CommandParameter="{x:Bind SelectedItem}"
-                                        Icon="Shuffle"
-                                        Label="{markup:ResourceHelper Name=Shuffle}" />
-                                    <AppBarButton Label="{markup:ResourceHelper Name=AddTo}">
-                                        <AppBarButton.Icon>
-                                            <FontIcon Glyph="&#xECC8;" />
-                                        </AppBarButton.Icon>
+                            <AppBarButton
+                                Command="{x:Bind MediaViewModel.ShuffleFromItemCommand}"
+                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                Icon="Shuffle"
+                                Label="{markup:ResourceHelper Name=Shuffle}" />
+                            <AppBarButton Label="{markup:ResourceHelper Name=AddTo}">
+                                <AppBarButton.Icon>
+                                    <FontIcon Glyph="&#xECC8;" />
+                                </AppBarButton.Icon>
 
-                                        <AppBarButton.Flyout>
-                                            <MenuFlyout x:Name="AddToBar">
-                                                <MenuFlyoutItem Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}" Text="{markup:ResourceHelper Name=NewPlaylist}">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                            </MenuFlyout>
-                                        </AppBarButton.Flyout>
-                                    </AppBarButton>
+                                <AppBarButton.Flyout>
+                                    <MenuFlyout x:Name="AddToBar">
+                                        <MenuFlyoutItem Command="{x:Bind AddMediaItemsToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
+                                            <MenuFlyoutItem.Icon>
+                                                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </AppBarButton.Flyout>
+                            </AppBarButton>
 
-                                    <AppBarSeparator />
+                            <AppBarSeparator />
 
-                                    <AppBarButton
-                                        Command="{x:Bind EditItemCommand, Mode=OneTime}"
-                                        CommandParameter="{x:Bind SelectedAlbum}"
-                                        Icon="Edit"
-                                        Label="{markup:ResourceHelper Name=PropertiesInfo}" />
-                                </CommandBar>
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                </Border>
+                            <AppBarButton
+                                Command="{x:Bind EditItemCommand}"
+                                CommandParameter="{x:Bind SelectedAlbum, Mode=OneWay}"
+                                Icon="Edit"
+                                Label="{markup:ResourceHelper Name=PropertiesInfo}" />
+                        </CommandBar>
+                    </StackPanel>
+                </Grid>
             </ListView.Header>
 
             <ListView.ItemTemplate>
