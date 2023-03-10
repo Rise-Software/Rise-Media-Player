@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
-using Rise.App.Converters;
+﻿using Rise.App.Converters;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
@@ -11,11 +10,9 @@ using System;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
@@ -41,7 +38,7 @@ namespace Rise.App.Views
 
         private bool MoreAlbumsExpanded;
 
-        private Compositor _compositor;
+        private CompositionPropertySet _propSet;
         private SpriteVisual _backgroundVisual;
 
         public AlbumSongsPage()
@@ -64,11 +61,8 @@ namespace Rise.App.Views
             if (AlbumsByArtist.Count > 0)
                 _ = FindName("MoreAlbumsByArtist");
 
-            var scrollViewer = MainList.FindVisualChild<ScrollViewer>();
-
-            var propSet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
-            _compositor = propSet.Compositor;
-            CreateImageBackgroundGradientVisual(propSet.GetSpecializedReference<ManipulationPropertySetReferenceNode>().Translation.Y);
+            var surface = LoadedImageSurface.StartLoadFromUri(new(SelectedAlbum.Thumbnail));
+            (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
         }
 
         private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -194,37 +188,6 @@ namespace Rise.App.Views
                 VisualStateManager.GoToState(this, "Expanded", true);
 
             MoreAlbumsExpanded = !MoreAlbumsExpanded;
-        }
-
-        private void CreateImageBackgroundGradientVisual(ScalarNode scrollVerticalOffset)
-        {
-            if (_compositor == null) return;
-
-            var imageSurface = LoadedImageSurface.StartLoadFromUri(new(SelectedAlbum.Thumbnail));
-            var imageBrush = _compositor.CreateSurfaceBrush(imageSurface);
-            imageBrush.HorizontalAlignmentRatio = 0.5f;
-            imageBrush.VerticalAlignmentRatio = 0.5f;
-            imageBrush.Stretch = CompositionStretch.UniformToFill;
-
-            var gradientBrush = _compositor.CreateLinearGradientBrush();
-            gradientBrush.EndPoint = new Vector2(0, 1);
-            gradientBrush.MappingMode = CompositionMappingMode.Relative;
-            gradientBrush.ColorStops.Add(_compositor.CreateColorGradientStop(0.6f, Colors.White));
-            gradientBrush.ColorStops.Add(_compositor.CreateColorGradientStop(1, Colors.Transparent));
-
-            var maskBrush = _compositor.CreateMaskBrush();
-            maskBrush.Source = imageBrush;
-            maskBrush.Mask = gradientBrush;
-
-            SpriteVisual visual = _backgroundVisual = _compositor.CreateSpriteVisual();
-            visual.Size = new Vector2((float)BackgroundHost.ActualWidth, (float)BackgroundHost.Height);
-            visual.Opacity = 0.15f;
-            visual.Brush = maskBrush;
-
-            visual.StartAnimation("Offset.Y", scrollVerticalOffset);
-            imageBrush.StartAnimation("Offset.Y", -scrollVerticalOffset * 0.8f);
-
-            ElementCompositionPreview.SetElementChildVisual(BackgroundHost, visual);
         }
     }
 }
