@@ -220,42 +220,6 @@
                                         </MenuFlyout>
                                     </AppBarButton.Flyout>
                                 </AppBarButton>
-
-                                <AppBarButton Icon="Sort" Label="{markup:ResourceHelper Name=Sort}">
-                                    <AppBarButton.Flyout>
-                                        <MenuFlyout>
-                                            <muxc:RadioMenuFlyoutItem
-                                                Command="{x:Bind MediaViewModel.GroupAlphabeticallyCommand}"
-                                                CommandParameter="SongTitle"
-                                                Text="{markup:ResourceHelper Name=Title}" />
-                                            <muxc:RadioMenuFlyoutItem
-                                                Command="{x:Bind MediaViewModel.SortByCommand}"
-                                                CommandParameter="SongAlbum|SongTrack"
-                                                Text="{markup:ResourceHelper Name=Album}" />
-                                            <muxc:RadioMenuFlyoutItem
-                                                Command="{x:Bind MediaViewModel.SortByCommand}"
-                                                CommandParameter="SongGenres"
-                                                Text="{markup:ResourceHelper Name=Genre}" />
-                                            <muxc:RadioMenuFlyoutItem
-                                                Command="{x:Bind MediaViewModel.SortByCommand}"
-                                                CommandParameter="SongYear"
-                                                Text="{markup:ResourceHelper Name=ReleaseYear}" />
-
-                                            <MenuFlyoutSeparator />
-
-                                            <muxc:RadioMenuFlyoutItem
-                                                Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                                                CommandParameter="{x:Bind collections:SortDirection.Ascending}"
-                                                GroupName="SortDirection"
-                                                Text="{markup:ResourceHelper Name=Ascending}" />
-                                            <muxc:RadioMenuFlyoutItem
-                                                Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                                                CommandParameter="{x:Bind collections:SortDirection.Descending}"
-                                                GroupName="SortDirection"
-                                                Text="{markup:ResourceHelper Name=Descending}" />
-                                        </MenuFlyout>
-                                    </AppBarButton.Flyout>
-                                </AppBarButton>
                             </CommandBar>
                         </StackPanel>
                     </Grid>
