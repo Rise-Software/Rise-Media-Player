@@ -1,4 +1,5 @@
-﻿using Rise.Common.Helpers;
+﻿using Rise.Common.Extensions.Markup;
+using Rise.Common.Helpers;
 using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
@@ -94,12 +95,11 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
-
-            var result = await dialog.ShowAsync();
+            _ = await dialog.ShowAsync();
         }
     }
 }

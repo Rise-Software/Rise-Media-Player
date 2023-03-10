@@ -6,8 +6,10 @@ using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Json;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -41,6 +43,8 @@ namespace Rise.App.Views
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private LastFMViewModel LMViewModel => App.LMViewModel;
 
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
         private static readonly DependencyProperty RightClickedItemProperty
@@ -95,6 +99,11 @@ namespace Rise.App.Views
             UpdateTitleBarLayout(coreTitleBar);
 
             coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
+
+            var date = DateTime.Now;
+
+            if (date != null && date.Month == 4 && date.Day == 1)
+                RiseSpan.Text = "Rice";
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
@@ -120,10 +129,15 @@ namespace Rise.App.Views
 
                 if (SViewModel.IndexingAtStartupEnabled)
                     await Task.Run(App.MViewModel.StartFullCrawlAsync);
+                else
+                    await MViewModel.FetchArtistsArtAsync();
             }
 
             if (MViewModel.IsScanning)
+            {
+                await Task.Delay(60);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
+            }
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -215,23 +229,28 @@ namespace Rise.App.Views
 
             IMediaItem mediaItem = null;
 
-            if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Music)
-                mediaItem = App.MViewModel.Songs.FirstOrDefault(s => s.Location == App.MPViewModel.PlayingItemProperties.Location);
-            else if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                mediaItem = App.MViewModel.Videos.FirstOrDefault(v => v.Location == App.MPViewModel.PlayingItemProperties.Location);
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                mediaItem = MViewModel.Songs.FirstOrDefault(s => s.Location == MPViewModel.PlayingItemProperties.Location);
+            else if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                mediaItem = MViewModel.Videos.FirstOrDefault(v => v.Location == MPViewModel.PlayingItemProperties.Location);
 
             if (mediaItem == null)
             {
-                if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Music)
-                    mediaItem = await App.MPViewModel.PlayingItem.AsSongAsync();
-                else if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                    mediaItem = await App.MPViewModel.PlayingItem.AsVideoAsync();
+                if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                    mediaItem = await MPViewModel.PlayingItem.AsSongAsync();
+                else if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                    mediaItem = await MPViewModel.PlayingItem.AsVideoAsync();
             }
 
             if (playlist == null)
+            {
                 await playlistHelper.CreateNewPlaylistAsync(mediaItem);
+            }
             else
-                await playlist.AddItemAsync(mediaItem);
+            {
+                playlist.AddItem(mediaItem);
+                await PBackend.SaveAsync();
+            }
         }
 
         [RelayCommand]
@@ -264,7 +283,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                await Task.Delay(30);
+                await Task.Delay(60);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }
@@ -507,11 +526,11 @@ namespace Rise.App.Views
                 _ = parent.SubItems.Remove(item);
                 if (Guid.TryParse(item.Id, out var id))
                 {
-                    var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Model.Id == id);
+                    var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Id == id);
                     if (playlist != null)
                     {
                         playlist.IsPinned = false;
-                        await playlist.SaveEditsAsync();
+                        await MViewModel.PBackend.SaveAsync();
                     }
                 }
             }
@@ -525,8 +544,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Messages & reports",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("MessagesAndReports"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 DefaultButton = ContentDialogButton.Primary,
                 Content = new MessagesDialog()
             };
@@ -678,8 +697,7 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            AlbumViewModel album = MViewModel.Albums.AsParallel().
-                FirstOrDefault(a => a.Title == MPViewModel.PlayingItemProperties.Album);
+            AlbumViewModel album = MViewModel.Albums.FirstOrDefault(a => a.Title == MPViewModel.PlayingItemProperties.Album);
             ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
@@ -690,16 +708,16 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            ArtistViewModel artist = MViewModel.Artists.AsParallel().
-                FirstOrDefault(a => a.Name == MPViewModel.PlayingItemProperties.Artist);
+            ArtistViewModel artist = MViewModel.Artists.FirstOrDefault(a => a.Name == MPViewModel.PlayingItemProperties.Artist);
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
 
         private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Frame.Navigate(typeof(AllSettingsPage));
-        }
+            => _ = Frame.Navigate(typeof(AllSettingsPage));
+
+        private void DismissButton_Click(object sender, RoutedEventArgs e)
+            => _ = VisualStateManager.GoToState(this, "NotScanningState", false);
     }
 }

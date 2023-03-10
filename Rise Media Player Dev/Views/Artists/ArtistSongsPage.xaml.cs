@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using Rise.App.Converters;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -12,20 +14,28 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Windows.Globalization;
+using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.Web.Http;
 
 namespace Rise.App.Views
 {
     public sealed partial class ArtistSongsPage : MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private MainViewModel MViewModel => App.MViewModel;
+
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
@@ -49,10 +59,16 @@ namespace Rise.App.Views
 
         private ArtistViewModel SelectedArtist;
 
+        // This handles the way artist discography is displayed
+        private bool DiscographyExpanded = true;
+
         // These handle the way artist biography is displayed
         private bool ShowingSummarized = true;
         private string ShortBio;
         private string LongBio;
+
+        private Compositor _compositor;
+        private SpriteVisual _backgroundVisual;
 
         public ArtistSongsPage()
             : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
@@ -71,6 +87,8 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
+            ArtistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+
             string name = SelectedArtist.Name;
             if (!SViewModel.FetchOnlineData ||
                 !WebHelpers.IsInternetAccessAvailable() ||
@@ -81,7 +99,7 @@ namespace Rise.App.Views
             else
             {
                 string genre = await GetGenreFromArtistAsync(name);
-                SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
+                SongAlbums.Text += $" • {genre}";
 
                 TopTracks.ItemsSource = await GetTopTracksAsync(name);
                 NoListeners.Text = await GetMonthlyListenersAsync(name);
@@ -92,6 +110,16 @@ namespace Rise.App.Views
                 if (!string.IsNullOrWhiteSpace(ShortBio))
                     ArtistAbout.Visibility = Visibility.Visible;
             }
+
+            var propSet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(RootViewer);
+            _compositor = propSet.Compositor;
+            CreateImageBackgroundGradientVisual(propSet.GetSpecializedReference<ManipulationPropertySetReferenceNode>().Translation.Y);
+        }
+
+        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_backgroundVisual == null) return;
+            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -133,9 +161,14 @@ namespace Rise.App.Views
                     items.Add(itm);
 
             if (playlist == null)
+            {
                 return PlaylistHelper.CreateNewPlaylistAsync(items);
+            }
             else
-                return playlist.AddItemsAsync(items);
+            {
+                playlist.AddItems(items);
+                return PBackend.SaveAsync();
+            }
         }
     }
 
@@ -183,12 +216,12 @@ namespace Rise.App.Views
 
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            if (SongsItem.IsSelected)
+            if (AlbumsItem.IsSelected)
             {
                 MainList.Visibility = Visibility.Visible;
                 MainGrid.Visibility = Visibility.Collapsed;
             }
-            else if (AlbumsItem.IsSelected)
+            else if (SongsItem.IsSelected)
             {
                 MainList.Visibility = Visibility.Collapsed;
                 MainGrid.Visibility = Visibility.Visible;
@@ -203,12 +236,12 @@ namespace Rise.App.Views
                     LongBio = await GetArtistBioAsync(SelectedArtist.Name, false);
 
                 AboutArtist.Text = LongBio;
-                ReadMoreAbout.Content = "Read less";
+                ReadMoreAbout.Content = ResourceHelper.GetString("ReadLess");
             }
             else
             {
                 AboutArtist.Text = ShortBio;
-                ReadMoreAbout.Content = "Read more";
+                ReadMoreAbout.Content = ResourceHelper.GetString("ReadMore");
             }
 
             ShowingSummarized = !ShowingSummarized;
@@ -216,10 +249,12 @@ namespace Rise.App.Views
 
         private void UpDown_Click(object sender, RoutedEventArgs e)
         {
-            if (UpDown.Label == "Expand")
-                VisualStateManager.GoToState(this, "Expanded", true);
-            else
+            if (DiscographyExpanded)
                 VisualStateManager.GoToState(this, "Collapsed", true);
+            else
+                VisualStateManager.GoToState(this, "Expanded", true);
+
+            DiscographyExpanded = !DiscographyExpanded;
         }
 
         private async Task<List<Track>> GetTopTracksAsync(string artist)
@@ -309,7 +344,7 @@ namespace Rise.App.Views
             }
             catch { }
 
-            return "No artist info.";
+            return ResourceHelper.GetString("NoArtistInfo");
         }
 
         private async Task<string> GetMonthlyListenersAsync(string artist)
@@ -329,13 +364,44 @@ namespace Rise.App.Views
 
                         var node = doc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
                         if (node != null && long.TryParse(node.InnerText, out long num))
-                            return $"{FormatNumber.Format(num)} listeners.";
+                            return string.Format(ResourceHelper.GetString("NListeners"), FormatNumber.Format(num));
                     }
                 }
             }
             catch { }
 
             return string.Empty;
+        }
+
+        private void CreateImageBackgroundGradientVisual(ScalarNode scrollVerticalOffset)
+        {
+            if (_compositor == null) return;
+
+            var imageSurface = LoadedImageSurface.StartLoadFromUri(new(SelectedArtist.Picture));
+            var imageBrush = _compositor.CreateSurfaceBrush(imageSurface);
+            imageBrush.HorizontalAlignmentRatio = 0.5f;
+            imageBrush.VerticalAlignmentRatio = 0.5f;
+            imageBrush.Stretch = CompositionStretch.UniformToFill;
+
+            var gradientBrush = _compositor.CreateLinearGradientBrush();
+            gradientBrush.EndPoint = new Vector2(0, 1);
+            gradientBrush.MappingMode = CompositionMappingMode.Relative;
+            gradientBrush.ColorStops.Add(_compositor.CreateColorGradientStop(0.6f, Colors.White));
+            gradientBrush.ColorStops.Add(_compositor.CreateColorGradientStop(1, Colors.Transparent));
+
+            var maskBrush = _compositor.CreateMaskBrush();
+            maskBrush.Source = imageBrush;
+            maskBrush.Mask = gradientBrush;
+
+            SpriteVisual visual = _backgroundVisual = _compositor.CreateSpriteVisual();
+            visual.Size = new Vector2((float)BackgroundHost.ActualWidth, (float)BackgroundHost.Height);
+            visual.Opacity = 0.15f;
+            visual.Brush = maskBrush;
+
+            visual.StartAnimation("Offset.Y", scrollVerticalOffset);
+            imageBrush.StartAnimation("Offset.Y", -scrollVerticalOffset * 0.8f);
+
+            ElementCompositionPreview.SetElementChildVisual(BackgroundHost, visual);
         }
     }
 }

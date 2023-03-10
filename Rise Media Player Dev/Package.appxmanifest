@@ -12,7 +12,7 @@
 	<Identity
 	  Name="60499RiseSoftware.RiseMediaPlayer"
 	  Publisher="CN=71DBF32F-E672-41A2-A72F-A610029965F3"
-	  Version="0.0.172.0" />
+	  Version="0.0.300.0" />
 
 	<mp:PhoneIdentity PhoneProductId="44593a67-33b6-429d-a5f8-1a555e798a45" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -38,7 +38,7 @@
 			  DisplayName="Rise Media Player"
 			  Square150x150Logo="Assets\App\Square150x150Logo.png"
 			  Square44x44Logo="Assets\App\Square44x44Logo.png"
-			  Description="The one app you&apos;ll need to access all of your media; be it music, videos or even your favourite streaming services."
+			  Description="Rise Media Player preview."
 			  BackgroundColor="transparent">
 				<uap:DefaultTile Wide310x150Logo="Assets\App\Wide310x150Logo.png" Square71x71Logo="Assets\App\SmallTile.png" Square310x310Logo="Assets\App\LargeTile.png" ShortName="Rise Media Player">
 					<uap:ShowNameOnTiles>

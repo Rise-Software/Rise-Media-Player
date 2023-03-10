@@ -8,6 +8,7 @@ using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Json;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -221,14 +222,21 @@ namespace Rise.App.UserControls
     // Playlists
     public partial class MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
+
         [RelayCommand]
         private Task AddSelectedItemToPlaylistAsync(PlaylistViewModel playlist)
         {
             var itm = GetValue(SelectedItemProperty);
-            if (playlist != null)
-                return playlist.AddItemAsync(itm as IMediaItem);
-            else if (itm is IMediaItem media)
+            if (itm is IMediaItem media)
             {
+                if (playlist != null)
+                {
+                    playlist.AddItem(itm as IMediaItem);
+                    return PBackend.SaveAsync();
+                }
+
                 return PlaylistHelper.CreateNewPlaylistAsync(media);
             }
 
@@ -240,7 +248,10 @@ namespace Rise.App.UserControls
         {
             var first = MediaViewModel.Items.FirstOrDefault();
             if (playlist != null)
-                return playlist.AddItemsAsync(MediaViewModel.Items.Cast<IMediaItem>());
+            {
+                playlist.AddItems(MediaViewModel.Items.Cast<IMediaItem>());
+                return PBackend.SaveAsync();
+            }
             else if (first is IMediaItem)
             {
                 var items = MediaViewModel.Items.Cast<IMediaItem>();
@@ -258,7 +269,7 @@ namespace Rise.App.UserControls
             {
                 if (playlist.IsPinned)
                 {
-                    var itm = item.SubItems.FirstOrDefault(i => i.Id == playlist.Model.Id.ToString());
+                    var itm = item.SubItems.FirstOrDefault(i => i.Id == playlist.Id.ToString());
                     if (itm != null)
                     {
                         item.SubItems.Remove(itm);
@@ -269,7 +280,7 @@ namespace Rise.App.UserControls
                 {
                     var itm = new NavViewItemViewModel
                     {
-                        Id = playlist.Model.Id.ToString(),
+                        Id = playlist.Id.ToString(),
                         ItemType = NavViewItemType.SubItem,
                         Icon = playlist.Icon,
                         Label = playlist.Title,
@@ -282,7 +293,7 @@ namespace Rise.App.UserControls
                 }
             }
 
-            return playlist.SaveEditsAsync();
+            return App.MViewModel.PBackend.SaveAsync();
         }
     }
 

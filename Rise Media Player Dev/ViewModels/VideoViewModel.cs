@@ -140,6 +140,20 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <inheritdoc />
+        public bool IsLocal
+        {
+            get => Model.IsLocal;
+            set
+            {
+                if (value != Model.IsLocal)
+                {
+                    Model.IsLocal = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         [JsonIgnore]
         public string FileName => Path.GetFileName(Location);
         #endregion

@@ -2,7 +2,9 @@
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +15,8 @@ namespace Rise.App.Views
 {
     public sealed partial class AlbumsPage : MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
@@ -22,12 +26,12 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly string Label = "Albums";
-
         public AlbumsPage()
             : base("Title", App.MViewModel.Albums, App.MViewModel.Playlists)
         {
             InitializeComponent();
+
+            UpdateViewWithViewMode();
 
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
@@ -48,9 +52,14 @@ namespace Rise.App.Views
                     items.Add(itm);
 
             if (playlist == null)
+            {
                 return PlaylistHelper.CreateNewPlaylistAsync(items);
+            }
             else
-                return playlist.AddItemsAsync(items);
+            {
+                playlist.AddItems(items);
+                return PBackend.SaveAsync();
+            }
         }
     }
 
@@ -59,7 +68,18 @@ namespace Rise.App.Views
     {
         [RelayCommand]
         private void UpdateViewMode(AlbumViewMode viewMode)
-            => SViewModel.AlbumViewMode = viewMode;
+        {
+            SViewModel.AlbumViewMode = viewMode;
+            UpdateViewWithViewMode();
+        }
+
+        private void UpdateViewWithViewMode()
+        {
+            if (App.SViewModel.AlbumViewMode == AlbumViewMode.HorizontalTile)
+                MainGrid.DesiredWidth = 256;
+            else
+                MainGrid.DesiredWidth = 158;
+        }
 
         private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -89,8 +109,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();

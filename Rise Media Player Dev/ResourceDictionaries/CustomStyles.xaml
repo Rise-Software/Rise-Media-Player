@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <ResourceDictionary.MergedDictionaries>
@@ -251,6 +252,7 @@
                                     Padding="4"
                                     IsChecked="{Binding IsShuffleButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsShuffleEnabled}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Shuffle}"
                                     Visibility="{Binding IsShuffleButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarToggleButton.Icon>
                                         <SymbolIcon x:Name="ShuffleSymbol" Symbol="Shuffle" />
@@ -307,7 +309,7 @@
                                     x:Name="OverlayButton"
                                     Command="{TemplateBinding OverlayCommand}"
                                     IsEnabled="{TemplateBinding IsOverlayEnabled}"
-                                    ToolTipService.ToolTip="Now playing"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=NowPlaying}"
                                     Visibility="{Binding IsOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE17C;" />
@@ -318,8 +320,7 @@
                                     x:Name="QueueButton"
                                     Flyout="{TemplateBinding QueueFlyout}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
-                                    Label="Play queue"
-                                    ToolTipService.ToolTip="Play queue"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Queue}"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE142;" />
@@ -355,16 +356,13 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton
-                                    x:Name="ZoomButton"
-                                    Label="{Binding ElementName=ZoomButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
-                                    Visibility="Collapsed">
+                                <AppBarButton x:Name="ZoomButton" Visibility="Collapsed">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE799;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton Label="More options" ToolTipService.ToolTip="More options">
+                                <AppBarButton Label="{markup:ResourceHelper Name=MoreOptions}" ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreOptions}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE10C;" />
                                     </AppBarButton.Icon>
@@ -374,7 +372,7 @@
                                             <MenuFlyoutItem
                                                 x:Name="InfoPropertiesButton"
                                                 IsEnabled="{TemplateBinding IsPropertiesEnabled}"
-                                                Text="Info &amp; Properties"
+                                                Text="{markup:ResourceHelper Name=PropertiesInfo}"
                                                 Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE946;" />
@@ -392,11 +390,11 @@
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
-                                            <MenuFlyoutSubItem x:Uid="/Information/AddTo" x:Name="AddToPlaylistMenu">
+                                            <MenuFlyoutSubItem x:Name="AddToPlaylistMenu" Text="{markup:ResourceHelper Name=AddTo}">
                                                 <MenuFlyoutSubItem.Icon>
                                                     <FontIcon Glyph="&#xECC8;" />
                                                 </MenuFlyoutSubItem.Icon>
-                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{TemplateBinding AddToPlaylistCommand}">
+                                                <MenuFlyoutItem Command="{TemplateBinding AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -413,7 +411,7 @@
                                                 x:Name="MiniViewButton"
                                                 Command="{TemplateBinding OverlayCommand}"
                                                 IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
-                                                Text="Enter mini view"
+                                                Text="{markup:ResourceHelper Name=EnterMiniView}"
                                                 Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
@@ -425,7 +423,7 @@
                                             <MenuFlyoutSubItem
                                                 x:Name="PlaybackSpeedButton"
                                                 IsEnabled="{TemplateBinding IsPlaybackRateEnabled}"
-                                                Text="Playback speed"
+                                                Text="{markup:ResourceHelper Name=PlaybackSpeed}"
                                                 Visibility="{Binding IsPlaybackRateButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
                                                 <MenuFlyoutSubItem.Icon>
                                                     <FontIcon Glyph="&#xEC4A;" />
@@ -435,7 +433,7 @@
                                             <MenuFlyoutItem
                                                 x:Name="EqualizerButton"
                                                 IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
-                                                Text="Equalizer"
+                                                Text="{markup:ResourceHelper Name=/Settings/PlaybackEQTitle}"
                                                 Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
@@ -955,6 +953,7 @@
                                     Padding="4"
                                     IsChecked="{Binding IsShuffleButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsShuffleEnabled}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Shuffle}"
                                     Visibility="{Binding IsShuffleButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarToggleButton.Icon>
                                         <SymbolIcon x:Name="ShuffleSymbol" Symbol="Shuffle" />
@@ -1004,8 +1003,7 @@
                                     x:Name="QueueButton"
                                     Flyout="{TemplateBinding QueueFlyout}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
-                                    Label="Play queue"
-                                    ToolTipService.ToolTip="Play queue"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Queue}"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE142;" />
@@ -1025,7 +1023,7 @@
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     IsEnabled="{TemplateBinding IsOverlayEnabled}"
-                                    ToolTipService.ToolTip="Now playing"
+                                    Label="{markup:ResourceHelper Name=NowPlaying}"
                                     Visibility="{Binding IsOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE17C;" />
@@ -1088,7 +1086,7 @@
                                 <AppBarButton
                                     x:Name="InfoPropertiesButton"
                                     IsEnabled="{TemplateBinding IsPropertiesEnabled}"
-                                    Label="Info &amp; Properties"
+                                    Label="{markup:ResourceHelper Name=PropertiesInfo}"
                                     Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE946;" />
@@ -1098,7 +1096,7 @@
                                 <AppBarButton
                                     x:Name="EqualizerButton"
                                     IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
-                                    Label="Equalizer"
+                                    Label="{markup:ResourceHelper Name=/Settings/PlaybackEQTitle}"
                                     Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />

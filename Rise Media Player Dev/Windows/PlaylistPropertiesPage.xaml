@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     d:Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -48,7 +49,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Edit playlist" />
+                    Text="{markup:ResourceHelper Name=EditPlaylist}" />
             </Grid>
         </skuc:ExtendedTitleBar>
 
@@ -70,18 +71,18 @@
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
                         x:Name="SongDetails"
-                        x:Uid="/Props/DetailItemNav"
+                        Content="{markup:ResourceHelper Name=Details}"
                         Tag="DetailsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE946;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="/Props/SongsItemNav" Tag="SongsItem">
+                    <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=Songs}" Tag="SongsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xEC4F;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="Videos" Tag="VideosItem">
+                    <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=Videos}" Tag="VideosItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE116;" />
                         </muxc:NavigationViewItem.Icon>
@@ -114,12 +115,12 @@
             </Grid.ColumnDefinitions>
 
             <Button
-                x:Uid="/Props/Save"
+                Content="{markup:ResourceHelper Name=PropsSave}"
                 HorizontalAlignment="Stretch"
                 Click="Button_Click"
                 Style="{StaticResource AccentButtonStyle}" />
             <Button
-                x:Uid="/Props/Cancel"
+                Content="{markup:ResourceHelper Name=Cancel}"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 Click="CancelButton_Click" />
@@ -127,7 +128,8 @@
 
         <muxc:TeachingTip
             x:Name="ErrorTip"
-            x:Uid="/Props/Error"
-            PreferredPlacement="Bottom" />
+            Title="{markup:ResourceHelper Name=PropsErrorTitle}"
+            PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=PropsErrorContent}" />
     </Grid>
 </Page>

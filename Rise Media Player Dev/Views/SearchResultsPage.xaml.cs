@@ -1,5 +1,6 @@
 ﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ namespace Rise.App.Views
     public sealed partial class SearchResultsPage : MediaPageBase
     {
         private IEnumerable<IGrouping<string, object>> GroupedItems;
-        private string SearchText;
 
         private readonly Dictionary<Type, string> ResourceNames = new()
         {
@@ -31,8 +31,11 @@ namespace Rise.App.Views
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            SearchText = e.NavigationParameter as string;
-            string[] splitText = SearchText.ToLower().Split(" ");
+            string search = e.NavigationParameter as string;
+            string[] splitText = search.ToLower().Split(" ");
+
+            string forFormat = ResourceHelper.GetString("ForX");
+            ResultsFor.Text = string.Format(forFormat, search);
 
             var suitableItems = new List<object>();
             foreach (ArtistViewModel artist in App.MViewModel.Artists)

@@ -16,7 +16,7 @@ namespace Rise.App.Converters
                 return string.Format(format,
                     vid.Title,
                     Path.GetExtension(vid.Location),
-                    TimeSpanToString.Convert(vid.Length, "D-S"));
+                    TimeSpanToString.GetLongFormat(vid.Length, "D-S"));
             }
 
             return string.Empty;

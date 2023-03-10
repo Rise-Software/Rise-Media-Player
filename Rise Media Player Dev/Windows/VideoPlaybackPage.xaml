@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -25,11 +26,11 @@
                 VerticalAlignment="Center"
                 AutomationProperties.AutomationId="BackButton"
                 AutomationProperties.ItemType="Navigation Button"
-                AutomationProperties.Name="Back"
+                AutomationProperties.Name="{markup:ResourceHelper Name=Back}"
                 Command="{x:Bind _navigationHelper.GoBackCommand}"
                 CornerRadius="5"
                 Style="{StaticResource TransparentButtonStyle}"
-                ToolTipService.ToolTip="Back">
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
                 <muxc:AnimatedIcon
                     x:Name="BackAnimatedIcon"
                     Width="16"
@@ -74,8 +75,8 @@
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
                     Margin="16"
-                    IsCompact="True"
                     FullWindowCommand="{x:Bind EnterFullScreenCommand}"
+                    IsCompact="True"
                     IsEqualizerButtonEnabled="True"
                     IsEqualizerButtonVisible="True"
                     IsNextTrackButtonVisible="True"

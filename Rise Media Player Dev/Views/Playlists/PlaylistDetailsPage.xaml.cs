@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Rise.App.Converters;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
+using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using System;
 using System.Linq;
@@ -16,6 +19,9 @@ namespace Rise.App.Views
     public sealed partial class PlaylistDetailsPage : MediaPageBase
     {
         private MainViewModel MViewModel => App.MViewModel;
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
+
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
         private MediaCollectionViewModel VideosViewModel;
@@ -51,10 +57,9 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToSubItem(AddToVideo, AddVideoToPlaylistCommand);
         }
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (_offset != null)
-                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+            PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -62,7 +67,7 @@ namespace Rise.App.Views
             if (e.NavigationParameter is Guid id)
             {
                 SelectedPlaylist = MViewModel.Playlists.
-                    FirstOrDefault(p => p.Model.Id == id);
+                    FirstOrDefault(p => p.Id == id);
 
                 CreateViewModel("Title", SelectedPlaylist.Songs);
                 VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
@@ -83,8 +88,9 @@ namespace Rise.App.Views
         {
             if (playlist == null)
                 return PlaylistHelper.CreateNewPlaylistAsync(SelectedVideo);
-            else
-                return playlist.AddItemAsync(SelectedVideo);
+
+            playlist.AddItem(SelectedVideo);
+            return PBackend.SaveAsync();
         }
     }
 
@@ -119,11 +125,13 @@ namespace Rise.App.Views
                 SelectedVideo = (VideoViewModel)cont;
         }
 
-        private async void RemoveSong_Click(object sender, RoutedEventArgs e)
-            => await SelectedPlaylist.RemoveItemAsync(SelectedItem);
+        [RelayCommand]
+        private Task RemoveItemAsync(IMediaItem item)
+        {
+            SelectedPlaylist.RemoveItem(item);
+            return PBackend.SaveAsync();
+        }
 
-        private async void RemoveVideo_Click(object sender, RoutedEventArgs e)
-            => await SelectedPlaylist.RemoveItemAsync(SelectedVideo);
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem is VideoViewModel video && !KeyboardHelpers.IsCtrlPressed())

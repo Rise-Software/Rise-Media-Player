@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -53,12 +54,12 @@
                 <StackPanel>
                     <TextBlock
                         Style="{ThemeResource TitleTextBlockStyle}"
-                        Text="We've ran into a problem. Sorry about that."
+                        Text="{markup:ResourceHelper Name=RanIntoProblem}"
                         TextWrapping="WrapWholeWords" />
                     <TextBlock
                         FontSize="16"
                         FontWeight="Normal"
-                        Text="RiseMP has crashed. Here's some details."
+                        Text="{markup:ResourceHelper Name=CrashDetails}"
                         TextWrapping="WrapWholeWords" />
                 </StackPanel>
 
@@ -79,7 +80,7 @@
                 <Button
                     Padding="50,10"
                     Click="SubmitIssueButton_Click"
-                    Content="Submit an issue" />
+                    Content="{markup:ResourceHelper Name=ReportAnIssue}" />
             </StackPanel>
         </Grid>
     </Grid>

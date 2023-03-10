@@ -1,6 +1,7 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions.Markup;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,8 +18,6 @@ namespace Rise.App.Views
             get => (SongViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
-
-        private readonly string Label = "Songs";
 
         public SongsPage()
             : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
@@ -64,8 +63,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();
@@ -76,11 +75,11 @@ namespace Rise.App.Views
             var svm = SelectedItem;
             ContentDialog dialog = new()
             {
-                Title = "Delete song",
-                Content = $"Are you sure that you want to remove the song \"{svm.Title}\"?",
+                Title = ResourceHelper.GetString("DeleteSong"),
+                Content = string.Format(ResourceHelper.GetString("ConfirmRemovalSong"), svm.Title),
                 PrimaryButtonStyle = Resources["AccentButtonStyle"] as Style,
-                PrimaryButtonText = "Delete anyway",
-                SecondaryButtonText = "Cancel"
+                PrimaryButtonText = ResourceHelper.GetString("DeleteAnyway"),
+                SecondaryButtonText = ResourceHelper.GetString("Close")
             };
 
             var result = await dialog.ShowAsync();

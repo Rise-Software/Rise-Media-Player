@@ -1,5 +1,7 @@
-﻿using Rise.Models;
+﻿using Rise.Common.Extensions.Markup;
+using Rise.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -57,35 +59,39 @@ namespace Rise.App.Settings
             });
         }
 
-        // Binding to the selected item property doesn't work for whatever reason.
         private void WallsView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (WallsView.SelectedIndex > -1)
+            int index = WallsView.SelectedIndex;
+            if (index > -1)
             {
-                CurrentWall.Text = (WallsView.SelectedIndex + 1).ToString();
-                WallName.Text = Walls[WallsView.SelectedIndex].Name;
-                WallShortDesc.Text = Walls[WallsView.SelectedIndex].ShortDescription;
-                WallDesc.Text = Walls[WallsView.SelectedIndex].Description;
+                string format = ResourceHelper.GetString("XofY");
+                SelectedWall.Text = string.Format(format, index + 1, Walls.Count);
+
+                var selected = Walls[index];
+                WallName.Text = selected.Name;
+                WallShortDesc.Text = selected.ShortDescription;
+                WallDesc.Text = selected.Description;
             }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile =
-                await StorageFile.GetFileFromApplicationUriAsync
-                (new Uri(Walls[WallsView.SelectedIndex].Source));
+            var item = WallsView.SelectedItem as Wallpaper;
+            var picFile = await StorageFile.
+                GetFileFromApplicationUriAsync(new(item.Source));
 
-            FolderPicker folderPicker = new FolderPicker
+            var savePicker = new FileSavePicker
             {
-                SuggestedStartLocation = PickerLocationId.PicturesLibrary
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary,
+                SuggestedFileName = item.Name
             };
-            folderPicker.FileTypeFilter.Add("*");
 
-            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null)
-            {
-                await picFile.CopyAsync(folder);
-            }
+            string fileFormat = ResourceHelper.GetString("Image");
+            savePicker.FileTypeChoices[fileFormat] = new List<string>() { ".png" };
+
+            var file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+                await picFile.CopyAndReplaceAsync(file);
         }
     }
 }
