@@ -57,6 +57,7 @@
             IsDoubleTapEnabled="True"
             ItemContainerStyle="{StaticResource SongListViewItemStyle}"
             ItemsSource="{x:Bind MediaViewModel.Items}"
+            Loaded="OnMainListLoaded"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
             SelectionMode="Single">
             <ListView.ContextFlyout>

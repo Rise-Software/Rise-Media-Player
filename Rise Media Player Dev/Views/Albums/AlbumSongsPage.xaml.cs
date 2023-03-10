@@ -53,6 +53,12 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
+        private void OnMainListLoaded(object sender, RoutedEventArgs e)
+        {
+            var surface = LoadedImageSurface.StartLoadFromUri(new(SelectedAlbum.Thumbnail));
+            (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
+        }
+
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             AlbumDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
@@ -60,15 +66,6 @@ namespace Rise.App.Views
             // Load more albums by artist only when necessary
             if (AlbumsByArtist.Count > 0)
                 _ = FindName("MoreAlbumsByArtist");
-
-            var surface = LoadedImageSurface.StartLoadFromUri(new(SelectedAlbum.Thumbnail));
-            (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
-        }
-
-        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (_backgroundVisual == null) return;
-            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -188,6 +185,12 @@ namespace Rise.App.Views
                 VisualStateManager.GoToState(this, "Expanded", true);
 
             MoreAlbumsExpanded = !MoreAlbumsExpanded;
+        }
+
+        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_backgroundVisual == null) return;
+            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
     }
 }
