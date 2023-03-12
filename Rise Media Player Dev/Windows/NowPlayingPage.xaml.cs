@@ -69,6 +69,12 @@ namespace Rise.App.Views
     public sealed partial class NowPlayingPage
     {
         [RelayCommand]
+        private void GoToMiniView()
+        {
+            _ = Frame.Navigate(typeof(CompactNowPlayingPage));
+        }
+
+        [RelayCommand]
         private void ToggleFullScreen()
         {
             var view = ApplicationView.GetForCurrentView();

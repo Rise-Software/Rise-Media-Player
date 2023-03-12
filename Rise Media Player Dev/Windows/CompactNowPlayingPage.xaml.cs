@@ -1,8 +1,6 @@
 ﻿using Rise.Common.Threading;
 using Rise.Data.ViewModels;
 using System;
-using Windows.Media;
-using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,7 +29,13 @@ namespace Rise.App.Views
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
         }
 
-        protected override async void OnNavigatedFrom(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _ = await ApplicationView.GetForCurrentView().
+                TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+        }
+
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             _ = await ApplicationView.GetForCurrentView().
                 TryEnterViewModeAsync(ApplicationViewMode.Default);

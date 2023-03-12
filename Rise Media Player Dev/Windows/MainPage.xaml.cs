@@ -248,24 +248,18 @@ namespace Rise.App.Views
         }
 
         [RelayCommand]
-        private async Task GoToNowPlayingAsync(ApplicationViewMode newMode)
+        private void GoToNowPlaying(ApplicationViewMode newMode)
         {
             if (MPViewModel.PlayingItem == null) return;
-            if (newMode == ApplicationViewMode.CompactOverlay)
-            {
-                _ = await ApplicationView.GetForCurrentView().
-                    TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
 
+            if (newMode == ApplicationViewMode.CompactOverlay)
                 Frame.Navigate(typeof(CompactNowPlayingPage));
-            }
             else
-            {
                 Frame.Navigate(typeof(NowPlayingPage));
-            }
         }
 
-        private async void OnDisplayItemClick(object sender, RoutedEventArgs e)
-            => await GoToNowPlayingAsync(ApplicationViewMode.Default);
+        private void OnDisplayItemClick(object sender, RoutedEventArgs e)
+            => GoToNowPlaying(ApplicationViewMode.Default);
 
         private void OnDisplayItemRightTapped(object sender, RightTappedRoutedEventArgs e)
         {

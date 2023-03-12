@@ -130,13 +130,14 @@
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="True"
                     IsZoomButtonVisible="False"
+                    OverlayCommand="{x:Bind GoToMiniViewCommand}"
                     ShowAndHideAutomatically="False">
                     <uc:RiseMediaTransportControls.Resources>
                         <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
 
                         <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
                     </uc:RiseMediaTransportControls.Resources>
-                    
+
                     <uc:RiseMediaTransportControls.DisplayItem>
                         <Grid>
                             <Grid.ColumnDefinitions>
