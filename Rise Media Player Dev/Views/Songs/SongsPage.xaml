@@ -152,23 +152,23 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.GroupAlphabeticallyCommand}"
-                            CommandParameter="SongTitle"
+                            CommandParameter="GSongTitle"
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="SongAlbum|SongTrack"
+                            CommandParameter="GSongAlbum|SongDisc|SongTrack"
                             Text="{markup:ResourceHelper Name=Album}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="SongArtist"
+                            CommandParameter="GSongArtist"
                             Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="SongGenres"
+                            CommandParameter="GSongGenres"
                             Text="{markup:ResourceHelper Name=Genre}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="SongYear"
+                            CommandParameter="GSongYear"
                             Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                         <MenuFlyoutSeparator />
@@ -321,12 +321,7 @@
                     Padding="56,0"
                     VerticalAlignment="Center"
                     ItemTemplate="{StaticResource GroupOverviewItemTemplate}"
-                    ItemsSource="{x:Bind MediaViewModel.Items.CollectionGroups}">
-                    <GridView.Resources>
-                        <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent" />
-                    </GridView.Resources>
-                </GridView>
+                    ItemsSource="{x:Bind MediaViewModel.Items.CollectionGroups}" />
             </SemanticZoom.ZoomedOutView>
         </SemanticZoom>
 

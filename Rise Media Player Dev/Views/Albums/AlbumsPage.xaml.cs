@@ -41,16 +41,11 @@ namespace Rise.App.Views
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var (del, direction) = GetSavedSortPreferences("Albums");
+            var (del, direction, alphabetical) = GetSavedSortPreferences("Albums");
             if (!string.IsNullOrEmpty(del))
-            {
-                var (_, alphabetical) = GetSavedGroupPreferences("Albums");
                 CreateViewModel(del, direction, alphabetical, App.MViewModel.Albums);
-            }
             else
-            {
-                CreateViewModel("AlbumTitle", SortDirection.Ascending, true, App.MViewModel.Albums);
-            }
+                CreateViewModel("GAlbumTitle", SortDirection.Ascending, true, App.MViewModel.Albums);
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)

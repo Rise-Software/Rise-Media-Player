@@ -321,31 +321,18 @@ namespace Rise.App.UserControls
         /// </summary>
         /// <param name="pageKey">A unique key that identifies the current page's settings.</param>
         /// <returns>A tuple where the first item is the sorting delegate key (empty if not saved),
-        /// and the second one indicates whether the list was grouped alphabetically.</returns>
-        protected (string, SortDirection) GetSavedSortPreferences(string pageKey)
+        /// the second one indicates the sort direction, and the third whether the list was grouped
+        /// alphabetically.</returns>
+        protected (string, SortDirection, bool) GetSavedSortPreferences(string pageKey)
         {
-            string delegateKey = SettingsHelpers.GetLocal("", "Sorting", $"{pageKey}Sort");
+            string delegateKey = SettingsHelpers.GetLocal(string.Empty, "Sorting", $"{pageKey}Sort");
             if (string.IsNullOrEmpty(delegateKey))
-                return (string.Empty, SortDirection.Ascending);
+                return (string.Empty, SortDirection.Ascending, false);
 
             var direction = SettingsHelpers.GetLocal<SortDirection>(0, "Sorting", $"{pageKey}Direction");
-            return (delegateKey, direction);
-        }
-
-        /// <summary>
-        /// Gets a group descriptions based on the group delegate key in the local settings store.
-        /// </summary>
-        /// <param name="pageKey">A unique key that identifies the current page's settings.</param>
-        /// <returns>A tuple where the first item is the group delegate key (empty if not saved),
-        /// and the second one indicates whether the list was grouped alphabetically.</returns>
-        protected (string, bool) GetSavedGroupPreferences(string pageKey)
-        {
-            string groupKey = SettingsHelpers.GetLocal("", "Sorting", $"{pageKey}Group");
-            if (string.IsNullOrEmpty(groupKey))
-                return (string.Empty, false);
-
             bool alphabetical = SettingsHelpers.GetLocal(false, "Sorting", $"{pageKey}Alphabetical");
-            return (groupKey, alphabetical);
+
+            return (delegateKey, direction, alphabetical);
         }
 
         /// <summary>
@@ -355,7 +342,6 @@ namespace Rise.App.UserControls
         protected void SaveSortingPreferences(string pageKey)
         {
             SettingsHelpers.SetLocal(MediaViewModel.GroupingAlphabetically, "Sorting", $"{pageKey}Alphabetical");
-            SettingsHelpers.SetLocal(MediaViewModel.CurrentGroupDelegate, "Sorting", $"{pageKey}Group");
 
             SettingsHelpers.SetLocal(MediaViewModel.CurrentDelegate, "Sorting", $"{pageKey}Sort");
             SettingsHelpers.SetLocal((int)MediaViewModel.CurrentSortDirection, "Sorting", $"{pageKey}Direction");

@@ -70,7 +70,7 @@ namespace Rise.App.Views
                     FirstOrDefault(a => a.Name == str);
             }
 
-            CreateViewModel("SongAlbum|SongTrack", SortDirection.Ascending, false, IsFromArtist, App.MViewModel.Songs);
+            CreateViewModel("GSongAlbum|SongDisc|SongTrack", SortDirection.Ascending, false, IsFromArtist, App.MViewModel.Songs);
             bool IsFromArtist(object s)
             {
                 var song = (SongViewModel)s;

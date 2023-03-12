@@ -37,28 +37,6 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Initializes a new instance of this ViewModel.
         /// </summary>
-        /// <param name="items">The <see cref="GroupedCollectionView"/> to use for
-        /// the collection.</param>
-        /// <param name="songs">The collection of songs to use. Only needed
-        /// for albums, artists, and genres.</param>
-        /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
-        /// responsible for playback management.</param>
-        public MediaCollectionViewModel(GroupedCollectionView items,
-            bool groupAlphabetically,
-            IList<SongViewModel> songs,
-            MediaPlaybackViewModel pvm)
-            : this(songs, pvm)
-        {
-            _groupingAlphabetically = groupAlphabetically;
-            if (groupAlphabetically)
-                _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
-
-            Items = items;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of this ViewModel.
-        /// </summary>
         /// <param name="delegateKey">Key for the delegate to use for sorting. Must
         /// be present in <see cref="CollectionViewDelegates"/>.</param>
         /// <param name="itemSource">Source of items for the underlying
@@ -76,20 +54,60 @@ namespace Rise.App.ViewModels
             MediaPlaybackViewModel pvm)
             : this(songs, pvm)
         {
+            _groupingAlphabetically = groupAlphabetically;
+            if (string.IsNullOrEmpty(delegateKey))
+            {
+                var (items, defer) = GroupedCollectionView.CreateDeferred();
+                items.Source = itemSource;
+                items.Filter = filter;
+                defer.Complete();
+
+                Items = items;
+            }
+            else if (groupAlphabetically)
+            {
+                Items = CreateGroupedAlphabetically(delegateKey, direction, filter, itemSource);
+            }
+            else
+            {
+                Items = CreateSorted(delegateKey, direction, filter, itemSource);
+            }
+        }
+
+        private GroupedCollectionView CreateGroupedAlphabetically(string delegateKey,
+            SortDirection direction,
+            Predicate<object> filter,
+            IList itemSource)
+        {
+            _currentDelegate = delegateKey;
+            _currentDirection = direction;
+
             var (items, defer) = GroupedCollectionView.CreateDeferred();
             items.Source = itemSource;
             items.Filter = filter;
 
-            if (!string.IsNullOrEmpty(delegateKey))
-                Sort(items, delegateKey, direction);
+            var groupDel = CollectionViewDelegates.GetDelegate(delegateKey);
+            items.GroupDescription = new(direction, groupDel);
 
             defer.Complete();
 
-            _groupingAlphabetically = groupAlphabetically;
-            if (groupAlphabetically)
-                _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+            _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+            return items;
+        }
 
-            Items = items;
+        private GroupedCollectionView CreateSorted(string delegateKey,
+            SortDirection direction,
+            Predicate<object> filter,
+            IList itemSource)
+        {
+            var (items, defer) = GroupedCollectionView.CreateDeferred();
+            items.Source = itemSource;
+            items.Filter = filter;
+
+            Sort(items, delegateKey, direction);
+
+            defer.Complete();
+            return items;
         }
 
         public void Dispose()
@@ -110,12 +128,6 @@ namespace Rise.App.ViewModels
             private set => Set(ref _groupingAlphabetically, value);
         }
 
-        private string _currentGroupDelegate;
-        /// <summary>
-        /// Gets the key for the delegate currently used for grouping.
-        /// </summary>
-        public string CurrentGroupDelegate => _currentGroupDelegate;
-
         private string _currentDelegate;
         /// <summary>
         /// Gets the key for the delegate currently used for sorting.
@@ -132,9 +144,7 @@ namespace Rise.App.ViewModels
         public void GroupAlphabetically(string delegateKey)
         {
             GroupingAlphabetically = true;
-            Sort(Items, delegateKey, _currentDirection);
-
-            _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+            GroupAlphabetically(Items, delegateKey, _currentDirection);
         }
 
         [RelayCommand]
@@ -147,9 +157,26 @@ namespace Rise.App.ViewModels
         [RelayCommand]
         public void UpdateSortDirection(SortDirection direction)
         {
-            Sort(Items, _currentDelegate, direction);
             if (_groupingAlphabetically)
-                _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+                GroupAlphabetically(Items, _currentDelegate, direction);
+            else
+                Sort(Items, _currentDelegate, direction);
+        }
+
+        private void GroupAlphabetically(GroupedCollectionView items, string delegateKey, SortDirection direction)
+        {
+            _currentDelegate = delegateKey;
+            _currentDirection = direction;
+
+            var defer = items.DeferRefresh();
+            items.SortDescriptions.Clear();
+
+            var groupDel = CollectionViewDelegates.GetDelegate(delegateKey);
+            items.GroupDescription = new(direction, groupDel);
+
+            defer.Complete();
+
+            _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
 
         private void Sort(GroupedCollectionView items, string delegateKey, SortDirection direction)
@@ -158,6 +185,8 @@ namespace Rise.App.ViewModels
             _currentDirection = direction;
 
             var defer = items.DeferRefresh();
+
+            items.GroupDescription = null;
             items.SortDescriptions.Clear();
 
             bool grouped = false;
@@ -165,17 +194,17 @@ namespace Rise.App.ViewModels
 
             for (int i = 0; i < keys.Length; i++)
             {
-                var sortDel = CollectionViewDelegates.GetDelegate(keys[i]);
-                items.SortDescriptions.Add(new(direction, sortDel));
+                string key = keys[i];
+                var sortDel = CollectionViewDelegates.GetDelegate(key);
 
-                if (!grouped)
+                if (!grouped && key[0] == 'G')
                 {
-                    grouped = CollectionViewDelegates.TryGetDelegate($"G{keys[i]}", out var groupDel);
-                    if (grouped)
-                    {
-                        _currentGroupDelegate = $"G{keys[i]}";
-                        items.GroupDescription = new(direction, groupDel);
-                    }
+                    grouped = true;
+                    items.GroupDescription = new(direction, sortDel);
+                }
+                else
+                {
+                    items.SortDescriptions.Add(new(direction, sortDel));
                 }
             }
 

@@ -175,20 +175,20 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="AlbumTitle"
+                            Command="{x:Bind MediaViewModel.GroupAlphabeticallyCommand}"
+                            CommandParameter="GAlbumTitle"
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="AlbumArtist"
+                            CommandParameter="GAlbumArtist"
                             Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="AlbumGenres"
+                            CommandParameter="GAlbumGenres"
                             Text="{markup:ResourceHelper Name=Genre}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="AlbumYear"
+                            CommandParameter="GAlbumYear"
                             Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                         <MenuFlyoutSeparator />

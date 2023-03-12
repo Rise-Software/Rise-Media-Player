@@ -77,10 +77,13 @@ namespace Rise.App.Helpers
         private static object GArtistName(object a)
             => ToGroupHeader(((ArtistViewModel)a).Name);
 
-        private static object GVideoTitle(object v)
-            => ToGroupHeader(((VideoViewModel)v).Title);
-
         private static string ToGroupHeader(string text)
-            => CharacterGroupings.Lookup(text);
+        {
+            string key = CharacterGroupings.Lookup(text);
+            if (!GroupingLabels.Contains(key))
+                return string.Empty;
+
+            return key;
+        }
     }
 }
