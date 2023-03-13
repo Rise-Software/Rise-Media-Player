@@ -123,6 +123,36 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates whether the user
+        /// can see the lyrics of the current song.
+        /// </summary>
+        public bool IsLyricsEnabled
+        {
+            get => (bool)GetValue(IsLyricsEnabledProperty);
+            set => SetValue(IsLyricsEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the lyrics
+        /// button is shown.
+        /// </summary>
+        public bool IsLyricsButtonVisible
+        {
+            get => (bool)GetValue(IsLyricsButtonVisibleProperty);
+            set => SetValue(IsLyricsButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the shuffle
+        /// button is checked.
+        /// </summary>
+        public bool IsLyricsButtonChecked
+        {
+            get => (bool)GetValue(IsLyricsButtonCheckedProperty);
+            set => SetValue(IsLyricsButtonCheckedProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether a user
         /// can open the now playing page.
         /// </summary>
@@ -300,6 +330,18 @@ namespace Rise.App.UserControls
 
         public readonly static DependencyProperty IsShuffleButtonCheckedProperty =
             DependencyProperty.Register(nameof(IsShuffleButtonChecked), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsLyricsEnabledProperty =
+            DependencyProperty.Register(nameof(IsLyricsEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsLyricsButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsLyricsButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsLyricsButtonCheckedProperty =
+            DependencyProperty.Register(nameof(IsLyricsButtonChecked), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty FullWindowCommandProperty =

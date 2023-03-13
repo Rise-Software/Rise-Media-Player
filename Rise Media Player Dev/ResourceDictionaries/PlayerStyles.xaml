@@ -313,6 +313,19 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
+                                <AppBarToggleButton
+                                    x:Name="LyricsButton"
+                                    Width="40"
+                                    Padding="4"
+                                    IsChecked="{Binding IsLyricsButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                    IsEnabled="{TemplateBinding IsLyricsEnabled}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Lyrics}"
+                                    Visibility="{Binding IsLyricsButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                    <AppBarToggleButton.Icon>
+                                        <FontIcon Glyph="&#xEC72;" />
+                                    </AppBarToggleButton.Icon>
+                                </AppBarToggleButton>
+
                                 <AppBarButton
                                     x:Name="StopButton"
                                     Icon="Stop"

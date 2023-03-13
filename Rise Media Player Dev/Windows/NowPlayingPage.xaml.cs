@@ -143,9 +143,10 @@ namespace Rise.App.Views
                         _lyrics[currentlySelectedLyricIndex].IsSelected = false;
                     }
 
-                    var selectedLyricIndex = _lyrics.IndexOf(lyricsItem);
+                    int selectedLyricIndex = _lyrics.IndexOf(lyricsItem);
                     _lyrics[selectedLyricIndex].IsSelected = true;
 
+                    LyricsList.SelectedIndex = selectedLyricIndex;
                     LyricsList.ScrollIntoView(lyricsItem);
                 }
             });
