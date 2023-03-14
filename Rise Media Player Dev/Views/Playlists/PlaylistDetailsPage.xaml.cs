@@ -59,7 +59,14 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            if (MediaViewModel.Items.Any() && VideosViewModel.Items.Any())
+                PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds) + TimeSpan.FromSeconds(VideosViewModel.Items.Cast<VideoViewModel>().Select(v => v.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            else if (!MediaViewModel.Items.Any() && VideosViewModel.Items.Any())
+                PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(VideosViewModel.Items.Cast<VideoViewModel>().Select(v => v.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            else if (MediaViewModel.Items.Any() && !VideosViewModel.Items.Any())
+                PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            else
+                PlaylistDuration.Text = TimeSpan.Zero.ToString();
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
