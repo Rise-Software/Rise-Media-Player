@@ -252,10 +252,12 @@ public sealed partial class GroupedCollectionView
             if (gx == gy)
                 return result;
 
-            if (gx == null)
+            if (gx == null || (gx is string xGroup && gy is string yGroup && xGroup == "&" && yGroup == "#"))
                 result = -1;
-            else if (gy == null)
+            else if (gy == null || (gx is string xGroup1 && gy is string yGroup1 && xGroup1 == "#" && yGroup1 == "&"))
                 result = 1;
+            else if (gy is string yGroup2 && string.IsNullOrEmpty(yGroup2))
+                return -1;
             else
                 result = gx.CompareTo(gy);
 
