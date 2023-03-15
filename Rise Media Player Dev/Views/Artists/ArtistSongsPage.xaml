@@ -372,8 +372,7 @@
                             <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=About}" />
                         </StackPanel>
 
-                        <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
+                        <Rectangle Grid.Row="1" Style="{StaticResource ExpanderDividerStyle}" />
                         <StackPanel Grid.Row="2" Spacing="8">
                             <TextBlock x:Name="AboutArtist" TextWrapping="WrapWholeWords" />
                             <HyperlinkButton
