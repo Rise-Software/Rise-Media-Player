@@ -87,7 +87,7 @@ namespace Rise.App.ViewModels
             items.Filter = filter;
 
             var groupDel = CollectionViewDelegates.GetDelegate(delegateKey);
-            items.GroupDescription = new(direction, groupDel);
+            items.GroupDescription = new(direction, groupDel, GroupingLabelComparer.Default);
 
             defer.Complete();
 
@@ -172,7 +172,7 @@ namespace Rise.App.ViewModels
             items.SortDescriptions.Clear();
 
             var groupDel = CollectionViewDelegates.GetDelegate(delegateKey);
-            items.GroupDescription = new(direction, groupDel);
+            items.GroupDescription = new(direction, groupDel, GroupingLabelComparer.Default);
 
             defer.Complete();
 
