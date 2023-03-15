@@ -21,9 +21,8 @@
 
     <Style
         x:Key="SongListViewItemStyle"
-        BasedOn="{StaticResource DefaultListViewItemStyle}"
+        BasedOn="{StaticResource StretchedListViewItemStyle}"
         TargetType="ListViewItem">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="0" />
 
         <Setter Property="Template">
@@ -62,7 +61,7 @@
                         ContentMargin="{TemplateBinding Padding}"
                         ContentTransitions="{TemplateBinding ContentTransitions}"
                         Control.IsTemplateFocusTarget="True"
-                        CornerRadius="{ThemeResource SongListViewItemCornerRadius}"
+                        CornerRadius="{StaticResource SongListViewItemCornerRadius}"
                         DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
                         DragBackground="{ThemeResource ListViewItemDragBackground}"
                         DragForeground="{ThemeResource ListViewItemDragForeground}"
