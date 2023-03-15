@@ -140,7 +140,7 @@ public sealed partial class GroupedCollectionView
 
     // Group handling
     private object GetItemGroup(object item)
-        => _groupDescription?.ValueDelegate?.Invoke(item);
+        => _groupDescription.ValueDelegate(item);
 
     /// <summary>
     /// Adds a new group to <see cref="CollectionGroups"/> with the
@@ -172,9 +172,6 @@ public sealed partial class GroupedCollectionView
 
     private ICollectionViewGroup AddCollectionGroup(object key, IEnumerable<ICollectionViewGroup> groups)
     {
-        if (key == null)
-            return null;
-
         var group = groups.FirstOrDefault(g => Equals(g.Group, key));
         if (group == null)
         {
@@ -193,10 +190,10 @@ public sealed partial class GroupedCollectionView
 
     private void AddItemToGroup(object item)
     {
-        object key = GetItemGroup(item);
-        if (key == null)
+        if (_groupDescription == null)
             return;
 
+        object key = GetItemGroup(item);
         var group = AddCollectionGroup(key);
 
         var items = group.GroupItems;
@@ -214,9 +211,10 @@ public sealed partial class GroupedCollectionView
 
     private void RemoveItemFromGroup(object item)
     {
-        object key = GetItemGroup(item);
-        if (key == null)
+        if (_groupDescription == null)
             return;
+
+        object key = GetItemGroup(item);
 
         var group = _collectionGroups.Cast<CollectionViewGroup>().FirstOrDefault(g => g.Group == key);
         _ = group?.GroupItems.Remove(item);
