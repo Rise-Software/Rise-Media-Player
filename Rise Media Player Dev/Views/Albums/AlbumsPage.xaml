@@ -3,17 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
-    xmlns:atch="using:Rise.Common.Attached"
     xmlns:collections="using:Rise.Data.Collections"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Rise.Common.Enums"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
@@ -23,33 +20,8 @@
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
-        <conv:BoolToRoundedCorners x:Key="BoolToRounded" />
         <conv:NullToBoolean x:Key="NullToBool" />
-        <conv:IntToBoolean x:Key="IntToBool" />
-        <conv:EmptyStringFallback x:Key="EmptyStrFallback" />
-
-        <SolidColorBrush x:Key="GridViewHeaderItemDividerStroke" Color="Transparent" />
-
-        <DataTemplate x:Key="GroupOverviewItemTemplate" x:DataType="ICollectionViewGroup">
-            <TextBlock
-                Width="134"
-                Margin="6,0"
-                VerticalAlignment="Bottom"
-                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                HorizontalTextAlignment="Center"
-                MaxLines="2"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}"
-                ToolTipService.ToolTip="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
-        </DataTemplate>
-
-        <DataTemplate x:Key="GroupOverviewLetterItemTemplate" x:DataType="ICollectionViewGroup">
-            <TextBlock
-                atch:FrameworkElementExtensions.IsParentEnabled="{x:Bind GroupItems.Count, Mode=OneWay, Converter={StaticResource IntToBool}}"
-                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
-        </DataTemplate>
+        <conv:BoolToRoundedCorners x:Key="BoolToRounded" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -289,16 +261,7 @@
                     </GridView.ContextFlyout>
 
                     <GridView.GroupStyle>
-                        <GroupStyle HidesIfEmpty="True">
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate x:DataType="x:Object">
-                                    <TextBlock
-                                        Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                        Style="{StaticResource SubtitleTextBlockStyle}"
-                                        Text="{x:Bind Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                        </GroupStyle>
+                        <GroupStyle HeaderTemplate="{StaticResource DefaultGroupStyleHeaderTemplate}" HidesIfEmpty="True" />
                     </GridView.GroupStyle>
 
                     <GridView.ItemTemplate>
@@ -324,12 +287,7 @@
                     Padding="56,0"
                     VerticalAlignment="Center"
                     ItemTemplate="{StaticResource GroupOverviewItemTemplate}"
-                    ItemsSource="{x:Bind MediaViewModel.Items.CollectionGroups}">
-                    <GridView.Resources>
-                        <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent" />
-                    </GridView.Resources>
-                </GridView>
+                    ItemsSource="{x:Bind MediaViewModel.Items.CollectionGroups}" />
             </SemanticZoom.ZoomedOutView>
         </SemanticZoom>
 

@@ -25,29 +25,6 @@
         <conv:NullToBoolean x:Key="NullToBool" />
         <conv:IntToBoolean x:Key="IntToBool" />
         <conv:EmptyStringFallback x:Key="EmptyStrFallback" />
-
-        <SolidColorBrush x:Key="ListViewHeaderItemDividerStroke" Color="Transparent" />
-
-        <DataTemplate x:Key="GroupOverviewItemTemplate" x:DataType="ICollectionViewGroup">
-            <TextBlock
-                Width="134"
-                Margin="6,0"
-                VerticalAlignment="Bottom"
-                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                HorizontalTextAlignment="Center"
-                MaxLines="2"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}"
-                ToolTipService.ToolTip="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
-        </DataTemplate>
-
-        <DataTemplate x:Key="GroupOverviewLetterItemTemplate" x:DataType="ICollectionViewGroup">
-            <TextBlock
-                atch:FrameworkElementExtensions.IsParentEnabled="{x:Bind GroupItems.Count, Mode=OneWay, Converter={StaticResource IntToBool}}"
-                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="{x:Bind Group, Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
-        </DataTemplate>
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -280,16 +257,7 @@
                     </ListView.ContextFlyout>
 
                     <ListView.GroupStyle>
-                        <GroupStyle HidesIfEmpty="True">
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate x:DataType="x:Object">
-                                    <TextBlock
-                                        Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                        Style="{StaticResource SubtitleTextBlockStyle}"
-                                        Text="{x:Bind Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                        </GroupStyle>
+                        <GroupStyle HeaderTemplate="{StaticResource DefaultGroupStyleHeaderTemplate}" HidesIfEmpty="True" />
                     </ListView.GroupStyle>
 
                     <ListView.ItemTemplate>

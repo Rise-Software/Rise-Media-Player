@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:atch="using:Rise.Common.Attached"
     xmlns:co="using:Rise.App.UserControls"
+    xmlns:conv="using:Rise.App.Converters"
     xmlns:nouac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:uac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,14)">
 
@@ -94,4 +96,39 @@
         <Setter Property="Padding" Value="14,9" />
     </Style>
     <Style BasedOn="{StaticResource DefaultSongDataStyle}" TargetType="co:SongData" />
+
+    <!--  Grouping styles  -->
+    <SolidColorBrush x:Key="ListViewHeaderItemDividerStroke" Color="Transparent" />
+    <SolidColorBrush x:Key="GridViewHeaderItemDividerStroke" Color="Transparent" />
+
+    <conv:EmptyStringFallback x:Key="InternalEmptyStrFallback" />
+    <conv:IntToBoolean x:Key="InternalIntToBool" />
+
+    <DataTemplate x:Key="DefaultGroupStyleHeaderTemplate">
+        <TextBlock
+            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{Binding Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="GroupOverviewItemTemplate">
+        <TextBlock
+            Width="134"
+            Margin="6,0"
+            VerticalAlignment="Bottom"
+            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+            HorizontalTextAlignment="Center"
+            MaxLines="2"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{Binding Group, Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}"
+            ToolTipService.ToolTip="{Binding Group, Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="GroupOverviewLetterItemTemplate">
+        <TextBlock
+            atch:FrameworkElementExtensions.IsParentEnabled="{Binding GroupItems.Count, Converter={StaticResource InternalIntToBool}}"
+            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{Binding Group, Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}" />
+    </DataTemplate>
 </ResourceDictionary>

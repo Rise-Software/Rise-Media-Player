@@ -3,8 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="using:Rise.Common.Behaviors"
-    xmlns:collections="using:Rise.Data.Collections"
-    xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
@@ -19,13 +17,6 @@
     d:DesignWidth="500"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
-
-    <uc:MediaPageBase.Resources>
-        <conv:NullToBoolean x:Key="NullToBool" />
-        <conv:EmptyStringFallback x:Key="EmptyStrFallback" />
-
-        <SolidColorBrush x:Key="ListViewHeaderItemDividerStroke" Color="Transparent" />
-    </uc:MediaPageBase.Resources>
 
     <Grid>
         <muxc:TeachingTip
@@ -321,16 +312,7 @@
             </ListView.Header>
 
             <ListView.GroupStyle>
-                <GroupStyle HidesIfEmpty="True">
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate x:DataType="x:Object">
-                            <TextBlock
-                                Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                Text="{x:Bind Converter={StaticResource EmptyStrFallback}, ConverterParameter=…}" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
+                <GroupStyle HeaderTemplate="{StaticResource DefaultGroupStyleHeaderTemplate}" HidesIfEmpty="True" />
             </ListView.GroupStyle>
 
             <ListView.ItemTemplate>
