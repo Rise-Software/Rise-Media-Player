@@ -120,6 +120,22 @@ namespace Rise.Data.Sources
             }
 
             var items = JsonSerializer.Deserialize<List<NavViewItemViewModel>>(jsonText);
+
+            // For some reason, the file contains an empty JSON array which
+            // sometimes causes the navigation view to be empty and thus
+            // rendering navigation unusable.
+            if (!items.Any())
+            {
+                // Copy the contents from the placeholder and read the data again.
+                var dataUri = new Uri($"ms-appx:///Assets/{_fileName}");
+                var placeholderFile = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+
+                await placeholderFile.CopyAndReplaceAsync(file);
+
+                await PopulateGroupsAsync();
+                return;
+            }
+
             foreach (var item in items)
             {
                 if (item.IsFooter)
