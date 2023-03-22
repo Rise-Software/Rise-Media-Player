@@ -45,7 +45,7 @@ namespace Rise.App.Views
             if (!string.IsNullOrEmpty(del))
                 CreateViewModel(del, direction, alphabetical, App.MViewModel.Albums);
             else
-                CreateViewModel("GAlbumTitle", SortDirection.Ascending, true, App.MViewModel.Albums);
+                CreateViewModel("GAlbumTitle|AlbumTitle", SortDirection.Ascending, true, App.MViewModel.Albums);
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)

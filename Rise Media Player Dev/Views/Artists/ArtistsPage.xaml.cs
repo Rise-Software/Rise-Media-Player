@@ -30,7 +30,7 @@ namespace Rise.App.Views
         }
 
         public ArtistsPage()
-            : base("GArtistName", SortDirection.Ascending, true, App.MViewModel.Artists, App.MViewModel.Playlists)
+            : base("GArtistName|ArtistName", SortDirection.Ascending, true, App.MViewModel.Artists, App.MViewModel.Playlists)
         {
             InitializeComponent();
 

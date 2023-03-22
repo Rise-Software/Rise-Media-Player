@@ -129,7 +129,7 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.GroupAlphabeticallyCommand}"
-                            CommandParameter="GSongTitle"
+                            CommandParameter="GSongTitle|SongTitle"
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
