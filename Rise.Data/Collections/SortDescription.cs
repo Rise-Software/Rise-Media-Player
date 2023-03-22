@@ -1,25 +1,29 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Rise.Data.Collections;
 
-public sealed class SortDescription
+public sealed class SortDescription : IComparer, IComparer<object>
 {
+    private readonly Func<object, object> _valueDelegate;
     /// <summary>
     /// Gets the delegate that returns the value of the property
     /// to sort on.
     /// </summary>
-    public Func<object, object> ValueDelegate { get; }
+    public Func<object, object> ValueDelegate => _valueDelegate;
 
+    private readonly SortDirection _sortDirection;
     /// <summary>
     /// Gets the way sorting should be handled.
     /// </summary>
-    public SortDirection SortDirection { get; }
+    public SortDirection SortDirection => _sortDirection;
 
+    private readonly IComparer _comparer;
     /// <summary>
-    /// Comparer to use for sorting.
+    /// The comparer to use for sorting.
     /// </summary>
-    public IComparer Comparer { get; }
+    public IComparer Comparer => _comparer;
 
     /// <summary>
     /// Creates a new sort description.
@@ -47,18 +51,18 @@ public sealed class SortDescription
     /// will be used.</param>
     public SortDescription(SortDirection direction, Func<object, object> valueDelegate, IComparer comparer)
     {
-        SortDirection = direction;
-        ValueDelegate = valueDelegate;
-        Comparer = comparer ?? ObjectComparer.Default;
+        _sortDirection = direction;
+        _valueDelegate = valueDelegate;
+        _comparer = comparer ?? ObjectComparer.Default;
     }
 
     private SortDescription(SortDescription desc)
     {
-        SortDirection = desc.SortDirection == SortDirection.Ascending ?
+        _sortDirection = desc._sortDirection == SortDirection.Ascending ?
             SortDirection.Descending : SortDirection.Ascending;
 
-        ValueDelegate = desc.ValueDelegate;
-        Comparer = desc.Comparer;
+        _valueDelegate = desc._valueDelegate;
+        _comparer = desc._comparer;
     }
 
     /// <summary>
@@ -66,6 +70,12 @@ public sealed class SortDescription
     /// </summary>
     public SortDescription Invert()
         => new(this);
+
+    public int Compare(object x, object y)
+    {
+        int result = _comparer.Compare(_valueDelegate(x), _valueDelegate(y));
+        return _sortDirection == SortDirection.Ascending ? +result : -result;
+    }
 
     private sealed class ObjectComparer : IComparer
     {

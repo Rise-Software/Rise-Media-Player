@@ -33,6 +33,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             if (_groupDescription != value)
             {
                 _groupDescription = value;
+                _collectionGroupComparer = new CollectionGroupComparer(value);
+
                 if (_deferCounter == 0)
                     OnSortDescriptionsChanged(CurrentItem);
 
@@ -45,6 +47,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     /// Whether the view is currently grouped.
     /// </summary>
     public bool IsGrouped => _groupDescription != null;
+
+    private IComparer<object> _collectionGroupComparer;
 
     private readonly ObservableVector<object> _collectionGroups = new();
     public IObservableVector<object> CollectionGroups => _collectionGroups;
@@ -275,26 +279,16 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     {
         if (_groupDescription != null)
         {
-            var del = _groupDescription.ValueDelegate;
-
-            object xVal = del(x);
-            object yVal = del(y);
-
-            int result = _groupDescription.Comparer.Compare(xVal, yVal);
+            int result = _groupDescription.Compare(x, y);
             if (result != 0)
-                return _groupDescription.SortDirection == SortDirection.Ascending ? +result : -result;
+                return result;
         }
 
         foreach (var desc in _sortDescriptions)
         {
-            var del = desc.ValueDelegate;
-
-            object xVal = del(x);
-            object yVal = del(y);
-
-            int result = desc.Comparer.Compare(xVal, yVal);
+            int result = desc.Compare(x, y);
             if (result != 0)
-                return desc.SortDirection == SortDirection.Ascending ? +result : -result;
+                return result;
         }
 
         return 0;

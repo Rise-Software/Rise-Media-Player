@@ -149,7 +149,21 @@ public sealed partial class GroupedCollectionView
     /// <param name="key">The group key.</param>
     /// <returns>The new collection group.</returns>
     public ICollectionViewGroup AddCollectionGroup(object key)
-        => AddCollectionGroup(key, _collectionGroups.Cast<ICollectionViewGroup>());
+    {
+        var group = (ICollectionViewGroup)_collectionGroups.FirstOrDefault(g => Equals(((ICollectionViewGroup)g).Group, key));
+        if (group == null)
+        {
+            group = new CollectionViewGroup(key);
+
+            int groupIndex = _collectionGroups.BinarySearch(group, _collectionGroupComparer);
+            if (groupIndex < 0)
+                groupIndex = ~groupIndex;
+
+            _collectionGroups.Insert(groupIndex, group);
+        }
+
+        return group;
+    }
 
     /// <summary>
     /// Adds new groups to <see cref="CollectionGroups"/> with the
@@ -159,33 +173,14 @@ public sealed partial class GroupedCollectionView
     /// <returns>The new collection groups.</returns>
     public IEnumerable<ICollectionViewGroup> AddCollectionGroups(IEnumerable<object> keys)
     {
-        var groups = _collectionGroups.Cast<ICollectionViewGroup>();
         var added = new List<ICollectionViewGroup>();
 
         // If we use yield here, the groups won't be added until
         // the return value is enumerated, which is not ideal
         foreach (var key in keys)
-            added.Add(AddCollectionGroup(key, groups));
+            added.Add(AddCollectionGroup(key));
 
         return added;
-    }
-
-    private ICollectionViewGroup AddCollectionGroup(object key, IEnumerable<ICollectionViewGroup> groups)
-    {
-        var group = groups.FirstOrDefault(g => Equals(g.Group, key));
-        if (group == null)
-        {
-            group = new CollectionViewGroup(key);
-            var comparer = ItemGroupComparer.Get(_groupDescription.SortDirection);
-
-            int groupIndex = _collectionGroups.BinarySearch(group, comparer);
-            if (groupIndex < 0)
-                groupIndex = ~groupIndex;
-
-            _collectionGroups.Insert(groupIndex, group);
-        }
-
-        return group;
     }
 
     private void AddItemToGroup(object item)
@@ -216,7 +211,7 @@ public sealed partial class GroupedCollectionView
 
         object key = GetItemGroup(item);
 
-        var group = _collectionGroups.Cast<CollectionViewGroup>().FirstOrDefault(g => g.Group == key);
+        var group = (ICollectionViewGroup)_collectionGroups.FirstOrDefault(g => ((ICollectionViewGroup)g).Group == key);
         _ = group?.GroupItems.Remove(item);
     }
 
@@ -227,36 +222,20 @@ public sealed partial class GroupedCollectionView
     public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         => _incrementalSource?.LoadMoreItemsAsync(count);
 
-    private sealed class ItemGroupComparer : IComparer, IComparer<object>, IComparer<ICollectionViewGroup>
+    private sealed class CollectionGroupComparer : IComparer, IComparer<object>, IComparer<ICollectionViewGroup>
     {
-        public static readonly ItemGroupComparer AscendingComparer = new(SortDirection.Ascending);
-        public static readonly ItemGroupComparer DescendingComparer = new(SortDirection.Descending);
-
-        public static ItemGroupComparer Get(SortDirection direction)
-            => direction == SortDirection.Ascending ? AscendingComparer : DescendingComparer;
-
+        private readonly IComparer _comparer;
         private readonly SortDirection _direction;
-        private ItemGroupComparer(SortDirection direction)
+
+        public CollectionGroupComparer(SortDescription desc)
         {
-            _direction = direction;
+            _comparer = desc.Comparer;
+            _direction = desc.SortDirection;
         }
 
         public int Compare(ICollectionViewGroup x, ICollectionViewGroup y)
         {
-            var gx = x.Group as IComparable;
-            var gy = y.Group as IComparable;
-
-            int result = 0;
-            if (gx == gy)
-                return result;
-
-            if (gx == null)
-                result = -1;
-            else if (gy == null)
-                result = 1;
-            else
-                result = gx.CompareTo(gy);
-
+            int result = _comparer.Compare(x.Group, y.Group);
             return _direction == SortDirection.Ascending ? +result : -result;
         }
 
