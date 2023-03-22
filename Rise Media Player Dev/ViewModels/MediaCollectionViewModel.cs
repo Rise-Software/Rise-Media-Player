@@ -79,19 +79,9 @@ namespace Rise.App.ViewModels
             Predicate<object> filter,
             IList itemSource)
         {
-            _currentDelegate = delegateKey;
-            _currentDirection = direction;
-
-            var (items, defer) = GroupedCollectionView.CreateDeferred();
-            items.Source = itemSource;
-            items.Filter = filter;
-
-            var groupDel = CollectionViewDelegates.GetDelegate(delegateKey);
-            items.GroupDescription = new(direction, groupDel, GroupingLabelComparer.Default);
-
-            defer.Complete();
-
+            var items = CreateSorted(delegateKey, direction, filter, itemSource);
             _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+
             return items;
         }
 
@@ -144,7 +134,9 @@ namespace Rise.App.ViewModels
         public void GroupAlphabetically(string delegateKey)
         {
             GroupingAlphabetically = true;
-            GroupAlphabetically(Items, delegateKey, _currentDirection);
+
+            Sort(Items, delegateKey, _currentDirection);
+            _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
 
         [RelayCommand]
@@ -157,26 +149,9 @@ namespace Rise.App.ViewModels
         [RelayCommand]
         public void UpdateSortDirection(SortDirection direction)
         {
+            Sort(Items, _currentDelegate, direction);
             if (_groupingAlphabetically)
-                GroupAlphabetically(Items, _currentDelegate, direction);
-            else
-                Sort(Items, _currentDelegate, direction);
-        }
-
-        private void GroupAlphabetically(GroupedCollectionView items, string delegateKey, SortDirection direction)
-        {
-            _currentDelegate = delegateKey;
-            _currentDirection = direction;
-
-            var defer = items.DeferRefresh();
-            items.SortDescriptions.Clear();
-
-            var groupDel = CollectionViewDelegates.GetDelegate(delegateKey);
-            items.GroupDescription = new(direction, groupDel, GroupingLabelComparer.Default);
-
-            defer.Complete();
-
-            _ = items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
+                _ = Items.AddCollectionGroups(CollectionViewDelegates.GroupingLabels);
         }
 
         private void Sort(GroupedCollectionView items, string delegateKey, SortDirection direction)
@@ -200,7 +175,10 @@ namespace Rise.App.ViewModels
                 if (!grouped && key[0] == 'G')
                 {
                     grouped = true;
-                    items.GroupDescription = new(direction, sortDel);
+                    if (_groupingAlphabetically)
+                        items.GroupDescription = new(direction, sortDel, GroupingLabelComparer.Default);
+                    else
+                        items.GroupDescription = new(direction, sortDel);
                 }
                 else
                 {
