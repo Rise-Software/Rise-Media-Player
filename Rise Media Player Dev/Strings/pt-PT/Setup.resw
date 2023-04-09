@@ -118,46 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+    <value>Faça-o seu</value>
   </data>
   <data name="ConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+    <value>Conecte uma conta de internet</value>
   </data>
   <data name="DoneH" xml:space="preserve">
-    <value>You're done!</value>
+    <value>Está feito!</value>
   </data>
   <data name="Intro" xml:space="preserve">
-    <value>We're glad you're here. You just need to go through a few simple steps and you'll be all up and running!</value>
+    <value>Estamos felizes por estares aqui. Só precisas de seguir alguns passos simples e estarás pronto e a funcionar!</value>
   </data>
   <data name="LocalH" xml:space="preserve">
-    <value>Add your personal media</value>
+    <value>Adicione a sua mídia pessoal</value>
   </data>
   <data name="PrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Privacidade e recomendações</value>
   </data>
   <data name="SetupPre" xml:space="preserve">
-    <value>Pre-setup</value>
+    <value>Pré-configuração</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Start setup</value>
+    <value>Iniciar configuração</value>
   </data>
   <data name="TermsH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
+    <value>Contrato de Licença e Termos</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome to</value>
+    <value>Bem-vindo(a) ao</value>
   </data>
   <data name="TermsLastUpdated" xml:space="preserve">
-    <value>Last Updated December 2021 - GPL License 3.0</value>
+    <value>Ultima atualização Dezembro 2021 - GPL License 3.0</value>
   </data>
   <data name="TermsLocalH" xml:space="preserve">
-    <value>Local Media Handling</value>
+    <value>Manipulação de Mídia Local</value>
   </data>
   <data name="TermsStreamingH" xml:space="preserve">
-    <value>Streaming &amp; Online Services</value>
+    <value>Streaming e Serviços Online</value>
   </data>
   <data name="TermsStart" xml:space="preserve">
-    <value>Rise Media Player - Licence Agreement &amp; Terms for Use</value>
+    <value>Rise Media Player - Contrato de Licença e Termos para Uso</value>
   </data>
   <data name="TermsBaseH" xml:space="preserve">
     <value>Base Software &amp; Copyright</value>
@@ -275,57 +275,57 @@ IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY C
 If the disclaimer of warranty and limitation of liability provided above cannot be given local legal effect according to their terms, reviewing courts shall apply local law that most closely approximates an absolute waiver of all civil liability in connection with the Program, unless a warranty or assumption of liability accompanies a copy of the Program in return for a fee.</value>
   </data>
   <data name="TermsBodyPart2" xml:space="preserve">
-    <value>By using this software and adding your folders, you give Rise Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music &amp; Videos) by default.
+    <value>Ao utilizar este software e adicionar as suas pastas, você dá ao Rise Media Player acesso total para editar os metadados da mídia, visualizar os ficheiros, eliminar, etc. Você também dá acesso aos locais da sua biblioteca padrão para mídia (Música e Vídeos) por padrão.
 
-By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.</value>
+Por padrão, você concede ao software acesso para rastrear o seu histórico de escuta e hábitos para servir as recomendações personalizadas. Isso pode ser desligado.</value>
   </data>
   <data name="TermsBodyPart3" xml:space="preserve">
-    <value>Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service(s).
+    <value>Ao iniciar sessão e utilizando as suas contas online, permite que este software gerencie a sua biblioteca online, visualize compras e histórico de escuta do(s) seu(s) serviço(s) escolhido(s).
 
-By using any one of the streaming services available in the app, you accept their own terms and conditions for service. These will be available at their respective websites.
+Ao utilizar qualquer um dos serviços de streaming disponíveis na aplicação, você aceita os seus próprios termos e condições de serviço. Eles estarão disponíveis em nos seus respectivos sites.
 
-Congrats if you read this! Have a cookie :) Please follow all of these terms for the best experience and least issues.</value>
+Parabéns se você leu isso! Tenha um cookie :) Siga todos estes termos para obter a melhor experiência e menos problemas.</value>
   </data>
   <data name="AppearanceAtAGlanceDesc" xml:space="preserve">
-    <value>Add widgets to make your experience more personal.</value>
+    <value>Adicione widgets para tornar a sua experiência mais pessoal.</value>
   </data>
   <data name="AppearanceAtAGlanceTitle" xml:space="preserve">
-    <value>Customise your at a glance page</value>
+    <value>Personalize a sua página de visão geral</value>
   </data>
   <data name="AppearanceCuratedPlaylistsDesc" xml:space="preserve">
-    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
+    <value>As listas de reprodução são feitas com base nos seus hábitos e favoritos, incluindo músicas que você gosta.</value>
   </data>
   <data name="AppearanceCuratedPlaylistsTitle" xml:space="preserve">
-    <value>Make curated playlists</value>
+    <value>Crie listas de reprodução selecionadas</value>
   </data>
   <data name="AppearanceDesc" xml:space="preserve">
-    <value>Personalize with icon styles, colors, modes and more that can not only make your experience more personal, but more user friendly.</value>
+    <value>Personalize com estilos de ícone, cores, modos e muito mais, que podem não só tornar a sua experiência mais pessoal, mas também mais amigável.</value>
   </data>
   <data name="AppearanceHistoryTitle" xml:space="preserve">
-    <value>Track media history and habits</value>
+    <value>Monitorize o histórico de mídia e hábitos</value>
   </data>
   <data name="ConnectDesc" xml:space="preserve">
-    <value>Streaming services are here! Connect all the accounts you use for streaming media*. We use these for recommendations and playing your stuff.</value>
+    <value>Os serviços de streaming estão aqui! Conecte todas as contas que você usa para transmitir mídias*. Nós utilizamos para recomendações e reproduzir as suas coisas.</value>
   </data>
   <data name="ConnectSoonText" xml:space="preserve">
-    <value>More internet accounts &amp; services are coming soon.</value>
+    <value>Mais contas e serviços na internet disponíveis em breve.</value>
   </data>
   <data name="ConnectTip" xml:space="preserve">
-    <value>*Music streaming requires a premium level account to function. Only one music streaming service can be enabled at a time.</value>
+    <value>*O streaming de música requer uma conta de nível premium para funcionar. Apenas um serviço de streaming de música pode ser ativado por vez.</value>
   </data>
   <data name="FinishBodyPart1" xml:space="preserve">
-    <value>Depending on how much you have added and changed, this process can take several minutes. If you want to continue this process later, just click not now. This will exit the app.</value>
+    <value>Dependendo de quanto você adicionou e alterou, este processo pode levar vários minutos. Se você deseja continuar esse processo mais tarde, clique em não agora. Isto irá sair da aplicação.</value>
   </data>
   <data name="FinishBodyPart2" xml:space="preserve">
-    <value>If you want to start this process now, select continue. The whole process is automatic and doesn't require any user input.</value>
+    <value>Se tu desejares iniciar este processo agora, seleciona continuar. Todo o processo é automático e não requer nenhuma intervenção do utilizador.</value>
   </data>
   <data name="FinishDesc" xml:space="preserve">
-    <value>Your part is finished. We just need to add your local media files and make sure all of your settings have been applied.</value>
+    <value>A sua parte terminou. Só precisamos adicionar os seus ficheiros de mídia local e garantir que todas as suas configurações tenham sido aplicadas.</value>
   </data>
   <data name="LocalDesc" xml:space="preserve">
-    <value>Whether that's media you've ripped from CD's and DVD's, bought or downloaded from the internet, customise what we do with it.</value>
+    <value>Qualquer mídia que você copiou de CDs e DVDs, comprou ou transferiu da Internet, personalize o que fazemos com ela.</value>
   </data>
   <data name="LocalTip" xml:space="preserve">
-    <value>Your video library is already split into 'Local and Purchased' and sections for your streaming services.</value>
+    <value>A sua biblioteca de vídeo já está dividida em 'Local e Comprado' e secções para os seus serviços de streaming.</value>
   </data>
 </root>

@@ -169,22 +169,22 @@
     <value>Choose your window glaze</value>
   </data>
   <data name="AppearanceChooseTheme" xml:space="preserve">
-    <value>Choose your colour</value>
+    <value>Choose your color</value>
   </data>
   <data name="AppearanceCustomGlazeColor" xml:space="preserve">
-    <value>Use custom colour</value>
+    <value>Use custom color</value>
   </data>
   <data name="AppearanceIconsAndFonts" xml:space="preserve">
     <value>Icons &amp; fonts</value>
   </data>
   <data name="AppearanceItemDesc" xml:space="preserve">
-    <value>Customise app colours, themes, icons, layouts and motion.</value>
+    <value>Customize app colors, themes, icons, layouts and motion.</value>
   </data>
   <data name="AppearanceNoGlaze" xml:space="preserve">
     <value>No glaze</value>
   </data>
   <data name="AppearanceNothing" xml:space="preserve">
-    <value>There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown.</value>
+    <value>There's nothing to show here. To show available colors, select 'Use custom color' from the dropdown.</value>
   </data>
   <data name="AppearanceOverview" xml:space="preserve">
     <value>Overview</value>
@@ -196,7 +196,7 @@
     <value>On startup</value>
   </data>
   <data name="AppearanceSystemGlazeColor" xml:space="preserve">
-    <value>Use system accent colour</value>
+    <value>Use system accent color</value>
   </data>
   <data name="AppearanceTip" xml:space="preserve">
     <value>*Compact mode changes won't take effect until after setup has completed.</value>
@@ -205,7 +205,7 @@
     <value>App theme changed</value>
   </data>
   <data name="ColorfulIcons" xml:space="preserve">
-    <value>Colourful Icons</value>
+    <value>Colorful Icons</value>
   </data>
   <data name="ConnectToLastFmDesc" xml:space="preserve">
     <value>Discover your recently played, listening history and scrobble to the internet.</value>
@@ -214,7 +214,7 @@
     <value>Connect to last.fm</value>
   </data>
   <data name="CustomizedColors" xml:space="preserve">
-    <value>Customised colours</value>
+    <value>Customized colors</value>
   </data>
   <data name="HighContrastIcons" xml:space="preserve">
     <value>High Contrast Icons</value>
@@ -340,7 +340,7 @@
     <value>Choose different sound profiles depending on your media type.</value>
   </data>
   <data name="PlaybackEQTitle" xml:space="preserve">
-    <value>Equaliser</value>
+    <value>Equalizer</value>
   </data>
   <data name="PlaybackGaplessDesc" xml:space="preserve">
     <value>We will instantly move to your next track without waiting.</value>
@@ -370,10 +370,10 @@
     <value>Video</value>
   </data>
   <data name="PlaybackVisualizerTitle" xml:space="preserve">
-    <value>Visualiser</value>
+    <value>Visualizer</value>
   </data>
   <data name="RecentColors" xml:space="preserve">
-    <value>Recent colours</value>
+    <value>Recent colors</value>
   </data>
   <data name="RestoreDefaults" xml:space="preserve">
     <value>Restore defaults</value>
@@ -391,7 +391,7 @@
     <value>Choose your language manually from a list.</value>
   </data>
   <data name="SettingsFluentColor" xml:space="preserve">
-    <value>Fluent Colour</value>
+    <value>Fluent Color</value>
   </data>
   <data name="SettingsHighContrast" xml:space="preserve">
     <value>High Contrast</value>
@@ -439,12 +439,12 @@
     <value>App settings</value>
   </data>
   <data name="ViewColors" xml:space="preserve">
-    <value>View colours</value>
+    <value>View colors</value>
   </data>
   <data name="ViewFiles" xml:space="preserve">
     <value>View files</value>
   </data>
   <data name="WindowsColors" xml:space="preserve">
-    <value>Windows colours</value>
+    <value>Windows colors</value>
   </data>
 </root>

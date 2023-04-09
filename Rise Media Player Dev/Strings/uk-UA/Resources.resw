@@ -941,4 +941,7 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   <data name="FromFolder" xml:space="preserve">
     <value>From folder</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
 </root>
