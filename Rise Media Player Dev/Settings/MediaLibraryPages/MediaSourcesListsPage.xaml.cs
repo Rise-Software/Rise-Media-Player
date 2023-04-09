@@ -1,6 +1,4 @@
-﻿using Rise.Common.Extensions;
-using Rise.Common.Helpers;
-using System;
+﻿using System;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -47,28 +45,22 @@ namespace Rise.App.Settings
 
         private async void RemoveMusicFolder_Click(object sender, RoutedEventArgs e)
         {
-            var elm = sender as FrameworkElement;
-            var content = elm.FindVisualParent<CompositionControl>();
-
-            if (content.DataContext is StorageFolder folder)
+            var elm = (FrameworkElement)sender;
+            if (elm.DataContext is StorageFolder folder)
                 _ = await MusicLibrary.RequestRemoveFolderAsync(folder);
         }
 
         private async void RemoveVideoFolder_Click(object sender, RoutedEventArgs e)
         {
-            var elm = sender as FrameworkElement;
-            var content = elm.FindVisualParent<CompositionControl>();
-
-            if (content.DataContext is StorageFolder folder)
+            var elm = (FrameworkElement)sender;
+            if (elm.DataContext is StorageFolder folder)
                 _ = await VideoLibrary.RequestRemoveFolderAsync(folder);
         }
 
         private async void OpenFolder_Click(object sender, RoutedEventArgs e)
         {
-            var elm = sender as FrameworkElement;
-            var content = elm.FindVisualParent<CompositionControl>();
-
-            if (content.DataContext is StorageFolder folder)
+            var elm = (FrameworkElement)sender;
+            if (elm.DataContext is StorageFolder folder)
                 _ = await Launcher.LaunchFolderAsync(folder);
         }
     }

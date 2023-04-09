@@ -160,7 +160,6 @@
     <Compile Include="Extensions\ViewManagementExtensions.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\CancellableTaskHelper.cs" />
-    <Compile Include="Helpers\CompositionControl.cs" />
     <Compile Include="Extensions\CryptographyExtensions.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\SettingsHelpers.cs" />
