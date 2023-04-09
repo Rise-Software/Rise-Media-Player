@@ -22,7 +22,7 @@
                 <RepositionThemeTransition IsStaggeringEnabled="False" />
             </TransitionCollection>
         </StackPanel.ChildrenTransitions>
-        
+
         <labs:SettingsCard
             Description="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanDesc}"
             Header="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanTitle}"
@@ -42,7 +42,7 @@
             <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind ViewModel.IndexingTimerEnabled, Mode=TwoWay}" />
 
             <labs:SettingsExpander.Items>
-                <labs:SettingsCard x:Name="PeriodicContent" Visibility="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
+                <labs:SettingsCard x:Name="PeriodicContent" IsEnabled="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
                     <labs:SettingsCard.Header>
                         <controls:WrapPanel>
                             <TextBlock
