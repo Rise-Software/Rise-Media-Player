@@ -276,7 +276,6 @@
     </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
-    <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\SearchItemViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
@@ -364,9 +363,6 @@
     </Compile>
     <Compile Include="Views\Genres\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ExpanderControl.xaml.cs">
-      <DependentUpon>ExpanderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibility.cs" />
     <Compile Include="Views\Albums\AlbumsPage.xaml.cs">
@@ -957,10 +953,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Genres\GenresPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ExpanderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
