@@ -9,6 +9,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="320"
     d:Width="500"
@@ -34,50 +35,60 @@
                 Margin="0,-10,0,0"
                 Style="{StaticResource SubheaderTextBlockStyle}" />
 
-            <uc:ExpanderControl
-                x:Uid="/HelpTips/AddPersonalMusicAndVideos"
-                ExpanderStyle="Default"
-                Icon="&#xEA69;">
-                <RichTextBlock IsTextSelectionEnabled="False">
-                    <Paragraph>
-                        To add your personal music and videos, go to <Hyperlink Click="AppSettingsHyperlink_Click" UnderlineStyle="None">app settings</Hyperlink>
-                        and go to the library page. Click on the button that corresponds to the type of media you want to add (music or videos). Then click ‘Add folder’ to select from your files. If you add a root folder, we’ll look in all of the folders within, so there’s no need to add many folders. We’ll automatically rescan your music and videos to match your new locations. You’re done!
-                    </Paragraph>
-                </RichTextBlock>
-            </uc:ExpanderControl>
+            <labs:SettingsExpander Header="{markup:ResourceHelper Name=/HelpTips/AddPersonalMusicAndVideosTitle}" HeaderIcon="{ui:FontIcon Glyph=&#xEA69;}">
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard>
+                        <labs:SettingsCard.Header>
+                            <RichTextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" IsTextSelectionEnabled="False">
+                                <Paragraph>
+                                    To add your personal music and videos, go to
+                                    <Hyperlink Click="AppSettingsHyperlink_Click" UnderlineStyle="None">app settings</Hyperlink>
+                                    and go to the library page. Click on the button that corresponds to the type of media you want to add (music or videos). Then click ‘Add folder’ to select from your files. If you add a root folder, we’ll look in all of the folders within, so there’s no need to add many folders. We’ll automatically rescan your music and videos to match your new locations. You’re done!
+                                </Paragraph>
+                            </RichTextBlock>
+                        </labs:SettingsCard.Header>
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
 
-            <uc:ExpanderControl
-                x:Uid="/HelpTips/SortingManagingLibrary"
-                ExpanderStyle="Default"
-                Icon="&#xE174;">
-                <RichTextBlock IsTextSelectionEnabled="False">
-                    <Paragraph>
-                        From several pages, you can sort through your music and videos. Choose the sort option from the command bar and select what seems most appropriate to you. You can sort in ascending and descending order too, so there’s something for everybody!
-                    </Paragraph>
-                    <Paragraph Margin="0,12,0,0">
-                        You can also manage your library by editing properties of albums, songs or videos. To do this, right click one and choose ‘Properties and Info’. There you can edit titles, ratings, file names and more to simplify your library and fix metadata’s issues. Soon you’ll be able to change album art too!
-                    </Paragraph>
-                </RichTextBlock>
-            </uc:ExpanderControl>
+            <labs:SettingsExpander Header="{markup:ResourceHelper Name=/HelpTips/SortingManagingLibraryTitle}" HeaderIcon="{ui:FontIcon Glyph=&#xE174;}">
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard>
+                        <labs:SettingsCard.Header>
+                            <RichTextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" IsTextSelectionEnabled="False">
+                                <Paragraph>
+                                    From several pages, you can sort through your music and videos. Choose the sort option from the command bar and select what seems most appropriate to you. You can sort in ascending and descending order too, so there’s something for everybody!
+                                </Paragraph>
+                                <Paragraph Margin="0,12,0,0">
+                                    You can also manage your library by editing properties of albums, songs or videos. To do this, right click one and choose ‘Properties and Info’. There you can edit titles, ratings, file names and more to simplify your library and fix metadata’s issues. Soon you’ll be able to change album art too!
+                                </Paragraph>
+                            </RichTextBlock>
+                        </labs:SettingsCard.Header>
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
 
-            <uc:ExpanderControl
-                x:Uid="/HelpTips/PlayingMediaNowPlaying"
-                ExpanderStyle="Default"
-                Icon="&#xE102;">
-                <RichTextBlock IsTextSelectionEnabled="False">
-                    <Paragraph>
-                        It’s easy to play any media you wish. Just hover over any song, album, artist, playlist, genre or video and click the play button! It will appear in the now playing bar.
-                    </Paragraph>
+            <labs:SettingsExpander Header="{markup:ResourceHelper Name=/HelpTips/PlayingMediaNowPlayingTitle}" HeaderIcon="{ui:FontIcon Glyph=&#xE102;}">
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard>
+                        <labs:SettingsCard.Header>
+                            <RichTextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" IsTextSelectionEnabled="False">
+                                <Paragraph>
+                                    It’s easy to play any media you wish. Just hover over any song, album, artist, playlist, genre or video and click the play button! It will appear in the now playing bar.
+                                </Paragraph>
 
-                    <Paragraph Margin="0,12,0,0">
-                        The now playing bar gives you quick information about what’s, playing as well as simple playback controls and links to full screen mode and the now playing compact mode.
-                    </Paragraph>
+                                <Paragraph Margin="0,12,0,0">
+                                    The now playing bar gives you quick information about what’s, playing as well as simple playback controls and links to full screen mode and the now playing compact mode.
+                                </Paragraph>
 
-                    <Paragraph Margin="0,12,0,0">
-                        Click the shrink icon to enter compact mode. This will show your album artwork and media controls when you hover. To leave this view at any time, just click the shrink button.
-                    </Paragraph>
-                </RichTextBlock>
-            </uc:ExpanderControl>
+                                <Paragraph Margin="0,12,0,0">
+                                    Click the shrink icon to enter compact mode. This will show your album artwork and media controls when you hover. To leave this view at any time, just click the shrink button.
+                                </Paragraph>
+                            </RichTextBlock>
+                        </labs:SettingsCard.Header>
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
 
             <StackPanel Margin="0,100,0,0" Orientation="Vertical">
                 <muxc:TeachingTip
