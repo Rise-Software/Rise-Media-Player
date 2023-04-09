@@ -33,7 +33,9 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             if (_groupDescription != value)
             {
                 _groupDescription = value;
-                _collectionGroupComparer = new CollectionGroupComparer(value);
+
+                if (_groupDescription != null)
+                    _collectionGroupComparer = new CollectionGroupComparer(value);
 
                 if (_deferCounter == 0)
                     OnSortDescriptionsChanged(CurrentItem);
