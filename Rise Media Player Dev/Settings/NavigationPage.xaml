@@ -3,188 +3,112 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            
             <TextBlock
-                Text="{markup:ResourceHelper Name=/Settings/PlaybackGeneralH}"
                 Margin="0,-10,0,0"
-                Style="{StaticResource SubheaderTextBlockStyle}" />
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/AppearanceStartupTitle}"
-                ExpanderStyle="Static"
-                Icon="&#xE7E8;">
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                Text="{markup:ResourceHelper Name=/Settings/PlaybackGeneralH}" />
+            <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/AppearanceStartupTitle}" HeaderIcon="{ui:FontIcon Glyph=&#xE7E8;}">
                 <ComboBox
                     ItemsSource="{x:Bind Startup}"
                     PlaceholderText="{markup:ResourceHelper Name=Songs}"
                     SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
 
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/AppearancePickUp}"
-                ExpanderStyle="Static"
-                Icon="&#xE126;">
+            <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/AppearancePickUp}" HeaderIcon="{ui:FontIcon Glyph=&#xE126;}">
                 <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
 
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/NavigationResize}"
-                ExpanderStyle="Disabled"
-                Icon="&#xE944;">
+            <labs:SettingsCard
+                Header="{markup:ResourceHelper Name=/Settings/NavigationResize}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE944;}"
+                IsEnabled="False">
                 <ComboBox
                     ItemsSource="{x:Bind Show}"
                     PlaceholderText="Don't show the sidebar"
                     SelectedIndex="{x:Bind ViewModel.Resize, Mode=TwoWay}" />
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
 
-            <TextBlock Text="{markup:ResourceHelper Name=/Settings/NavigationAppearanceH}" Style="{StaticResource SubheaderTextBlockStyle}" />
-            
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/NavigationHamburgerTitle}"
-                ExpanderStyle="Disabled"
-                Icon="&#xE700;">
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/NavigationAppearanceH}" />
+
+            <labs:SettingsCard
+                Header="{markup:ResourceHelper Name=/Settings/NavigationHamburgerTitle}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE700;}"
+                IsEnabled="False">
                 <ToggleSwitch IsOn="{x:Bind ViewModel.Hamburger, Mode=TwoWay}" />
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
 
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/NavigationIconStyle}"
-                ExpanderStyle="Static"
-                Icon="&#xF354;">
+            <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/NavigationIconStyle}" HeaderIcon="{ui:FontIcon Glyph=&#xF354;}">
                 <ComboBox
                     ItemsSource="{x:Bind IconPacks}"
                     PlaceholderText="Default"
                     SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}"
                     SelectionChanged="IconStyle_SelectionChanged" />
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
 
-            <TextBlock Text="{markup:ResourceHelper Name=/Settings/NavigationAddRemoveH}" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/NavigationAddRemoveH}" />
 
-            <uc:ExpanderControl Title="{markup:ResourceHelper Name=/Settings/NavigationGeneralItems}" Icon="&#xE71D;">
-                <uc:ExpanderControl.HeaderControls>
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllGeneral, Mode=TwoWay}" />
-                </uc:ExpanderControl.HeaderControls>
+            <labs:SettingsExpander Header="{markup:ResourceHelper Name=/Settings/NavigationGeneralItems}" HeaderIcon="{ui:FontIcon Glyph=&#xE71D;}">
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllGeneral, Mode=TwoWay}" />
 
-                <StackPanel
-                    HorizontalAlignment="Stretch"
-                    Orientation="Vertical"
-                    Spacing="8">
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=Home}"
-                        Margin="0,-16,0,-8"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xECA5;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowAtAGlance, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard Header="{markup:ResourceHelper Name=Home}" HeaderIcon="{ui:FontIcon Glyph=&#xECA5;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAtAGlance, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                    <labs:SettingsCard Header="{markup:ResourceHelper Name=Playlists}" HeaderIcon="{ui:FontIcon Glyph=&#xE8FD;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                    <labs:SettingsCard Header="{markup:ResourceHelper Name=Discy}" HeaderIcon="{ui:FontIcon Glyph=&#xE897;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowHelpCentre, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
 
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+            <labs:SettingsExpander Header="{markup:ResourceHelper Name=Music}" HeaderIcon="{ui:FontIcon Glyph=&#xE189;}">
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllMusic, Mode=TwoWay}" />
 
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=Playlists}"
-                        Margin="0,-8"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE8FD;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" HeaderIcon="{ui:FontIcon Glyph=&#xE185;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowMusicHeader, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=Songs}" HeaderIcon="{ui:FontIcon Glyph=&#xEC4F;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowSongs, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=Artists}" HeaderIcon="{ui:FontIcon Glyph=&#xE125;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowArtists, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=Albums}" HeaderIcon="{ui:FontIcon Glyph=&#xE93C;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
 
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+            <labs:SettingsExpander Header="{markup:ResourceHelper Name=Videos}" HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}">
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
 
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=Discy}"
-                        Margin="0,-8,0,-16"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE897;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowHelpCentre, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
-                </StackPanel>
-            </uc:ExpanderControl>
-
-            <uc:ExpanderControl Title="{markup:ResourceHelper Name=Music}" Icon="&#xE189;">
-                <uc:ExpanderControl.HeaderControls>
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllMusic, Mode=TwoWay}" />
-                </uc:ExpanderControl.HeaderControls>
-
-                <StackPanel
-                    HorizontalAlignment="Stretch"
-                    Orientation="Vertical"
-                    Spacing="8">
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
-                        Margin="0,-16,0,-8"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE185;">
-                        <ToggleSwitch
-                            Margin="0,2,0,0"
-                            IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}"
-                            IsOn="{x:Bind ViewModel.ShowMusicHeader, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
-
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=Songs}"
-                        Margin="0,-8"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xEC4F;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowSongs, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
-
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=Artists}"
-                        Margin="0,-8"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE125;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowArtists, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
-
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=Albums}"
-                        Margin="0,-8"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE93C;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
-                </StackPanel>
-            </uc:ExpanderControl>
-
-            <uc:ExpanderControl Title="{markup:ResourceHelper Name=Videos}" Icon="&#xE8B2;">
-                <uc:ExpanderControl.HeaderControls>
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
-                </uc:ExpanderControl.HeaderControls>
-
-                <StackPanel
-                    HorizontalAlignment="Stretch"
-                    Orientation="Vertical"
-                    Spacing="8">
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
-                        Margin="0,-16,0,-8"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE185;">
-                        <ToggleSwitch
-                            Margin="0,2,0,0"
-                            IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}"
-                            IsOn="{x:Bind ViewModel.ShowVideoHeader, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
-
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=LocalVideos}"
-                        Margin="0,-8,0,-16"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE8B2;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowLocalVideos, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
-                </StackPanel>
-            </uc:ExpanderControl>
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}" Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" HeaderIcon="{ui:FontIcon Glyph=&#xE185;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowVideoHeader, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}" Header="{markup:ResourceHelper Name=LocalVideos}" HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}">
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLocalVideos, Mode=TwoWay}" />
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
         </StackPanel>
     </ScrollViewer>
 </Page>

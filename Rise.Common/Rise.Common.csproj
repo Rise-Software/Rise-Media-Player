@@ -133,7 +133,6 @@
     <Compile Include="Constants\URLs.cs" />
     <Compile Include="Enums\AlbumViewMode.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
-    <Compile Include="Enums\ExpanderStyles.cs" />
     <Compile Include="Enums\GlazeTypes.cs" />
     <Compile Include="Enums\IndexingMode.cs" />
     <Compile Include="Enums\MatchLevel.cs" />
@@ -160,7 +159,6 @@
     <Compile Include="Extensions\ViewHelpers.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\CancellableTaskHelper.cs" />
-    <Compile Include="Helpers\CompositionControl.cs" />
     <Compile Include="Extensions\CryptographyExtensions.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\SettingsHelpers.cs" />

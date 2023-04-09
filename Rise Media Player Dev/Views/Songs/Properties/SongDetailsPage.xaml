@@ -5,10 +5,11 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     d:Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="600"
     d:DesignWidth="500"
@@ -31,12 +32,11 @@
         d:Padding="24,0"
         Orientation="Vertical"
         Spacing="4">
-        <uc:ExpanderControl
+        <labs:SettingsCard
             x:Name="LocalExpander"
-            Title="{markup:ResourceHelper Name=MediaLocalExpanderTitle}"
             d:Visibility="Visible"
-            ExpanderStyle="Static"
-            Icon="&#xE8B7;"
+            Header="{markup:ResourceHelper Name=MediaLocalExpanderTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE8B7;}"
             Visibility="{x:Bind Props.Model.Model.IsLocal, Converter={StaticResource BoolToVis}}">
             <Button
                 x:Name="LocalButton"
@@ -48,14 +48,13 @@
                     <FontIcon FontSize="16" Glyph="&#xE946;" />
                 </Button.Content>
             </Button>
-        </uc:ExpanderControl>
+        </labs:SettingsCard>
 
-        <uc:ExpanderControl
+        <labs:SettingsCard
             x:Name="OnlineExpander"
-            Title="{markup:ResourceHelper Name=MediaOnlineExpanderTitle}"
             d:Visibility="Collapsed"
-            ExpanderStyle="Static"
-            Icon="&#xE12B;"
+            Header="{markup:ResourceHelper Name=MediaOnlineExpanderTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE12B;}"
             Visibility="{x:Bind helpers:BindingHelpers.InverseBoolToVis(Props.Model.Model.IsLocal)}">
             <Button
                 x:Name="OnlineButton"
@@ -67,7 +66,7 @@
                     <FontIcon FontSize="16" Glyph="&#xE946;" />
                 </Button.Content>
             </Button>
-        </uc:ExpanderControl>
+        </labs:SettingsCard>
 
         <Border Style="{StaticResource SettingsCard}">
             <StackPanel
