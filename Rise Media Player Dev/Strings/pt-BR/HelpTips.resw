@@ -118,151 +118,151 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Adding your personal music and videos</value>
+    <value>Adicionando suas músicas e vídeos pessoais</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
-    <value>• These versions will be pushed from the Microsoft Store
+    <value>• Essas versões serão enviadas pela Microsoft Store
 • Playlists
-• Devices support
-• Disc Burning
-• Multi-language support for 12 languages at start (not complete)
-• Some online services in background - Discord Rich Presence &amp; Last.fm Scrobbling
-• Views and sorting for music added
-• Video indexing and playback
-• Improved Now Playing experience and queue
-• Overhauled Settings UI brought to all builds
-• Local recommendations and recently played
-• Discy in the majority of the app</value>
+• Suporte a dispositivos
+• Gravação de disco
+• Suporte a 12 idiomas no início (não completo)
+• Alguns serviços online em segundo plano - Discord Rich Presence e Last.fm
+• Visualizações e classificação para músicas adicionadas
+• Indexação e reprodução de vídeo
+• Fila de Reprodução e Reproduzindo Agora melhorados
+• Interface melhorada das Configurações para todas as compilações
+• Recomendações locais e reproduzido recentemente
+• Discy na maioria do aplicativo</value>
   </data>
   <data name="AlphaH.Text" xml:space="preserve">
-    <value>Late Pre-Alpha - Alpha</value>
+    <value>Pre-Alpha Avançada - Alpha</value>
   </data>
   <data name="Benefits.Text" xml:space="preserve">
-    <value>First, the app early.
+    <value>Primeiro, o aplicativo cedo.
 
-Insiders in the Bloom Channel get access to the earliest builds possible. This really gives you a chance to see what we are working on, and to give feedback as we actively work on parts of the app, meaning your feedback means a whole lot! Of course, it isn't without it's disadvantages. Bloom Channel insiders also face more bugs and issues than other users. Bloom Insiders also get access to features tagged 'Experimental', meaning we have put very little work into them at that point, or they are very unstable, but interesting to try out nonetheless. These features are never enabled by default.
+Insiders no Canal Bloom têm acesso às compilações mais atuais possíveis. Isso realmente lhe dá uma chance de ver em que estamos trabalhando, e dar um feedback enquanto trabalhamos ativamente em partes do aplicativo, o que significa que seu feedback significa muito! Claro, isso não é sem as desvantagens. O Canal Bloom também enfrenta mais bugs e problemas do que outros usuários. Insiders Bloom também têm acesso a recursos marcados como "Experimentais", o que significa que investimos muito pouco trabalho neles neste momento ou são muito instáveis, mas são interessantes para experimentar. Esses recursos nunca são ativados por padrão.
 
-Early Access Insiders (previously Seeding Insiders) get access to the app earlier, although with much more stability. Experimental features will not be available to Insiders in this channel.*
+Insiders de Acesso Antecipado (préviamente Seeding Insiders) têm acesso ao aplicativo mais cedo, embora com muito mais estabilidade. Recursos experimentais não estarão disponíveis para Insiders neste canal.*
 
-*Features tagged as Experimental in the Settings interface</value>
+*Recursos marcados como Experimentais na interface de Configurações</value>
   </data>
   <data name="BenefitsH.Text" xml:space="preserve">
-    <value>What benefits do I get from joining the Insider Program?</value>
+    <value>Quais benefícios eu ganho ao entrar no Programa Insider?</value>
   </data>
   <data name="Beta.Text" xml:space="preserve">
-    <value>• Streaming services and reccommendations in some form
-• Equaliser
-• Visualiser
-• Find album info
-• Disc ripping
-• Networks support
-• More stuff</value>
+    <value>• Serviços de Streaming e recomendações
+• Equalizador
+• Visualizador
+• Procurar informações de álbum
+• Extração de Disco
+• Suporte a rede
+• Entre outros</value>
   </data>
   <data name="BetaH.Text" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="DiscyAboutTipDesc" xml:space="preserve">
-    <value>You can find me by right clicking on different things. For example, an album. I'll tell you what you can do :). I'm still pretty new, so I won't be everywhere, but I'm growing every day!</value>
+    <value>Você pode me encontrar clicando com o botão direito em diferentes coisas. Por exemplo, um álbum. Eu vou te dizer o que você poderá fazer ;). Ainda sou bem novo, então não estarei em todo lugar, mas eu vou crescer diariamente!</value>
   </data>
   <data name="DiscyAboutTipTitle" xml:space="preserve">
-    <value>Hey! I'm Discy.</value>
+    <value>Olá! Eu sou Discy.</value>
   </data>
   <data name="DiscyOnAlbumDesc" xml:space="preserve">
-    <value>Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.</value>
+    <value>Use a barra de comandos para classificar seus álbuns em diferentes tipos. Clique em um álbum para ver o que está disponível. Você pode adicionar um álbum inteiro a uma lista de reprodução, embaralhar ou compartilhar com amigos.</value>
   </data>
   <data name="DiscyOnAlbumH" xml:space="preserve">
-    <value>Managing and organising your albums</value>
+    <value>Gerenciando e organizando seus álbuns</value>
   </data>
   <data name="DiscyOnArtistDesc" xml:space="preserve">
-    <value>Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.</value>
+    <value>Reproduzir uma discografia inteira do artista de uma vez. Ver informações sobre um artista, seus álbuns (armazenados no seu dispositivo) e músicas clicando no artista que você quiser. Compartilhar seus artistas favoritos com seus amigos ou adicionar uma música inteira a uma lista de reprodução.</value>
   </data>
   <data name="DiscyOnPlaylistDesc" xml:space="preserve">
-    <value>Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!</value>
+    <value>Coloque suas músicas favoritas e especiais juntas em uma playlist. Dê uma descrição e um título. Em seguida, adicione músicas extras e remova faixas que você não tem muita certeza. Boa escuta!</value>
   </data>
   <data name="DiscyOnPlaylistH" xml:space="preserve">
-    <value>Group with playlists</value>
+    <value>Agrupar com playlists</value>
   </data>
   <data name="DiscyOnSongDesc" xml:space="preserve">
-    <value>Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!</value>
+    <value>Passe o mouse sobre uma música e clique no botão play para tocar uma música, ou clique duas vezes. Ignorar, voltar e ver as informações da música (na parte inferior da janela do seu aplicativo). Clique em 'Informações e Propriedades' para editar metadados e informações dos arquivos. Você pode sempre compartilhar com outros ou adicionar uma playlist também!</value>
   </data>
   <data name="DiscyOnSongH" xml:space="preserve">
-    <value>Taking action on songs</value>
+    <value>Utilizando e gerenciando suas músicas</value>
   </data>
   <data name="DiscyOnVideoDesc" xml:space="preserve">
-    <value>Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.</value>
+    <value>Clique em um vídeo para reproduzir. Renomeie e classifique-os. Os vídeos ocuparão toda a janela do aplicativo e você poderá pesquisar, pausar, pular e muito mais.</value>
   </data>
   <data name="DiscyOnVideoH" xml:space="preserve">
-    <value>Playing videos</value>
+    <value>Reproduzindo vídeos</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>The basics</value>
+    <value>O básico</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>What features are you prioritising?</value>
+    <value>Quais recursos você está priorizando?</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
-    <value>If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922</value>
+    <value>Se você gostaria de contribuir ou traduzir, entre em nosso servidor do Discord! Aqui: https://disboard.org/server/872910570003791922</value>
   </data>
   <data name="HowTransH.Text" xml:space="preserve">
-    <value>How can I become a contributor or a translator?</value>
+    <value>Como eu posso me tornar um colaborador ou um tradutor?</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
-    <value>When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the MSIX package for the new build. Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds. Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry!</value>
+    <value>Quando você tiver enviado seu formulário. Não há mais nada que você precise fazer, apenas espere. Quando a próxima compilação for lançada, você receberá um e-mail para o nosso Portal Insider, onde você poderá baixar o pacote MSIX para a nova compilação. Nota: compilações alfa e acima usarão a Microsoft Store para a distribuição, mas optamos por usar MSIX para Pré-Alfa já que haverá muitas compilações. Em algumas semanas, Insiders de ambos canais podem receber mesmas compilações. Isto é normal, não se preocupe!</value>
   </data>
   <data name="InsiderH.Text" xml:space="preserve">
-    <value>Hey, I'm an Insider. How do I get builds?</value>
+    <value>Ei, eu sou um Insider. Como eu posso conseguir novas compilações?</value>
   </data>
   <data name="InsiderProgram.Title" xml:space="preserve">
-    <value>Insider Program, Translations &amp; Contribution</value>
+    <value>Programa Insider, Traduções e Contribuição</value>
   </data>
   <data name="Join.Text" xml:space="preserve">
-    <value>Simply go to the form below and answer the questions. Choose your channel, enter your email and a few other things. https://bit.ly/rise-insider
+    <value>Basta acessar o formulário abaixo e responder às perguntas. Escolha seu canal, insira seu email e algumas outras coisas. https://bit.ly/rise-insider
 
-Good luck testing!</value>
+Boa sorte ao testar!</value>
   </data>
   <data name="JoinH.Text" xml:space="preserve">
-    <value>How do I join the Insider Program?</value>
+    <value>Como eu posso entrar no Programa Insider?</value>
   </data>
   <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Playing media and now playing</value>
+    <value>Reproduzindo mídia e tocando agora</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
-    <value>• Song, Album, Artist and Genre Indexing
-• Album, Artist, Genre and Songs Views (static for now)
-• Media Playback
-• Command Bar (BASIC)
-• User Controlled Media Locations
-• UI Manipulation through Settings
-• Basic Metadata control for Music
-• Basic Now Playing UI
-• Basic Properties Window
-• FAQ Help Section
-• Discy in small areas</value>
+    <value>• Indexação de Músicas, Álbuns e Artistas
+• Visualizações de Álbuns, Artistas, Gêneros e Músicas (estático por enquanto)
+• Playback de Mídia
+• Barra de Comando (básico)
+• Localizações de mídia controladas pelo usuário
+• Manipulação da interface através das Configurações
+• Controle básico de metadados para música
+• Interface básica de Agora Tocando
+• Janela de Propiedades básicas
+• Seção de Ajuda FAQ
+• Discy em algumas áreas</value>
   </data>
   <data name="PreAlphaH.Text" xml:space="preserve">
-    <value>Pre Alpha (there will be many pre-alpha versions)</value>
+    <value>Pre Alpha (haverá muitas versões pre-alfa)</value>
   </data>
   <data name="ReleaseDate.Title" xml:space="preserve">
-    <value>When will Rise Media Player be released?</value>
+    <value>Quando o Rise Media Player será lançado?</value>
   </data>
   <data name="ReleaseInfo.Text" xml:space="preserve">
-    <value>There is no official release date. Pre-Alpha 1 is being released October 21 (alongside Rise Notes) and we're so happy to finally have users testing! :)
+    <value>Não há data de lançamento oficial. Pré-Alfa 1 está sendo lançado em 21 de outubro (junto com Rise Notes) e estamos muito felizes em ter finalmente usuários testando! :)
 
-In terms of other versions, we have no exact dates to give you all, but this is what we are aiming for (versions may be released earlier or later depending on features:
+Em termos de outras versões, não temos datas exatas para dar a todos, mas é isso que estamos fazendo (versões podem ser lançadas mais cedo ou mais tarde, dependendo dos recursos):
 
-• Pre Alpha Process - October to December 2021 (Pre-Alpha 1 is the first version)
+• Processo Pre Alpha - de outubro a dezembro de 2021 (Pre-Alpha 1 é a primeira versão)
 
-• Alpha Builds - New Year (2022) up to March 2022. Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.
+• Alpha Builds - Ano Novo (2022) até março de 2022. Nota: Durante o processo alfa, versões de demonstração do aplicativo estarão publicamente disponíveis para testar para fins de UI.
 
-• Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
+• Beta - Abril - A ser anunciado (esta versão estará disponível para todos os usuários públicos da Microsoft Store. Você não precisará fazer parte do programa Insider, embora perca alguns recursos)</value>
   </data>
   <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Sorting and managing your library</value>
+    <value>Organizando e gerenciando sua biblioteca</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
-    <value>You'll have to see ;)</value>
+    <value>Você terá que ver ;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
-    <value>What's Discy?</value>
+    <value>O que é Discy?</value>
   </data>
 </root>

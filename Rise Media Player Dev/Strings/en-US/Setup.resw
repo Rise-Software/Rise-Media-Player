@@ -290,10 +290,10 @@ Congrats if you read this! Have a cookie :) Please follow all of these terms for
     <value>Add widgets to make your experience more personal.</value>
   </data>
   <data name="AppearanceAtAGlanceTitle" xml:space="preserve">
-    <value>Customise your at a glance page</value>
+    <value>Customize your at a glance page</value>
   </data>
   <data name="AppearanceCuratedPlaylistsDesc" xml:space="preserve">
-    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
+    <value>Playlists are made for you based on your habits and favorites, including songs you like.</value>
   </data>
   <data name="AppearanceCuratedPlaylistsTitle" xml:space="preserve">
     <value>Make curated playlists</value>

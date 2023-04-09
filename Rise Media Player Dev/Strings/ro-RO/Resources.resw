@@ -121,7 +121,7 @@
     <value>Despre</value>
   </data>
   <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>Acceptă</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Adaugă un cont</value>
@@ -175,13 +175,13 @@
     <value>Muzică</value>
   </data>
   <data name="NDays" xml:space="preserve">
-    <value>{0} days</value>
+    <value>{0} zile</value>
   </data>
   <data name="NHours" xml:space="preserve">
-    <value>{0} hours</value>
+    <value>{0} ore</value>
   </data>
   <data name="NMinutes" xml:space="preserve">
-    <value>{0} minutes</value>
+    <value>{0} minute</value>
   </data>
   <data name="NoCrossfade" xml:space="preserve">
     <value>Niciun crossfade</value>
@@ -193,16 +193,16 @@
     <value>{0} secunde</value>
   </data>
   <data name="OneDay" xml:space="preserve">
-    <value>1 day</value>
+    <value>1 zi</value>
   </data>
   <data name="OneHour" xml:space="preserve">
-    <value>1 hour</value>
+    <value>1 oră</value>
   </data>
   <data name="OneMinute" xml:space="preserve">
-    <value>1 minute</value>
+    <value>1 minut</value>
   </data>
   <data name="OneSecond" xml:space="preserve">
-    <value>1 second</value>
+    <value>1 secundă</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Utilizează numai fișiere locale</value>
@@ -229,7 +229,7 @@
     <value>Scalează la mărimea ferestrei</value>
   </data>
   <data name="PinToSidebar" xml:space="preserve">
-    <value>Pin to sidebar</value>
+    <value>Fixați pe bara laterală</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
     <value>Eliminare din sidebar</value>
@@ -268,22 +268,22 @@
     <value>Imagini de fundal</value>
   </data>
   <data name="NAlbums" xml:space="preserve">
-    <value>{0} albums</value>
+    <value>{0} albume</value>
   </data>
   <data name="NSongs" xml:space="preserve">
-    <value>{0} songs</value>
+    <value>{0} melodii</value>
   </data>
   <data name="NVideos" xml:space="preserve">
-    <value>{0} videos</value>
+    <value>{0} videoclipuri</value>
   </data>
   <data name="OneAlbum" xml:space="preserve">
     <value>1 album</value>
   </data>
   <data name="OneSong" xml:space="preserve">
-    <value>1 song</value>
+    <value>1 melodie</value>
   </data>
   <data name="OneVideo" xml:space="preserve">
-    <value>1 video</value>
+    <value>1 videoclip</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
     <value>În curând</value>
@@ -292,10 +292,10 @@
     <value>Informații album</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Play</value>
+    <value>Redă</value>
   </data>
   <data name="EditPlaylist" xml:space="preserve">
-    <value>Edit playlist</value>
+    <value>Editare playlist</value>
   </data>
   <data name="SongInfo" xml:space="preserve">
     <value>Info melodie</value>
@@ -355,169 +355,171 @@
     <value>Deschide locația fișierului</value>
   </data>
   <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
-    <value>Artist news feed</value>
+    <value>Flux știri Artist</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Anulare</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>Detalii</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>File</value>
+    <value>Fișier</value>
   </data>
   <data name="Lyrics" xml:space="preserve">
-    <value>Lyrics</value>
+    <value>Versuri</value>
   </data>
   <data name="PropsErrorContent" xml:space="preserve">
-    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+    <value>Nu am putut salva proprietățile melodiei. Este posibil ca fișierul să fi fost mutat, schimbat sau șters, sau este o problemă Windows.</value>
   </data>
   <data name="PropsErrorTitle" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Ceva nu a funcționat corect</value>
   </data>
   <data name="PropsSave" xml:space="preserve">
-    <value>Save changes</value>
+    <value>Salvare schimbări</value>
   </data>
   <data name="ShufflePlaylist" xml:space="preserve">
-    <value>Shuffle playlist</value>
+    <value>Amestecă playlist</value>
   </data>
   <data name="Contribute" xml:space="preserve">
-    <value>Contribute</value>
+    <value>Contribuie</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Versiune</value>
   </data>
   <data name="VersionTemplate" xml:space="preserve">
-    <value>{0}
-Internal Version: {1}
+    <value>Dată de lansare InDev: 24 decembrie 2021
+Dată de lansare finală: 1 ianuarie 2022
+Versiune internă: 0.135.0
+Ediție: Bloom
 
-Rise Software - Discy &amp; YourOrdinaryCat</value>
+Rise Software - Discy și YourOrdinaryCat</value>
   </data>
   <data name="TermsAndConditions" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+    <value>Termeni și condiții</value>
   </data>
   <data name="Of" xml:space="preserve">
-    <value>of</value>
+    <value>a</value>
   </data>
   <data name="Learn" xml:space="preserve">
-    <value>Learn more</value>
+    <value>Află mai multe</value>
   </data>
   <data name="Album" xml:space="preserve">
     <value>Album</value>
   </data>
   <data name="AlbumArtist" xml:space="preserve">
-    <value>Album artist</value>
+    <value>Albumul artistului</value>
   </data>
   <data name="ArtistOrArtists" xml:space="preserve">
-    <value>Artist(s)</value>
+    <value>Artist (artiștii)</value>
   </data>
   <data name="BecomeTranslator" xml:space="preserve">
-    <value>Become a translator </value>
+    <value>Deveniți un traducător </value>
   </data>
   <data name="Bitrate" xml:space="preserve">
-    <value>Bitrate</value>
+    <value>Rată de biți</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Descriere</value>
   </data>
   <data name="Disc" xml:space="preserve">
     <value>Disc</value>
   </data>
   <data name="EditAlbum" xml:space="preserve">
-    <value>Edit album art</value>
+    <value>Editare artă album</value>
   </data>
   <data name="ExportAlbumArt" xml:space="preserve">
-    <value>Export album art</value>
+    <value>Exportă coperta albumului</value>
   </data>
   <data name="ExportPlaylistIcon" xml:space="preserve">
-    <value>Export playlist icon</value>
+    <value>Exportă pictograma playlist</value>
   </data>
   <data name="Genre" xml:space="preserve">
-    <value>Genre</value>
+    <value>Gen</value>
   </data>
   <data name="MediaLocalDesc" xml:space="preserve">
-    <value>This song is local, meaning it is stored directly on to your device's storage, rather than the cloud or online. Changing properties here will change them for the file itself, meaning it will affect other media players.</value>
+    <value>Această melodie este locală, ceea ce înseamnă că este stocată direct pe stocarea dispozitivului tău, spre deosebire de cloud sau online. Schimbarea proprietăților aici va afecta alte playere media.</value>
   </data>
   <data name="MediaLocalTitle" xml:space="preserve">
-    <value>Local Music</value>
+    <value>Muzică locală</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Options</value>
+    <value>Opțiuni</value>
   </data>
   <data name="PlaylistSongsDetailsTipTitle" xml:space="preserve">
-    <value>Move songs by clicking the up and down buttons.</value>
+    <value>Mută melodiile făcând clic pe butoanele în sus și în jos.</value>
   </data>
   <data name="PlaylistTitle" xml:space="preserve">
-    <value>Playlist name</value>
+    <value>Nume playlist</value>
   </data>
   <data name="PlaylistVideosDetailsTipTitle" xml:space="preserve">
-    <value>Move videos by clicking the up and down buttons.</value>
+    <value>Mută videoclipurile făcând clic pe butoanele în sus și în jos.</value>
   </data>
   <data name="Rating" xml:space="preserve">
-    <value>Rating</value>
+    <value>Evaluare</value>
   </data>
   <data name="ReleaseYear" xml:space="preserve">
-    <value>Release year</value>
+    <value>An de lansare</value>
   </data>
   <data name="ReportAnIssue" xml:space="preserve">
-    <value>Report an issue</value>
+    <value>Raportează o problemă</value>
   </data>
   <data name="SongTitle" xml:space="preserve">
-    <value>Song title</value>
+    <value>Titlu melodie</value>
   </data>
   <data name="StoredAsFile" xml:space="preserve">
-    <value>This song is stored as a file on your device.</value>
+    <value>Această melodie este stocată ca un fișier pe dispozitivul tău.</value>
   </data>
   <data name="SystemLanguage" xml:space="preserve">
-    <value>System language</value>
+    <value>Limbă sistem</value>
   </data>
   <data name="TrackNumber" xml:space="preserve">
-    <value>Track number</value>
+    <value>Număr piesă</value>
   </data>
   <data name="Translations" xml:space="preserve">
-    <value>Translations</value>
+    <value>Traduceri</value>
   </data>
   <data name="AddRemoveDesc" xml:space="preserve">
-    <value>Let us find music and videos by adding folders and files on your device.</value>
+    <value>Lasă-ne să găsim muzică și videoclipuri adăugând foldere și fișiere de pe dispozitiv.</value>
   </data>
   <data name="AddRemoveTitle" xml:space="preserve">
-    <value>Add/remove media sources</value>
+    <value>Adaugă/elimină surse media</value>
   </data>
   <data name="AddTo" xml:space="preserve">
-    <value>Add to</value>
+    <value>Adaugă la</value>
   </data>
   <data name="AppSettings" xml:space="preserve">
-    <value>App settings</value>
+    <value>Setări aplicație</value>
   </data>
   <data name="Artist" xml:space="preserve">
     <value>Artist</value>
   </data>
   <data name="Ascending" xml:space="preserve">
-    <value>Ascending</value>
+    <value>Ascendent</value>
   </data>
   <data name="AskDiscy" xml:space="preserve">
-    <value>Ask Discy about this</value>
+    <value>Întreabă-l pe Discy despre asta</value>
   </data>
   <data name="BrowseMediaDesc" xml:space="preserve">
-    <value>Use a file browser to look through all of your media in your folders.</value>
+    <value>Folosește un browser de fișiere pentru a te uita prin toate fișierele media din dosare.</value>
   </data>
   <data name="BrowseMediaTitle" xml:space="preserve">
-    <value>Browse for media</value>
+    <value>Răsfoire pentru media</value>
   </data>
   <data name="ChangeArtistImage" xml:space="preserve">
-    <value>Change artist image</value>
+    <value>Schimbă imaginea de artist</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Închide</value>
   </data>
   <data name="Descending" xml:space="preserve">
-    <value>Descending</value>
+    <value>Descendent</value>
   </data>
   <data name="Feedback" xml:space="preserve">
     <value>Feedback</value>
   </data>
   <data name="Length" xml:space="preserve">
-    <value>Length</value>
+    <value>Lungime</value>
   </data>
   <data name="MessagesAndReports" xml:space="preserve">
     <value>Messages &amp; reports</value>
@@ -940,5 +942,8 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   </data>
   <data name="FromFolder" xml:space="preserve">
     <value>From folder</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Avertizare</value>
   </data>
 </root>

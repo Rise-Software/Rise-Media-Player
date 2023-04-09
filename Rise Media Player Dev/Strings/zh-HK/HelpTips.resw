@@ -118,126 +118,127 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Додавання вашої особистої музики та відео</value>
+    <value>增加個人音樂及影片</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
-    <value>• Ці версії будуть витіснені з Microsoft Store
-• Списки відтворення
-• Підтримка пристроїв
-• Запис дисків
-• Підтримка 12 мов на старті (не повністю)
-• Деякі онлайн-сервіси у фоновому режимі - Discord Rich Presence та Last.fm Scrobbling
-• Додано перегляд та сортування для музики
-• Індексування та відтворення відео
-• Покращено роботу з відтворенням та чергою
-• Оновлений інтерфейс налаштувань у всіх збірках
-• Локальні рекомендації та нещодавно відтворені
-• Discy у більшій частині програми</value>
+    <value>• 這些版本將會在微軟商店推出
+• 播放列表
+• 裝置支援
+• 燒碟
+• 支援12種不同語言（未完成）
+• 背景 Discord Rich Presence 及 Last.fm Scrobbling 服務
+• 新增音樂的檢視和排序
+• 影片索引和播放
+• 改進了正在播放體驗和排序
+• 重新設計的設定使用者介面已在所有新版本
+• 本地推薦和最近遊玩
+• Discy 在程式大部分功能中</value>
   </data>
   <data name="AlphaH.Text" xml:space="preserve">
-    <value>Пізня пре-альфа - Альфа</value>
+    <value>後期最初版前版 - 最初版</value>
   </data>
   <data name="Benefits.Text" xml:space="preserve">
-    <value>First, the app early.
+    <value>首先，應用程式很早。
 
-Insiders in the Bloom Channel get access to the earliest builds possible. This really gives you a chance to see what we are working on, and to give feedback as we actively work on parts of the app, meaning your feedback means a whole lot! Of course, it isn't without it's disadvantages. Bloom Channel insiders also face more bugs and issues than other users. Bloom Insiders also get access to features tagged 'Experimental', meaning we have put very little work into them at that point, or they are very unstable, but interesting to try out nonetheless. These features are never enabled by default.
+Bloom Channel的測試者可以使用最新的構建。 這會給予你機會看到我們正在做什麼，並給予我們反饋，因為您的反饋意義重大！ 當然，它並非沒有缺點。 Bloom Channel也比其他使用者面臨更多的漏洞和問題。 Bloom Insiders亦可以試用標記為「實驗性」的功能；「實驗性」功能再推出時可能未經整理或改善的，或者非常不穩定，但試起來很有趣。這些功能在預設下不會自動啟用。
 
-Early Access Insiders (previously Seeding Insiders) get access to the app earlier, although with much more stability. Experimental features will not be available to Insiders in this channel.*
+Early Access Insiders（前稱 Seeding Insiders）可以比主版較早試用該應用程式，但遲於Blooming Insiders，不過比Blooming Channel穩定得多。 本頻道的測試者將無法使用實驗功能。 *
 
-*Features tagged as Experimental in the Settings interface</value>
+*在設定中標記為「實驗性功能」</value>
   </data>
   <data name="BenefitsH.Text" xml:space="preserve">
-    <value>Які переваги я отримаю, приєднавшись до Insider Program?</value>
+    <value>我加入試用者有什麼好處？</value>
   </data>
   <data name="Beta.Text" xml:space="preserve">
-    <value>• Потокові сервіси та рекомендації в тій чи іншій формі
-• Еквалайзер
-• Візуалізатор
-• Пошук інформації про альбом
-• Копіювання дисків
-• Підтримка мереж
-• Більше речей</value>
+    <value>• 提供流媒體服務和建議（有限）
+• 均衡器
+• 視覺化
+• 專輯資訊
+• 共碟翻錄
+• 網路支援
+• 還有更多</value>
   </data>
   <data name="BetaH.Text" xml:space="preserve">
-    <value>Бета</value>
+    <value>測試版</value>
   </data>
   <data name="DiscyAboutTipDesc" xml:space="preserve">
-    <value>Ви можете знайти мене, клацнувши правою кнопкою миші на різних речах. Наприклад, альбом. Я розповім, що ви можете зробити :). Я все ще досить новий, тому мене не скрізь можна знайти, але я зростаю з кожним днем!</value>
+    <value>你可以透過點擊不同的東西來找我。 例如，一張專輯。 我會告訴你你能做什麼 :). 我現在還在學習中，所以我不會無處不在。</value>
   </data>
   <data name="DiscyAboutTipTitle" xml:space="preserve">
-    <value>Привіт! Я Діссі.</value>
+    <value>你好！我是Discy。</value>
   </data>
   <data name="DiscyOnAlbumDesc" xml:space="preserve">
-    <value>Використовуйте панель команд, щоб сортувати альбоми за різними типами. Натисніть на альбом, щоб побачити, що в ньому є. Ви можете додати цілий альбом до списку відтворення, перемішати або поділитися з друзями.</value>
+    <value>使用命令欄將你的專輯分類為不同的類型。 按下專輯可查看存儲的內容。 你可以將整張專輯添加到播放列表、隨機播放或與朋友分享。</value>
   </data>
   <data name="DiscyOnAlbumH" xml:space="preserve">
-    <value>Керування та організація ваших альбомів</value>
+    <value>管理及整理你的專輯</value>
   </data>
   <data name="DiscyOnArtistDesc" xml:space="preserve">
-    <value>Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.</value>
+    <value>播放音樂家整個的唱片。 按一按音樂家就可以看到有關音樂家、他們的專輯（儲你在裝置上）和歌曲的信息。 同你朋友分享你最喜歡的音樂家或將音樂家所有音樂添加到播放列表。</value>
   </data>
   <data name="DiscyOnPlaylistDesc" xml:space="preserve">
-    <value>Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!</value>
+    <value>將你最喜歡的音樂，特別的音樂，你的音樂一起放在播放列表。給它們名稱和描述。然後加入新的音樂並移除你不太喜歡的音樂。聆聽快樂！</value>
   </data>
   <data name="DiscyOnPlaylistH" xml:space="preserve">
-    <value>Група зі списками відтворення</value>
+    <value>與播放列表分組</value>
   </data>
   <data name="DiscyOnSongDesc" xml:space="preserve">
-    <value>Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!</value>
+    <value>將滑鼠懸停在歌曲上，雙點歌曲或單點播放以播放音樂。跳過，返回並在現在播放欄（在你視窗的底部）查看音樂歌曲資訊。按「 資訊及屬性」以更改音樂的Metadata及檔案資訊。你亦可以分享歌曲或把它加到播放清單！</value>
   </data>
   <data name="DiscyOnSongH" xml:space="preserve">
-    <value>Taking action on songs</value>
+    <value>對歌曲（資料）作出更改</value>
   </data>
   <data name="DiscyOnVideoDesc" xml:space="preserve">
-    <value>Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.</value>
+    <value>按下影片已播放。更改名稱並將他們排序。影片會使用整個視窗，你可以調節播放的時間，暫停，跳過和更多。</value>
   </data>
   <data name="DiscyOnVideoH" xml:space="preserve">
-    <value>Playing videos</value>
+    <value>播放影片</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>Основи</value>
+    <value>基本</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>What features are you prioritising?</value>
+    <value>你會優先考慮什麽功能？</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
-    <value>If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922</value>
+    <value>如果你想貢獻或翻譯，加入我們的Discord伺服器！https://disboard.org/server/872910570003791922</value>
   </data>
   <data name="HowTransH.Text" xml:space="preserve">
-    <value>How can I become a contributor or a translator?</value>
+    <value>我可以如何加入貢獻或翻譯團隊？</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
-    <value>When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the MSIX package for the new build. Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds. Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry!</value>
+    <value>在你提交表格後，你無需做任何其他動作，就等。在下一個版本發佈時你會收到一份往我們Insider網站的電郵，裏面含有新版本的MSIX包下載。備注：Alpha版本會使用微軟商店作分發，但我們基於過多版本選擇用在Alpha前版本使用MSIX包。有些星期兩者頻道的Insider會收到一樣的版本，不要擔心，這是正常的!</value>
   </data>
   <data name="InsiderH.Text" xml:space="preserve">
-    <value>Hey, I'm an Insider. How do I get builds?</value>
+    <value>我是個Insider，我如可取得新版本？</value>
   </data>
   <data name="InsiderProgram.Title" xml:space="preserve">
-    <value>Insider Program, Translations &amp; Contribution</value>
+    <value>Insider計劃，翻譯和貢獻</value>
   </data>
   <data name="Join.Text" xml:space="preserve">
-    <value>Simply go to the form below and answer the questions. Choose your channel, enter your email and a few other things. https://bit.ly/rise-insider
+    <value>前往以下的表格然後回答問題。選擇頻道，並輸入電郵地址和另外幾樣資料。
+https://bit.ly/rise-insider
 
-Good luck testing!</value>
+開心測試！</value>
   </data>
   <data name="JoinH.Text" xml:space="preserve">
-    <value>How do I join the Insider Program?</value>
+    <value>我如何加入Insider計劃？</value>
   </data>
   <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Playing media and now playing</value>
+    <value>播放媒體和正在播放</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
-    <value>• Song, Album, Artist and Genre Indexing
-• Album, Artist, Genre and Songs Views (static for now)
-• Media Playback
-• Command Bar (BASIC)
-• User Controlled Media Locations
-• UI Manipulation through Settings
-• Basic Metadata control for Music
-• Basic Now Playing UI
-• Basic Properties Window
-• FAQ Help Section
-• Discy in small areas</value>
+    <value>• 歌曲，專輯，歌手和類別索引
+• 專輯，歌手，類別及歌曲播放次數
+• 媒體播放
+• 指令欄（基本）
+• 用家控制媒體位置
+• 版面
+• 基本音樂Metadata控制
+• 基本現在播放版面
+• 基本屬性視窗
+• 常問問題幫助區
+• 小範圍中有Discy</value>
   </data>
   <data name="PreAlphaH.Text" xml:space="preserve">
     <value>Pre Alpha (there will be many pre-alpha versions)</value>

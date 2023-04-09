@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>A Adicionar a tua música e vídeos pessoais</value>
+    <value>Adicionando as suas músicas e vídeos pessoais</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• Estas versões irão ser retiradas da Microsoft Store
@@ -162,43 +162,43 @@ Early Access Insiders (anteriormente Seeding Insiders) obtêm acesso à aplicaç
     <value>Beta</value>
   </data>
   <data name="DiscyAboutTipDesc" xml:space="preserve">
-    <value>You can find me by right clicking on different things. For example, an album. I'll tell you what you can do :). I'm still pretty new, so I won't be everywhere, but I'm growing every day!</value>
+    <value>Você pode me encontrar clicando com o botão direito em diferentes coisas. Por exemplo, um álbum. Eu vou te dizer o que você pode fazer :). Ainda sou bem novo, então não estarei em todo lugar, mas eu vou crescer todos os dias!</value>
   </data>
   <data name="DiscyAboutTipTitle" xml:space="preserve">
-    <value>Hey! I'm Discy.</value>
+    <value>Olá! Sou o Discy.</value>
   </data>
   <data name="DiscyOnAlbumDesc" xml:space="preserve">
-    <value>Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.</value>
+    <value>Utilize a barra de comandos para classificar os seus álbuns em diferentes tipos. Clique em um álbum para ver o que está armazenado. Você pode adicionar um álbum inteiro a uma lista de reprodução, aleatorizar ou partilhar com amigos.</value>
   </data>
   <data name="DiscyOnAlbumH" xml:space="preserve">
-    <value>Managing and organising your albums</value>
+    <value>Gerenciar e organizar os seus álbuns</value>
   </data>
   <data name="DiscyOnArtistDesc" xml:space="preserve">
-    <value>Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.</value>
+    <value>Reproduza uma discografia inteira do artista de uma vez. Visualize informações sobre um artista, os seus álbuns (armazenados no seu dispositivo) e músicas clicando no artista que você quiser. Partilhe os seus artistas favoritos com seus amigos ou adicione músicas inteiras a uma lista de reprodução.</value>
   </data>
   <data name="DiscyOnPlaylistDesc" xml:space="preserve">
-    <value>Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!</value>
+    <value>Coloque as suas músicas favoritas, músicas especiais, as suas músicas todas juntas numa lista de reprodução. Dê uma descrição e um título. Em seguida, adicione músicas extras e remova faixas que você não tem muita certeza. Boa reprodução!</value>
   </data>
   <data name="DiscyOnPlaylistH" xml:space="preserve">
-    <value>Group with playlists</value>
+    <value>Agrupe com listas de reprodução</value>
   </data>
   <data name="DiscyOnSongDesc" xml:space="preserve">
-    <value>Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!</value>
+    <value>Passe o rato sobre uma música e clique no botão reproduzir para tocar uma música, ou clique duas vezes. Ignorar, voltar e ver as informações da música (na parte inferior da janela da sua aplicação). Clique em 'Informações e Propriedades' para editar metadados e informações do ficheiro. Você sempre pode partilhar com outros ou também adicionar a uma lista de reprodução!</value>
   </data>
   <data name="DiscyOnSongH" xml:space="preserve">
-    <value>Taking action on songs</value>
+    <value>Tomar ação nas músicas</value>
   </data>
   <data name="DiscyOnVideoDesc" xml:space="preserve">
-    <value>Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.</value>
+    <value>Clique em um vídeo para reproduzir. Mude o nome e ordene. Os vídeos ocuparão toda a janela da aplicação e você poderá pesquisar, pausar, pular e muito mais.</value>
   </data>
   <data name="DiscyOnVideoH" xml:space="preserve">
-    <value>Playing videos</value>
+    <value>Reproduzindo vídeos</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>Os básicos</value>
+    <value>O básico</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>Quais recursos estás a dar mais valor?</value>
+    <value>Quais funcionalidades estás a dar mais valor?</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
     <value>Se gostarias de contribuir ou traduzir, junta-te ao nosso servidor do Discord! Este: https://disboard.org/server/872910570003791922</value>
@@ -213,7 +213,7 @@ Early Access Insiders (anteriormente Seeding Insiders) obtêm acesso à aplicaç
     <value>Olá, eu sou um Insider. O que tenho de fazer para obter novas compilações?</value>
   </data>
   <data name="InsiderProgram.Title" xml:space="preserve">
-    <value>Programa Insider , Traduções e Contribuição</value>
+    <value>Programa Insider, Traduções &amp; Contribuição</value>
   </data>
   <data name="Join.Text" xml:space="preserve">
     <value>Basta visitares o formulário abaixo e responder às perguntas. Escolhe o teu canal, digita o teu e-mail e mais algumas coisas. https://bit.ly/rise-insider
@@ -224,7 +224,7 @@ Boa sorte a testar!</value>
     <value>Como é que eu posso entrar no Programa Insider?</value>
   </data>
   <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>A reproduzir media e Agora a reproduzir</value>
+    <value>Reproduzindo mídia e tocando agora</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
     <value>• Indexação de músicas, álbuns, artistas e géneros
@@ -260,7 +260,7 @@ Em termos de outras versões, não temos datas exatas para fornecer a todos, mas
     <value>Ordenar e gerenciar a tua biblioteca</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
-    <value>Irás ver ;)</value>
+    <value>Você terá que ver ;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
     <value>O que é o Discy?</value>

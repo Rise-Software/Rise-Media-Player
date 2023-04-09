@@ -739,13 +739,13 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
     <value>Image</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
-    <value>Search results</value>
+    <value>Résultats de la recherche</value>
   </data>
   <data name="XofY" xml:space="preserve">
-    <value>{0} of {1}</value>
+    <value>{0} de {1}</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Create</value>
+    <value>Créer</value>
   </data>
   <data name="CreatePlaylist" xml:space="preserve">
     <value>Create playlist</value>
@@ -940,5 +940,8 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   </data>
   <data name="FromFolder" xml:space="preserve">
     <value>From folder</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>

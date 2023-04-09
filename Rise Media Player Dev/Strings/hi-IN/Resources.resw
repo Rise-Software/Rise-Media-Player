@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>अबाउट</value>
+    <value>इसके बारे में</value>
   </data>
   <data name="Accept" xml:space="preserve">
     <value>स्वीकार करें</value>
@@ -175,13 +175,13 @@
     <value>संगीत</value>
   </data>
   <data name="NDays" xml:space="preserve">
-    <value>{0} days</value>
+    <value>{0} दिन</value>
   </data>
   <data name="NHours" xml:space="preserve">
-    <value>{0} hours</value>
+    <value>{0} घंटे</value>
   </data>
   <data name="NMinutes" xml:space="preserve">
-    <value>{0} minutes</value>
+    <value>{0} मिनट</value>
   </data>
   <data name="NoCrossfade" xml:space="preserve">
     <value>क्रॉसफेड न करें</value>
@@ -193,16 +193,16 @@
     <value>{0} सेकंड</value>
   </data>
   <data name="OneDay" xml:space="preserve">
-    <value>1 day</value>
+    <value>१ दिन</value>
   </data>
   <data name="OneHour" xml:space="preserve">
-    <value>1 hour</value>
+    <value>१ घंटा</value>
   </data>
   <data name="OneMinute" xml:space="preserve">
-    <value>1 minute</value>
+    <value>१ मिनट</value>
   </data>
   <data name="OneSecond" xml:space="preserve">
-    <value>1 second</value>
+    <value>1 सेकंड</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>केवल लोकल मीडिया फाइलें इस्तेमाल करें</value>
@@ -229,7 +229,7 @@
     <value>विंडो आकार पर मापें</value>
   </data>
   <data name="PinToSidebar" xml:space="preserve">
-    <value>Pin to sidebar</value>
+    <value>साइडबार पर पिन करें</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
     <value>साइडबार से हटाएँ</value>
@@ -268,22 +268,22 @@
     <value>वॉलपेपर</value>
   </data>
   <data name="NAlbums" xml:space="preserve">
-    <value>{0} albums</value>
+    <value>{0} एल्बम</value>
   </data>
   <data name="NSongs" xml:space="preserve">
-    <value>{0} songs</value>
+    <value>{0} गाने</value>
   </data>
   <data name="NVideos" xml:space="preserve">
-    <value>{0} videos</value>
+    <value>{0} विडियो</value>
   </data>
   <data name="OneAlbum" xml:space="preserve">
-    <value>1 album</value>
+    <value>१ एल्बम</value>
   </data>
   <data name="OneSong" xml:space="preserve">
-    <value>1 song</value>
+    <value>१ गाना</value>
   </data>
   <data name="OneVideo" xml:space="preserve">
-    <value>1 video</value>
+    <value>१ विडियो</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
     <value>जल्द आ रहा है</value>
@@ -295,7 +295,7 @@
     <value>बजाएँ</value>
   </data>
   <data name="EditPlaylist" xml:space="preserve">
-    <value>Edit playlist</value>
+    <value>प्लेलिस्ट संपादित करें</value>
   </data>
   <data name="SongInfo" xml:space="preserve">
     <value>गाने की जानकारी</value>
@@ -355,590 +355,592 @@
     <value>फ़ाइल के स्थान को खोलें</value>
   </data>
   <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
-    <value>Artist news feed</value>
+    <value>रचनाकार की समाचार फ़ीड</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>रद्द करें</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>विवरण</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>File</value>
+    <value>फ़ाइल</value>
   </data>
   <data name="Lyrics" xml:space="preserve">
-    <value>Lyrics</value>
+    <value>गीतिकाव्य</value>
   </data>
   <data name="PropsErrorContent" xml:space="preserve">
-    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+    <value>हम गाने के गुण सेव नहीं कर सके। फ़ाइल को स्थानांतरित, परिवर्तित या हटा दिया गया हो सकता है, या यह केवल एक विंडोज़ समस्या है।</value>
   </data>
   <data name="PropsErrorTitle" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>कुछ गड़बड़ हो गया है</value>
   </data>
   <data name="PropsSave" xml:space="preserve">
-    <value>Save changes</value>
+    <value>परिवर्तन सहेजें</value>
   </data>
   <data name="ShufflePlaylist" xml:space="preserve">
-    <value>Shuffle playlist</value>
+    <value>प्लेलिस्ट शफल करें</value>
   </data>
   <data name="Contribute" xml:space="preserve">
-    <value>Contribute</value>
+    <value>योगदान करें</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version</value>
+    <value>संस्करण</value>
   </data>
   <data name="VersionTemplate" xml:space="preserve">
     <value>{0}
-Internal Version: {1}
-
-Rise Software - Discy &amp; YourOrdinaryCat</value>
+अंदरूनी संस्करण: {1}
+राइज़ सॉफ़्टवेयर - डिस्की एवं योरऑर्डिनरीकैट</value>
   </data>
   <data name="TermsAndConditions" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+    <value>नियम और शर्तें</value>
   </data>
   <data name="Of" xml:space="preserve">
-    <value>of</value>
+    <value>का</value>
   </data>
   <data name="Learn" xml:space="preserve">
-    <value>Learn more</value>
+    <value>और जानें</value>
   </data>
   <data name="Album" xml:space="preserve">
-    <value>Album</value>
+    <value>एल्बम</value>
   </data>
   <data name="AlbumArtist" xml:space="preserve">
-    <value>Album artist</value>
+    <value>एल्बम रचनाकार</value>
   </data>
   <data name="ArtistOrArtists" xml:space="preserve">
-    <value>Artist(s)</value>
+    <value>रचनाकार(एं)</value>
   </data>
   <data name="BecomeTranslator" xml:space="preserve">
-    <value>Become a translator </value>
+    <value>अनुवादक बनें </value>
   </data>
   <data name="Bitrate" xml:space="preserve">
-    <value>Bitrate</value>
+    <value>बिटदर</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>विवरण</value>
   </data>
   <data name="Disc" xml:space="preserve">
-    <value>Disc</value>
+    <value>डिस्क</value>
   </data>
   <data name="EditAlbum" xml:space="preserve">
-    <value>Edit album art</value>
+    <value>एल्बम कला संपादित करें</value>
   </data>
   <data name="ExportAlbumArt" xml:space="preserve">
-    <value>Export album art</value>
+    <value>एल्बम कला निर्यात करें</value>
   </data>
   <data name="ExportPlaylistIcon" xml:space="preserve">
-    <value>Export playlist icon</value>
+    <value>प्लेलिस्ट आईकन निर्यात करें</value>
   </data>
   <data name="Genre" xml:space="preserve">
-    <value>Genre</value>
+    <value>शैली</value>
   </data>
   <data name="MediaLocalDesc" xml:space="preserve">
-    <value>This song is local, meaning it is stored directly on to your device's storage, rather than the cloud or online. Changing properties here will change them for the file itself, meaning it will affect other media players.</value>
+    <value>यह गाना लोकल है, यानि यह सीधे आपके उपकरण के स्टोरेज पर स्टोर होता है, क्लाउड या ऑनलाइन के बदले। यहां पर गुण परिवर्तन फ़ाइल के लिए बदल जाएंगे, यानि यह दूसरे मीडिया प्लेयर्स को प्रभावित करेगा।</value>
   </data>
   <data name="MediaLocalTitle" xml:space="preserve">
-    <value>Local Music</value>
+    <value>लोकल गाने</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Options</value>
+    <value>विकल्प</value>
   </data>
   <data name="PlaylistSongsDetailsTipTitle" xml:space="preserve">
-    <value>Move songs by clicking the up and down buttons.</value>
+    <value>गानों का स्थान-परिवर्तन अप एवं डाउन बटन पर क्लिक करें।</value>
   </data>
   <data name="PlaylistTitle" xml:space="preserve">
-    <value>Playlist name</value>
+    <value>प्लेलिस्ट का नाम</value>
   </data>
   <data name="PlaylistVideosDetailsTipTitle" xml:space="preserve">
-    <value>Move videos by clicking the up and down buttons.</value>
+    <value>विडियो का स्थान-परिवर्तन अप एवं डाउन बटन पर क्लिक करें।</value>
   </data>
   <data name="Rating" xml:space="preserve">
-    <value>Rating</value>
+    <value>रेटिंग</value>
   </data>
   <data name="ReleaseYear" xml:space="preserve">
-    <value>Release year</value>
+    <value>रिलीज वर्ष</value>
   </data>
   <data name="ReportAnIssue" xml:space="preserve">
-    <value>Report an issue</value>
+    <value>समस्या सूचित करें</value>
   </data>
   <data name="SongTitle" xml:space="preserve">
-    <value>Song title</value>
+    <value>गाने का शीर्षक</value>
   </data>
   <data name="StoredAsFile" xml:space="preserve">
-    <value>This song is stored as a file on your device.</value>
+    <value>यह गाना आपके उपकरण पर एक फ़ाइल के तौर पर संग्रहित है।</value>
   </data>
   <data name="SystemLanguage" xml:space="preserve">
-    <value>System language</value>
+    <value>सिस्टम की भाषा</value>
   </data>
   <data name="TrackNumber" xml:space="preserve">
-    <value>Track number</value>
+    <value>ट्रैक संख्या</value>
   </data>
   <data name="Translations" xml:space="preserve">
-    <value>Translations</value>
+    <value>अनुवाद</value>
   </data>
   <data name="AddRemoveDesc" xml:space="preserve">
-    <value>Let us find music and videos by adding folders and files on your device.</value>
+    <value>हमें फोल्डर और आपके उपकरण पर फाइलों को जोड़ने के द्वारा संगीत और विडियो खोजने दें।</value>
   </data>
   <data name="AddRemoveTitle" xml:space="preserve">
-    <value>Add/remove media sources</value>
+    <value>मीडिया स्रोत जोड़ें/निकालें</value>
   </data>
   <data name="AddTo" xml:space="preserve">
-    <value>Add to</value>
+    <value>इनमें जोड़ें</value>
   </data>
   <data name="AppSettings" xml:space="preserve">
-    <value>App settings</value>
+    <value>ऐप सेटिंग्स</value>
   </data>
   <data name="Artist" xml:space="preserve">
-    <value>Artist</value>
+    <value>रचनाकार</value>
   </data>
   <data name="Ascending" xml:space="preserve">
-    <value>Ascending</value>
+    <value>आरोही</value>
   </data>
   <data name="AskDiscy" xml:space="preserve">
-    <value>Ask Discy about this</value>
+    <value>इसके बारे में डिस्की से पूछें</value>
   </data>
   <data name="BrowseMediaDesc" xml:space="preserve">
-    <value>Use a file browser to look through all of your media in your folders.</value>
+    <value>किसी फ़ाइल ब्राउज़र का इस्तेमाल अपनी सभी मीडिया को अपने फ़ोल्डरों में देखने के लिए करें।</value>
   </data>
   <data name="BrowseMediaTitle" xml:space="preserve">
-    <value>Browse for media</value>
+    <value>मीडिया के लिए ब्राउज़ करें</value>
   </data>
   <data name="ChangeArtistImage" xml:space="preserve">
-    <value>Change artist image</value>
+    <value>रचनाकार चित्र बदलें</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>बंद करें</value>
   </data>
   <data name="Descending" xml:space="preserve">
-    <value>Descending</value>
+    <value>अवरोही</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>प्रतिक्रिया</value>
   </data>
   <data name="Length" xml:space="preserve">
-    <value>Length</value>
+    <value>लंबाई</value>
   </data>
   <data name="MessagesAndReports" xml:space="preserve">
-    <value>Messages &amp; reports</value>
+    <value>मैसेज और रिपोर्ट</value>
   </data>
   <data name="MoreSettings" xml:space="preserve">
-    <value>More settings</value>
+    <value>और सेटिंग्स</value>
   </data>
   <data name="MoveDown" xml:space="preserve">
-    <value>Move down</value>
+    <value>नीचे जाएं</value>
   </data>
   <data name="MoveToBottom" xml:space="preserve">
-    <value>Move to bottom</value>
+    <value>सबसे नीचे जाएँ</value>
   </data>
   <data name="MoveToTop" xml:space="preserve">
-    <value>Move to top</value>
+    <value>शीर्ष पर ले जाएँ</value>
   </data>
   <data name="MoveUp" xml:space="preserve">
-    <value>Move up</value>
+    <value>ऊपर जाएँ</value>
   </data>
   <data name="NewPlaylist" xml:space="preserve">
-    <value>New playlist</value>
+    <value>नई प्लेलिस्ट</value>
   </data>
   <data name="PlayAll" xml:space="preserve">
-    <value>Play all</value>
+    <value>सभी चलाएं</value>
   </data>
   <data name="PlayFromUrl" xml:space="preserve">
-    <value>Play from URL</value>
+    <value>URL से अपलोड करें</value>
   </data>
   <data name="QuickH" xml:space="preserve">
-    <value>Quick links</value>
+    <value>त्वरित लिंक</value>
   </data>
   <data name="RemoveFromPlaylist" xml:space="preserve">
-    <value>Remove from playlist</value>
+    <value>प्लेलिस्ट से निकालें</value>
   </data>
   <data name="RemovePlaylist" xml:space="preserve">
-    <value>Remove playlist</value>
+    <value>प्लेलिस्ट हटाएँ</value>
   </data>
   <data name="RemoveSection" xml:space="preserve">
-    <value>Remove whole section</value>
+    <value>पूरे खंड को हटाएँ</value>
   </data>
   <data name="RemoveThing" xml:space="preserve">
-    <value>Remove...</value>
+    <value>हटाएँ...</value>
   </data>
   <data name="Scan" xml:space="preserve">
-    <value>Scan for new media</value>
+    <value>नई मीडिया के लिए स्कैन करें</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Share</value>
+    <value>साझा करें</value>
   </data>
   <data name="ShowAlbum" xml:space="preserve">
-    <value>Show album</value>
+    <value>ऐल्बम दिखाएँ</value>
   </data>
   <data name="ShowArtist" xml:space="preserve">
-    <value>Show artist</value>
+    <value>रचनाकार दिखाएँ</value>
   </data>
   <data name="ShowInFileExplorer" xml:space="preserve">
-    <value>Show in File Explorer</value>
+    <value>फ़ाइल एक्सप्लोरर में दिखाएँ</value>
   </data>
   <data name="Shuffle" xml:space="preserve">
-    <value>Shuffle</value>
+    <value>शफल करें</value>
   </data>
   <data name="ShuffleAlbum" xml:space="preserve">
-    <value>Shuffle album</value>
+    <value>ऐल्बम शफल करें</value>
   </data>
   <data name="ShuffleArtist" xml:space="preserve">
-    <value>Shuffle artist</value>
+    <value>रचनाकार शफल करें</value>
   </data>
   <data name="Sort" xml:space="preserve">
-    <value>Sort</value>
+    <value>छाँटें</value>
   </data>
   <data name="SupportDevDesc" xml:space="preserve">
-    <value>Become a patron and enjoy exclusive benefits and merch, while helping this project move forward.</value>
+    <value>पेट्रन बनें और विशिष्ट लाभ एवं मर्च का आनंद उठाएँ, जिससे प्रॉजेक्ट को आगे बढ़ने में मदद मिलती है।</value>
   </data>
   <data name="SupportDevTitle" xml:space="preserve">
-    <value>Support development</value>
+    <value>विकास में समर्थन दें</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Title</value>
+    <value>शीर्षक</value>
   </data>
   <data name="Track" xml:space="preserve">
-    <value>Track</value>
+    <value>ट्रैक</value>
   </data>
   <data name="View" xml:space="preserve">
-    <value>View</value>
+    <value>देखें</value>
   </data>
   <data name="WhatsNewDesc" xml:space="preserve">
-    <value>Check out the new features in Rise Media Player.</value>
+    <value>राइज़ मीडिया प्लेयर के नए फ़ीचर की जांच करें।</value>
   </data>
   <data name="WhatsNewTitle" xml:space="preserve">
-    <value>What's New</value>
+    <value>क्या नया है</value>
   </data>
   <data name="ReleaseYearN" xml:space="preserve">
-    <value>Release year: {0}</value>
+    <value>रिलीज वर्ष: {0}</value>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>अज्ञात</value>
   </data>
   <data name="EnterMiniView" xml:space="preserve">
-    <value>Enter mini view</value>
+    <value>मिनी दृश्य</value>
   </data>
   <data name="MoreOptions" xml:space="preserve">
-    <value>More options</value>
+    <value>अधिक विकल्प</value>
   </data>
   <data name="NowPlaying" xml:space="preserve">
-    <value>Now playing</value>
+    <value>नाउ प्लेइंग</value>
   </data>
   <data name="PlaybackSpeed" xml:space="preserve">
-    <value>Playback speed</value>
+    <value>प्लेबैक गति</value>
   </data>
   <data name="AlbumArt" xml:space="preserve">
-    <value>Album art</value>
+    <value>एल्बम कला</value>
   </data>
   <data name="AlbumTitle" xml:space="preserve">
-    <value>Album title</value>
+    <value>एल्बम शीर्षक</value>
   </data>
   <data name="CardBackground" xml:space="preserve">
-    <value>Card background</value>
+    <value>कार्ड पार्श्वभूमि</value>
   </data>
   <data name="Collapse" xml:space="preserve">
-    <value>Collapse</value>
+    <value>संक्षिप्त करें</value>
   </data>
   <data name="ConfirmRemovalSong" xml:space="preserve">
-    <value>Are you sure that you want to remove the song "{0}"?</value>
+    <value>क्या आप इस गाने "{0}" को हटाने के लिए सुनिश्चित हैं?</value>
   </data>
   <data name="CrashDetails" xml:space="preserve">
-    <value>RiseMP has crashed. Here's some details.</value>
+    <value>राइज़ म प क्रैश हो गया है। यहां पर इसकी कुछ जानकारियाँ हैं।</value>
   </data>
   <data name="CrashStackTrace" xml:space="preserve">
-    <value>Unfortunately, Rise Media Player crashed. Click to view stack trace.</value>
+    <value>राइज़ मीडिया प्लेयर दुर्भाग्य से क्रैश हो गया है। स्टैक ट्रेस को देखने के लिए क्लिक करें।</value>
   </data>
   <data name="DeleteAnyway" xml:space="preserve">
-    <value>Delete anyway</value>
+    <value>तभी भी डिलीट करें</value>
   </data>
   <data name="DeleteSong" xml:space="preserve">
-    <value>Delete song</value>
+    <value>गाना हटाएँ</value>
   </data>
   <data name="Discography" xml:space="preserve">
-    <value>Discography</value>
+    <value>डिस्कोग्राफ़ी</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Duration</value>
+    <value>अवधि</value>
   </data>
   <data name="ErrorOcurred" xml:space="preserve">
-    <value>An error occurred!</value>
+    <value>एक त्रुटि हो गई है!</value>
   </data>
   <data name="Expand" xml:space="preserve">
-    <value>Expand</value>
+    <value>विस्तारित करें</value>
   </data>
   <data name="Export" xml:space="preserve">
-    <value>Export</value>
+    <value>निर्यात करें</value>
   </data>
   <data name="Import" xml:space="preserve">
-    <value>Import</value>
+    <value>आयात करें</value>
   </data>
   <data name="MusicVideos" xml:space="preserve">
-    <value>Music videos</value>
+    <value>संगीत वीडियो</value>
   </data>
   <data name="NListeners" xml:space="preserve">
-    <value>{0} listeners</value>
+    <value>{0} श्रोता</value>
   </data>
   <data name="NoArtistInfo" xml:space="preserve">
-    <value>No artist info.</value>
+    <value>कोई रचनाकार जानकारी नहीं।</value>
   </data>
   <data name="NoLyricsFound" xml:space="preserve">
-    <value>No lyrics found</value>
+    <value>कोई गीतिकाव्य नहीं पाए गए</value>
   </data>
   <data name="PlayMedia" xml:space="preserve">
-    <value>Play media</value>
+    <value>मीडिया चलाएँ</value>
   </data>
   <data name="PoweredBy" xml:space="preserve">
-    <value>Powered by {0}</value>
+    <value>{0} द्वारा संचालित</value>
   </data>
   <data name="RanIntoProblem" xml:space="preserve">
-    <value>We've ran into a problem. Sorry about that.</value>
+    <value>हम एक समस्या में पड़ गए हैं। इसके लिए खेद है।</value>
   </data>
   <data name="ReadLess" xml:space="preserve">
-    <value>Read less</value>
+    <value>कम पढ़ें</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
-    <value>Read more</value>
+    <value>ज़्यादा पढ़ें</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>Rename</value>
+    <value>पुन: नाम दें</value>
   </data>
   <data name="RoundedAlbumArt" xml:space="preserve">
-    <value>Rounded album art</value>
+    <value>गोलाकार एल्बम चित्र</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>Show</value>
+    <value>दिखाएँ</value>
   </data>
   <data name="TilesHorizontal" xml:space="preserve">
-    <value>Tiles (horizontal)</value>
+    <value>टाईलें (क्षैतिज)</value>
   </data>
   <data name="TilesVertical" xml:space="preserve">
-    <value>Tiles (vertical)</value>
+    <value>टाईलें (लंबवत)</value>
   </data>
   <data name="TopTracks" xml:space="preserve">
-    <value>Top tracks</value>
+    <value>शीर्ष ट्रैक्स</value>
   </data>
   <data name="TopTracksDesc" xml:space="preserve">
-    <value>Show the trending and most popular tracks from your artist from across the world.</value>
+    <value>आपके रचनाकार की सारे जहां में ट्रेंडिंग एवं सबसे प्रसिध्द ट्रैक देखें</value>
   </data>
   <data name="AddWidgets" xml:space="preserve">
-    <value>Add widgets</value>
+    <value>विजट्स जोड़ें</value>
   </data>
   <data name="ForX" xml:space="preserve">
-    <value>for {0}</value>
+    <value>{0} के लिए</value>
   </data>
   <data name="HomeAddSomeWidgets" xml:space="preserve">
-    <value>That's pretty sad, so add some widgets!</value>
+    <value>यह बहुत दुख की बात, इसलिए कुछ विजट्स जोडे़ं!</value>
   </data>
   <data name="HomeNothingToShow" xml:space="preserve">
-    <value>We have nothing to show here.</value>
+    <value>हमारे पास यहां दिखाने के लिए कुछ नहीं है।</value>
   </data>
   <data name="HomeThingsYouLove" xml:space="preserve">
-    <value>Personalise your at a glance page with the things you love.</value>
+    <value>अपने ऐट ए ग्लाँस पृष्ट को अपनी पसंदीदा चीज़ें के साथ व्यक्तिगत करें।</value>
   </data>
   <data name="Image" xml:space="preserve">
-    <value>Image</value>
+    <value>चित्र</value>
   </data>
   <data name="SearchResults" xml:space="preserve">
-    <value>Search results</value>
+    <value>खोज परिणाम</value>
   </data>
   <data name="XofY" xml:space="preserve">
-    <value>{0} of {1}</value>
+    <value>{1} में से {0}</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Create</value>
+    <value>बनाएँ</value>
   </data>
   <data name="CreatePlaylist" xml:space="preserve">
-    <value>Create playlist</value>
+    <value>प्लेलिस्ट बनाएँ</value>
   </data>
   <data name="PlaylistAlreadyExists" xml:space="preserve">
-    <value>The playlist with the specified name already exists.</value>
+    <value>इस निर्दिष्ट नाम का प्लेलिस्ट पहले से मौजूद है।</value>
   </data>
   <data name="TitleNotEmpty" xml:space="preserve">
-    <value>Title must not be empty.</value>
+    <value>शीर्षक रिक्त नहीं होना चाहिए।</value>
   </data>
   <data name="UseCustomImage" xml:space="preserve">
-    <value>Use custom image</value>
+    <value>अनुकूलित चित्र इस्तेमाल करें</value>
   </data>
   <data name="MediaOnlineDesc" xml:space="preserve">
-    <value>This song is on the internet, meaning it is stored on the cloud or online. Properties changed here will get applied to the file if it's stored on a cloud service like OneDrive.</value>
+    <value>यह गाना इंटरनेट पर है, यानि यह क्लाउड या ऑनलाईन संग्रहित है। यहां बदले गए गुण फ़ाइल पर लागु हो जाएँगे अगर वह वनड्राइव जैसी क्लाउड सुविधा पर संग्रहित है।</value>
   </data>
   <data name="MediaOnlineTitle" xml:space="preserve">
-    <value>This song is stored on the internet.</value>
+    <value>यह गाना इंटरनेट पर संग्रहित है।</value>
   </data>
   <data name="EditThumbnail" xml:space="preserve">
-    <value>Edit thumbnail</value>
+    <value>थंबनेल संपादित करें</value>
   </data>
   <data name="ExportThumbnail" xml:space="preserve">
-    <value>Export thumbnail</value>
+    <value>थंबनेल निर्यात करें</value>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Browse</value>
+    <value>ब्राउज़ करें</value>
   </data>
   <data name="Dismiss" xml:space="preserve">
-    <value>Dismiss</value>
+    <value>ख़ारिज करें</value>
   </data>
   <data name="FetchingArtistInfo" xml:space="preserve">
-    <value>Fetching artist info...</value>
+    <value>रचनाकार की जानकारी प्राप्त की जा रही है...</value>
   </data>
   <data name="GoToAlbum" xml:space="preserve">
-    <value>Go to album</value>
+    <value>एल्बम पर जाएँ</value>
   </data>
   <data name="GoToArtist" xml:space="preserve">
-    <value>Go to artist</value>
+    <value>रचनाकार पर जाएँ</value>
   </data>
   <data name="IndexingComplete" xml:space="preserve">
-    <value>Indexing complete!</value>
+    <value>इन्डेक्सिंग ख़त्म हुआ!</value>
   </data>
   <data name="NotEnoughQ" xml:space="preserve">
-    <value>Not enough?</value>
+    <value>काफ़ी नहीं?</value>
   </data>
   <data name="OpenInBrowser" xml:space="preserve">
-    <value>Open in browser</value>
+    <value>ब्राउज़र में खोलें</value>
   </data>
   <data name="ScanningSettings" xml:space="preserve">
-    <value>Scanning settings</value>
+    <value>स्कैनिंग सेटिंग्स</value>
   </data>
   <data name="SupportProject" xml:space="preserve">
-    <value>Support this project</value>
+    <value>इस प्रॉजेक्ट को सहायता दें</value>
   </data>
   <data name="SyncAll" xml:space="preserve">
-    <value>Sync all</value>
+    <value>सभी सिंक करें</value>
   </data>
   <data name="SyncCenter" xml:space="preserve">
-    <value>Sync centre</value>
+    <value>सिंक केंद्र</value>
   </data>
   <data name="MoreAlbumsByArtist" xml:space="preserve">
-    <value>More albums by this artist</value>
+    <value>इस रचनाकार द्वारा और एल्बम</value>
   </data>
   <data name="Bloom" xml:space="preserve">
-    <value>Bloom</value>
+    <value>ब्लूम</value>
   </data>
   <data name="MaybeLater" xml:space="preserve">
-    <value>Maybe later</value>
+    <value>शायद बाद में कभी</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>None</value>
+    <value>कोई नहीं</value>
   </data>
   <data name="PageComingSoon" xml:space="preserve">
-    <value>This page is coming soon.</value>
+    <value>यह पृष्ट जल्द ही आ रहा है!</value>
   </data>
   <data name="RestartChangesEffect" xml:space="preserve">
-    <value>You'll need to restart the app for your changes to take effect.</value>
+    <value>आपको आपके परिवर्तन प्रभावी होने के लिए ऐप को पुन: आरंभ करना होगा।</value>
   </data>
   <data name="RestartNow" xml:space="preserve">
-    <value>Restart now</value>
+    <value>अभी पुनरारंभ करें</value>
   </data>
   <data name="Appearance" xml:space="preserve">
-    <value>Appearance</value>
+    <value>दिखावट</value>
   </data>
   <data name="Center" xml:space="preserve">
-    <value>Centre</value>
+    <value>केन्द्रीकृत</value>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Header</value>
+    <value>हेडर</value>
   </data>
   <data name="Icons" xml:space="preserve">
-    <value>Icons</value>
+    <value>आइकॉन</value>
   </data>
   <data name="ManageComponents" xml:space="preserve">
-    <value>Manage components</value>
+    <value>कॉम्पोनेंट प्रबंधित करें</value>
   </data>
   <data name="MediaLibrary" xml:space="preserve">
-    <value>Media library</value>
+    <value>मीडिया लाइब्रेरी</value>
   </data>
   <data name="Navigation" xml:space="preserve">
-    <value>Navigation</value>
+    <value>नेविगेशन</value>
   </data>
   <data name="NoPageSelected" xml:space="preserve">
-    <value>No page selected</value>
+    <value>कोई पृष्ट चयनित नहीं है</value>
   </data>
   <data name="PlaybackAndSound" xml:space="preserve">
-    <value>Playback &amp; sound</value>
+    <value>प्लेबैक एवं ध्वनि</value>
   </data>
   <data name="Right" xml:space="preserve">
-    <value>Right</value>
+    <value>दाएँ</value>
   </data>
   <data name="ShowAll" xml:space="preserve">
-    <value>Show all</value>
+    <value>सभी दिखाएँ</value>
   </data>
   <data name="Syncing" xml:space="preserve">
-    <value>Syncing</value>
+    <value>सिंक हो रहा है</value>
   </data>
   <data name="SystemBehaviors" xml:space="preserve">
-    <value>System behaviours</value>
+    <value>सिस्टम प्रतिक्रियाएँ</value>
   </data>
   <data name="WallpapersAndExtras" xml:space="preserve">
-    <value>Wallpapers &amp; extras</value>
+    <value>वॉलपेपर एवं अतिरिक्त</value>
   </data>
   <data name="OnlineServices" xml:space="preserve">
-    <value>Online services</value>
+    <value>ऑनलाईन सेवाएँ</value>
   </data>
   <data name="Scanning" xml:space="preserve">
-    <value>Scanning</value>
+    <value>स्कैनिंग</value>
   </data>
   <data name="MediaLocalExpanderTitle" xml:space="preserve">
-    <value>This song is stored as a file on your device.</value>
+    <value>यह गाना आपके उपकरण पर फ़ाइल के स्वरूप में संग्रहित है।</value>
   </data>
   <data name="MediaOnlineExpanderTitle" xml:space="preserve">
-    <value>This song is stored on the internet.</value>
+    <value>यह गाना इंटरनेट पर संग्रहित है।</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OK</value>
+    <value>ठीक</value>
   </data>
   <data name="DirectLinkExamplesM" xml:space="preserve">
-    <value>Examples of direct links include:
+    <value>प्रत्यक्ष लिंक के उदाहरणों में ये शामिल हैं:
 
 https://www.example.com/song.mp3
 https://www.example.com/song_playlist.m3u
 https://www.youtube.com/watch?v=dQw4w9Wg</value>
   </data>
   <data name="DirectLinkExamplesV" xml:space="preserve">
-    <value>Examples of direct links include:
+    <value>प्रत्यक्ष लिंक के उदाहरणों में ये शामिल हैं:
 
 https://www.example.com/video.mp4
 https://youtu.be/JEGjlELJxC8
 https://www.youtube.com/watch?v=p7YXXieghto</value>
   </data>
   <data name="InvalidUrl" xml:space="preserve">
-    <value>Invalid URL</value>
+    <value>अमान्य लिंक</value>
   </data>
   <data name="Url" xml:space="preserve">
-    <value>URL</value>
+    <value>यूआरएल</value>
   </data>
   <data name="UntitledPlaylist" xml:space="preserve">
-    <value>Untitled Playlist</value>
+    <value>शीर्षकहीन प्लेलिस्ट</value>
   </data>
   <data name="EQPAir" xml:space="preserve">
-    <value>Air</value>
+    <value>हवा</value>
   </data>
   <data name="EQPBass" xml:space="preserve">
-    <value>Bass</value>
+    <value>बेस</value>
   </data>
   <data name="EQPCustom" xml:space="preserve">
-    <value>Custom</value>
+    <value>अनुकूलित</value>
   </data>
   <data name="EQPFlat" xml:space="preserve">
-    <value>Flat</value>
+    <value>समतल</value>
   </data>
   <data name="EQPPop" xml:space="preserve">
-    <value>Pop</value>
+    <value>पॉप</value>
   </data>
   <data name="EQPRock" xml:space="preserve">
-    <value>Rock</value>
+    <value>रॉक</value>
   </data>
   <data name="EQPVocal" xml:space="preserve">
-    <value>Vocal</value>
+    <value>वाचिक</value>
   </data>
   <data name="GotIt" xml:space="preserve">
-    <value>Got it</value>
+    <value>समझ गया</value>
   </data>
   <data name="LearnMore" xml:space="preserve">
-    <value>Learn more</value>
+    <value>और जानें</value>
   </data>
   <data name="FromFile" xml:space="preserve">
-    <value>From file</value>
+    <value>फ़ाइल से</value>
   </data>
   <data name="FromFolder" xml:space="preserve">
-    <value>From folder</value>
+    <value>फ़ोल्डर से</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>चेतावनी</value>
   </data>
 </root>
