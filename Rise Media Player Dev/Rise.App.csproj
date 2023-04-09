@@ -1033,6 +1033,9 @@
     <PackageReference Include="AsyncEnumerator">
       <Version>4.0.2</Version>
     </PackageReference>
+    <PackageReference Include="CommunityToolkit.Labs.Uwp.SettingsControls">
+      <Version>0.0.17</Version>
+    </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.1.0</Version>
     </PackageReference>

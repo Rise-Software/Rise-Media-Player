@@ -2,12 +2,14 @@
     x:Class="Rise.App.Settings.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:constants="using:Rise.Common.Constants"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
@@ -87,11 +89,10 @@
                 Margin="0,-10,0,0"
                 Style="{StaticResource SubheaderTextBlockStyle}"
                 Text="{markup:ResourceHelper Name=/Settings/AboutMoreH}" />
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/AboutSocialTitle}"
+            <labs:SettingsCard
                 Description="{markup:ResourceHelper Name=/Settings/AboutSocialDesc}"
-                ExpanderStyle="Static"
-                Icon="&#xE15F;">
+                Header="{markup:ResourceHelper Name=/Settings/AboutSocialTitle}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE15F;}">
                 <StackPanel Orientation="Horizontal">
                     <HyperlinkButton
                         Padding="10"
@@ -106,18 +107,18 @@
                         Content="Twitter"
                         NavigateUri="{x:Bind constants:URLs.Twitter}" />
                 </StackPanel>
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
 
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=TermsAndConditions}"
+            <labs:SettingsCard
                 Click="ExpanderControl_Click"
-                ExpanderStyle="Button"
-                Icon="&#xF28B;">
+                Header="{markup:ResourceHelper Name=TermsAndConditions}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xF28B;}"
+                IsClickEnabled="True">
                 <FontIcon
                     VerticalAlignment="Center"
                     FontSize="16"
                     Glyph="&#xE2B4;" />
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
 
             <muxc:TeachingTip
                 x:Name="vTip"

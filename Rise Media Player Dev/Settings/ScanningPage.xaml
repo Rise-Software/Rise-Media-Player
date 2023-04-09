@@ -2,107 +2,86 @@
     x:Class="Rise.App.Settings.ScanningPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:system="using:System"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <StackPanel
-        Margin="0,10,0,0"
+        Margin="0,12,0,0"
         Orientation="Vertical"
         Spacing="4">
-        <uc:ExpanderControl
-            Title="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanTitle}"
+        <StackPanel.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </TransitionCollection>
+        </StackPanel.ChildrenTransitions>
+        <labs:SettingsCard
             Description="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanDesc}"
-            ExpanderStyle="Static"
-            Icon="&#xE773;">
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE773;}">
             <Button
                 x:Name="ManualScanButton"
                 MaxWidth="150"
                 Click="ManualScanButton_Click"
                 Content="{markup:ResourceHelper Name=/Settings/ScanNow}" />
-        </uc:ExpanderControl>
+        </labs:SettingsCard>
 
-        <Border Style="{StaticResource SettingsCard}">
-            <StackPanel Orientation="Vertical">
-                <uc:ExpanderControl
-                    Title="{markup:ResourceHelper Name=/Settings/MediaLibraryAutoScanTitle}"
-                    VerticalAlignment="Center"
-                    Description="{markup:ResourceHelper Name=/Settings/MediaLibraryAutoScanDesc}"
-                    ExpanderStyle="Transparent"
-                    Icon="&#xE121;">
-                    <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind ViewModel.IndexingTimerEnabled, Mode=TwoWay}" />
-                </uc:ExpanderControl>
+        <labs:SettingsExpander
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryAutoScanDesc}"
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryAutoScanTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE121;}"
+            IsExpanded="True">
+            <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind ViewModel.IndexingTimerEnabled, Mode=TwoWay}" />
 
-                <StackPanel x:Name="PeriodicContent" Visibility="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard x:Name="PeriodicContent" Visibility="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
+                    <labs:SettingsCard.Header>
+                        <controls:WrapPanel>
+                            <TextBlock
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                FontWeight="Normal"
+                                Style="{StaticResource SubheaderTextBlockStyle}"
+                                Text="{markup:ResourceHelper Name=/Settings/RunEvery}" />
+                            <muxc:RadioButtons
+                                x:Name="PeriodicScan"
+                                Margin="16,-4,0,0"
+                                ItemsSource="{x:Bind Intervals}"
+                                MaxColumns="7"
+                                SelectedIndex="{x:Bind system:Array.IndexOf(MinuteIntervals, ViewModel.IndexingTimerInterval)}"
+                                SelectionChanged="PeriodicScan_SelectionChanged" />
+                        </controls:WrapPanel>
+                    </labs:SettingsCard.Header>
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
 
-                    <StackPanel Margin="28,0,15,0" Orientation="Horizontal">
-                        <TextBlock
-                            FontWeight="Normal"
-                            Style="{StaticResource SubheaderTextBlockStyle}"
-                            Text="{markup:ResourceHelper Name=/Settings/RunEvery}" />
-                        <muxc:RadioButtons
-                            x:Name="PeriodicScan"
-                            Margin="16,3,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            ItemsSource="{x:Bind Intervals}"
-                            MaxColumns="7"
-                            SelectedIndex="{x:Bind system:Array.IndexOf(MinuteIntervals, ViewModel.IndexingTimerInterval)}"
-                            SelectionChanged="PeriodicScan_SelectionChanged" />
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-
-        <uc:ExpanderControl
-            Title="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanTitle}"
+        <labs:SettingsExpander
             VerticalAlignment="Center"
             Description="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanDesc}"
-            ExpanderStyle="Default"
-            Icon="&#xF78D;">
-            <StackPanel
-                HorizontalAlignment="Stretch"
-                Orientation="Vertical"
-                Spacing="8">
-                <uc:ExpanderControl
-                    Title="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanOpen}"
-                    Margin="16,-16,0,-8"
-                    ExpanderStyle="Transparent">
-                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
-                </uc:ExpanderControl>
-
-                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                <uc:ExpanderControl
-                    Title="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanDeviceConnect}"
-                    Margin="16,-8,0,-8"
-                    ExpanderStyle="Transparent">
-                    <ToggleSwitch Margin="0,2,0,0" />
-                </uc:ExpanderControl>
-
-                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                <uc:ExpanderControl
-                    Title="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanLocation}"
-                    Margin="16,-8,0,-8"
-                    ExpanderStyle="Transparent">
-                    <ToggleSwitch Margin="0,2,0,0" />
-                </uc:ExpanderControl>
-
-                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                <uc:ExpanderControl
-                    Title="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanFilesAdd}"
-                    Margin="16,-8,0,-16"
-                    ExpanderStyle="Transparent">
-                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled}" />
-                </uc:ExpanderControl>
-            </StackPanel>
-        </uc:ExpanderControl>
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xF78D;}">
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanOpen}">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
+                </labs:SettingsCard>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanDeviceConnect}" IsEnabled="False">
+                    <ToggleSwitch />
+                </labs:SettingsCard>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanLocation}" IsEnabled="False">
+                    <ToggleSwitch />
+                </labs:SettingsCard>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanFilesAdd}">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled, Mode=TwoWay}" />
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
     </StackPanel>
 </Page>
