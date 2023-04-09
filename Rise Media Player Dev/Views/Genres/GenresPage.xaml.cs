@@ -1,6 +1,7 @@
 ﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.Views
@@ -14,7 +15,7 @@ namespace Rise.App.Views
         }
 
         public GenresPage()
-            : base("Name", App.MViewModel.Genres)
+            : base("GenreName", SortDirection.Ascending, false, App.MViewModel.Genres)
         {
             InitializeComponent();
         }

@@ -1,27 +1,35 @@
 ﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using System;
 using System.Linq;
+using System.Numerics;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.Views
 {
     public sealed partial class GenreSongsPage : MediaPageBase
     {
         private MainViewModel MViewModel => App.MViewModel;
-
-        private GenreViewModel SelectedGenre;
         public SongViewModel SelectedItem
         {
             get => (SongViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
 
+        private GenreViewModel SelectedGenre;
+
+        private CompositionPropertySet _propSet;
+        private SpriteVisual _backgroundVisual;
+
         public GenreSongsPage()
-            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
@@ -37,16 +45,22 @@ namespace Rise.App.Views
             {
                 SelectedGenre = MViewModel.Genres.
                     FirstOrDefault(g => g.Model.Id == id);
-
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Genres.Contains(SelectedGenre.Name);
             }
             else if (e.NavigationParameter is string str)
             {
                 SelectedGenre = MViewModel.Genres.
                     FirstOrDefault(g => g.Name == str);
-
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Genres.Contains(str);
             }
+
+            CreateViewModel("SongTitle", SortDirection.Ascending, false, IsGenre, MViewModel.Songs);
+            bool IsGenre(object s)
+                => ((SongViewModel)s).Genres == SelectedGenre.Name;
+        }
+
+        private void OnMainListLoaded(object sender, RoutedEventArgs e)
+        {
+            var surface = LoadedImageSurface.StartLoadFromUri(new("ms-appx:///Assets/BlankGenre.png"));
+            (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
         }
     }
 
@@ -68,6 +82,12 @@ namespace Rise.App.Views
                 fl.Hide();
             else
                 SelectedItem = (SongViewModel)cont;
+        }
+
+        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_backgroundVisual == null) return;
+            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
     }
 }

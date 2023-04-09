@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
@@ -7,6 +6,7 @@ using Rise.App.Views.Albums.Properties;
 using Rise.Common.Enums;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
@@ -61,18 +61,7 @@ namespace Rise.App.UserControls
         public MediaPageBase()
         {
             NavigationHelper = new(this);
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of this class with the specified
-        /// property for sorting and ViewModel data source.
-        /// </summary>
-        public MediaPageBase(string defaultProperty, IList viewModelSource)
-            : this()
-        {
-            CreateViewModel(defaultProperty, viewModelSource);
         }
 
         /// <summary>
@@ -87,22 +76,42 @@ namespace Rise.App.UserControls
 
         /// <summary>
         /// Initializes a new instance of this class with the specified
+        /// property for sorting and ViewModel data source.
+        /// </summary>
+        public MediaPageBase(string delegateKey, SortDirection direction, bool groupAlphabetically, IList viewModelSource)
+            : this()
+        {
+            CreateViewModel(delegateKey, direction, groupAlphabetically, null, viewModelSource);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class with the specified
         /// property for sorting, a ViewModel data source, and a data
         /// source for <see cref="PlaylistHelper"/>.
         /// </summary>
-        public MediaPageBase(string defaultProperty, IList viewModelSource, IList<PlaylistViewModel> playlists)
-            : this(defaultProperty, viewModelSource)
+        public MediaPageBase(string delegateKey, SortDirection direction, bool groupAlphabetically, IList viewModelSource, IList<PlaylistViewModel> playlists)
+            : this(delegateKey, direction, groupAlphabetically, viewModelSource)
         {
             PlaylistHelper = new(playlists);
         }
 
         /// <summary>
-        /// Initializes <see cref="MediaViewModel"/> with the specified
-        /// property for sorting and data source.
+        /// Initializes <see cref="MediaViewModel"/> with the provided
+        /// parameters.
         /// </summary>
-        public void CreateViewModel(string defaultProperty, IList dataSource)
+        public void CreateViewModel(string delegateKey, SortDirection direction, bool groupAlphabetically, IList dataSource)
         {
-            MediaViewModel ??= new(defaultProperty, dataSource,
+            MediaViewModel ??= new(delegateKey, direction, groupAlphabetically, null, dataSource,
+                App.MViewModel.Songs, App.MPViewModel);
+        }
+
+        /// <summary>
+        /// Initializes <see cref="MediaViewModel"/> with the provided
+        /// parameters.
+        /// </summary>
+        public void CreateViewModel(string delegateKey, SortDirection direction, bool groupAlphabetically, Predicate<object> filter, IList dataSource)
+        {
+            MediaViewModel ??= new(delegateKey, direction, groupAlphabetically, filter, dataSource,
                 App.MViewModel.Songs, App.MPViewModel);
         }
     }
@@ -176,6 +185,13 @@ namespace Rise.App.UserControls
         [RelayCommand]
         protected void GoToArtist(string name)
             => _ = Frame.Navigate(typeof(ArtistSongsPage), name);
+
+        /// <summary>
+        /// Navigates to the genre with the specified name.
+        /// </summary>
+        [RelayCommand]
+        protected void GoToGenre(string name)
+            => _ = Frame.Navigate(typeof(GenreSongsPage), name);
 
         [RelayCommand]
         private Task OpenInExplorerAsync(object parameter)
@@ -254,7 +270,7 @@ namespace Rise.App.UserControls
         }
 
         [RelayCommand]
-        private Task SwitchPlaylistPinningState(PlaylistViewModel playlist)
+        private Task SwitchPlaylistPinningStateAsync(PlaylistViewModel playlist)
         {
             bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
             if (hasItem)
@@ -292,32 +308,40 @@ namespace Rise.App.UserControls
     // Session state
     public partial class MediaPageBase
     {
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        /// <summary>
+        /// Gets the sort delegate key and sort direction saved in the local settings store.
+        /// </summary>
+        /// <param name="pageKey">A unique key that identifies the current page's settings.</param>
+        /// <returns>A tuple where the first item is the sorting delegate key (empty if not saved),
+        /// the second one indicates the sort direction, and the third whether the list was grouped
+        /// alphabetically.</returns>
+        protected (string, SortDirection, bool) GetSavedSortPreferences(string pageKey)
         {
-            if (e.PageState != null && MediaViewModel != null)
-            {
-                bool result = e.PageState.TryGetValue("Ascending", out var asc);
-                if (result)
-                    MediaViewModel.UpdateSortDirection((bool)asc ?
-                        SortDirection.Ascending : SortDirection.Descending);
+            string delegateKey = SettingsHelpers.GetLocal(string.Empty, "Sorting", $"{pageKey}Sort");
+            if (string.IsNullOrEmpty(delegateKey))
+                return (string.Empty, SortDirection.Ascending, false);
 
-                result = e.PageState.TryGetValue("Property", out var prop);
-                if (result)
-                    MediaViewModel.SortBy(prop.ToString());
-            }
+            var direction = SettingsHelpers.GetLocal<SortDirection>(0, "Sorting", $"{pageKey}Direction");
+            bool alphabetical = SettingsHelpers.GetLocal(false, "Sorting", $"{pageKey}Alphabetical");
+
+            return (delegateKey, direction, alphabetical);
+        }
+
+        /// <summary>
+        /// Saves sorting related preferences to the app's settings.
+        /// </summary>
+        /// <param name="pageKey">A unique key that identifies the current page's settings.</param>
+        protected void SaveSortingPreferences(string pageKey)
+        {
+            SettingsHelpers.SetLocal(MediaViewModel.GroupingAlphabetically, "Sorting", $"{pageKey}Alphabetical");
+
+            SettingsHelpers.SetLocal(MediaViewModel.CurrentDelegate, "Sorting", $"{pageKey}Sort");
+            SettingsHelpers.SetLocal((int)MediaViewModel.CurrentSortDirection, "Sorting", $"{pageKey}Direction");
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            if (MediaViewModel != null)
-            {
-                e.PageState["Ascending"] = MediaViewModel.
-                    CurrentSortDirection == SortDirection.Ascending;
-
-                e.PageState["Property"] = MediaViewModel.CurrentSortProperty;
-
-                MediaViewModel.Dispose();
-            }
+            MediaViewModel?.Dispose();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

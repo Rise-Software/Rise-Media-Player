@@ -121,6 +121,14 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\CollectionViewGroup.cs" />
+    <Compile Include="Collections\GroupedCollectionView.Defer.cs" />
+    <Compile Include="Collections\GroupedCollectionView.Events.cs" />
+    <Compile Include="Collections\SortDescription.cs" />
+    <Compile Include="Collections\GroupedCollectionView.cs" />
+    <Compile Include="Collections\GroupedCollectionView.CurrentHandling.cs" />
+    <Compile Include="Collections\GroupedCollectionView.ViewHandling.cs" />
+    <Compile Include="Collections\SortDirection.cs" />
     <Compile Include="Json\JsonBackendController.cs" />
     <Compile Include="Messages\BasicNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,7 +137,6 @@
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\MediaPlaybackViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
-    <Compile Include="ViewModels\SortableCollectionViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <EmbeddedResource Include="Properties\Rise.Data.rd.xml" />
   </ItemGroup>
