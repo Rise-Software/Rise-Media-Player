@@ -5,14 +5,18 @@ using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using System;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.Views
 {
@@ -43,7 +47,9 @@ namespace Rise.App.Views
         }
 
         private PlaylistViewModel SelectedPlaylist;
-        private double? _offset = null;
+
+        private CompositionPropertySet _propSet;
+        private SpriteVisual _backgroundVisual;
 
         public PlaylistDetailsPage()
             : base(App.MViewModel.Playlists)
@@ -57,11 +63,6 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToSubItem(AddToVideo, AddVideoToPlaylistCommand);
         }
 
-        private async void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
-        }
-
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             if (e.NavigationParameter is Guid id)
@@ -69,14 +70,25 @@ namespace Rise.App.Views
                 SelectedPlaylist = MViewModel.Playlists.
                     FirstOrDefault(p => p.Id == id);
 
-                CreateViewModel("Title", SelectedPlaylist.Songs);
-                VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
+                CreateViewModel(string.Empty, SortDirection.Ascending, false, SelectedPlaylist.Songs);
+                VideosViewModel = new(string.Empty, SortDirection.Ascending, false, null, SelectedPlaylist.Videos, null, MPViewModel);
             }
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             VideosViewModel.Dispose();
+        }
+
+        private void OnMainListLoaded(object sender, RoutedEventArgs e)
+        {
+            var surface = LoadedImageSurface.StartLoadFromUri(new(SelectedPlaylist.Icon));
+            (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
+        }
+
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
         }
     }
 
@@ -147,6 +159,12 @@ namespace Rise.App.Views
             await MPViewModel.PlaySingleItemAsync(SelectedVideo);
             if (Window.Current.Content is Frame rootFrame)
                 _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+        }
+
+        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_backgroundVisual == null) return;
+            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
     }
 }

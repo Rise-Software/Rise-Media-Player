@@ -40,6 +40,20 @@ namespace Rise.App.UserControls
             set => SetValue(GoToArtistCommandProperty, value);
         }
 
+        public static readonly DependencyProperty GoToGenreCommandProperty
+            = DependencyProperty.Register(nameof(GoToGenreCommand), typeof(ICommand),
+                typeof(SongData), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the command to execute when a song's
+        /// genre is clicked.
+        /// </summary>
+        public ICommand GoToGenreCommand
+        {
+            get => (ICommand)GetValue(GoToGenreCommandProperty);
+            set => SetValue(GoToGenreCommandProperty, value);
+        }
+
         public static readonly DependencyProperty SongProperty
             = DependencyProperty.Register(nameof(Song), typeof(SongViewModel),
                 typeof(SongData), new PropertyMetadata(null));
@@ -189,12 +203,12 @@ namespace Rise.App.UserControls
     {
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Hovered", true);
+            VisualStateManager.GoToState(this, "PointerOver", true);
         }
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Default", true);
+            VisualStateManager.GoToState(this, "Normal", true);
         }
     }
 }

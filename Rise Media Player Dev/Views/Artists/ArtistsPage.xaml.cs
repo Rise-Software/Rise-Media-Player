@@ -5,6 +5,7 @@ using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Rise.App.Views
         }
 
         public ArtistsPage()
-            : base("Name", App.MViewModel.Artists, App.MViewModel.Playlists)
+            : base("GArtistName|ArtistName", SortDirection.Ascending, true, App.MViewModel.Artists, App.MViewModel.Playlists)
         {
             InitializeComponent();
 

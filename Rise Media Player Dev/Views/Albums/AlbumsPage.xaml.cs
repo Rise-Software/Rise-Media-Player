@@ -4,6 +4,7 @@ using Rise.App.ViewModels;
 using Rise.Common.Enums;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
@@ -27,14 +28,29 @@ namespace Rise.App.Views
         }
 
         public AlbumsPage()
-            : base("Title", App.MViewModel.Albums, App.MViewModel.Playlists)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
-            UpdateViewWithViewMode();
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            var (del, direction, alphabetical) = GetSavedSortPreferences("Albums");
+            if (!string.IsNullOrEmpty(del))
+                CreateViewModel(del, direction, alphabetical, App.MViewModel.Albums);
+            else
+                CreateViewModel("GAlbumTitle|AlbumTitle", SortDirection.Ascending, true, App.MViewModel.Albums);
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            SaveSortingPreferences("Albums");
         }
     }
 
@@ -70,15 +86,6 @@ namespace Rise.App.Views
         private void UpdateViewMode(AlbumViewMode viewMode)
         {
             SViewModel.AlbumViewMode = viewMode;
-            UpdateViewWithViewMode();
-        }
-
-        private void UpdateViewWithViewMode()
-        {
-            if (App.SViewModel.AlbumViewMode == AlbumViewMode.HorizontalTile)
-                MainGrid.DesiredWidth = 256;
-            else
-                MainGrid.DesiredWidth = 158;
         }
 
         private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
