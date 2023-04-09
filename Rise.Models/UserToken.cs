@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Rise.Models
 {
-    public partial class UserToken
+    public sealed partial class UserToken
     {
         [JsonProperty("message")]
         public TokenMessage Message { get; set; }
     }
 
-    public class TokenMessage
+    public sealed class TokenMessage
     {
         [JsonProperty("header")]
         public TokenHeader Header { get; set; }
@@ -24,7 +24,7 @@ namespace Rise.Models
         public TokenBody Body { get; set; }
     }
 
-    public class TokenBody
+    public sealed class TokenBody
     {
         [JsonProperty("user_token")]
         public string Token { get; set; }
@@ -36,7 +36,7 @@ namespace Rise.Models
         public TokenLocation Location { get; set; }
     }
 
-    public class TokenAppConfig
+    public sealed class TokenAppConfig
     {
         [JsonProperty("languages")]
         public string[] Languages { get; set; }
@@ -54,7 +54,7 @@ namespace Rise.Models
         public TokenEventMap[] EventMap { get; set; }
     }
 
-    public class TokenEventMap
+    public sealed class TokenEventMap
     {
         [JsonProperty("regex")]
         public string Regex { get; set; }
@@ -66,13 +66,13 @@ namespace Rise.Models
         public TokenPiggyback Piggyback { get; set; }
     }
 
-    public class TokenPiggyback
+    public sealed class TokenPiggyback
     {
         [JsonProperty("server_weight")]
         public long ServerWeight { get; set; }
     }
 
-    public class TokenLocation
+    public sealed class TokenLocation
     {
         [JsonProperty("GEOIP_CITY_COUNTRY_CODE")]
         public string GeoipCityCountryCode { get; set; }
@@ -111,7 +111,7 @@ namespace Rise.Models
         public object[] BadipTags { get; set; }
     }
 
-    public class TokenHeader
+    public sealed class TokenHeader
     {
         [JsonProperty("status_code")]
         public long StatusCode { get; set; }
@@ -126,7 +126,7 @@ namespace Rise.Models
         public object[] SurrogateKeyList { get; set; }
     }
 
-    public partial class UserToken
+    public sealed partial class UserToken
     {
         public static UserToken FromJson(string json) => JsonConvert.DeserializeObject<UserToken>(json, TokenConverter.Settings);
     }

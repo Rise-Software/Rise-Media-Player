@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.Storage;
 using Windows.UI;
 
 namespace Rise.App.ViewModels

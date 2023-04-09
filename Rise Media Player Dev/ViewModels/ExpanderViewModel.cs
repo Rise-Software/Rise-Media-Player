@@ -3,7 +3,7 @@ using Rise.Data.ViewModels;
 
 namespace Rise.App.ViewModels
 {
-    public class ExpanderViewModel : ViewModel
+    public sealed class ExpanderViewModel : ViewModel
     {
         private ExpanderStyles _expanderStyle;
         /// <summary>

@@ -12,7 +12,7 @@ namespace Rise.Models
     /// Represents a video.
     /// </summary>
     [Table("Videos")]
-    public partial class Video : DbObject, IEquatable<Video>, IMatchable<Video>
+    public sealed partial class Video : DbObject, IEquatable<Video>, IMatchable<Video>
     {
         public string Directors { get; set; }
 

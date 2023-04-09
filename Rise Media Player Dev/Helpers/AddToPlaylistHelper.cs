@@ -13,7 +13,7 @@ namespace Rise.App.Helpers
     /// <summary>
     /// A helper class for the Add to Playlist functionality.
     /// </summary>
-    public partial class AddToPlaylistHelper
+    public sealed partial class AddToPlaylistHelper
     {
         private JsonBackendController<PlaylistViewModel> PBackend
             => App.MViewModel.PBackend;

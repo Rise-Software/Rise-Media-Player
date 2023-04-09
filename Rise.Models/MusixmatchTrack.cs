@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Rise.Models
 {
-    public partial class MusixmatchTrack
+    public sealed partial class MusixmatchTrack
     {
         [JsonProperty("message")]
         public TrackMessage Message { get; set; }
     }
 
-    public class TrackMessage
+    public sealed class TrackMessage
     {
         [JsonProperty("header")]
         public TrackHeader Header { get; set; }
@@ -24,13 +24,13 @@ namespace Rise.Models
         public TrackBody Body { get; set; }
     }
 
-    public class TrackBody
+    public sealed class TrackBody
     {
         [JsonProperty("track")]
         public Track1 Track { get; set; }
     }
 
-    public class Track1
+    public sealed class Track1
     {
         [JsonProperty("track_id")]
         public long TrackId { get; set; }
@@ -150,19 +150,19 @@ namespace Rise.Models
         public TrackGenres SecondaryGenres { get; set; }
     }
 
-    public class TrackGenres
+    public sealed class TrackGenres
     {
         [JsonProperty("music_genre_list")]
         public TrackMusicGenreList[] MusicGenreList { get; set; }
     }
 
-    public class TrackMusicGenreList
+    public sealed class TrackMusicGenreList
     {
         [JsonProperty("music_genre")]
         public TrackMusicGenre MusicGenre { get; set; }
     }
 
-    public class TrackMusicGenre
+    public sealed class TrackMusicGenre
     {
         [JsonProperty("music_genre_id")]
         public long MusicGenreId { get; set; }
@@ -180,13 +180,13 @@ namespace Rise.Models
         public string MusicGenreVanity { get; set; }
     }
 
-    public class TrackNameTranslationList
+    public sealed class TrackNameTranslationList
     {
         [JsonProperty("track_name_translation")]
         public TrackNameTranslation TrackNameTranslation { get; set; }
     }
 
-    public class TrackNameTranslation
+    public sealed class TrackNameTranslation
     {
         [JsonProperty("language")]
         public string Language { get; set; }
@@ -195,7 +195,7 @@ namespace Rise.Models
         public string Translation { get; set; }
     }
 
-    public class TrackHeader
+    public sealed class TrackHeader
     {
         [JsonProperty("status_code")]
         public long StatusCode { get; set; }
@@ -216,7 +216,7 @@ namespace Rise.Models
         public string Hint { get; set; }
     }
 
-    public partial class MusixmatchTrack
+    public sealed partial class MusixmatchTrack
     {
         public static MusixmatchTrack FromJson(string json) => JsonConvert.DeserializeObject<MusixmatchTrack>(json, TrackConverter.Settings);
     }

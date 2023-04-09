@@ -20,7 +20,7 @@ namespace Rise.Data.ViewModels
     /// This class contains properties and methods that
     /// help when it comes to controlling media playback.
     /// </summary>
-    public partial class MediaPlaybackViewModel : ViewModel
+    public sealed partial class MediaPlaybackViewModel : ViewModel
     {
         /// <summary>
         /// List of media items that are currently queued for playback.

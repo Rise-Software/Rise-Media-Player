@@ -11,7 +11,7 @@ using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {
-    public partial class VideoViewModel : ViewModel<Video>, IMediaItem
+    public sealed partial class VideoViewModel : ViewModel<Video>, IMediaItem
     {
 
         #region Constructor

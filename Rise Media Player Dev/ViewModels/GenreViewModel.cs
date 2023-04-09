@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
-    public class GenreViewModel : ViewModel<Genre>
+    public sealed class GenreViewModel : ViewModel<Genre>
     {
 
         #region Constructor
