@@ -654,6 +654,10 @@
     <PRIResource Include="Strings\zh-Hans\Settings.resw" />
     <PRIResource Include="Strings\zh-Hans\Resources.resw" />
     <PRIResource Include="Strings\zh-Hans\HelpTips.resw" />
+    <PRIResource Include="Strings\zh-HK\Setup.resw" />
+    <PRIResource Include="Strings\zh-HK\Settings.resw" />
+    <PRIResource Include="Strings\zh-HK\Resources.resw" />
+    <PRIResource Include="Strings\zh-HK\HelpTips.resw" />
     <PRIResource Include="Strings\vi\Setup.resw" />
     <PRIResource Include="Strings\vi\Settings.resw" />
     <PRIResource Include="Strings\vi\Resources.resw" />
