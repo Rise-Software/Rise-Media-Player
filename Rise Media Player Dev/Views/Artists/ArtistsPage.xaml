@@ -204,7 +204,7 @@
             <SemanticZoom.ZoomedOutView>
                 <GridView
                     x:Name="ZoomedOutGrid"
-                    Width="450"
+                    Width="512"
                     Padding="56,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
