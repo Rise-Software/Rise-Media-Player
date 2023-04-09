@@ -23,15 +23,11 @@
             d:Padding="0"
             Orientation="Vertical"
             Spacing="4">
-            <Border Margin="10,10,10,10" ui:Effects.Shadow="{x:Bind DropShadow}">
-                <Border.Resources>
-                    <media:AttachedCardShadow
-                        x:Name="DropShadow"
-                        BlurRadius="15"
-                        CornerRadius="8"
-                        Opacity=".2" />
-                </Border.Resources>
-            </Border>
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
 
             <TextBlock
                 x:Uid="/HelpTips/FAQH"

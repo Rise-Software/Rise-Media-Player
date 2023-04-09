@@ -23,6 +23,12 @@
         Margin="0,12,0,12"
         Orientation="Vertical"
         Spacing="4">
+        <StackPanel.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </TransitionCollection>
+        </StackPanel.ChildrenTransitions>
+        
         <muxc:TeachingTip
             x:Name="ChangeThemeTip"
             Title="{markup:ResourceHelper Name=/Settings/AppThemeChanged}"

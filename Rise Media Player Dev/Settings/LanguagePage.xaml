@@ -13,6 +13,12 @@
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            
             <uc:AdaptiveItemPane Margin="0,10,0,0">
                 <uc:AdaptiveItemPane.LeftPane>
                     <StackPanel Orientation="Horizontal" Spacing="20">

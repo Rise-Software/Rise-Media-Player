@@ -11,6 +11,12 @@
     mc:Ignorable="d">
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            
             <Border Margin="0,4,0,0" Style="{StaticResource SettingsCard}">
                 <RelativePanel Margin="0,4,0,0">
                     <FontIcon

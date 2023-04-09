@@ -22,6 +22,7 @@
                 <RepositionThemeTransition IsStaggeringEnabled="False" />
             </TransitionCollection>
         </StackPanel.ChildrenTransitions>
+        
         <labs:SettingsCard
             Description="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanDesc}"
             Header="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanTitle}"

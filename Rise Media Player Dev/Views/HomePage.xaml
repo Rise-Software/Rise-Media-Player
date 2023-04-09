@@ -22,6 +22,12 @@
             d:Padding="0"
             Orientation="Vertical"
             Spacing="4">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
                     <Button
