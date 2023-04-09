@@ -1,5 +1,6 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.Views;
+using Rise.App.Web;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
@@ -34,8 +35,7 @@ namespace Rise.App.Settings
 
         private async void FeedbackSettings_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(Web.FeedbackPage).
-                ShowInApplicationViewAsync(null, 375, 600, true);
+            _ = await FeedbackPage.TryShowAsync();
         }
 
         private void Insider_Click(object sender, RoutedEventArgs e)

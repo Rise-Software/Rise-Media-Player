@@ -1,4 +1,5 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Rise.Data.Json;
 using System;
 using System.Collections.Specialized;
@@ -28,6 +29,9 @@ namespace Rise.App.Views
             Controller.Items.CollectionChanged += OnPlaylistCollectionChanged;
             View.Consolidated += OnViewConsolidated;
         }
+
+        public static Task<bool> TryShowAsync(PlaylistViewModel playlist)
+            => ViewHelpers.OpenViewAsync<PlaylistPropertiesPage>(playlist, new(380, 500));
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

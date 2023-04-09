@@ -1,8 +1,10 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,6 +21,9 @@ namespace Rise.App.Views.Albums.Properties
             InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
         }
+
+        public static Task<bool> TryShowAsync(AlbumViewModel album)
+            => ViewHelpers.OpenViewAsync<AlbumPropertiesPage>(album, new(380, 500));
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

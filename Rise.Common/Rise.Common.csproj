@@ -130,7 +130,6 @@
     <Compile Include="Constants\URIs.cs" />
     <Compile Include="Constants\SystemMusic.cs" />
     <Compile Include="Constants\URLs.cs" />
-    <Compile Include="Constants\ViewManagement.cs" />
     <Compile Include="Enums\AlbumViewMode.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\ExpanderStyles.cs" />
@@ -156,7 +155,7 @@
     <Compile Include="Extensions\SQLiteConnectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
-    <Compile Include="Extensions\ViewManagementExtensions.cs" />
+    <Compile Include="Extensions\ViewHelpers.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\CancellableTaskHelper.cs" />
     <Compile Include="Helpers\CompositionControl.cs" />
