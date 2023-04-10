@@ -50,7 +50,7 @@
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="3"
-            Style="{StaticResource SettingsCard}">
+            Style="{StaticResource BorderCardStyle}">
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

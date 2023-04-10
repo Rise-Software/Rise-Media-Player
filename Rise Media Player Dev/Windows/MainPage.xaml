@@ -589,7 +589,7 @@
                         Padding="0"
                         VerticalAlignment="Bottom"
                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource SettingsCard}"
+                        Style="{StaticResource BorderCardStyle}"
                         Visibility="Collapsed">
                         <animations:Implicit.ShowAnimations>
                             <animations:TranslationAnimation
@@ -668,7 +668,7 @@
                         Padding="0"
                         VerticalAlignment="Bottom"
                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource SettingsCard}"
+                        Style="{StaticResource BorderCardStyle}"
                         Visibility="Collapsed">
                         <animations:Implicit.ShowAnimations>
                             <animations:TranslationAnimation
@@ -736,7 +736,7 @@
                         Padding="0"
                         VerticalAlignment="Bottom"
                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource SettingsCard}"
+                        Style="{StaticResource BorderCardStyle}"
                         Visibility="Collapsed">
                         <animations:Implicit.ShowAnimations>
                             <animations:TranslationAnimation

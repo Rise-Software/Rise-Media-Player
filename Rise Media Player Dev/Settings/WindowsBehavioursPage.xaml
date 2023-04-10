@@ -17,7 +17,7 @@
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
             
-            <Border Margin="0,4,0,0" Style="{StaticResource SettingsCard}">
+            <Border Margin="0,4,0,0" Style="{StaticResource BorderCardStyle}">
                 <RelativePanel Margin="0,4,0,0">
                     <FontIcon
                         x:Name="WindowsLogo"

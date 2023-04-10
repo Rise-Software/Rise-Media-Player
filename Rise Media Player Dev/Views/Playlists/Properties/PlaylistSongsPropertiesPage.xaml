@@ -33,7 +33,7 @@
             SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <Border Margin="-16,0,-12,4" Style="{StaticResource SettingsCard}">
+                    <Border Margin="-16,0,-12,4" Style="{StaticResource BorderCardStyle}">
                         <Grid
                             Margin="-8,-6,-8,-6"
                             Padding="4"

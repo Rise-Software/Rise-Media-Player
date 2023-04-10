@@ -23,7 +23,7 @@
             <Border
                 Margin="0,12,0,0"
                 Padding="12,0,12,0"
-                Style="{StaticResource SettingsCard}">
+                Style="{StaticResource BorderCardStyle}">
                 <uc:AdaptiveItemPane Margin="0,12,0,0" VerticalAlignment="Center">
                     <uc:AdaptiveItemPane.LeftPane>
                         <Image

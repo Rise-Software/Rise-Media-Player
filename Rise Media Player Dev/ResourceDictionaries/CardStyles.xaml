@@ -35,7 +35,7 @@
     </Style>
 
     <Thickness x:Key="CardPadding">16,12</Thickness>
-    <Style x:Key="SettingsCard" TargetType="Border">
+    <Style x:Key="BorderCardStyle" TargetType="Border">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />

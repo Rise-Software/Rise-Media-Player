@@ -278,7 +278,7 @@
                     Padding="16,0,8,0"
                     HorizontalAlignment="Stretch"
                     x:Load="False"
-                    Style="{StaticResource SettingsCard}">
+                    Style="{StaticResource BorderCardStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

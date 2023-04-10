@@ -81,7 +81,7 @@
                 Padding="32"
                 VerticalAlignment="Stretch"
                 CornerRadius="8"
-                Style="{StaticResource SettingsCard}"
+                Style="{StaticResource BorderCardStyle}"
                 Visibility="Collapsed">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -320,7 +320,7 @@
                 Padding="0,32,0,0"
                 VerticalAlignment="Stretch"
                 CornerRadius="8"
-                Style="{StaticResource SettingsCard}">
+                Style="{StaticResource BorderCardStyle}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

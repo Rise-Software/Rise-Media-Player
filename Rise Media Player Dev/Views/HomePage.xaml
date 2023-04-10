@@ -53,7 +53,7 @@
                 BorderThickness="1"
                 CornerRadius="6"
                 Opacity="1"
-                Style="{StaticResource SettingsCard}">
+                Style="{StaticResource BorderCardStyle}">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Padding="0,50,0,20">
                         <Image

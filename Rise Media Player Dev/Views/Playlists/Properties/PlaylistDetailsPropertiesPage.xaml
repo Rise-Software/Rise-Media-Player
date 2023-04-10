@@ -22,7 +22,7 @@
 
     <ScrollViewer>
         <StackPanel Orientation="Vertical" Spacing="4">
-            <Border Style="{StaticResource SettingsCard}">
+            <Border Style="{StaticResource BorderCardStyle}">
                 <StackPanel
                     Padding="0,4,0,0"
                     Orientation="Vertical"
