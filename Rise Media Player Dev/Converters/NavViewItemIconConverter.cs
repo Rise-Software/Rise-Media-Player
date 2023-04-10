@@ -1,6 +1,5 @@
 ﻿using Rise.Data.ViewModels;
 using System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -10,7 +9,7 @@ namespace Rise.App.Converters
     /// Gets an icon for the provided <see cref="NavViewItemViewModel"/>
     /// based on the current icon pack.
     /// </summary>
-    public sealed class NavViewItemIconConverter : DependencyObject, IValueConverter
+    public sealed class NavViewItemIconConverter : IValueConverter
     {
         private readonly string IconPack = App.SViewModel.IconPack;
 
