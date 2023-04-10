@@ -14,7 +14,7 @@ using Windows.Web.Http;
 
 namespace Rise.Data.ViewModels
 {
-    public partial class LastFMViewModel : ViewModel
+    public sealed partial class LastFMViewModel : ViewModel
     {
         private readonly string _key;
         private readonly string _secret;

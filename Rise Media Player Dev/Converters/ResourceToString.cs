@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class ResourceToString : IValueConverter
+    public sealed class ResourceToString : IValueConverter
     {
         private static ResourceLoader _currLoader;
         private static string _loader = string.Empty;

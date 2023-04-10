@@ -21,7 +21,7 @@ using Windows.Storage.FileProperties;
 
 namespace Rise.App.ViewModels
 {
-    public class MainViewModel : ViewModel
+    public sealed class MainViewModel : ViewModel
     {
         public event EventHandler IndexingStarted;
         public event EventHandler MetadataFetchingStarted;

@@ -9,7 +9,7 @@ namespace Rise.Models
     /// Represents an Artist.
     /// </summary>
     [Table("Artists")]
-    public class Artist : DbObject, IEquatable<Artist>, IMatchable<Artist>
+    public sealed class Artist : DbObject, IEquatable<Artist>, IMatchable<Artist>
     {
         [Column(nameof(Name))]
         public string Name { get; set; }

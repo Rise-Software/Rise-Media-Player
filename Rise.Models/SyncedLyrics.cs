@@ -8,13 +8,13 @@ using System.ComponentModel;
 
 namespace Rise.Models
 {
-    public partial class SyncedLyrics
+    public sealed partial class SyncedLyrics
     {
         [JsonProperty("message")]
         public SyncedMessage Message { get; set; }
     }
 
-    public class SyncedMessage
+    public sealed class SyncedMessage
     {
         [JsonProperty("header")]
         public SyncedHeader Header { get; set; }
@@ -23,13 +23,13 @@ namespace Rise.Models
         public SyncedBody Body { get; set; }
     }
 
-    public class SyncedBody
+    public sealed class SyncedBody
     {
         [JsonProperty("subtitle")]
         public SyncedSubtitle Subtitle { get; set; }
     }
 
-    public class SyncedSubtitle
+    public sealed class SyncedSubtitle
     {
         [JsonProperty("subtitle_id")]
         public long SubtitleId { get; set; }
@@ -77,7 +77,7 @@ namespace Rise.Models
         public IReadOnlyList<SyncedLyricItem> Subtitles => Array.AsReadOnly(JsonConvert.DeserializeObject<SyncedLyricItem[]>(SubtitleBody));
     }
 
-    public class SyncedLyricItem : INotifyPropertyChanged
+    public sealed class SyncedLyricItem : INotifyPropertyChanged
     {
         [JsonProperty("text")]
         public string Text { get; set; }
@@ -106,7 +106,7 @@ namespace Rise.Models
             => $"{Text} - {TimeSpan}"; 
     }
 
-    public class SyncedLyricTime
+    public sealed class SyncedLyricTime
     {
         [JsonProperty("seconds")]
         public int Seconds { get; set; }
@@ -129,7 +129,7 @@ namespace Rise.Models
         }
     }
 
-    public class SyncedHeader
+    public sealed class SyncedHeader
     {
         [JsonProperty("status_code")]
         public long StatusCode { get; set; }
@@ -141,7 +141,7 @@ namespace Rise.Models
         public string Hint { get; set; }
     }
 
-    public partial class SyncedLyrics
+    public sealed partial class SyncedLyrics
     {
         public static SyncedLyrics FromJson(string json)
             => JsonConvert.DeserializeObject<SyncedLyrics>(json, SyncedConverter.Settings);

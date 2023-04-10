@@ -15,7 +15,7 @@ using Windows.Storage.FileProperties;
 
 namespace Rise.App.ViewModels
 {
-    public class SongPropertiesViewModel : ViewModel<SongViewModel>
+    public sealed class SongPropertiesViewModel : ViewModel<SongViewModel>
     {
         public BasicProperties FileProps { get; set; }
 

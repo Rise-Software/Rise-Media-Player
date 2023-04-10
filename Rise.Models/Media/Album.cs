@@ -9,7 +9,7 @@ namespace Rise.Models
     /// Represents an album.
     /// </summary>
     [Table("Albums")]
-    public class Album : DbObject, IEquatable<Album>, IMatchable<Album>
+    public sealed class Album : DbObject, IEquatable<Album>, IMatchable<Album>
     {
         [Column(nameof(Title))]
         public string Title { get; set; }

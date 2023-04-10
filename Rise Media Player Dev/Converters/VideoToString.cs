@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class VideoToString : IValueConverter
+    public sealed class VideoToString : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

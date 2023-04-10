@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class StringToVisibility : IValueConverter
+    public sealed class StringToVisibility : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

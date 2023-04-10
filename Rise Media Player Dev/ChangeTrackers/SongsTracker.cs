@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace Rise.App.ChangeTrackers
 {
-    public class SongsTracker
+    public sealed class SongsTracker
     {
         /// <summary>
         /// Gets the app-wide MViewModel instance.

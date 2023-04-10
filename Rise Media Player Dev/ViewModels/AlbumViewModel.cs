@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
-    public class AlbumViewModel : ViewModel<Album>
+    public sealed class AlbumViewModel : ViewModel<Album>
     {
 
         #region Constructor

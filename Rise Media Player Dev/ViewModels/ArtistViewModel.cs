@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
-    public class ArtistViewModel : ViewModel<Artist>
+    public sealed class ArtistViewModel : ViewModel<Artist>
     {
 
         #region Constructor
