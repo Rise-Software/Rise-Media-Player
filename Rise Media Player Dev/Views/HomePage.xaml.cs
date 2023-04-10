@@ -30,8 +30,7 @@ namespace Rise.App.Views
 
         private async void WhatsNew_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(WhatsNew).
-                ShowInApplicationViewAsync(null, 500, 600, true);
+            _ = await WhatsNew.TryShowAsync();
         }
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)

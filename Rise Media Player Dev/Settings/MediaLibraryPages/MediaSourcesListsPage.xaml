@@ -8,6 +8,8 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:storage="using:Windows.Storage"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -36,7 +38,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid RowSpacing="12">
+    <Grid Margin="0,12" RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
@@ -81,11 +83,11 @@
                 SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <uc:ExpanderControl
-                            Title="{x:Bind DisplayName}"
+                        <labs:SettingsCard
+                            Header="{x:Bind DisplayName}"
                             Description="{x:Bind Path}"
-                            ExpanderStyle="Static"
-                            Icon="&#xE189;">
+                            BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                            HeaderIcon="{ui:FontIcon Glyph=&#xE189;}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <Button
                                     Padding="8"
@@ -107,7 +109,7 @@
                                     <FontIcon FontSize="16" Glyph="&#xE106;" />
                                 </Button>
                             </StackPanel>
-                        </uc:ExpanderControl>
+                        </labs:SettingsCard>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -122,11 +124,11 @@
                 SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <uc:ExpanderControl
-                            Title="{x:Bind DisplayName}"
+                        <labs:SettingsCard
+                            Header="{x:Bind DisplayName}"
                             Description="{x:Bind Path}"
-                            ExpanderStyle="Static"
-                            Icon="&#xE8B2;">
+                            BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                            HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <Button
                                     Padding="8"
@@ -148,7 +150,7 @@
                                     <FontIcon FontSize="16" Glyph="&#xE106;" />
                                 </Button>
                             </StackPanel>
-                        </uc:ExpanderControl>
+                        </labs:SettingsCard>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

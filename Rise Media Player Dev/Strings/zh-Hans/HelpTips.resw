@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Adding your personal music and videos</value>
+    <value>添加您的个人音乐和视频</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• These versions will be pushed from the Microsoft Store

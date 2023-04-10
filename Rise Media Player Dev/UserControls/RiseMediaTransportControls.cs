@@ -5,7 +5,6 @@ using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
-using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using System;
 using System.Linq;
@@ -435,8 +434,7 @@ namespace Rise.App.UserControls
                         FileProps = await file.GetBasicPropertiesAsync()
                     };
 
-                    _ = await typeof(SongPropertiesPage).
-                        PlaceInApplicationViewAsync(props, 380, 550, true);
+                    _ = await SongPropertiesPage.TryShowAsync(props);
                 }
             }
             catch { }

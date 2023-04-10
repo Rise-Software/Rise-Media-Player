@@ -4,7 +4,6 @@ using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.App.Views.Albums.Properties;
 using Rise.Common.Enums;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.Collections;
@@ -148,8 +147,7 @@ namespace Rise.App.UserControls
                         FileProps = await file.GetBasicPropertiesAsync()
                     };
 
-                    _ = await typeof(SongPropertiesPage).
-                        PlaceInApplicationViewAsync(props, 380, 550, true);
+                    _ = await SongPropertiesPage.TryShowAsync(props);
                 }
             }
             catch
@@ -161,20 +159,14 @@ namespace Rise.App.UserControls
         /// <summary>
         /// Opens the properties page for the provided album.
         /// </summary>
-        public async Task EditAlbumAsync(AlbumViewModel album)
-        {
-            _ = await typeof(AlbumPropertiesPage).
-                ShowInApplicationViewAsync(album, 380, 550, true);
-        }
+        public Task<bool> EditAlbumAsync(AlbumViewModel album)
+            => AlbumPropertiesPage.TryShowAsync(album);
 
         /// <summary>
         /// Opens the properties page for the provided playlist.
         /// </summary>
-        public async Task EditPlaylistAsync(PlaylistViewModel playlist)
-        {
-            _ = await typeof(PlaylistPropertiesPage).
-                ShowInApplicationViewAsync(playlist, 380, 550, true);
-        }
+        public Task<bool> EditPlaylistAsync(PlaylistViewModel playlist)
+            => PlaylistPropertiesPage.TryShowAsync(playlist);
     }
 
     // Navigation

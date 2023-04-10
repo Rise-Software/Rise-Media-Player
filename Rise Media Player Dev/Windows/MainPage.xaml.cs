@@ -3,6 +3,7 @@ using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
+using Rise.App.Web;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
@@ -469,8 +470,7 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(Web.FeedbackPage).
-                ShowInApplicationViewAsync(null, 375, 600, true);
+            _ = await FeedbackPage.TryShowAsync();
         }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)

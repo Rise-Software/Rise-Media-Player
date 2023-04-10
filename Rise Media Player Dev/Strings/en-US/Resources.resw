@@ -145,7 +145,7 @@
     <value>Decline</value>
   </data>
   <data name="Discy" xml:space="preserve">
-    <value>Help Centre</value>
+    <value>Help Center</value>
   </data>
   <data name="Genres" xml:space="preserve">
     <value>Genres</value>
@@ -211,7 +211,7 @@
     <value>Use streaming services only</value>
   </data>
   <data name="Personalise" xml:space="preserve">
-    <value>Personalise</value>
+    <value>Personalize</value>
   </data>
   <data name="Playback" xml:space="preserve">
     <value>Playback</value>
@@ -235,7 +235,7 @@
     <value>Remove from sidebar</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
-    <value>Search all media on this device</value>
+    <value>Search all media from this device</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Search</value>
@@ -301,7 +301,7 @@
     <value>Song info</value>
   </data>
   <data name="Colorful" xml:space="preserve">
-    <value>Colourful</value>
+    <value>Colorful</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Default</value>
@@ -733,7 +733,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
     <value>We have nothing to show here.</value>
   </data>
   <data name="HomeThingsYouLove" xml:space="preserve">
-    <value>Personalise your at a glance page with the things you love.</value>
+    <value>Personalize your at a glance page with the things you love.</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Image</value>
@@ -805,7 +805,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
     <value>Sync all</value>
   </data>
   <data name="SyncCenter" xml:space="preserve">
-    <value>Sync centre</value>
+    <value>Sync center</value>
   </data>
   <data name="MoreAlbumsByArtist" xml:space="preserve">
     <value>More albums by this artist</value>
@@ -832,7 +832,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
     <value>Appearance</value>
   </data>
   <data name="Center" xml:space="preserve">
-    <value>Centre</value>
+    <value>Center</value>
   </data>
   <data name="Header" xml:space="preserve">
     <value>Header</value>
@@ -865,7 +865,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
     <value>Syncing</value>
   </data>
   <data name="SystemBehaviors" xml:space="preserve">
-    <value>System behaviours</value>
+    <value>System behaviors</value>
   </data>
   <data name="WallpapersAndExtras" xml:space="preserve">
     <value>Wallpapers &amp; extras</value>
@@ -940,5 +940,8 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   </data>
   <data name="FromFolder" xml:space="preserve">
     <value>From folder</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>

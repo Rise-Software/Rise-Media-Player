@@ -161,37 +161,37 @@ Insideri Early Access (în trecut Insideri Seeding) beneficiază de acces la apl
     <value>Beta</value>
   </data>
   <data name="DiscyAboutTipDesc" xml:space="preserve">
-    <value>You can find me by right clicking on different things. For example, an album. I'll tell you what you can do :). I'm still pretty new, so I won't be everywhere, but I'm growing every day!</value>
+    <value>Mă puteți găsi făcând clic dreapta pe diferite lucruri. De exemplu, un album. Vă voi spune ce puteţi face :). Sunt încă destul de nou, deci nu voi fi peste tot, dar cresc în fiecare zi!</value>
   </data>
   <data name="DiscyAboutTipTitle" xml:space="preserve">
-    <value>Hey! I'm Discy.</value>
+    <value>Salut! Sunt Discy.</value>
   </data>
   <data name="DiscyOnAlbumDesc" xml:space="preserve">
-    <value>Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.</value>
+    <value>Utilizați bara de comandă pentru a sorta albumele în diferite tipuri. Faceți clic pe un album pentru a vedea ce este în magazin. Poți adăuga un întreg album la o listă de redare, să amesteci sau să distribui cu prietenii.</value>
   </data>
   <data name="DiscyOnAlbumH" xml:space="preserve">
-    <value>Managing and organising your albums</value>
+    <value>Gestionarea și organizarea albumelor tale</value>
   </data>
   <data name="DiscyOnArtistDesc" xml:space="preserve">
-    <value>Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.</value>
+    <value>Redă simultan descoperirea unui întreg artist Vezi informații despre un artist, albumele lor (stocate pe dispozitivul tău) și melodiile dând click pe artistul pe care îl dorești. Distribuie artiștii tăi favoriți prietenilor tăi sau adaugă muzica unui întreg artist la o listă de redare.</value>
   </data>
   <data name="DiscyOnPlaylistDesc" xml:space="preserve">
-    <value>Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!</value>
+    <value>Pune cântecele tale preferate, melodiile speciale, melodiile tale, împreună într-o listă de redare. Dă-i o descriere și un titlu. Apoi adaugă muzică în plus și elimină piesele de la care nu ești prea sigur. Ascultare fericită!</value>
   </data>
   <data name="DiscyOnPlaylistH" xml:space="preserve">
-    <value>Group with playlists</value>
+    <value>Grup cu liste de redare</value>
   </data>
   <data name="DiscyOnSongDesc" xml:space="preserve">
-    <value>Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!</value>
+    <value>Treci peste o melodie și apasă butonul de redare pentru a reda o melodie sau fă dublu click. Omite, întoarce-te și vezi informațiile melodiei din bara de redare actuală (în partea de jos a ferestrei aplicației). Faceți clic pe 'Informații și Proprietăți' pentru a edita metadatele melodiilor și informațiile fișierului. Puteți întotdeauna să le partajați și altora sau să adăugați la lista de redare!</value>
   </data>
   <data name="DiscyOnSongH" xml:space="preserve">
-    <value>Taking action on songs</value>
+    <value>Efectuarea de acțiuni asupra melodiilor</value>
   </data>
   <data name="DiscyOnVideoDesc" xml:space="preserve">
-    <value>Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.</value>
+    <value>Faceți clic pe un videoclip pentru a-l reda. Redenumiți și sortați-le. Videoclipurile vor ocupa întreaga fereastră a aplicației și puteți scruba, pauza, sări și multe altele.</value>
   </data>
   <data name="DiscyOnVideoH" xml:space="preserve">
-    <value>Playing videos</value>
+    <value>Redare videoclipuri</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
     <value>Întrebări clasice</value>
@@ -223,20 +223,20 @@ Insideri Early Access (în trecut Insideri Seeding) beneficiază de acces la apl
     <value>Cum intru în Programul Insider?</value>
   </data>
   <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Playing media and now playing</value>
+    <value>Redă media şi acum se redă</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
-    <value>• Song, Album, Artist and Genre Indexing
-• Album, Artist, Genre and Songs Views (static for now)
-• Media Playback
-• Command Bar (BASIC)
-• User Controlled Media Locations
-• UI Manipulation through Settings
-• Basic Metadata control for Music
-• Basic Now Playing UI
-• Basic Properties Window
-• FAQ Help Section
-• Discy in small areas</value>
+    <value>• Indexarea pieselor, albumului, artistului și genului
+• Album, Artist, Vizualizări de genuri și melodii (statice pentru acum)
+• Redare Media
+• Bară de comandă (BASIC)
+• Locații media controlate de utilizatori
+• Manipulare UI prin Setări
+• Control metadate de bază pentru muzică
+• Interfață redare de bază acum
+• Fereastră proprietăți de bază
+• Secțiunea de ajutor FAQ
+• Discy în zonele mici</value>
   </data>
   <data name="PreAlphaH.Text" xml:space="preserve">
     <value>Pre-Alpha (vor fi multe versiuni așa)</value>
@@ -253,15 +253,15 @@ Insideri Early Access (în trecut Insideri Seeding) beneficiază de acces la apl
 
 • Alpha - Anul Nou (2022)-martie 2022. Notiță: Durând procesul Alpha, versiuni demo ale aplicației vor fi disponibile public pentru testarea IU.
 
-• Beta - aprilie-TBD (Pre-Alpha 4 va fi disponibil pentru instalare pe Microsoft Store, iar nu vei avea nevoie de Programul Insider, deși vei pierde niscaiva funcții) </value>
+• Beta - aprilie-TBD (Pre-Alpha 4 va fi disponibil pentru instalare pe Microsoft Store, iar nu vei avea nevoie de Programul Insider, deși vei pierde niscaiva funcții)</value>
   </data>
   <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Sortăm și ținem grijă de librăria ta</value>
+    <value>Sortarea și gestionarea bibliotecii tale</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
     <value>Va trebui să descoperi ;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
-    <value>Ce-i chestia aia Discy?</value>
+    <value>Ce este Discy?</value>
   </data>
 </root>

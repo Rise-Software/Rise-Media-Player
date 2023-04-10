@@ -116,9 +116,7 @@ namespace Rise.App
                             if (args["exceptionName"] != null)
                             {
                                 string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
-
-                                _ = typeof(CrashDetailsPage).
-                                    ShowInApplicationViewAsync(text, 600, 600);
+                                _ = await CrashDetailsPage.TryShowAsync(text);
                             }
                         }
                         break;

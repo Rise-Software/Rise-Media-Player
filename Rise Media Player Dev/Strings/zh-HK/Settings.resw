@@ -118,333 +118,333 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutExtrasH" xml:space="preserve">
-    <value>Extras para Insider</value>
+    <value>Insider Extras</value>
   </data>
   <data name="AboutMoreCopyVersion" xml:space="preserve">
-    <value>Copiar versão</value>
+    <value>Copy version</value>
   </data>
   <data name="AboutMoreH" xml:space="preserve">
-    <value>Mais</value>
+    <value>More</value>
   </data>
   <data name="AboutMoreReleases" xml:space="preserve">
-    <value>Versões</value>
+    <value>Releases</value>
   </data>
   <data name="AboutMoreTitle" xml:space="preserve">
-    <value>Mais informações da versão</value>
+    <value>More version info</value>
   </data>
   <data name="AboutSave" xml:space="preserve">
-    <value>Guardar para o meu dispositivo</value>
+    <value>Save to my device</value>
   </data>
   <data name="AboutSocialDesc" xml:space="preserve">
-    <value>Fique por dentro das últimas atualizações.</value>
+    <value>Keep up with the latest updates.</value>
   </data>
   <data name="AboutSocialTitle" xml:space="preserve">
-    <value>Redes sociais</value>
+    <value>Social media</value>
   </data>
   <data name="AboutWallsDesc" xml:space="preserve">
-    <value>Acesse algumas imagens de fundo exclusivos da marca RiseMP.</value>
+    <value>Access some exclusive RiseMP branded wallpapers.</value>
   </data>
   <data name="AboutWallsTitle" xml:space="preserve">
-    <value>Imagens de parede de ambiente de trabalho &amp; temas</value>
+    <value>Desktop wallpapers &amp; themes</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
-    <value>Adicionar uma conta</value>
+    <value>Add an account</value>
   </data>
   <data name="AddFolder" xml:space="preserve">
-    <value>Adicionar pasta</value>
+    <value>Add folder</value>
   </data>
   <data name="AddFolders" xml:space="preserve">
-    <value>Adicionar pastas</value>
+    <value>Add folders</value>
   </data>
   <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
-    <value>Utilizar capa de álbum</value>
+    <value>Use album art</value>
   </data>
   <data name="AppearanceAppLayout" xml:space="preserve">
-    <value>Aparência da aplicação</value>
+    <value>App layout</value>
   </data>
   <data name="AppearanceAppWindow" xml:space="preserve">
-    <value>Janela da aplicação</value>
+    <value>App window</value>
   </data>
   <data name="AppearanceChooseColor" xml:space="preserve">
-    <value>Escolha o destaque da janela</value>
+    <value>Choose your window glaze</value>
   </data>
   <data name="AppearanceChooseTheme" xml:space="preserve">
-    <value>Escolha a sua cor</value>
+    <value>Choose your colour</value>
   </data>
   <data name="AppearanceCustomGlazeColor" xml:space="preserve">
-    <value>Utilizar cor personalizada</value>
+    <value>Use custom colour</value>
   </data>
   <data name="AppearanceIconsAndFonts" xml:space="preserve">
-    <value>Ícones e fontes</value>
+    <value>Icons &amp; fonts</value>
   </data>
   <data name="AppearanceItemDesc" xml:space="preserve">
-    <value>Personalizar cores da aplicação, temas, ícones, aparência e movimento.</value>
+    <value>Customise app colours, themes, icons, layouts and motion.</value>
   </data>
   <data name="AppearanceNoGlaze" xml:space="preserve">
-    <value>Sem destaque</value>
+    <value>No glaze</value>
   </data>
   <data name="AppearanceNothing" xml:space="preserve">
-    <value>Não há nada para mostrar aqui. Para mostrar cores disponíveis, selecione 'Utilizar cor personalizada' na caixa de seleção.</value>
+    <value>There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown.</value>
   </data>
   <data name="AppearanceOverview" xml:space="preserve">
-    <value>Visão Geral</value>
+    <value>Overview</value>
   </data>
   <data name="AppearancePickUp" xml:space="preserve">
-    <value>Escolha onde você parou</value>
+    <value>Pick up where you left off</value>
   </data>
   <data name="AppearanceStartupTitle" xml:space="preserve">
-    <value>No arranque</value>
+    <value>On startup</value>
   </data>
   <data name="AppearanceSystemGlazeColor" xml:space="preserve">
-    <value>Utilizar cor de destaque do sistema</value>
+    <value>Use system accent colour</value>
   </data>
   <data name="AppearanceTip" xml:space="preserve">
-    <value>*As mudanças no modo compacto não terão efeito até que a configuração seja concluída.</value>
+    <value>*Compact mode changes won't take effect until after setup has completed.</value>
   </data>
   <data name="AppThemeChanged" xml:space="preserve">
-    <value>Tema da aplicação alterado</value>
+    <value>App theme changed</value>
   </data>
   <data name="ColorfulIcons" xml:space="preserve">
-    <value>Ícones coloridos</value>
+    <value>Colourful Icons</value>
   </data>
   <data name="ConnectToLastFmDesc" xml:space="preserve">
-    <value>Descubra o seu histórico de reprodução e audição recente e navegue até a Internet.</value>
+    <value>Discover your recently played, listening history and scrobble to the internet.</value>
   </data>
   <data name="ConnectToLastFmH" xml:space="preserve">
-    <value>Conectar ao last.fm</value>
+    <value>Connect to last.fm</value>
   </data>
   <data name="CustomizedColors" xml:space="preserve">
-    <value>Cores personalizadas</value>
+    <value>Customised colours</value>
   </data>
   <data name="HighContrastIcons" xml:space="preserve">
-    <value>Ícones de Alto Contraste</value>
+    <value>High Contrast Icons</value>
   </data>
   <data name="InsiderHub" xml:space="preserve">
     <value>Insider Hub</value>
   </data>
   <data name="MatchSystemAppLang" xml:space="preserve">
-    <value>Corresponder idiomas do sistema e da aplicação</value>
+    <value>Match system &amp; app languages</value>
   </data>
   <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
-    <value>Examinar por um período de tempo especificado quando a aplicação está aberta.</value>
+    <value>Scan per a specified period of time when the app is open.</value>
   </data>
   <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
-    <value>Procura periódica</value>
+    <value>Periodic scanning</value>
   </data>
   <data name="MediaLibraryDeletionTitle" xml:space="preserve">
-    <value>Ao remover mídia local</value>
+    <value>When removing local media</value>
   </data>
   <data name="MediaLibraryDone" xml:space="preserve">
-    <value>Limpar tudo</value>
+    <value>Clear all</value>
   </data>
   <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
-    <value>Procurar por nova mídia após um evento ou eventos ocorrerem.</value>
+    <value>Scan for new media after an event or events take place.</value>
   </data>
   <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
-    <value>Prcurar quando um dispositivo ou unidade removível estiver conectado</value>
+    <value>Scan when a removable device or drive is connected</value>
   </data>
   <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
-    <value>Procurar ao adicionar ficheiros às suas fontes de mídia</value>
+    <value>Scan when adding files to your media sources</value>
   </data>
   <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
-    <value>Procurar ao adicionar um novo local de mídia</value>
+    <value>Scan when you add a new media location</value>
   </data>
   <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
-    <value>Procurar ao abrir a aplicação</value>
+    <value>Scan when the app is opened</value>
   </data>
   <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
-    <value>Procura de evento inteligente</value>
+    <value>Smart event scan</value>
   </data>
   <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
-    <value>Procurar dados da Internet quando necessário</value>
+    <value>Fetch data from the Internet when needed</value>
   </data>
   <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
-    <value>Ficheiros e pastas</value>
+    <value>Files &amp; folders</value>
   </data>
   <data name="MediaLibraryItemDesc" xml:space="preserve">
-    <value>Gerir fontes de mídia, os seus serviços online e definições de procura.</value>
+    <value>Manage media sources, your online services and scanning settings.</value>
   </data>
   <data name="MediaLibraryLocalMediaH" xml:space="preserve">
-    <value>Mídia local e dispositivos</value>
+    <value>Local media &amp; devices</value>
   </data>
   <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
-    <value>Vídeos, música e muito mais</value>
+    <value>Videos, music and more</value>
   </data>
   <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
-    <value>Gerir pastas de mídia locai</value>
+    <value>Manage local media folders</value>
   </data>
   <data name="MediaLibraryManualScanDesc" xml:space="preserve">
-    <value>Procura em pastas que você já adicionou para que músicas e vídeos sejam adicionadas à sua biblioteca.</value>
+    <value>Scans the folders you've already added for music and videos to add to your library.</value>
   </data>
   <data name="MediaLibraryManualScanTitle" xml:space="preserve">
-    <value>Procura manual</value>
+    <value>Manual scan</value>
   </data>
   <data name="MediaLibraryMetadata" xml:space="preserve">
-    <value>Metadados</value>
+    <value>Metadata</value>
   </data>
   <data name="MediaLibraryOnlineDataH" xml:space="preserve">
-    <value>Dados online</value>
+    <value>Online data</value>
   </data>
   <data name="MediaLibraryRemoveFolder" xml:space="preserve">
-    <value>Remover pasta</value>
+    <value>Remove folder</value>
   </data>
   <data name="MediaLibraryRippingDesc" xml:space="preserve">
-    <value>Escolha o que você quer que aconteça quando você ripar um disco.</value>
+    <value>Choose what you want to happen when you rip a disc.</value>
   </data>
   <data name="MediaLibraryRippingTitle" xml:space="preserve">
-    <value>Opções de ripagem de disco</value>
+    <value>Disc ripping options</value>
   </data>
   <data name="MediaSourcesContainsMusic" xml:space="preserve">
-    <value>Contém música</value>
+    <value>Contains music</value>
   </data>
   <data name="MediaSourcesContainsVideos" xml:space="preserve">
-    <value>Contém vídeos</value>
+    <value>Contains videos</value>
   </data>
   <data name="MediaSourcesInfo" xml:space="preserve">
-    <value>Já procuramos pela sua mídia nos locais de mídia padrão (Música e Vídeos). Se você armazenar apenas a sua mídia aqui, não há necessidade de adicionar uma pasta. Se não, selecione 'Adicionar pasta' para adicionar todas as suas pastas de mídia.</value>
+    <value>We already look for your media in the default media locations (Music &amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.</value>
   </data>
   <data name="NavigationAddRemoveH" xml:space="preserve">
-    <value>Adicionar/remover itens da barra lateral</value>
+    <value>Add/remove sidebar items</value>
   </data>
   <data name="NavigationAppearanceH" xml:space="preserve">
-    <value>Aparência</value>
+    <value>Appearance</value>
   </data>
   <data name="NavigationGeneralItems" xml:space="preserve">
-    <value>Itens gerais</value>
+    <value>General items</value>
   </data>
   <data name="NavigationHamburgerTitle" xml:space="preserve">
-    <value>Mostrar o botão hambúrguer</value>
+    <value>Show the hamburger button</value>
   </data>
   <data name="NavigationIconStyle" xml:space="preserve">
-    <value>Estilo de ícone</value>
+    <value>Icon style</value>
   </data>
   <data name="NavigationItemDesc" xml:space="preserve">
-    <value>Alterar ações de clique, opções de inicialização.</value>
+    <value>Change click actions, startup options.</value>
   </data>
   <data name="NavigationResize" xml:space="preserve">
-    <value>Alterações de redimensionamento de janela</value>
+    <value>Window resize changes</value>
   </data>
   <data name="NavigationShowHeader" xml:space="preserve">
-    <value>Mostrar cabeçalho</value>
+    <value>Show header</value>
   </data>
   <data name="OpenClassicDialog" xml:space="preserve">
-    <value>Abrir diálogo clássico</value>
+    <value>Open classic dialog</value>
   </data>
   <data name="PlaybackCrossfadeDesc" xml:space="preserve">
-    <value>Misturar o final e o início das suas músicas.</value>
+    <value>Blend the end &amp; beginning of your music tracks.</value>
   </data>
   <data name="PlaybackCrossfadeTitle" xml:space="preserve">
-    <value>Desvanecimento</value>
+    <value>Crossfade</value>
   </data>
   <data name="PlaybackEQDesc" xml:space="preserve">
-    <value>Escolha diferentes perfis de som dependendo do seu tipo de mídia.</value>
+    <value>Choose different sound profiles depending on your media type.</value>
   </data>
   <data name="PlaybackEQTitle" xml:space="preserve">
-    <value>Equalizador</value>
+    <value>Equaliser</value>
   </data>
   <data name="PlaybackGaplessDesc" xml:space="preserve">
-    <value>Vamos avançar instantaneamente para a sua próxima faixa sem esperar.</value>
+    <value>We will instantly move to your next track without waiting.</value>
   </data>
   <data name="PlaybackGaplessTitle" xml:space="preserve">
-    <value>Reprodução contínua</value>
+    <value>Gapless playback</value>
   </data>
   <data name="PlaybackGeneralH" xml:space="preserve">
-    <value>Geral</value>
+    <value>General</value>
   </data>
   <data name="PlaybackMusicH" xml:space="preserve">
-    <value>Música</value>
+    <value>Music</value>
   </data>
   <data name="PlaybackScalingDesc" xml:space="preserve">
-    <value>Ajuste a escala do seu vídeo dependendo do tamanho da janela.</value>
+    <value>Adjust how your video scales depending on window size.</value>
   </data>
   <data name="PlaybackScalingTitle" xml:space="preserve">
-    <value>Dimensionamento</value>
+    <value>Scaling</value>
   </data>
   <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
-    <value>Altere a resolução do vídeo e a taxa de bits de música.</value>
+    <value>Change video resolution and music bitrate.</value>
   </data>
   <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
-    <value>Gerir qualidade de streaming</value>
+    <value>Manage streaming quality</value>
   </data>
   <data name="PlaybackVideoH" xml:space="preserve">
-    <value>Vídeo</value>
+    <value>Video</value>
   </data>
   <data name="PlaybackVisualizerTitle" xml:space="preserve">
-    <value>Visualizador</value>
+    <value>Visualiser</value>
   </data>
   <data name="RecentColors" xml:space="preserve">
-    <value>Cores recentes</value>
+    <value>Recent colours</value>
   </data>
   <data name="RestoreDefaults" xml:space="preserve">
-    <value>Restaurar predefinições</value>
+    <value>Restore defaults</value>
   </data>
   <data name="RunEvery" xml:space="preserve">
-    <value>Executar a cada:</value>
+    <value>Run every:</value>
   </data>
   <data name="ScanNow" xml:space="preserve">
-    <value>Procurar agora</value>
+    <value>Scan now</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
-    <value>Selecione o idioma</value>
+    <value>Select language</value>
   </data>
   <data name="SelectLanguageDesc" xml:space="preserve">
-    <value>Escolha o seu idioma manualmente a partir da lista.</value>
+    <value>Choose your language manually from a list.</value>
   </data>
   <data name="SettingsFluentColor" xml:space="preserve">
-    <value>Cor Fluente</value>
+    <value>Fluent Colour</value>
   </data>
   <data name="SettingsHighContrast" xml:space="preserve">
-    <value>Alto Contraste</value>
+    <value>High Contrast</value>
   </data>
   <data name="SettingsMenuBar" xml:space="preserve">
-    <value>Barra de menu</value>
+    <value>Menu bar</value>
   </data>
   <data name="SettingsMenus" xml:space="preserve">
-    <value>Menus de definições</value>
+    <value>Settings menus</value>
   </data>
   <data name="SettingsSidebar" xml:space="preserve">
-    <value>Barra lateral (Clássico)</value>
+    <value>Sidebar (Classic)</value>
   </data>
   <data name="SettingsStyle" xml:space="preserve">
-    <value>Estilo das definições</value>
+    <value>Settings style</value>
   </data>
   <data name="StartupSettings" xml:space="preserve">
-    <value>Definições de Arranque</value>
+    <value>Startup settings</value>
   </data>
   <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
-    <value>Esta funcionalidade está desativada devido às políticas atuais do seu administrador. Se for necessário, entre em contato com o seu administrador do sistema.</value>
+    <value>This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
   </data>
   <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
-    <value>Esta funcionalidade está desativada devido às suas definições atuais de arranque. Clique na ligação abaixo para modificar essas definições e depois reinicie a aplicação.</value>
+    <value>This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app.</value>
   </data>
   <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
-    <value>Esta funcionalidade está ativada, mas não pode ser modificada devido às políticas atuais do seu administrador. Se for necessário, entre em contato com o seu administrador do sistema.</value>
+    <value>This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
   </data>
   <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
-    <value>Algumas definições podem estar indisponíveis porque você está executando o Rise Media Player numa versão vazada.</value>
+    <value>Some settings might be unavailable because you are running Rise Media Player on the leaked build.</value>
   </data>
   <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
-    <value>Algumas definições podem estar indisponíveis. Para as utilizar, atualize o seu PC para o Windows 11.</value>
+    <value>Some settings might be unavailable. To use them, upgrade your PC to Windows 11.</value>
   </data>
   <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
-    <value>Você está executando o Windows 10</value>
+    <value>You are running Windows 10</value>
   </data>
   <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
-    <value>Todas as definições devem estar disponíveis.</value>
+    <value>All settings should be available.</value>
   </data>
   <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
-    <value>Você está executando o Windows 11</value>
+    <value>You are running Windows 11</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Definições da aplicação</value>
+    <value>App settings</value>
   </data>
   <data name="ViewColors" xml:space="preserve">
-    <value>Ver cores</value>
+    <value>View colours</value>
   </data>
   <data name="ViewFiles" xml:space="preserve">
-    <value>Ver ficheiros</value>
+    <value>View files</value>
   </data>
   <data name="WindowsColors" xml:space="preserve">
-    <value>Cores do Windows</value>
+    <value>Windows colours</value>
   </data>
 </root>
