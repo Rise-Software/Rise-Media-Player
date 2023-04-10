@@ -131,7 +131,7 @@ namespace Rise.Models
         public static MusixmatchLyrics FromJson(string json) => JsonConvert.DeserializeObject<MusixmatchLyrics>(json, Converter.Settings);
     }
 
-    public sealed static class Serialize
+    public static class Serialize
     {
         public static string ToJson(this MusixmatchLyrics self) => JsonConvert.SerializeObject(self, Converter.Settings);
     }
