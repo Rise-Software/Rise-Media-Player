@@ -6,6 +6,7 @@
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nav="using:Rise.Data.Navigation"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
@@ -17,7 +18,7 @@
                     <RepositionThemeTransition IsStaggeringEnabled="False" />
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
-            
+
             <TextBlock
                 Margin="0,-10,0,0"
                 Style="{StaticResource SubheaderTextBlockStyle}"
@@ -54,10 +55,16 @@
 
             <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/NavigationIconStyle}" HeaderIcon="{ui:FontIcon Glyph=&#xF354;}">
                 <ComboBox
+                    x:Name="IconPackComboBox"
                     ItemsSource="{x:Bind IconPacks}"
-                    PlaceholderText="Default"
-                    SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}"
-                    SelectionChanged="IconStyle_SelectionChanged" />
+                    Loaded="IconPackComboBox_Loaded"
+                    SelectionChanged="IconPackComboBox_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="nav:IconPack">
+                            <TextBlock Text="{x:Bind DisplayName}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </labs:SettingsCard>
 
             <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/NavigationAddRemoveH}" />
@@ -82,16 +89,28 @@
                 <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllMusic, Mode=TwoWay}" />
 
                 <labs:SettingsExpander.Items>
-                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" HeaderIcon="{ui:FontIcon Glyph=&#xE185;}">
+                    <labs:SettingsCard
+                        Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE185;}"
+                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.ShowMusicHeader, Mode=TwoWay}" />
                     </labs:SettingsCard>
-                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=Songs}" HeaderIcon="{ui:FontIcon Glyph=&#xEC4F;}">
+                    <labs:SettingsCard
+                        Header="{markup:ResourceHelper Name=Songs}"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xEC4F;}"
+                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.ShowSongs, Mode=TwoWay}" />
                     </labs:SettingsCard>
-                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=Artists}" HeaderIcon="{ui:FontIcon Glyph=&#xE125;}">
+                    <labs:SettingsCard
+                        Header="{markup:ResourceHelper Name=Artists}"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE125;}"
+                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.ShowArtists, Mode=TwoWay}" />
                     </labs:SettingsCard>
-                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}" Header="{markup:ResourceHelper Name=Albums}" HeaderIcon="{ui:FontIcon Glyph=&#xE93C;}">
+                    <labs:SettingsCard
+                        Header="{markup:ResourceHelper Name=Albums}"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE93C;}"
+                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}" />
                     </labs:SettingsCard>
                 </labs:SettingsExpander.Items>
@@ -101,10 +120,16 @@
                 <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
 
                 <labs:SettingsExpander.Items>
-                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}" Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" HeaderIcon="{ui:FontIcon Glyph=&#xE185;}">
+                    <labs:SettingsCard
+                        Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE185;}"
+                        IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.ShowVideoHeader, Mode=TwoWay}" />
                     </labs:SettingsCard>
-                    <labs:SettingsCard IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}" Header="{markup:ResourceHelper Name=LocalVideos}" HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}">
+                    <labs:SettingsCard
+                        Header="{markup:ResourceHelper Name=LocalVideos}"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}"
+                        IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}">
                         <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLocalVideos, Mode=TwoWay}" />
                     </labs:SettingsCard>
                 </labs:SettingsExpander.Items>

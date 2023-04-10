@@ -1,8 +1,10 @@
 ﻿using Rise.App.ViewModels;
-using Rise.Common;
 using Rise.Common.Extensions.Markup;
+using Rise.Data.Navigation;
 using Rise.Data.Sources;
 using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.Settings
@@ -12,10 +14,10 @@ namespace Rise.App.Settings
         private NavViewDataSource NavDataSource => App.NavDataSource;
         private SettingsViewModel ViewModel => App.SViewModel;
 
-        private readonly List<string> IconPacks = new()
+        private readonly List<IconPack> IconPacks = new()
         {
-            ResourceHelper.GetString("Default"),
-            ResourceHelper.GetString("Colorful")
+            new(string.Empty, ResourceHelper.GetString("Default")),
+            new("Colorful", ResourceHelper.GetString("Colorful"))
         };
 
         private readonly List<string> Show = new()
@@ -40,9 +42,19 @@ namespace Rise.App.Settings
             InitializeComponent();
         }
 
-        private void IconStyle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void IconPackComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            NavDataSource.ChangeIconPack(ViewModel.CurrentPack);
+            var selected = IconPacks.FirstOrDefault(p => p.Id == ViewModel.IconPack);
+            if (selected == null)
+                IconPackComboBox.SelectedIndex = 0;
+            else
+                IconPackComboBox.SelectedItem = selected;
+        }
+
+        private void IconPackComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selected = (IconPack)IconPackComboBox.SelectedItem;
+            ViewModel.IconPack = selected.Id;
         }
     }
 }

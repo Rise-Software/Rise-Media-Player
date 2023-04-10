@@ -27,11 +27,6 @@ namespace Rise.App.ViewModels
             "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
         };
 
-        private readonly string[] _iconPacks = new string[2]
-        {
-            "Default", "Colorful"
-        };
-
         public List<string> GeneralTags = new()
         {
             "HomePage",
@@ -321,11 +316,10 @@ namespace Rise.App.ViewModels
             set => Set(value, "Navigation");
         }
 
-        public string CurrentPack => _iconPacks[IconPack];
-        public int IconPack
+        public string IconPack
         {
-            get => Get(0, "Local");
-            set => Set(value, "Local");
+            get => Get(string.Empty, "Navigation");
+            set => Set(value, "Navigation");
         }
 
         public bool ShowAllGeneral

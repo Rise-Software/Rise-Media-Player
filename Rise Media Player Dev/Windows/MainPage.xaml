@@ -55,7 +55,8 @@
 
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
-            <conv:StringToIconElement x:Key="StrToIcon" />
+
+            <conv:NavViewItemIconConverter x:Key="NavItemToIcon" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
@@ -228,7 +229,7 @@
                             AutomationProperties.Name="{x:Bind Label}"
                             Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             ContextRequested="NavigationViewItem_ContextRequested"
-                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
+                            Icon="{x:Bind Converter={StaticResource NavItemToIcon}}"
                             MenuItemsSource="{x:Bind SubItems}"
                             Tag="{x:Bind}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
@@ -242,7 +243,7 @@
                             AutomationProperties.Name="{x:Bind Label, Mode=OneWay}"
                             Content="{x:Bind Label, Mode=OneWay}"
                             ContextRequested="NavigationViewItem_ContextRequested"
-                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
+                            Icon="{x:Bind Converter={StaticResource NavItemToIcon}}"
                             Tag="{x:Bind}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
@@ -267,16 +268,16 @@
             <MenuFlyout x:Key="DefaultItemFlyout" x:Name="DefaultItemFlyout">
                 <MenuFlyoutItem
                     x:Name="TopOption"
-                    Text="{markup:ResourceHelper Name=MoveToTop}"
                     Command="{x:Bind NavDataSource.MoveToTopCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="Upload" />
+                    Icon="Upload"
+                    Text="{markup:ResourceHelper Name=MoveToTop}" />
 
                 <MenuFlyoutItem
                     x:Name="UpOption"
-                    Text="{markup:ResourceHelper Name=MoveUp}"
                     Command="{x:Bind NavDataSource.MoveUpCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=MoveUp}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
                     </MenuFlyoutItem.Icon>
@@ -284,9 +285,9 @@
 
                 <MenuFlyoutItem
                     x:Name="DownOption"
-                    Text="{markup:ResourceHelper Name=MoveDown}"
                     Command="{x:Bind NavDataSource.MoveDownCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=MoveDown}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
                     </MenuFlyoutItem.Icon>
@@ -294,10 +295,10 @@
 
                 <MenuFlyoutItem
                     x:Name="BottomOption"
-                    Text="{markup:ResourceHelper Name=MoveToBottom}"
                     Command="{x:Bind NavDataSource.MoveToBottomCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="Download" />
+                    Icon="Download"
+                    Text="{markup:ResourceHelper Name=MoveToBottom}" />
 
                 <MenuFlyoutSeparator />
 
@@ -308,9 +309,9 @@
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
                 <MenuFlyoutItem
-                    Text="{markup:ResourceHelper Name=RemoveSection}"
                     Command="{x:Bind NavDataSource.HideGroupCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=RemoveSection}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xECC9;" />
                     </MenuFlyoutItem.Icon>
@@ -480,12 +481,12 @@
 
                 <Button
                     x:Name="MoreButton"
-                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
                     Grid.Column="1"
                     Height="32"
                     Margin="46,0,0,0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource TransparentButtonStyle}">
+                    Style="{StaticResource TransparentButtonStyle}"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}">
                     <Button.Content>
                         <FontIcon Height="24" Glyph="&#xE13D;" />
                     </Button.Content>
@@ -511,7 +512,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=MessagesAndReports}" Click="Messages_Click">
+                            <MenuFlyoutItem Click="Messages_Click" Text="{markup:ResourceHelper Name=MessagesAndReports}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -525,7 +526,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Scan}" Click="StartScan_Click">
+                            <MenuFlyoutItem Click="StartScan_Click" Text="{markup:ResourceHelper Name=Scan}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE721;" />
                                 </MenuFlyoutItem.Icon>
@@ -533,13 +534,13 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Feedback}" Click="Button_Click">
+                            <MenuFlyoutItem Click="Button_Click" Text="{markup:ResourceHelper Name=Feedback}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=AppSettings}" Click="OpenSettings_Click">
+                            <MenuFlyoutItem Click="OpenSettings_Click" Text="{markup:ResourceHelper Name=AppSettings}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>

@@ -3,7 +3,7 @@
     "Id": "HomePage",
     "AccessKey": "H",
     "HeaderGroup": "General",
-    "Icon": "\uECA5",
+    "DefaultIcon": "\uECA5",
     "Label": "Home",
     "ItemType": 1,
     "FlyoutId": "DefaultItemFlyout"
@@ -12,7 +12,7 @@
     "Id": "PlaylistsPage",
     "AccessKey": "P",
     "HeaderGroup": "General",
-    "Icon": "\uE8FD",
+    "DefaultIcon": "\uE8FD",
     "Label": "Playlists",
     "ItemType": 1,
     "SubItems": [],
@@ -28,7 +28,7 @@
     "Id": "SongsPage",
     "AccessKey": "N",
     "HeaderGroup": "Music",
-    "Icon": "\uEC4F",
+    "DefaultIcon": "\uEC4F",
     "Label": "Songs",
     "ItemType": 1,
     "FlyoutId": "DefaultItemFlyout"
@@ -37,7 +37,7 @@
     "Id": "ArtistsPage",
     "AccessKey": "T",
     "HeaderGroup": "Music",
-    "Icon": "\uE125",
+    "DefaultIcon": "\uE125",
     "Label": "Artists",
     "ItemType": 1,
     "FlyoutId": "DefaultItemFlyout"
@@ -46,7 +46,7 @@
     "Id": "AlbumsPage",
     "AccessKey": "A",
     "HeaderGroup": "Music",
-    "Icon": "\uE93C",
+    "DefaultIcon": "\uE93C",
     "Label": "Albums",
     "ItemType": 1,
     "FlyoutId": "DefaultItemFlyout"
@@ -61,7 +61,7 @@
     "Id": "LocalVideosPage",
     "AccessKey": "V",
     "HeaderGroup": "Videos",
-    "Icon": "\uE8B2",
+    "DefaultIcon": "\uE8B2",
     "Label": "LocalVideos",
     "ItemType": 1,
     "FlyoutId": "RemoveItemFlyout"
@@ -70,7 +70,7 @@
     "Id": "DiscyPage",
     "AccessKey": "C",
     "HeaderGroup": "General",
-    "Icon": "\uE9CE",
+    "DefaultIcon": "\uE9CE",
     "Label": "Discy",
     "IsFooter": true,
     "ItemType": 1,
@@ -80,7 +80,7 @@
     "Id": "SettingsPage",
     "AccessKey": "S",
     "HeaderGroup": "Other",
-    "Icon": "\uE115",
+    "DefaultIcon": "\uE115",
     "Label": "Settings",
     "IsFooter": true,
     "ItemType": 1

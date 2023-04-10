@@ -143,6 +143,7 @@
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\IntToBoolean.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
+    <Compile Include="Converters\NavViewItemIconConverter.cs" />
     <Compile Include="Converters\ResourceFallback.cs" />
     <Compile Include="Converters\StreamToBitmap.cs" />
     <Compile Include="Converters\EmptyStringFallback.cs" />

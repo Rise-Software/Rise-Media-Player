@@ -18,16 +18,10 @@ namespace Rise.Data.ViewModels
         /// </summary>
         public NavViewItemType ItemType { get; init; }
 
-        private string _icon;
         /// <summary>
-        /// Icon for this item. Can be a glyph (\uGLPH format) or
-        /// a resource Uri.
+        /// Icon to use for this item by default.
         /// </summary>
-        public string Icon
-        {
-            get => _icon;
-            set => Set(ref _icon, value);
-        }
+        public string DefaultIcon { get; init; }
 
         private string _label;
         /// <summary>

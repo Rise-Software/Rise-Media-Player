@@ -131,6 +131,7 @@
     <Compile Include="Collections\SortDirection.cs" />
     <Compile Include="Json\JsonBackendController.cs" />
     <Compile Include="Messages\BasicNotification.cs" />
+    <Compile Include="Navigation\IconPack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\MainDataSource.cs" />
     <Compile Include="Sources\NavViewDataSource.cs" />

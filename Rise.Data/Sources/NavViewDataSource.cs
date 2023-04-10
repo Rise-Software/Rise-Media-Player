@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
+using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,61 +28,6 @@ namespace Rise.Data.Sources
         /// Contains the footer NavView items.
         /// </summary>
         public ObservableCollection<NavViewItemViewModel> FooterItems { get; } = new();
-    }
-
-    // Icons
-    public partial class NavViewDataSource
-    {
-        private readonly Dictionary<string, string> _defaultIcons = new()
-        {
-            { "HomePage", "\uECA5" },
-            { "PlaylistsPage", "\uE8FD" },
-            { "SongsPage", "\uEC4F" },
-            { "ArtistsPage", "\uE125" },
-            { "AlbumsPage", "\uE93C" },
-            { "GenresPage", "\uE138" },
-            { "LocalVideosPage", "\uE8B2" },
-            { "VideoPlaybackPage", "\uE1D9" },
-            { "DiscyPage", "\uE9CE" },
-            { "SettingsPage", "\uE115" }
-        };
-
-        /// <summary>
-        /// Changes the currently applied icon pack.
-        /// </summary>
-        /// <param name="newName">Name of the new icon pack. If null or "Default",
-        /// go back to the default icons.</param>
-        public void ChangeIconPack(string newName = null)
-        {
-            if (!string.IsNullOrEmpty(newName) && newName != "Default")
-            {
-                foreach (NavViewItemViewModel item in Items)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
-                }
-
-                foreach (NavViewItemViewModel item in FooterItems)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
-                }
-            }
-            else
-            {
-                foreach (NavViewItemViewModel item in Items)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = _defaultIcons[item.Id];
-                }
-
-                foreach (NavViewItemViewModel item in FooterItems)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = _defaultIcons[item.Id];
-                }
-            }
-        }
     }
 
     // Saving/restoring item state

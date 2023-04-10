@@ -290,7 +290,7 @@ namespace Rise.App.UserControls
                     {
                         Id = playlist.Id.ToString(),
                         ItemType = NavViewItemType.SubItem,
-                        Icon = playlist.Icon,
+                        DefaultIcon = playlist.Icon,
                         Label = playlist.Title,
                         ParentId = item.Id,
                         FlyoutId = "RemoveItemFlyout"
