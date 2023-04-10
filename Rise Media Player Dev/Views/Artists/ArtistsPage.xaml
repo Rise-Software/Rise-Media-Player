@@ -160,7 +160,10 @@
 
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="viewmodels:ArtistViewModel" x:DefaultBindMode="OneWay">
-                            <Grid Margin="12" ColumnSpacing="10">
+                            <Grid
+                                Width="256"
+                                Margin="12"
+                                ColumnSpacing="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="80" />
                                     <ColumnDefinition Width="1*" />
