@@ -554,6 +554,11 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <Content Include="Assets\SettingsIcons.ttf" />
+    <None Include="Assets\Lottie\ConnectLottie.json" />
+    <None Include="Assets\Lottie\EulaLottie.json" />
+    <None Include="Assets\Lottie\PatchLottie.json" />
+    <None Include="Assets\Lottie\PrivacyLottie.json" />
+    <None Include="Assets\Lottie\SettingsLottie.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
