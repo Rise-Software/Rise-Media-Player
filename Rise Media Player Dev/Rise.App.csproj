@@ -1043,6 +1043,9 @@
     <PackageReference Include="ksemenenko.ColorThief">
       <Version>1.1.1.4</Version>
     </PackageReference>
+    <PackageReference Include="LottieGen.MsBuild">
+      <Version>7.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
