@@ -262,7 +262,11 @@ namespace Rise.App
         }
 
         private static StorageLibrary OnStorageLibraryRequested(KnownLibraryId id)
-            => StorageLibrary.GetLibraryAsync(id).Get();
+        {
+            var library = StorageLibrary.GetLibraryAsync(id).Get();
+            library.ChangeTracker.Enable();
+            return library;
+        }
     }
 
     // Indexing
