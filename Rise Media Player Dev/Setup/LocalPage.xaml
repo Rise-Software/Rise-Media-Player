@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:settings="using:Rise.App.Settings"
-    xmlns:visuals="using:Rise.App.AnimatedVisuals"
+    xmlns:visuals="using:AnimatedVisuals"
     mc:Ignorable="d">
 
     <Grid>
@@ -16,7 +16,7 @@
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
-                        <visuals:ZdpLottie />
+                        <visuals:PatchLottie />
                     </muxc:AnimatedVisualPlayer.Source>
                 </muxc:AnimatedVisualPlayer>
             </local:SetupPageContent.Icon>
