@@ -290,7 +290,7 @@ namespace Rise.App.Views
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
@@ -692,11 +692,6 @@ namespace Rise.App.Views
             {
                 return Visibility.Visible;
             }
-        }
-
-        private void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-        {
-            _ = Frame.Navigate(typeof(AllSettingsPage));
         }
 
         private void OnAlbumButtonClick(object sender, RoutedEventArgs e)

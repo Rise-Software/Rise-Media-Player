@@ -267,16 +267,16 @@
             <MenuFlyout x:Key="DefaultItemFlyout" x:Name="DefaultItemFlyout">
                 <MenuFlyoutItem
                     x:Name="TopOption"
-                    Text="{markup:ResourceHelper Name=MoveToTop}"
                     Command="{x:Bind NavDataSource.MoveToTopCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="Upload" />
+                    Icon="Upload"
+                    Text="{markup:ResourceHelper Name=MoveToTop}" />
 
                 <MenuFlyoutItem
                     x:Name="UpOption"
-                    Text="{markup:ResourceHelper Name=MoveUp}"
                     Command="{x:Bind NavDataSource.MoveUpCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=MoveUp}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
                     </MenuFlyoutItem.Icon>
@@ -284,9 +284,9 @@
 
                 <MenuFlyoutItem
                     x:Name="DownOption"
-                    Text="{markup:ResourceHelper Name=MoveDown}"
                     Command="{x:Bind NavDataSource.MoveDownCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=MoveDown}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
                     </MenuFlyoutItem.Icon>
@@ -294,10 +294,10 @@
 
                 <MenuFlyoutItem
                     x:Name="BottomOption"
-                    Text="{markup:ResourceHelper Name=MoveToBottom}"
                     Command="{x:Bind NavDataSource.MoveToBottomCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="Download" />
+                    Icon="Download"
+                    Text="{markup:ResourceHelper Name=MoveToBottom}" />
 
                 <MenuFlyoutSeparator />
 
@@ -308,9 +308,9 @@
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
                 <MenuFlyoutItem
-                    Text="{markup:ResourceHelper Name=RemoveSection}"
                     Command="{x:Bind NavDataSource.HideGroupCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=RemoveSection}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xECC9;" />
                     </MenuFlyoutItem.Icon>
@@ -480,12 +480,12 @@
 
                 <Button
                     x:Name="MoreButton"
-                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
                     Grid.Column="1"
                     Height="32"
                     Margin="46,0,0,0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource TransparentButtonStyle}">
+                    Style="{StaticResource TransparentButtonStyle}"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}">
                     <Button.Content>
                         <FontIcon Height="24" Glyph="&#xE13D;" />
                     </Button.Content>
@@ -511,7 +511,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=MessagesAndReports}" Click="Messages_Click">
+                            <MenuFlyoutItem Click="Messages_Click" Text="{markup:ResourceHelper Name=MessagesAndReports}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -525,7 +525,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Scan}" Click="StartScan_Click">
+                            <MenuFlyoutItem Click="StartScan_Click" Text="{markup:ResourceHelper Name=Scan}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE721;" />
                                 </MenuFlyoutItem.Icon>
@@ -533,13 +533,13 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Feedback}" Click="Button_Click">
+                            <MenuFlyoutItem Click="Button_Click" Text="{markup:ResourceHelper Name=Feedback}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=AppSettings}" Click="OpenSettings_Click">
+                            <MenuFlyoutItem Click="OpenSettings_Click" Text="{markup:ResourceHelper Name=AppSettings}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
@@ -581,289 +581,93 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Border
+                    <uc:IndexingTipControl
                         x:Name="IndexingTip"
-                        Grid.Row="1"
-                        Height="50"
-                        Margin="-16,8,-16,-16"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource BorderCardStyle}"
+                        Margin="-16,-8,-16,-17"
+                        DismissButtonClick="DismissButton_Click"
+                        ProgressBarMaxValue="{x:Bind MViewModel.TotalMedia, Mode=OneWay}"
+                        ProgressBarValue="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}"
                         Visibility="Collapsed">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:TranslationAnimation
-                                From="0,56,0"
-                                To="0"
-                                Duration="0:0:0.5" />
-                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
-                        </animations:Implicit.ShowAnimations>
+                        <uc:IndexingTipControl.IconContent>
+                            <muxc:ProgressRing
+                                Width="18"
+                                Height="18"
+                                IsActive="True" />
+                        </uc:IndexingTipControl.IconContent>
 
-                        <animations:Implicit.HideAnimations>
-                            <animations:TranslationAnimation
-                                From="0"
-                                To="0,56,0"
-                                Duration="0:0:0.75" />
-                            <animations:OpacityAnimation
-                                From="1"
-                                To="0"
-                                Duration="0:0:0.5" />
-                        </animations:Implicit.HideAnimations>
-                        <RelativePanel>
-                            <muxc:ProgressBar
-                                Maximum="{x:Bind MViewModel.TotalMedia, Mode=OneWay}"
-                                RelativePanel.AlignLeftWithPanel="True"
-                                RelativePanel.AlignRightWithPanel="True"
-                                Value="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
+                        <uc:IndexingTipControl.TextContent>
+                            <TextBlock VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}">
+                                <Run Text="Indexing" />
+                                <Run Text="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
+                                <Run Text="of" />
+                                <Run Text="{x:Bind MViewModel.TotalMedia, Mode=OneWay}" />
+                                <Run Text="media from your library. Please wait." />
+                            </TextBlock>
+                        </uc:IndexingTipControl.TextContent>
+                    </uc:IndexingTipControl>
 
-                            <StackPanel
-                                Orientation="Horizontal"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <muxc:ProgressRing
-                                    Width="18"
-                                    Height="18"
-                                    IsActive="True" />
-
-                                <TextBlock
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BaseTextBlockStyle}">
-                                    <Run Text="Indexing" />
-                                    <Run Text="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
-                                    <Run Text="of" />
-                                    <Run Text="{x:Bind MViewModel.TotalMedia, Mode=OneWay}" />
-                                    <Run Text="media from your library. Please wait." />
-                                </TextBlock>
-                            </StackPanel>
-
-                            <StackPanel
-                                Margin="0,0,12,0"
-                                Orientation="Horizontal"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <Button
-                                    Padding="8"
-                                    Click="GoToScanningSettings_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
-                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
-                                </Button>
-
-                                <Button
-                                    Padding="8"
-                                    Click="DismissButton_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
-                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
-                                </Button>
-                            </StackPanel>
-                        </RelativePanel>
-                    </Border>
-                    <Border
+                    <uc:IndexingTipControl
                         x:Name="FetchingFilesTip"
-                        Grid.Row="1"
-                        Height="50"
-                        Margin="-16,8,-16,-16"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource BorderCardStyle}"
+                        Margin="-16,-8,-16,-17"
+                        DismissButtonClick="DismissButton_Click"
+                        ProgressBarVisibility="Collapsed"
                         Visibility="Collapsed">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:TranslationAnimation
-                                From="0,56,0"
-                                To="0"
-                                Duration="0:0:0.5" />
-                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
-                        </animations:Implicit.ShowAnimations>
+                        <uc:IndexingTipControl.IconContent>
+                            <muxc:ProgressRing
+                                Width="18"
+                                Height="18"
+                                IsActive="True" />
+                        </uc:IndexingTipControl.IconContent>
 
-                        <animations:Implicit.HideAnimations>
-                            <animations:TranslationAnimation
-                                From="0"
-                                To="0,56,0"
-                                Duration="0:0:0.75" />
-                            <animations:OpacityAnimation
-                                From="1"
-                                To="0"
-                                Duration="0:0:0.5" />
-                        </animations:Implicit.HideAnimations>
-                        <RelativePanel>
-                            <StackPanel
-                                Orientation="Horizontal"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <muxc:ProgressRing
-                                    Width="18"
-                                    Height="18"
-                                    IsActive="True" />
+                        <uc:IndexingTipControl.TextContent>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="Fetching files..." />
+                        </uc:IndexingTipControl.TextContent>
+                    </uc:IndexingTipControl>
 
-                                <TextBlock
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BaseTextBlockStyle}">
-                                    <Run Text="Fetching files..." />
-                                </TextBlock>
-                            </StackPanel>
-
-                            <StackPanel
-                                Margin="0,0,12,0"
-                                Orientation="Horizontal"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <Button
-                                    Padding="8"
-                                    Click="GoToScanningSettings_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
-                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
-                                </Button>
-
-                                <Button
-                                    Padding="8"
-                                    Click="DismissButton_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
-                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
-                                </Button>
-                            </StackPanel>
-                        </RelativePanel>
-                    </Border>
-                    <Border
+                    <uc:IndexingTipControl
                         x:Name="FetchingMetadataTip"
-                        Grid.Row="1"
-                        Height="50"
-                        Margin="-16,8,-16,-16"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource BorderCardStyle}"
+                        Margin="-16,-8,-16,-17"
+                        DismissButtonClick="DismissButton_Click"
+                        ProgressBarVisibility="Collapsed"
                         Visibility="Collapsed">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:TranslationAnimation
-                                From="0,56,0"
-                                To="0"
-                                Duration="0:0:0.5" />
-                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
-                        </animations:Implicit.ShowAnimations>
+                        <uc:IndexingTipControl.IconContent>
+                            <muxc:ProgressRing
+                                Width="18"
+                                Height="18"
+                                IsActive="True" />
+                        </uc:IndexingTipControl.IconContent>
 
-                        <animations:Implicit.HideAnimations>
-                            <animations:TranslationAnimation
-                                From="0"
-                                To="0,56,0"
-                                Duration="0:0:0.75" />
-                            <animations:OpacityAnimation
-                                From="1"
-                                To="0"
-                                Duration="0:0:0.5" />
-                        </animations:Implicit.HideAnimations>
-                        <RelativePanel>
-                            <StackPanel
-                                Orientation="Horizontal"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <muxc:ProgressRing
-                                    Width="18"
-                                    Height="18"
-                                    IsActive="True" />
+                        <uc:IndexingTipControl.TextContent>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="{markup:ResourceHelper Name=FetchingArtistInfo}" />
+                        </uc:IndexingTipControl.TextContent>
+                    </uc:IndexingTipControl>
 
-                                <TextBlock
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="{markup:ResourceHelper Name=FetchingArtistInfo}" />
-                            </StackPanel>
-
-                            <StackPanel
-                                Margin="0,0,12,0"
-                                Orientation="Horizontal"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <Button
-                                    Padding="8"
-                                    Click="GoToScanningSettings_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
-                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
-                                </Button>
-
-                                <Button
-                                    Padding="8"
-                                    Click="DismissButton_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
-                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
-                                </Button>
-                            </StackPanel>
-                        </RelativePanel>
-                    </Border>
-                    <Border
+                    <uc:IndexingTipControl
                         x:Name="SuccessTip"
-                        Grid.Row="1"
-                        Height="50"
-                        Margin="-16,8,-16,-16"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource BorderCardStyle}"
+                        Margin="-16,-8,-16,-17"
+                        DismissButtonClick="DismissButton_Click"
+                        ProgressBarVisibility="Collapsed"
                         Visibility="Collapsed">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:TranslationAnimation
-                                From="0,56,0"
-                                To="0"
-                                Duration="0:0:0.5" />
-                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
-                        </animations:Implicit.ShowAnimations>
+                        <uc:IndexingTipControl.IconContent>
+                            <muxc:InfoBadge
+                                Margin="0,1,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource SuccessIconInfoBadgeStyle}" />
+                        </uc:IndexingTipControl.IconContent>
 
-                        <animations:Implicit.HideAnimations>
-                            <animations:TranslationAnimation
-                                From="0"
-                                To="0,56,0"
-                                Duration="0:0:0.75" />
-                            <animations:OpacityAnimation
-                                From="1"
-                                To="0"
-                                Duration="0:0:0.5" />
-                        </animations:Implicit.HideAnimations>
-                        <RelativePanel>
-                            <StackPanel
-                                Orientation="Horizontal"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <muxc:InfoBadge
-                                    Margin="0,1,0,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource SuccessIconInfoBadgeStyle}" />
-
-                                <TextBlock
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="{markup:ResourceHelper Name=IndexingComplete}" />
-                            </StackPanel>
-                            <StackPanel
-                                Margin="0,0,12,0"
-                                Orientation="Horizontal"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <Button
-                                    Padding="8"
-                                    Click="GoToScanningSettings_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
-                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
-                                </Button>
-
-                                <Button
-                                    Padding="8"
-                                    Click="DismissButton_Click"
-                                    Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
-                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
-                                </Button>
-                            </StackPanel>
-                        </RelativePanel>
-                    </Border>
+                        <uc:IndexingTipControl.TextContent>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="{markup:ResourceHelper Name=IndexingComplete}" />
+                        </uc:IndexingTipControl.TextContent>
+                    </uc:IndexingTipControl>
 
                     <uc:RiseMediaPlayerElement
                         x:Name="MainPlayer"
