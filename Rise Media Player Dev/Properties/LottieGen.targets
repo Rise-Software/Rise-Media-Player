@@ -26,7 +26,7 @@
 		<LottieGenWinUIVersion Condition="'$(LottieGenWinUIVersion)' == ''">2.8.2</LottieGenWinUIVersion>
 		<LottieMinimumUAPVersion Condition="'$(LottieMinimumUAPVersion)' == ''">7</LottieMinimumUAPVersion>
 		<LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">14</LottieTargetUAPVersion>
-		<LottieAnimationNamespace>AnimatedVisuals</LottieAnimationNamespace>
+		<LottieAnimationNamespace>Rise.App.AnimatedVisuals</LottieAnimationNamespace>
 		<LottieVerbosity Condition="'$(LottieVerbosity)' == ''">normal</LottieVerbosity>
 
 		<!--
