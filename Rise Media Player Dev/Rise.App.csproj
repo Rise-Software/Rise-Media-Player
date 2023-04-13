@@ -554,11 +554,11 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <Content Include="Assets\SettingsIcons.ttf" />
-    <None Include="Assets\Lottie\ConnectLottie.json" />
-    <None Include="Assets\Lottie\EulaLottie.json" />
-    <None Include="Assets\Lottie\PatchLottie.json" />
-    <None Include="Assets\Lottie\PrivacyLottie.json" />
-    <None Include="Assets\Lottie\SettingsLottie.json" />
+		<LottieAnimation Include="Assets\Lottie\ConnectLottie.json" />
+		<LottieAnimation Include="Assets\Lottie\EulaLottie.json" />
+		<LottieAnimation Include="Assets\Lottie\PatchLottie.json" />
+		<LottieAnimation Include="Assets\Lottie\PrivacyLottie.json" />
+		<LottieAnimation Include="Assets\Lottie\SettingsLottie.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
@@ -1117,6 +1117,7 @@
     <Content Include="Assets\NavViewItemData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+		<None Include="Properties\LottieGen.targets" />
     <None Include="Rise.App_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -1150,11 +1151,5 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+	<Import Project="Properties\LottieGen.targets" />
 </Project>

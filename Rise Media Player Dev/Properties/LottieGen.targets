@@ -1,0 +1,115 @@
+<!--
+	MSBuild script for automating codegen of Lottie animations and inclusion of the results into an app build.
+	Based on https://github.com/lottie-react-native/lottie-react-native/blob/92d557d37dae86ca11c53fbeaa1f377f252439df/packages/core/windows/cppwinrt/PropertySheets/LottieGen.CSharp.targets
+
+	Usage:
+		1. Include this targets file in your project:
+			<Import Project="path\to\LottieGen.targets" />
+
+		2. Set the build action for your JSON files to LottieAnimation:
+			<LottieAnimation Include="path\to\LottieFile.json" />
+
+		3. Ensure you have the following NuGet packages installed:
+			- LottieGen.MsBuild
+			- Win2D.uwp
+-->
+<Project>
+	<PropertyGroup>
+		<!-- Enable to support codegen of LottieAnimation JSON files -->
+		<EnableLottieCodegen Condition="'$(EnableLottieCodegen)' == ''">true</EnableLottieCodegen>
+
+		<!-- Generate properties for colors to enable modification at runtime -->
+		<LottieGenGenerateColorBindings Condition="'$(LottieGenGenerateColorBindings)' == ''"></LottieGenGenerateColorBindings>
+
+		<LottieOutputFolder Condition="'$(LottieOutputFolder)' == ''">$(IntermediateOutputPath)Generated Files\Animations\</LottieOutputFolder>
+		<LottieOutputFolder>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '$(LottieOutputFolder)'))</LottieOutputFolder>
+		<LottieGenWinUIVersion Condition="'$(LottieGenWinUIVersion)' == ''">2.8.2</LottieGenWinUIVersion>
+		<LottieMinimumUAPVersion Condition="'$(LottieMinimumUAPVersion)' == ''">7</LottieMinimumUAPVersion>
+		<LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">14</LottieTargetUAPVersion>
+		<LottieAnimationNamespace>AnimatedVisuals</LottieAnimationNamespace>
+		<LottieVerbosity Condition="'$(LottieVerbosity)' == ''">normal</LottieVerbosity>
+
+		<!--
+			Visual Studio has its own incremental build logic on top of MSBuild's that
+			will skip targets if it thinks inputs haven't changed. This falls over for
+			changes dependent on anything outside of our project.
+		-->
+		<DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<UpToDateCheckInput Include="@(LottieAnimation)" />
+	</ItemGroup>
+
+	<!--
+		Add metadata to LottieAnimation items. The generated name needs to match what LottieGen outputs.
+
+		This is a little goofy because we want to use Regex and we can't do that directly with Item Metadata.
+		So instead, we use Target batching (via the %() Outputs attribute) with 1 item per run of the task, and use a Property to run the Regex.
+	-->
+	<Target Name="LottieGen_UpdateMetadata" Outputs="%(LottieAnimation.Identity)">
+		<PropertyGroup>
+			<_LottieAnimationIdentity>%(LottieAnimation.Identity)</_LottieAnimationIdentity>
+			<_LottieAnimationGeneratedName>$([System.Text.RegularExpressions.Regex]::Replace(%(LottieAnimation.Filename), "^\d", "_$0" ).Replace("-", "_"))</_LottieAnimationGeneratedName>
+			<_LottieAnimationName>$(_LottieAnimationGeneratedName)</_LottieAnimationName>
+			<_LottieAnimationName Condition="'%(LottieAnimation.Name)' != ''">%(LottieAnimation.Name)</_LottieAnimationName>
+		</PropertyGroup>
+
+		<ItemGroup>
+			<LottieAnimation Condition="'%(LottieAnimation.Identity)' == '$(_LottieAnimationIdentity)'">
+				<Name>$(_LottieAnimationName)</Name>
+				<GeneratedName>$(_LottieAnimationGeneratedName)</GeneratedName>
+				<GeneratedFileName>$(_LottieAnimationGeneratedName)</GeneratedFileName>
+			</LottieAnimation>
+		</ItemGroup>
+
+		<Message Importance="$(LottieVerbosity)" Text="Processing metadata for %(LottieAnimation.Identity) -> %(LottieAnimation.Name)" />
+	</Target>
+
+	<Target Name="LottieGen_CreateOutputPath">
+		<Error Condition="$([System.IO.Path]::IsPathRooted('$(LottieOutputFolder)')) != 'true'" Text="The output folder for Lottie is not rooted: '$(LottieOutputFolder)'" />
+		<MakeDir Directories="$(LottieOutputFolder)" />
+	</Target>
+
+	<!--
+		Runs LottieGen on JSON files to generate native animations.
+
+		We use Target batching (via %() in Outputs) to run this target for each animation.
+		We specify Inputs and Outputs to support incremental builds. Only changes to the input JSON timestamps will trigger rebuild.
+	-->
+	<Target
+		Name="LottieGen_Build"
+		Condition="'$(EnableLottieCodegen)' == 'true'"
+		DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata"
+		Inputs="@(LottieAnimation)"
+		Outputs="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).cs">
+
+		<Message Importance="$(LottieVerbosity)" Text="Generating Lottie animation files" />
+		<Message Importance="$(LottieVerbosity)" Text="%(LottieAnimation.FullPath)" />
+		<Message Importance="$(LottieVerbosity)" Text="$(LottieOutputFolder)" />
+
+		<LottieGen.Task.LottieGen
+			Language="cs"
+			InputFile="%(LottieAnimation.FullPath)"
+			OutputFolder="$(LottieOutputFolder)"
+			Namespace="$(LottieAnimationNamespace)"
+			MinimumUapVersion="$(LottieMinimumUapVersion)"
+			TargetUapVersion="$(LottieTargetUapVersion)"
+			StandardOutputImportance="$(LottieVerbosity)"
+			WinUIVersion="$(LottieGenWinUIVersion)"
+			GenerateColorBindings="$(LottieGenGenerateColorBindings)">
+			<Output TaskParameter="OutputFiles" ItemName="LottieGenFiles" />
+		</LottieGen.Task.LottieGen>
+	</Target>
+
+	<!-- Add generated files to the build -->
+	<Target
+		Name="LottieGen_IncludeBuiltFiles"
+		Condition="'$(EnableLottieCodegen)' == 'true'"
+		BeforeTargets="BeforeBuild;CoreCompile"
+		DependsOnTargets="LottieGen_Build">
+		<ItemGroup>
+			<Compile Include="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).cs" />
+		</ItemGroup>
+	</Target>
+</Project>
