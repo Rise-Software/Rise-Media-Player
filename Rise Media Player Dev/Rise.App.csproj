@@ -147,7 +147,6 @@
     <Compile Include="Converters\ResourceFallback.cs" />
     <Compile Include="Converters\StreamToBitmap.cs" />
     <Compile Include="Converters\EmptyStringFallback.cs" />
-    <Compile Include="Converters\StringToIconElement.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
     <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
       <DependentUpon>EqualizerDialog.xaml</DependentUpon>
