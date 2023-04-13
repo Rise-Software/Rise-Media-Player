@@ -91,6 +91,7 @@ namespace Rise.App.Views
             MViewModel.IndexingStarted += MViewModel_IndexingStarted;
             MViewModel.IndexingFinished += MViewModel_IndexingFinished;
             MViewModel.MetadataFetchingStarted += MViewModel_MetadataFetchingStarted;
+            MViewModel.FileFetchingStarted += MViewModel_FileFetchingStarted;
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
 
@@ -109,8 +110,8 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
-            IndexingTip.Visibility = Visibility.Collapsed;
             UpdateTitleBarItems(NavView);
+
             if (!_loaded)
             {
                 _loaded = true;
@@ -278,11 +279,19 @@ namespace Rise.App.Views
                 PlayingItemMusicFlyout.ShowAt(MainPlayer);
         }
 
-        private async void MViewModel_IndexingStarted(object sender, EventArgs e)
+        private async void MViewModel_FileFetchingStarted(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 await Task.Delay(60);
+                _ = VisualStateManager.GoToState(this, "FetchingFilesState", false);
+            });
+        }
+
+        private async void MViewModel_IndexingStarted(object sender, EventArgs e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }

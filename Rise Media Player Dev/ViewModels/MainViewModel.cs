@@ -25,6 +25,8 @@ namespace Rise.App.ViewModels
     {
         public event EventHandler IndexingStarted;
         public event EventHandler MetadataFetchingStarted;
+        public event EventHandler FileFetchingStarted;
+        public event EventHandler FileFetchingFinished;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
 
         private bool _isScanning;
@@ -176,14 +178,22 @@ namespace Rise.App.ViewModels
 
         private async Task StartFullCrawlImpl(CancellationToken token)
         {
+            FileFetchingStarted?.Invoke(this, EventArgs.Empty);
+
             if (TotalMedia == 0)
             {
+                var tasks = new List<Task<uint>>();
+
                 foreach (var item in App.MusicLibrary.Folders)
-                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetItemCountAsync();
+                    tasks.Add(item.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetItemCountAsync().AsTask());
 
                 foreach (var item in App.VideoLibrary.Folders)
-                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetItemCountAsync();
+                    tasks.Add(item.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetItemCountAsync().AsTask());
+
+                TotalMedia = (await Task.WhenAll(tasks)).Aggregate((u, u1) => u + u1);
             }
+
+            FileFetchingFinished?.Invoke(this, EventArgs.Empty);
 
             IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);

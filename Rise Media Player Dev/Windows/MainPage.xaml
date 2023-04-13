@@ -661,6 +661,75 @@
                         </RelativePanel>
                     </Border>
                     <Border
+                        x:Name="FetchingFilesTip"
+                        Grid.Row="1"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                        Style="{StaticResource BorderCardStyle}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <RelativePanel>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:ProgressRing
+                                    Width="18"
+                                    Height="18"
+                                    IsActive="True" />
+
+                                <TextBlock
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Fetching files..." />
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel
+                                Margin="0,0,12,0"
+                                Orientation="Horizontal"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <Button
+                                    Padding="8"
+                                    Click="GoToScanningSettings_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
+                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
+                                </Button>
+
+                                <Button
+                                    Padding="8"
+                                    Click="DismissButton_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
+                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
+                                </Button>
+                            </StackPanel>
+                        </RelativePanel>
+                    </Border>
+                    <Border
                         x:Name="FetchingMetadataTip"
                         Grid.Row="1"
                         Height="50"
@@ -1114,6 +1183,13 @@
 
             <VisualStateGroup x:Name="ScanningStates">
                 <VisualState x:Name="NotScanningState" />
+                <VisualState x:Name="FetchingFilesState">
+                    <VisualState.Setters>
+                        <Setter Target="FetchingFilesTip.Visibility" Value="Visible" />
+                        <Setter Target="ScanningRing.IsActive" Value="True" />
+                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
                 <VisualState x:Name="ScanningState">
                     <VisualState.Setters>
                         <Setter Target="IndexingTip.Visibility" Value="Visible" />
