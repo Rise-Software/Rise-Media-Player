@@ -623,7 +623,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BaseTextBlockStyle}"
-                                Text="Fetching files..." />
+                                Text="{markup:ResourceHelper Name=FetchingFiles}" />
                         </uc:IndexingTipControl.TextContent>
                     </uc:IndexingTipControl>
 
