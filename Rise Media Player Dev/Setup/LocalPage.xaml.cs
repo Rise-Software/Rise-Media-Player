@@ -17,7 +17,7 @@ namespace Rise.App.Setup
         {
             await Task.Delay(60);
 
-            var player = sender as AnimatedVisualPlayer;
+            var player = (AnimatedVisualPlayer)sender;
             await player.PlayAsync(0, 0.5, false);
         }
     }
