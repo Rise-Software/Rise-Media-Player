@@ -21,6 +21,7 @@
   {
     "Id": "MHeader",
     "HeaderGroup": "Music",
+    "HasVisibleChildren": true,
     "Label": "Music",
     "ItemType": 0
   },
@@ -54,6 +55,7 @@
   {
     "Id": "VHeader",
     "HeaderGroup": "Videos",
+    "HasVisibleChildren": true,
     "Label": "Videos",
     "ItemType": 0
   },

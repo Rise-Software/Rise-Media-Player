@@ -7,9 +7,44 @@
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nav="using:Rise.Data.Navigation"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:selectors="using:Rise.App.TemplateSelectors"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:vm="using:Rise.Data.ViewModels"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector">
+            <selectors:NavViewItemTemplateSelector.ItemTemplate>
+                <DataTemplate x:DataType="vm:NavViewItemViewModel">
+                    <labs:SettingsCard Header="{x:Bind markup:ResourceHelper.GetString(Label)}">
+                        <ToggleSwitch
+                            IsOn="{x:Bind IsVisible, Mode=OneWay}"
+                            Loaded="ItemToggleSwitch_Loaded"
+                            Tag="{x:Bind Id}" />
+
+                        <labs:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="{x:Bind DefaultIcon}" />
+                        </labs:SettingsCard.HeaderIcon>
+                    </labs:SettingsCard>
+                </DataTemplate>
+            </selectors:NavViewItemTemplateSelector.ItemTemplate>
+
+            <selectors:NavViewItemTemplateSelector.HeaderTemplate>
+                <DataTemplate x:DataType="vm:NavViewItemViewModel">
+                    <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" IsEnabled="{x:Bind HasVisibleChildren, Mode=OneWay}">
+                        <ToggleSwitch
+                            IsOn="{x:Bind IsVisible, Mode=OneWay}"
+                            Loaded="HeaderToggleSwitch_Loaded"
+                            Tag="{x:Bind HeaderGroup}" />
+
+                        <labs:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8D2;" />
+                        </labs:SettingsCard.HeaderIcon>
+                    </labs:SettingsCard>
+                </DataTemplate>
+            </selectors:NavViewItemTemplateSelector.HeaderTemplate>
+        </selectors:NavViewItemTemplateSelector>
+    </Page.Resources>
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
@@ -30,7 +65,7 @@
                     SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
             </labs:SettingsCard>
 
-            <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/AppearancePickUp}" HeaderIcon="{ui:FontIcon Glyph=&#xE126;}">
+            <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/AppearancePickUp}" HeaderIcon="{ui:FontIcon Glyph=&#xEA5B;}">
                 <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
             </labs:SettingsCard>
 
@@ -69,70 +104,28 @@
 
             <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/NavigationAddRemoveH}" />
 
-            <labs:SettingsExpander Header="{markup:ResourceHelper Name=/Settings/NavigationGeneralItems}" HeaderIcon="{ui:FontIcon Glyph=&#xE71D;}">
-                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllGeneral, Mode=TwoWay}" />
-
-                <labs:SettingsExpander.Items>
-                    <labs:SettingsCard Header="{markup:ResourceHelper Name=Home}" HeaderIcon="{ui:FontIcon Glyph=&#xECA5;}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAtAGlance, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                    <labs:SettingsCard Header="{markup:ResourceHelper Name=Playlists}" HeaderIcon="{ui:FontIcon Glyph=&#xE8FD;}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                    <labs:SettingsCard Header="{markup:ResourceHelper Name=Discy}" HeaderIcon="{ui:FontIcon Glyph=&#xE897;}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowHelpCentre, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                </labs:SettingsExpander.Items>
+            <labs:SettingsExpander
+                x:Name="GeneralItemsExpander"
+                Header="{markup:ResourceHelper Name=/Settings/NavigationGeneralItems}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE71D;}"
+                ItemTemplate="{StaticResource NavViewItemTemplateSelector}">
+                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="General" />
             </labs:SettingsExpander>
 
-            <labs:SettingsExpander Header="{markup:ResourceHelper Name=Music}" HeaderIcon="{ui:FontIcon Glyph=&#xE189;}">
-                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllMusic, Mode=TwoWay}" />
-
-                <labs:SettingsExpander.Items>
-                    <labs:SettingsCard
-                        Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
-                        HeaderIcon="{ui:FontIcon Glyph=&#xE185;}"
-                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowMusicHeader, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                    <labs:SettingsCard
-                        Header="{markup:ResourceHelper Name=Songs}"
-                        HeaderIcon="{ui:FontIcon Glyph=&#xEC4F;}"
-                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowSongs, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                    <labs:SettingsCard
-                        Header="{markup:ResourceHelper Name=Artists}"
-                        HeaderIcon="{ui:FontIcon Glyph=&#xE125;}"
-                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowArtists, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                    <labs:SettingsCard
-                        Header="{markup:ResourceHelper Name=Albums}"
-                        HeaderIcon="{ui:FontIcon Glyph=&#xE93C;}"
-                        IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                </labs:SettingsExpander.Items>
+            <labs:SettingsExpander
+                x:Name="MusicItemsExpander"
+                Header="{markup:ResourceHelper Name=Music}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE8D6;}"
+                ItemTemplate="{StaticResource NavViewItemTemplateSelector}">
+                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="Music" />
             </labs:SettingsExpander>
 
-            <labs:SettingsExpander Header="{markup:ResourceHelper Name=Videos}" HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}">
-                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
-
-                <labs:SettingsExpander.Items>
-                    <labs:SettingsCard
-                        Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
-                        HeaderIcon="{ui:FontIcon Glyph=&#xE185;}"
-                        IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowVideoHeader, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                    <labs:SettingsCard
-                        Header="{markup:ResourceHelper Name=LocalVideos}"
-                        HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}"
-                        IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}">
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLocalVideos, Mode=TwoWay}" />
-                    </labs:SettingsCard>
-                </labs:SettingsExpander.Items>
+            <labs:SettingsExpander
+                x:Name="VideoItemsExpander"
+                Header="{markup:ResourceHelper Name=Videos}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}"
+                ItemTemplate="{StaticResource NavViewItemTemplateSelector}">
+                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="Videos" />
             </labs:SettingsExpander>
         </StackPanel>
     </ScrollViewer>

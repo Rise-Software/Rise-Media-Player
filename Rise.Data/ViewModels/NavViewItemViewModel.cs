@@ -53,6 +53,16 @@ namespace Rise.Data.ViewModels
         /// </summary>
         public bool IsFooter { get; init; }
 
+        private bool _hasVisibleChildren = false;
+        /// <summary>
+        /// Whether the item has visible children. Useful for headers.
+        /// </summary>
+        public bool HasVisibleChildren
+        {
+            get => _hasVisibleChildren;
+            set => Set(ref _hasVisibleChildren, value);
+        }
+
         private bool _isVisible = true;
         /// <summary>
         /// Whether the item should be visible.

@@ -1030,7 +1030,7 @@
       <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Labs.Uwp.SettingsControls">
-      <Version>0.0.17</Version>
+      <Version>0.0.18</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.1.0</Version>

@@ -40,6 +40,8 @@ namespace Rise.App.Settings
         public NavigationPage()
         {
             InitializeComponent();
+
+            InitializeNavigationExpanders();
         }
 
         private void IconPackComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -51,10 +53,72 @@ namespace Rise.App.Settings
                 IconPackComboBox.SelectedItem = selected;
         }
 
+        private void InitializeNavigationExpanders()
+        {
+            var allItems = NavDataSource.Items.Concat(NavDataSource.FooterItems);
+
+            GeneralItemsExpander.ItemsSource = allItems.Where(i => i.HeaderGroup == "General");
+            MusicItemsExpander.ItemsSource = allItems.Where(i => i.HeaderGroup == "Music");
+            VideoItemsExpander.ItemsSource = allItems.Where(i => i.HeaderGroup == "Videos");
+        }
+
+        private void GroupToggleSwitch_Loaded(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleSwitch)sender;
+
+            toggle.IsOn = NavDataSource.IsGroupShown((string)toggle.Tag);
+            toggle.Toggled += GroupToggleSwitch_Toggled;
+        }
+
+        private void HeaderToggleSwitch_Loaded(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleSwitch)sender;
+
+            toggle.IsOn = NavDataSource.IsHeaderVisible((string)toggle.Tag);
+            toggle.Toggled += HeaderToggleSwitch_Toggled;
+        }
+
+        private void ItemToggleSwitch_Loaded(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleSwitch)sender;
+
+            toggle.IsOn = NavDataSource.IsItemVisible((string)toggle.Tag);
+            toggle.Toggled += ItemToggleSwitch_Toggled;
+        }
+    }
+
+    // Event handlers
+    public sealed partial class NavigationPage
+    {
         private void IconPackComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = (IconPack)IconPackComboBox.SelectedItem;
             ViewModel.IconPack = selected.Id;
+        }
+
+        private void GroupToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleSwitch)sender;
+            string group = (string)toggle.Tag;
+
+            if (toggle.IsOn)
+                NavDataSource.ShowGroup(group);
+            else
+                NavDataSource.HideGroup(group);
+        }
+
+        private void HeaderToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleSwitch)sender;
+            if (toggle.Tag is string group)
+                NavDataSource.ChangeHeaderVisibility(group, toggle.IsOn);
+        }
+
+        private void ItemToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleSwitch)sender;
+            if (toggle.Tag is string id)
+                NavDataSource.ChangeItemVisibility(id, toggle.IsOn);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
-using Rise.Common.Helpers;
-using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Storage;
 
 namespace Rise.Data.Sources
@@ -17,7 +16,6 @@ namespace Rise.Data.Sources
     public sealed partial class NavViewDataSource
     {
         private const string _fileName = "NavViewItemData.json";
-        private const string _tmpFileName = "NavViewItemData.json.~tmp";
 
         /// <summary>
         /// Contains the NavView items.
@@ -49,39 +47,12 @@ namespace Rise.Data.Sources
             // If the file doesn't exist, get data from the placeholder
             if (file == null)
             {
-                var dataUri = new Uri($"ms-appx:///Assets/{_fileName}");
-                file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+                var baseFile = await StorageFile.GetFileFromApplicationUriAsync(new($"ms-appx:///Assets/{_fileName}"));
+                file = await baseFile.CopyAsync(localFolder);
             }
 
             string jsonText = await FileIO.ReadTextAsync(file);
-
-            // So, why check for this? The file should have the info, right?
-            if (string.IsNullOrWhiteSpace(jsonText))
-            {
-                // For some unexplainable reason, Windows will sometimes save
-                // stuff to a tmp file and call it a day. We have to account
-                // for that. I'm not joking when I say not checking for this
-                // can crash the app, every single time it starts up.
-                file = await localFolder.GetFileAsync(_tmpFileName);
-                jsonText = await FileIO.ReadTextAsync(file);
-            }
-
             var items = JsonSerializer.Deserialize<List<NavViewItemViewModel>>(jsonText);
-
-            // For some reason, the file contains an empty JSON array which
-            // sometimes causes the navigation view to be empty and thus
-            // rendering navigation unusable.
-            if (!items.Any())
-            {
-                // Copy the contents from the placeholder and read the data again.
-                var dataUri = new Uri($"ms-appx:///Assets/{_fileName}");
-                var placeholderFile = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
-
-                await placeholderFile.CopyAndReplaceAsync(file);
-
-                await PopulateGroupsAsync();
-                return;
-            }
 
             foreach (var item in items)
             {
@@ -96,15 +67,12 @@ namespace Rise.Data.Sources
         /// Serializes <see cref="Items"/> and <see cref="FooterItems"/>
         /// to a JSON file.
         /// </summary>
-        public async Task SerializeGroupsAsync()
+        public IAsyncAction SerializeGroupsAsync()
         {
             var allItems = new List<NavViewItemViewModel>(Items);
             allItems.AddRange(FooterItems);
 
-            var file = await ApplicationData.Current.LocalFolder.
-                CreateFileAsync(_fileName, CreationCollisionOption.ReplaceExisting);
-
-            await FileIO.WriteTextAsync(file, JsonSerializer.Serialize(allItems));
+            return PathIO.WriteTextAsync($"ms-appdata:///local/{_fileName}", JsonSerializer.Serialize(allItems));
         }
     }
 
@@ -121,13 +89,21 @@ namespace Rise.Data.Sources
             foreach (NavViewItemViewModel item in Items)
             {
                 if (item.HeaderGroup == group)
+                {
                     item.IsVisible = false;
+                    if (item.ItemType == NavViewItemType.Header)
+                        item.HasVisibleChildren = false;
+                }
             }
 
             foreach (NavViewItemViewModel item in FooterItems)
             {
                 if (item.HeaderGroup == group)
+                {
                     item.IsVisible = false;
+                    if (item.ItemType == NavViewItemType.Header)
+                        item.HasVisibleChildren = false;
+                }
             }
         }
 
@@ -140,13 +116,21 @@ namespace Rise.Data.Sources
             foreach (NavViewItemViewModel item in Items)
             {
                 if (item.HeaderGroup == group)
+                {
                     item.IsVisible = true;
+                    if (item.ItemType == NavViewItemType.Header)
+                        item.HasVisibleChildren = true;
+                }
             }
 
             foreach (NavViewItemViewModel item in FooterItems)
             {
                 if (item.HeaderGroup == group)
+                {
                     item.IsVisible = true;
+                    if (item.ItemType == NavViewItemType.Header)
+                        item.HasVisibleChildren = true;
+                }
             }
         }
 
@@ -200,11 +184,12 @@ namespace Rise.Data.Sources
                         item.IsVisible)
                     {
                         // An item is visible, no need to hide header
-                        header.IsVisible = true;
+                        header.HasVisibleChildren = true;
                         return;
                     }
                 }
 
+                header.HasVisibleChildren = false;
                 header.IsVisible = false;
             }
         }
@@ -235,6 +220,29 @@ namespace Rise.Data.Sources
         /// <returns>Whether or not is the item visible.</returns>
         public bool IsHeaderVisible(string groupName)
             => HeaderFromGroupName(groupName).IsVisible;
+
+        /// <summary>
+        /// Checks if any items in a header group are shown.
+        /// </summary>
+        /// <param name="groupName">Group name to check for.</param>
+        /// <returns>true if any of the items in the group are shown;
+        /// false otherwise.</returns>
+        public bool IsGroupShown(string groupName)
+        {
+            foreach (var item in Items)
+            {
+                if (item.HeaderGroup == groupName && item.IsVisible)
+                    return true;
+            }
+
+            foreach (var item in FooterItems)
+            {
+                if (item.HeaderGroup == groupName && item.IsVisible)
+                    return true;
+            }
+
+            return false;
+        }
     }
 
     // Moving items
