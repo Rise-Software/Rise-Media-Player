@@ -55,11 +55,11 @@ namespace Rise.App.Settings
 
         private void InitializeNavigationExpanders()
         {
-            var allItems = NavDataSource.Items.Concat(NavDataSource.FooterItems);
+            var items = NavDataSource.AllItems;
 
-            GeneralItemsExpander.ItemsSource = allItems.Where(i => i.HeaderGroup == "General");
-            MusicItemsExpander.ItemsSource = allItems.Where(i => i.HeaderGroup == "Music");
-            VideoItemsExpander.ItemsSource = allItems.Where(i => i.HeaderGroup == "Videos");
+            GeneralItemsExpander.ItemsSource = items.Where(i => i.HeaderGroup == "General");
+            MusicItemsExpander.ItemsSource = items.Where(i => i.HeaderGroup == "Music");
+            VideoItemsExpander.ItemsSource = items.Where(i => i.HeaderGroup == "Videos");
         }
 
         private void GroupToggleSwitch_Loaded(object sender, RoutedEventArgs e)

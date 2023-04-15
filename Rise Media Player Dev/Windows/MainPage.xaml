@@ -558,14 +558,14 @@
             CompactModeThresholdWidth="800"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             ExpandedModeThresholdWidth="800"
-            FooterMenuItemsSource="{x:Bind NavDataSource.FooterItems}"
+            FooterMenuItemsSource="{x:Bind NavDataSource.AllItems.FooterItems}"
             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
             IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
-            MenuItemsSource="{x:Bind NavDataSource.Items}"
+            MenuItemsSource="{x:Bind NavDataSource.AllItems.MenuItems}"
             OpenPaneLength="260">
             <Grid>
                 <Frame

@@ -102,9 +102,10 @@ namespace Rise.App.Views
             coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
 
             var date = DateTime.Now;
-
             if (date != null && date.Month == 4 && date.Day == 1)
                 RiseSpan.Text = "Rice";
+
+            NavDataSource.PopulateGroups();
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
@@ -114,9 +115,6 @@ namespace Rise.App.Views
             if (!_loaded)
             {
                 _loaded = true;
-
-                // Sidebar icons
-                await NavDataSource.PopulateGroupsAsync();
 
                 // Startup setting
                 if (ContentFrame.Content == null)
