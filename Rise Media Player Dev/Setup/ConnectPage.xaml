@@ -20,7 +20,7 @@
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
-                        <visuals:LocalAccountLottie />
+                        <visuals:ConnectLottie />
                     </muxc:AnimatedVisualPlayer.Source>
                 </muxc:AnimatedVisualPlayer>
             </local:SetupPageContent.Icon>

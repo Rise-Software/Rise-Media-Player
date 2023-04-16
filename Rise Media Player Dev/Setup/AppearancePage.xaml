@@ -16,7 +16,7 @@
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
-                        <visuals:UpdateSettingsLottie />
+                        <visuals:SettingsLottie />
                     </muxc:AnimatedVisualPlayer.Source>
                 </muxc:AnimatedVisualPlayer>
             </local:SetupPageContent.Icon>
