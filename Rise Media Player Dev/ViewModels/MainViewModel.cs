@@ -221,7 +221,7 @@ namespace Rise.App.ViewModels
         {
             var songsTask = Task.Run(async () =>
             {
-                await foreach (var song in KnownFolders.MusicLibrary.IndexWithPrefetchAsync(QueryPresets.SongQueryOptions,
+                await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                     PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
                     if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
@@ -233,7 +233,7 @@ namespace Rise.App.ViewModels
 
             var videosTask = Task.Run(async () =>
             {
-                await foreach (var video in KnownFolders.VideosLibrary.IndexWithPrefetchAsync(QueryPresets.VideoQueryOptions,
+                await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
                     PropertyPrefetchOptions.VideoProperties))
                 {
                     if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))
