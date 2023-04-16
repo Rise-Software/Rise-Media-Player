@@ -122,15 +122,12 @@ namespace Rise.Common.Extensions
         /// <param name="queryEventHandler">Event handler to control the changes.</param>
         /// <returns>The <see cref="StorageFileQueryResult"/>, ready for
         /// change tracking.</returns>
-        public static async Task<StorageFileQueryResult>
-            TrackForegroundAsync(this StorageFolder folder,
+        public static async Task<StorageFileQueryResult> TrackForegroundAsync(this StorageFolder folder,
+            StorageLibraryChangeTracker tracker,
             QueryOptions queryOptions,
             TypedEventHandler<IStorageQueryResultBase, object> queryEventHandler)
         {
-            // This is important because you are going to use indexer for notifications
-            queryOptions.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
-
-            folder.TryGetChangeTracker()?.Enable();
+            tracker.Enable();
 
             StorageFileQueryResult resultSet =
                 folder.CreateFileQueryWithOptions(queryOptions);

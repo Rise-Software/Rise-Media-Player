@@ -8,12 +8,16 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Search;
 
 namespace Rise.App.ChangeTrackers
 {
     public static class SongsTracker
     {
         public static MainViewModel ViewModel => App.MViewModel;
+
+        public static async void MusicQueryResultChanged(IStorageQueryResultBase sender, object args)
+            => await HandleLibraryChangesAsync();
 
         public static async Task<StorageLibraryChangeResult> GetLibraryChangesAsync(this StorageLibrary library)
         {
