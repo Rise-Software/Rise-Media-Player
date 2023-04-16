@@ -1,6 +1,9 @@
-﻿using Rise.Common.Helpers;
+﻿using Rise.Common.Constants;
+using Rise.Common.Enums;
+using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
@@ -113,6 +116,83 @@ namespace Rise.Common.Extensions
         #endregion
 
         #region Tracking
+        public static async Task<StorageLibraryChangeResult> GetLibraryChangesAsync(this StorageLibrary library)
+        {
+            var changeTracker = library.ChangeTracker;
+
+            // Ensure that the change tracker is always enabled.
+            changeTracker.Enable();
+
+            var changeReader = changeTracker.GetChangeReader();
+            var changes = await changeReader.ReadBatchAsync();
+
+            ulong lastChangeId = changeReader.GetLastChangeId();
+
+            var addedItems = new List<StorageFile>();
+            var removedItems = new List<string>();
+
+            if (lastChangeId == StorageLibraryLastChangeId.Unknown)
+            {
+                changeTracker.Reset();
+                return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
+            }
+
+            foreach (StorageLibraryChange change in changes)
+            {
+                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost ||
+                    !change.IsOfType(StorageItemTypes.File))
+                {
+                    changeTracker.Reset();
+                    return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
+                }
+
+                switch (change.ChangeType)
+                {
+                    case StorageLibraryChangeType.MovedIntoLibrary:
+                    case StorageLibraryChangeType.Created:
+                        {
+                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
+
+                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
+                                continue;
+
+                            addedItems.Add(file);
+                            break;
+                        }
+
+                    case StorageLibraryChangeType.MovedOutOfLibrary:
+                    case StorageLibraryChangeType.Deleted:
+                        {
+                            removedItems.Add(change.PreviousPath);
+                            break;
+                        }
+
+                    case StorageLibraryChangeType.MovedOrRenamed:
+                    case StorageLibraryChangeType.ContentsChanged:
+                    case StorageLibraryChangeType.ContentsReplaced:
+                        {
+                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
+
+                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
+                                continue;
+
+                            removedItems.Add(change.PreviousPath ?? file.Path);
+                            addedItems.Add(file);
+                            break;
+                        }
+
+                    case StorageLibraryChangeType.IndexingStatusChanged:
+                    case StorageLibraryChangeType.EncryptionChanged:
+                    case StorageLibraryChangeType.ChangeTrackingLost:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            return new StorageLibraryChangeResult(changeReader, addedItems, removedItems);
+        }
+
         /// <summary>
         /// Registers a <see cref="StorageFolder"/> for foreground change tracking.
         /// </summary>

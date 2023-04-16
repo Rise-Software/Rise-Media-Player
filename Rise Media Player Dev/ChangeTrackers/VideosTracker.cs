@@ -10,6 +10,8 @@ using Windows.Storage.Search;
 using System.IO;
 using System.Threading;
 using Rise.Data.ViewModels;
+using Rise.Common.Enums;
+using System.Linq;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -21,94 +23,7 @@ namespace Rise.App.ChangeTrackers
         private static MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Manage changes to the videos library.
-        /// </summary>
-        /// <param name="change">Change that ocurred.</param>
-        public static async Task ManageVideoChange(StorageLibraryChange change)
-        {
-            StorageFile file;
-            Video video;
-            // Temp variable used for instantiating StorageFiles for sorting if needed later
-            switch (change.ChangeType)
-            {
-                // New File in the Library
-                case StorageLibraryChangeType.Created:
-                    // Song was created..?
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    video = await Video.GetFromFileAsync(file);
-
-                    await new VideoViewModel(video).SaveAsync();
-                    break;
-
-                case StorageLibraryChangeType.MovedIntoLibrary:
-                    // Song was moved into the library
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    video = await Video.GetFromFileAsync(file);
-
-                    await new VideoViewModel(video).SaveAsync();
-                    break;
-
-                case StorageLibraryChangeType.MovedOrRenamed:
-                    // Song was renamed/moved
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    for (int i = 0; i < MViewModel.Videos.Count; i++)
-                    {
-                        if (change.PreviousPath == MViewModel.Videos[i].Location)
-                        {
-                            await MViewModel.Videos[i].DeleteAsync();
-                        }
-                    }
-                    break;
-
-                // File Removed From Library
-                case StorageLibraryChangeType.Deleted:
-                    // Song was deleted
-                    for (int i = 0; i < MViewModel.Videos.Count; i++)
-                    {
-                        if (change.PreviousPath == MViewModel.Videos[i].Location)
-                        {
-                            await MViewModel.Videos[i].DeleteAsync();
-                        }
-                    }
-                    break;
-
-                case StorageLibraryChangeType.MovedOutOfLibrary:
-                    // Song got moved out of the library
-                    for (int i = 0; i < MViewModel.Videos.Count; i++)
-                    {
-                        if (change.PreviousPath == MViewModel.Videos[i].Location)
-                        {
-                            await MViewModel.Videos[i].DeleteAsync();
-                        }
-                    }
-                    break;
-
-                // Modified Contents
-                case StorageLibraryChangeType.ContentsChanged:
-                    // Song content was modified..?
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    for (int i = 0; i < MViewModel.Videos.Count; i++)
-                    {
-                        if (change.PreviousPath == MViewModel.Videos[i].Location)
-                        {
-                            await MViewModel.Videos[i].DeleteAsync();
-                            await MViewModel.Videos[i].SaveAsync();
-                        }
-                    }
-                    break;
-
-                // Ignored Cases
-                case StorageLibraryChangeType.EncryptionChanged:
-                case StorageLibraryChangeType.ContentsReplaced:
-                case StorageLibraryChangeType.IndexingStatusChanged:
-                default:
-                    // These are safe to ignore, I think
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Manage changes to the videos library folders.
+        /// Checks for duplicates in the video folders.
         /// </summary>
         public static async Task CheckDuplicatesAsync(CancellationToken token = default)
         {
@@ -149,52 +64,32 @@ namespace Rise.App.ChangeTrackers
         /// </summary>
         public static async void VideosLibrary_ContentsChanged(IStorageQueryResultBase sender, object args)
         {
-            StorageFolder changedFolder = sender.Folder;
-            StorageLibraryChangeTracker folderTracker = changedFolder.TryGetChangeTracker();
+            await HandleLibraryChangesAsync();
+        }
 
-            if (folderTracker != null)
+        public static async Task HandleLibraryChangesAsync(bool queue = false)
+        {
+            await using var changes = await App.VideoLibrary.GetLibraryChangesAsync();
+
+            if (changes.Status != StorageLibraryChangeStatus.HasChange)
+                return;
+
+            foreach (var addedItem in changes.AddedItems)
             {
-                folderTracker.Enable();
+                _ = await MViewModel.SaveVideoModelAsync(addedItem, queue);
+            }
 
-                StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
-                IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
+            foreach (var removedItemPath in changes.RemovedItems)
+            {
+                if (string.IsNullOrEmpty(removedItemPath))
+                    continue;
 
-                foreach (StorageLibraryChange change in changes)
-                {
-                    if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
-                    {
-                        // Change tracker is in an invalid state and must be reset
-                        // This should be a very rare case, but must be handled
-                        folderTracker.Reset();
-                        return;
-                    }
+                var video = App.MViewModel.Videos.FirstOrDefault(v => v.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
 
-                    if (change.IsOfType(StorageItemTypes.File))
-                    {
-                        await ManageVideoChange(change);
-                    }
-                    else if (change.IsOfType(StorageItemTypes.Folder))
-                    {
-                        // Not interested in folders
-                    }
-                    else
-                    {
-                        if (change.ChangeType == StorageLibraryChangeType.Deleted)
-                        {
-                            for (int i = 0; i < MViewModel.Videos.Count; i++)
-                            {
-                                if (change.PreviousPath == MViewModel.Videos[i].Location)
-                                {
-                                    await MViewModel.Videos[i].DeleteAsync();
-                                }
-                            }
-                        }
-                    }
-                }
+                if (video == null)
+                    continue;
 
-                // Mark that all the changes have been seen and for the change tracker
-                // to never return these changes again
-                await changeReader.AcceptChangesAsync();
+                await video.DeleteAsync(queue);
             }
         }
     }

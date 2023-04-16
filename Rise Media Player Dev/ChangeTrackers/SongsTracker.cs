@@ -1,99 +1,22 @@
 ﻿using Rise.App.ViewModels;
-using Rise.Common;
-using Rise.Common.Constants;
 using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.Storage.Search;
 
 namespace Rise.App.ChangeTrackers
 {
     public static class SongsTracker
     {
-        public static MainViewModel ViewModel => App.MViewModel;
+        private static MainViewModel ViewModel => App.MViewModel;
 
         public static async void MusicQueryResultChanged(IStorageQueryResultBase sender, object args)
-            => await HandleLibraryChangesAsync();
-
-        public static async Task<StorageLibraryChangeResult> GetLibraryChangesAsync(this StorageLibrary library)
         {
-            var changeTracker = library.ChangeTracker;
-
-            // Ensure that the change tracker is always enabled.
-            changeTracker.Enable();
-
-            var changeReader = changeTracker.GetChangeReader();
-            var changes = await changeReader.ReadBatchAsync();
-
-            ulong lastChangeId = changeReader.GetLastChangeId();
-
-            var addedItems = new List<StorageFile>();
-            var removedItems = new List<string>();
-
-            if (lastChangeId == StorageLibraryLastChangeId.Unknown)
-            {
-                changeTracker.Reset();
-                return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
-            }
-
-            foreach (StorageLibraryChange change in changes)
-            {
-                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost ||
-                    !change.IsOfType(StorageItemTypes.File))
-                {
-                    changeTracker.Reset();
-                    return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
-                }
-
-                switch (change.ChangeType)
-                {
-                    case StorageLibraryChangeType.MovedIntoLibrary:
-                    case StorageLibraryChangeType.Created:
-                        {
-                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
-
-                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
-                                continue;
-
-                            addedItems.Add(file);
-                            break;
-                        }
-
-                    case StorageLibraryChangeType.MovedOutOfLibrary:
-                    case StorageLibraryChangeType.Deleted:
-                        {
-                            removedItems.Add(change.PreviousPath);
-                            break;
-                        }
-
-                    case StorageLibraryChangeType.MovedOrRenamed:
-                    case StorageLibraryChangeType.ContentsChanged:
-                    case StorageLibraryChangeType.ContentsReplaced:
-                        {
-                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
-
-                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
-                                continue;
-
-                            removedItems.Add(change.PreviousPath ?? file.Path);
-                            addedItems.Add(file);
-                            break;
-                        }
-
-                    case StorageLibraryChangeType.IndexingStatusChanged:
-                    case StorageLibraryChangeType.EncryptionChanged:
-                    case StorageLibraryChangeType.ChangeTrackingLost:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            return new StorageLibraryChangeResult(changeReader, addedItems, removedItems);
+            await HandleLibraryChangesAsync();
         }
 
         /// <summary>
@@ -203,16 +126,16 @@ namespace Rise.App.ChangeTrackers
             }
         }
 
-        public static async Task HandleLibraryChangesAsync()
+        public static async Task HandleLibraryChangesAsync(bool queue = false)
         {
-            var changes = await App.MusicLibrary.GetLibraryChangesAsync();
+            await using var changes = await App.MusicLibrary.GetLibraryChangesAsync();
 
             if (changes.Status != StorageLibraryChangeStatus.HasChange)
                 return;
 
             foreach (var addedItem in changes.AddedItems)
             {
-                _ = await ViewModel.SaveMusicModelsAsync(addedItem, true);
+                _ = await ViewModel.SaveMusicModelsAsync(addedItem, queue);
             }
 
             foreach (var removedItemPath in changes.RemovedItems)
@@ -225,7 +148,7 @@ namespace Rise.App.ChangeTrackers
                 if (song == null)
                     continue;
 
-                await song.DeleteAsync(true);
+                await song.DeleteAsync(queue);
             }
         }
     }
