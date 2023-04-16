@@ -193,6 +193,7 @@ namespace Rise.App.ViewModels
 
             await Task.WhenAll(
                 SongsTracker.CheckDuplicatesAsync(),
+                SongsTracker.HandleLibraryChangesAsync(),
                 VideosTracker.CheckDuplicatesAsync()
             );
 

@@ -1,161 +1,96 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common;
+using Rise.Common.Constants;
+using Rise.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Rise.Common.Extensions;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.Search;
-using System.IO;
-using System.Threading;
 
 namespace Rise.App.ChangeTrackers
 {
-    public sealed class SongsTracker
+    public static class SongsTracker
     {
-        /// <summary>
-        /// Gets the app-wide MViewModel instance.
-        /// </summary>
-        private static MainViewModel ViewModel => App.MViewModel;
+        public static MainViewModel ViewModel => App.MViewModel;
 
-        public static async void MusicQueryResultChanged(IStorageQueryResultBase sender, object args)
+        public static async Task<StorageLibraryChangeResult> GetLibraryChangesAsync(this StorageLibrary library)
         {
-            sender.ContentsChanged -= MusicQueryResultChanged;
+            var changeTracker = library.ChangeTracker;
 
-            Debug.WriteLine("New changes!");
-            StorageFolder changedFolder = sender.Folder;
-            StorageLibraryChangeTracker folderTracker = changedFolder.TryGetChangeTracker();
+            // Ensure that the change tracker is always enabled.
+            changeTracker.Enable();
 
-            if (folderTracker != null)
+            var changeReader = changeTracker.GetChangeReader();
+            var changes = await changeReader.ReadBatchAsync();
+
+            ulong lastChangeId = changeReader.GetLastChangeId();
+
+            var addedItems = new List<StorageFile>();
+            var removedItems = new List<string>();
+
+            if (lastChangeId == StorageLibraryLastChangeId.Unknown)
             {
-                folderTracker.Enable();
+                changeTracker.Reset();
+                return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
+            }
 
-                StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
-                IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
-
-                foreach (StorageLibraryChange change in changes)
+            foreach (StorageLibraryChange change in changes)
+            {
+                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost ||
+                    !change.IsOfType(StorageItemTypes.File))
                 {
-                    if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
-                    {
-                        // Change tracker is in an invalid state and must be reset
-                        // This should be a very rare case, but must be handled
-                        folderTracker.Reset();
-                        await ViewModel.StartFullCrawlAsync();
-                        return;
-                    }
-
-                    if (change.IsOfType(StorageItemTypes.File))
-                    {
-                        await ManageSongChange(change);
-                    }
-                    else if (change.IsOfType(StorageItemTypes.Folder))
-                    {
-                        //await ViewModel.StartFullCrawlAsync();
-                    }
-                    else
-                    {
-                        if (change.ChangeType == StorageLibraryChangeType.Deleted)
-                        {
-                            foreach (SongViewModel song in ViewModel.Songs)
-                            {
-                                if (change.PreviousPath == song.Location)
-                                {
-                                    await song.DeleteAsync();
-                                }
-                            }
-                        }
-                    }
+                    changeTracker.Reset();
+                    return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
                 }
 
-                // Mark that all the changes have been seen and for the change tracker
-                // to never return these changes again
-                await changeReader.AcceptChangesAsync();
+                switch (change.ChangeType)
+                {
+                    case StorageLibraryChangeType.MovedIntoLibrary:
+                    case StorageLibraryChangeType.Created:
+                        {
+                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
 
-                sender.ContentsChanged += MusicQueryResultChanged;
+                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
+                                continue;
+
+                            addedItems.Add(file);
+                            break;
+                        }
+
+                    case StorageLibraryChangeType.MovedOutOfLibrary:
+                    case StorageLibraryChangeType.Deleted:
+                        {
+                            removedItems.Add(change.PreviousPath);
+                            break;
+                        }
+
+                    case StorageLibraryChangeType.MovedOrRenamed:
+                    case StorageLibraryChangeType.ContentsChanged:
+                    case StorageLibraryChangeType.ContentsReplaced:
+                        {
+                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
+
+                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
+                                continue;
+
+                            removedItems.Add(change.PreviousPath ?? file.Path);
+                            addedItems.Add(file);
+                            break;
+                        }
+
+                    case StorageLibraryChangeType.IndexingStatusChanged:
+                    case StorageLibraryChangeType.EncryptionChanged:
+                    case StorageLibraryChangeType.ChangeTrackingLost:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
-        }
 
-        /// <summary>
-        /// Manage changes to the music library.
-        /// </summary>
-        /// <param name="change">Change that ocurred.</param>
-        public static async Task ManageSongChange(StorageLibraryChange change)
-        {
-            StorageFile file;
-
-            switch (change.ChangeType)
-            {
-                // New File in the Library
-                case StorageLibraryChangeType.Created:
-                    // Song was created..?
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    await ViewModel.SaveMusicModelsAsync(file);
-                    break;
-
-                case StorageLibraryChangeType.MovedIntoLibrary:
-                    // Song was moved into the library
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    await ViewModel.SaveMusicModelsAsync(file);
-                    break;
-
-                case StorageLibraryChangeType.MovedOrRenamed:
-                    // Song was renamed/moved
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    for (int i = 0; i < ViewModel.Songs.Count; i++)
-                    {
-                        if (change.PreviousPath == ViewModel.Songs[i].Location)
-                        {
-                            ViewModel.Songs[i].Location = file.Path;
-                            await ViewModel.Songs[i].SaveAsync();
-                        }
-                    }
-                    break;
-
-                // File Removed From Library
-                case StorageLibraryChangeType.Deleted:
-                    // Song was deleted
-                    for (int i = 0; i < ViewModel.Songs.Count; i++)
-                    {
-                        if (change.PreviousPath == ViewModel.Songs[i].Location)
-                        {
-                            await ViewModel.Songs[i].DeleteAsync();
-                        }
-                    }
-                    break;
-
-                case StorageLibraryChangeType.MovedOutOfLibrary:
-                    // Song got moved out of the library
-                    for (int i = 0; i < ViewModel.Songs.Count; i++)
-                    {
-                        if (change.PreviousPath == ViewModel.Songs[i].Location)
-                        {
-                            await ViewModel.Songs[i].DeleteAsync();
-                        }
-                    }
-                    break;
-
-                // Modified Contents
-                case StorageLibraryChangeType.ContentsChanged:
-                    // Song content was modified..?
-                    file = (StorageFile)await change.GetStorageItemAsync();
-                    for (int i = 0; i < ViewModel.Songs.Count; i++)
-                    {
-                        if (change.PreviousPath == ViewModel.Songs[i].Location)
-                        {
-                            await ViewModel.Songs[i].DeleteAsync();
-                            await ViewModel.SaveMusicModelsAsync(file);
-                        }
-                    }
-                    break;
-
-                // Ignored Cases
-                case StorageLibraryChangeType.EncryptionChanged:
-                case StorageLibraryChangeType.ContentsReplaced:
-                case StorageLibraryChangeType.IndexingStatusChanged:
-                default:
-                    // These are safe to ignore, I think
-                    break;
-            }
+            return new StorageLibraryChangeResult(changeReader, addedItems, removedItems);
         }
 
         /// <summary>
@@ -262,6 +197,32 @@ namespace Rise.App.ChangeTrackers
                     return;
 
                 await genre.DeleteAsync(true);
+            }
+        }
+
+        public static async Task HandleLibraryChangesAsync()
+        {
+            var changes = await App.MusicLibrary.GetLibraryChangesAsync();
+
+            if (changes.Status != StorageLibraryChangeStatus.HasChange)
+                return;
+
+            foreach (var addedItem in changes.AddedItems)
+            {
+                _ = await ViewModel.SaveMusicModelsAsync(addedItem, true);
+            }
+
+            foreach (var removedItemPath in changes.RemovedItems)
+            {
+                if (string.IsNullOrEmpty(removedItemPath))
+                    continue;
+
+                var song = App.MViewModel.Songs.FirstOrDefault(s => s.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
+
+                if (song == null)
+                    continue;
+
+                await song.DeleteAsync(true);
             }
         }
     }

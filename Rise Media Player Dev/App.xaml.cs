@@ -290,19 +290,21 @@ namespace Rise.App
             IndexingTimer.Start();
         }
 
-        public static async Task InitializeChangeTrackingAsync()
+        public static Task InitializeChangeTrackingAsync()
         {
             RestartIndexingTimer();
-            _ = await KnownFolders.MusicLibrary.
+            /*_ = await KnownFolders.MusicLibrary.
                 TrackForegroundAsync(QueryPresets.SongQueryOptions,
                 SongsTracker.MusicQueryResultChanged);
 
             _ = await KnownFolders.VideosLibrary.
                 TrackForegroundAsync(QueryPresets.VideoQueryOptions,
-                VideosTracker.VideosLibrary_ContentsChanged);
+                VideosTracker.VideosLibrary_ContentsChanged);*/
 
             MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
             VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+
+            return Task.CompletedTask;
         }
 
         private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
