@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using TagLib.Ape;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 
@@ -178,11 +179,8 @@ namespace Rise.App.ViewModels
         {
             if (TotalMedia == 0)
             {
-                foreach (var item in App.MusicLibrary.Folders)
-                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetItemCountAsync();
-
-                foreach (var item in App.VideoLibrary.Folders)
-                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetItemCountAsync();
+                TotalMedia += await KnownFolders.MusicLibrary.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetItemCountAsync();
+                TotalMedia += await KnownFolders.VideosLibrary.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetItemCountAsync();
             }
 
             IsScanning = true;
@@ -219,7 +217,7 @@ namespace Rise.App.ViewModels
         {
             var songsTask = Task.Run(async () =>
             {
-                await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
+                await foreach (var song in KnownFolders.MusicLibrary.IndexWithPrefetchAsync(QueryPresets.SongQueryOptions,
                     PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
                     if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
@@ -231,7 +229,7 @@ namespace Rise.App.ViewModels
 
             var videosTask = Task.Run(async () =>
             {
-                await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
+                await foreach (var video in KnownFolders.VideosLibrary.IndexWithPrefetchAsync(QueryPresets.VideoQueryOptions,
                     PropertyPrefetchOptions.VideoProperties))
                 {
                     if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))

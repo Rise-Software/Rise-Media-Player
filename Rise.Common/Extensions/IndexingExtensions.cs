@@ -45,6 +45,29 @@ namespace Rise.Common.Extensions
         /// </summary>
         /// <param name="folder">Folder to index.</param>
         /// <param name="options">Query options.</param>
+        /// <param name="prefetchOptions">What options to prefetch.</param>
+        /// <param name="extraProps">Extra properties to prefetch.</param>
+        /// <param name="stepSize">The step size. This allows for
+        /// the files to be indexed and processed in batches. Must
+        /// be 1 or greater.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when
+        /// an invalid <paramref name="stepSize"/> is specified.</exception>
+        public static IAsyncEnumerable<StorageFile> IndexWithPrefetchAsync(this StorageFolder folder,
+            QueryOptions queryOptions,
+            PropertyPrefetchOptions prefetchOptions = PropertyPrefetchOptions.BasicProperties,
+            IEnumerable<string> extraProps = null,
+            uint stepSize = 50)
+        {
+            queryOptions.SetPropertyPrefetch(prefetchOptions, extraProps);
+            return IndexAsync(folder, queryOptions, stepSize);
+        }
+
+        /// <summary>
+        /// Indexes a folder's contents based on personalized
+        /// query options.
+        /// </summary>
+        /// <param name="folder">Folder to index.</param>
+        /// <param name="options">Query options.</param>
         /// <param name="stepSize">The step size. This allows for
         /// the files to be indexed and processed in batches. Must
         /// be 1 or greater.</param>
