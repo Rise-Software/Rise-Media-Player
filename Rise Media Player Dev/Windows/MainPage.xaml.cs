@@ -134,7 +134,7 @@ namespace Rise.App.Views
 
             if (MViewModel.IsScanning)
             {
-                await Task.Delay(60);
+                await Task.Delay(100);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
             }
         }

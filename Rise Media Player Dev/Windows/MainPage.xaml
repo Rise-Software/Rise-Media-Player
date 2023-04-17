@@ -610,12 +610,6 @@
                                 Duration="0:0:0.5" />
                         </animations:Implicit.HideAnimations>
                         <RelativePanel>
-                            <muxc:ProgressBar
-                                Maximum="{x:Bind MViewModel.TotalMedia, Mode=OneWay}"
-                                RelativePanel.AlignLeftWithPanel="True"
-                                RelativePanel.AlignRightWithPanel="True"
-                                Value="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
-
                             <StackPanel
                                 Orientation="Horizontal"
                                 RelativePanel.AlignHorizontalCenterWithPanel="True"
@@ -631,8 +625,6 @@
                                     Style="{StaticResource BaseTextBlockStyle}">
                                     <Run Text="Indexing" />
                                     <Run Text="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
-                                    <Run Text="of" />
-                                    <Run Text="{x:Bind MViewModel.TotalMedia, Mode=OneWay}" />
                                     <Run Text="media from your library. Please wait." />
                                 </TextBlock>
                             </StackPanel>

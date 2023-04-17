@@ -50,17 +50,6 @@ namespace Rise.App.ViewModels
             set => Set(ref _indexedMedia, value);
         }
 
-        private uint _totalMedia = 0;
-
-        /// <summary>
-        /// The total media in the library.
-        /// </summary>
-        public uint TotalMedia
-        {
-            get => _totalMedia;
-            set => Set(ref _totalMedia, value);
-        }
-
         private uint _indexedSongs = 0;
         private uint _indexedVideos = 0;
 
@@ -169,20 +158,14 @@ namespace Rise.App.ViewModels
             catch (OperationCanceledException) { }
         }
 
-        public async Task StartFullCrawlAsync(CancellationToken token)
+        public Task StartFullCrawlAsync(CancellationToken token)
         {
-            await IndexingCancelHelper.CompletePendingAsync(token);
-            await IndexingCancelHelper.RunAsync(StartFullCrawlImpl(IndexingCancelHelper.Token));
+            return IndexingCancelHelper.CompletePendingAsync(token)
+                .ContinueWith(async _ => await IndexingCancelHelper.RunAsync(StartFullCrawlImpl(IndexingCancelHelper.Token)));
         }
 
         private async Task StartFullCrawlImpl(CancellationToken token)
         {
-            if (TotalMedia == 0)
-            {
-                TotalMedia += await KnownFolders.MusicLibrary.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetItemCountAsync();
-                TotalMedia += await KnownFolders.VideosLibrary.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetItemCountAsync();
-            }
-
             IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
@@ -214,7 +197,6 @@ namespace Rise.App.ViewModels
             IndexedSongs = 0;
             IndexedVideos = 0;
             IndexedMedia = 0;
-            TotalMedia = 0;
         }
 
         private async Task IndexLibrariesAsync(CancellationToken token)
