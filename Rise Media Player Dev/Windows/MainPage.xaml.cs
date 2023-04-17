@@ -10,6 +10,7 @@ using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using Rise.Data.Navigation;
 using Rise.Data.Sources;
@@ -112,6 +113,9 @@ namespace Rise.App.Views
         private void SetupNavigation()
         {
             NavDataSource.PopulateGroups();
+
+            var playlists = (NavigationItemDestination)NavDataSource.GetItem("PlaylistsPage");
+            playlists.Children = new ObservableWrapper<object, PlaylistViewModel>(PBackend.Items);
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
@@ -519,28 +523,10 @@ namespace Rise.App.Views
             args.Handled = true;
         }
 
-        private async void RemoveItem_Click(object sender, RoutedEventArgs e)
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             var item = RightClickedItem;
-            if (!string.IsNullOrEmpty(item.ParentId))
-            {
-                var parent = (NavigationItemDestination)NavDataSource.AllItems.FirstOrDefault(i => i.Id == item.ParentId);
-                _ = parent.Children.Remove(item);
-
-                if (Guid.TryParse(item.Id, out var id))
-                {
-                    var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Id == id);
-                    if (playlist != null)
-                    {
-                        playlist.IsPinned = false;
-                        await MViewModel.PBackend.SaveAsync();
-                    }
-                }
-            }
-            else
-            {
-                NavDataSource.ToggleItemVisibility(item.Id);
-            }
+            NavDataSource.ToggleItemVisibility(item.Id);
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)

@@ -242,10 +242,9 @@
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             AutomationProperties.Name="{x:Bind Title, Mode=OneWay}"
                             Content="{x:Bind Title, Mode=OneWay}"
-                            ContextRequested="NavigationViewItem_ContextRequested"
                             Tag="{x:Bind}">
                             <muxc:NavigationViewItem.Icon>
-                                <BitmapIcon UriSource="{x:Bind Icon, Mode=OneWay}" />
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="{x:Bind Icon, Mode=OneWay}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>

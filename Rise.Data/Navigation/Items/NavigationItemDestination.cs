@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Rise.Data.Navigation
@@ -36,6 +36,6 @@ namespace Rise.Data.Navigation
         /// is not serialized by <see cref="System.Text.Json.JsonSerializer"/>.
         /// </summary>
         [JsonIgnore]
-        public ObservableCollection<object> Children { get; init; } = new();
+        public IList<object> Children { get; set; }
     }
 }

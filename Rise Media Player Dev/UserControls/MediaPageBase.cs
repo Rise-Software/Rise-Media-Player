@@ -267,28 +267,6 @@ namespace Rise.App.UserControls
 
             return Task.CompletedTask;
         }
-
-        [RelayCommand]
-        private Task SwitchPlaylistPinningStateAsync(PlaylistViewModel playlist)
-        {
-            var item = (NavigationItemDestination)NavDataSource.GetItem("PlaylistsPage");
-            if (playlist.IsPinned)
-            {
-                var itm = item.Children.FirstOrDefault(i => ((PlaylistViewModel)i).Id.ToString() == playlist.Id.ToString());
-                if (itm != null)
-                {
-                    item.Children.Remove(playlist);
-                    playlist.IsPinned = false;
-                }
-            }
-            else
-            {
-                item.Children.Add(playlist);
-                playlist.IsPinned = true;
-            }
-
-            return App.MViewModel.PBackend.SaveAsync();
-        }
     }
 
     // Session state

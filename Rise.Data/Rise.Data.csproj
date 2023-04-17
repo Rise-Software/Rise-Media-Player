@@ -124,6 +124,7 @@
     <Compile Include="Collections\CollectionViewGroup.cs" />
     <Compile Include="Collections\GroupedCollectionView.Defer.cs" />
     <Compile Include="Collections\GroupedCollectionView.Events.cs" />
+    <Compile Include="Collections\ObservableWrapper.cs" />
     <Compile Include="Collections\SortDescription.cs" />
     <Compile Include="Collections\GroupedCollectionView.cs" />
     <Compile Include="Collections\GroupedCollectionView.CurrentHandling.cs" />
