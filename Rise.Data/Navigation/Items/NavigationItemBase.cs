@@ -2,7 +2,6 @@ using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Windows.Data.Json;
 
 namespace Rise.Data.Navigation
 {
@@ -22,21 +21,6 @@ namespace Rise.Data.Navigation
         protected NavigationItemBase(NavigationItemType itemType)
         {
             ItemType = itemType;
-        }
-
-        protected NavigationItemBase(NavigationItemType itemType, JsonObject obj)
-        {
-            ItemType = itemType;
-
-            Id = obj.GetNamedString("Id");
-
-            var parentIdObj = obj.GetNamedValue("ParentId");
-            if (parentIdObj.ValueType == JsonValueType.String)
-                ParentId = obj.GetNamedString("ParentId");
-
-            Group = obj.GetNamedString("Group");
-            IsFooter = obj.GetNamedBoolean("IsFooter");
-            _isVisible = obj.GetNamedBoolean("IsVisible");
         }
 
         /// <summary>
