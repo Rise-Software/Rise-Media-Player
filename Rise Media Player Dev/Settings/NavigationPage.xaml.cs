@@ -57,9 +57,9 @@ namespace Rise.App.Settings
         {
             var items = NavDataSource.AllItems;
 
-            GeneralItemsExpander.ItemsSource = items.Where(i => i.HeaderGroup == "General");
-            MusicItemsExpander.ItemsSource = items.Where(i => i.HeaderGroup == "Music");
-            VideoItemsExpander.ItemsSource = items.Where(i => i.HeaderGroup == "Videos");
+            GeneralItemsExpander.ItemsSource = items.Where(i => i.Group == "General");
+            MusicItemsExpander.ItemsSource = items.Where(i => i.Group == "Music");
+            VideoItemsExpander.ItemsSource = items.Where(i => i.Group == "Videos");
         }
 
         private void GroupToggleSwitch_Loaded(object sender, RoutedEventArgs e)

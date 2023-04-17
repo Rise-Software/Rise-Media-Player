@@ -13,9 +13,9 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector">
-            <selectors:NavViewItemTemplateSelector.ItemTemplate>
-                <DataTemplate x:DataType="vm:NavViewItemViewModel">
+        <selectors:NavigationItemTemplateSelector x:Key="NavViewItemTemplateSelector">
+            <selectors:NavigationItemTemplateSelector.DestinationTemplate>
+                <DataTemplate x:DataType="nav:NavigationItemDestination">
                     <labs:SettingsCard Header="{x:Bind markup:ResourceHelper.GetString(Label)}">
                         <ToggleSwitch
                             IsOn="{x:Bind IsVisible, Mode=OneWay}"
@@ -27,23 +27,23 @@
                         </labs:SettingsCard.HeaderIcon>
                     </labs:SettingsCard>
                 </DataTemplate>
-            </selectors:NavViewItemTemplateSelector.ItemTemplate>
+            </selectors:NavigationItemTemplateSelector.DestinationTemplate>
 
-            <selectors:NavViewItemTemplateSelector.HeaderTemplate>
-                <DataTemplate x:DataType="vm:NavViewItemViewModel">
-                    <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" IsEnabled="{x:Bind HasVisibleChildren, Mode=OneWay}">
+            <selectors:NavigationItemTemplateSelector.HeaderTemplate>
+                <DataTemplate x:DataType="nav:NavigationItemHeader">
+                    <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" IsEnabled="{x:Bind IsGroupVisible, Mode=OneWay}">
                         <ToggleSwitch
                             IsOn="{x:Bind IsVisible, Mode=OneWay}"
                             Loaded="HeaderToggleSwitch_Loaded"
-                            Tag="{x:Bind HeaderGroup}" />
+                            Tag="{x:Bind Group}" />
 
                         <labs:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE8D2;" />
                         </labs:SettingsCard.HeaderIcon>
                     </labs:SettingsCard>
                 </DataTemplate>
-            </selectors:NavViewItemTemplateSelector.HeaderTemplate>
-        </selectors:NavViewItemTemplateSelector>
+            </selectors:NavigationItemTemplateSelector.HeaderTemplate>
+        </selectors:NavigationItemTemplateSelector>
     </Page.Resources>
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">

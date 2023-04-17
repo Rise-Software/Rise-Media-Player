@@ -11,6 +11,7 @@ using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.Json;
+using Rise.Data.Navigation;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -49,11 +50,11 @@ namespace Rise.App.Views
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
         private static readonly DependencyProperty RightClickedItemProperty
-            = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavViewItemViewModel),
+            = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavigationItemBase),
                 typeof(MainPage), null);
-        private NavViewItemViewModel RightClickedItem
+        private NavigationItemBase RightClickedItem
         {
-            get => (NavViewItemViewModel)GetValue(RightClickedItemProperty);
+            get => (NavigationItemBase)GetValue(RightClickedItemProperty);
             set => SetValue(RightClickedItemProperty, value);
         }
 
@@ -105,6 +106,11 @@ namespace Rise.App.Views
             if (date != null && date.Month == 4 && date.Day == 1)
                 RiseSpan.Text = "Rice";
 
+            SetupNavigation();
+        }
+
+        private void SetupNavigation()
+        {
             NavDataSource.PopulateGroups();
         }
 
@@ -387,25 +393,24 @@ namespace Rise.App.Views
         /// <param name="args">Details about the item invocation.</param>
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var item = args.InvokedItemContainer?.Tag as NavViewItemViewModel;
-
-            string id = item?.Id;
-            if (!string.IsNullOrEmpty(id))
+            var invoked = args.InvokedItemContainer?.Tag;
+            if (invoked is NavigationItemBase item)
             {
+                string id = item.Id;
                 if (id == "SettingsPage")
                 {
                     Frame.Navigate(typeof(AllSettingsPage));
-                }
-                else if (Guid.TryParse(id, out var guid))
-                {
-                    ContentFrame.Navigate(typeof(PlaylistDetailsPage),
-                        guid, args.RecommendedNavigationTransitionInfo);
                 }
                 else if (ContentFrame.SourcePageType != Destinations[id])
                 {
                     ContentFrame.Navigate(Destinations[id],
                         null, args.RecommendedNavigationTransitionInfo);
                 }
+            }
+            else if (invoked is PlaylistViewModel playlist)
+            {
+                ContentFrame.Navigate(typeof(PlaylistDetailsPage),
+                    playlist.Id, args.RecommendedNavigationTransitionInfo);
             }
         }
 
@@ -418,7 +423,7 @@ namespace Rise.App.Views
         private void NavigationViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
         {
             var elm = sender as FrameworkElement;
-            if (elm?.Tag is NavViewItemViewModel item)
+            if (elm?.Tag is NavigationItemBase item)
             {
                 string id = item.Id;
                 if (id == "SettingsPage")
@@ -485,7 +490,7 @@ namespace Rise.App.Views
         private void NavigationViewItem_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
         {
             var elm = sender as FrameworkElement;
-            var item = elm?.Tag as NavViewItemViewModel;
+            var item = elm?.Tag as NavigationItemDestination;
 
             string flyoutId = item?.FlyoutId;
             if (!string.IsNullOrEmpty(flyoutId))
@@ -517,9 +522,11 @@ namespace Rise.App.Views
         private async void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             var item = RightClickedItem;
-            if (NavDataSource.TryGetItem(item.ParentId, out var parent))
+            if (!string.IsNullOrEmpty(item.ParentId))
             {
-                _ = parent.SubItems.Remove(item);
+                var parent = (NavigationItemDestination)NavDataSource.AllItems.FirstOrDefault(i => i.Id == item.ParentId);
+                _ = parent.Children.Remove(item);
+
                 if (Guid.TryParse(item.Id, out var id))
                 {
                     var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Id == id);

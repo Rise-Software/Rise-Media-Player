@@ -132,13 +132,17 @@
     <Compile Include="Json\JsonBackendController.cs" />
     <Compile Include="Messages\BasicNotification.cs" />
     <Compile Include="Navigation\IconPack.cs" />
+    <Compile Include="Navigation\Items\NavigationItemBase.cs" />
     <Compile Include="Navigation\NavigationItemCollection.cs" />
+    <Compile Include="Navigation\Items\NavigationItemDestination.cs" />
+    <Compile Include="Navigation\Items\NavigationItemHeader.cs" />
+    <Compile Include="Navigation\Items\NavigationItemType.cs" />
+    <Compile Include="Navigation\Items\NavigationItemSeparator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\MainDataSource.cs" />
     <Compile Include="Sources\NavViewDataSource.cs" />
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\MediaPlaybackViewModel.cs" />
-    <Compile Include="ViewModels\NavViewItemViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <EmbeddedResource Include="Properties\Rise.Data.rd.xml" />
   </ItemGroup>
@@ -158,7 +162,9 @@
       <Version>7.0.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Sources\NavViewDataSource.DefaultItems.cs" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
       <Project>{86322C85-900E-4BC8-959B-141CDFD68231}</Project>

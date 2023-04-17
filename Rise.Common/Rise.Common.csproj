@@ -137,7 +137,6 @@
     <Compile Include="Enums\IndexingMode.cs" />
     <Compile Include="Enums\MatchLevel.cs" />
     <Compile Include="Enums\MediaItemType.cs" />
-    <Compile Include="Enums\NavViewItemType.cs" />
     <Compile Include="Enums\NowPlayingBarBackgroundStyles.cs" />
     <Compile Include="Enums\SliderDisplayModes.cs" />
     <Compile Include="Enums\VisualizerType.cs" />

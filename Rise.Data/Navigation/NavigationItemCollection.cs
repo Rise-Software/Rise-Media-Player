@@ -1,4 +1,3 @@
-using Rise.Data.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,19 +11,19 @@ namespace Rise.Data.Navigation
     /// </summary>
     /// <remarks>This collection isn't observable on its own - the menu and
     /// footer views are, despite being read-only.</remarks>
-    public sealed class NavigationItemCollection : Collection<NavViewItemViewModel>
+    public sealed class NavigationItemCollection : Collection<NavigationItemBase>
     {
-        private readonly ObservableCollection<NavViewItemViewModel> _menuItems;
+        private readonly ObservableCollection<NavigationItemBase> _menuItems;
         /// <summary>
         /// Gets an observable view of the items in the main section.
         /// </summary>
-        public ReadOnlyObservableCollection<NavViewItemViewModel> MenuItems { get; }
+        public ReadOnlyObservableCollection<NavigationItemBase> MenuItems { get; }
 
-        private readonly ObservableCollection<NavViewItemViewModel> _footerItems;
+        private readonly ObservableCollection<NavigationItemBase> _footerItems;
         /// <summary>
         /// Gets an observable view of the items in the footer section.
         /// </summary>
-        public ReadOnlyObservableCollection<NavViewItemViewModel> FooterItems { get; }
+        public ReadOnlyObservableCollection<NavigationItemBase> FooterItems { get; }
 
         public NavigationItemCollection()
             : base()
@@ -36,7 +35,7 @@ namespace Rise.Data.Navigation
             FooterItems = new(_footerItems);
         }
 
-        public NavigationItemCollection(IList<NavViewItemViewModel> list)
+        public NavigationItemCollection(IList<NavigationItemBase> list)
             : base(list)
         {
             _menuItems = new(list.Where(i => !i.IsFooter));
@@ -46,7 +45,7 @@ namespace Rise.Data.Navigation
             FooterItems = new(_footerItems);
         }
 
-        protected override void InsertItem(int index, NavViewItemViewModel item)
+        protected override void InsertItem(int index, NavigationItemBase item)
         {
             base.InsertItem(index, item);
 
@@ -67,7 +66,7 @@ namespace Rise.Data.Navigation
                 _menuItems.RemoveAt(index);
         }
 
-        protected override void SetItem(int index, NavViewItemViewModel item)
+        protected override void SetItem(int index, NavigationItemBase item)
         {
             base.SetItem(index, item);
 

@@ -3,13 +3,12 @@ using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.App.Views.Albums.Properties;
-using Rise.Common.Enums;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.Collections;
 using Rise.Data.Json;
+using Rise.Data.Navigation;
 using Rise.Data.Sources;
-using Rise.Data.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -272,33 +271,20 @@ namespace Rise.App.UserControls
         [RelayCommand]
         private Task SwitchPlaylistPinningStateAsync(PlaylistViewModel playlist)
         {
-            bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
-            if (hasItem)
+            var item = (NavigationItemDestination)NavDataSource.GetItem("PlaylistsPage");
+            if (playlist.IsPinned)
             {
-                if (playlist.IsPinned)
+                var itm = item.Children.FirstOrDefault(i => ((PlaylistViewModel)i).Id.ToString() == playlist.Id.ToString());
+                if (itm != null)
                 {
-                    var itm = item.SubItems.FirstOrDefault(i => i.Id == playlist.Id.ToString());
-                    if (itm != null)
-                    {
-                        item.SubItems.Remove(itm);
-                        playlist.IsPinned = false;
-                    }
+                    item.Children.Remove(playlist);
+                    playlist.IsPinned = false;
                 }
-                else
-                {
-                    var itm = new NavViewItemViewModel
-                    {
-                        Id = playlist.Id.ToString(),
-                        ItemType = NavViewItemType.SubItem,
-                        DefaultIcon = playlist.Icon,
-                        Label = playlist.Title,
-                        ParentId = item.Id,
-                        FlyoutId = "RemoveItemFlyout"
-                    };
-
-                    item.SubItems.Add(itm);
-                    playlist.IsPinned = true;
-                }
+            }
+            else
+            {
+                item.Children.Add(playlist);
+                playlist.IsPinned = true;
             }
 
             return App.MViewModel.PBackend.SaveAsync();

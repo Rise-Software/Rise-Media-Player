@@ -1,4 +1,4 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.Data.Navigation;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -6,16 +6,16 @@ using Windows.UI.Xaml.Data;
 namespace Rise.App.Converters
 {
     /// <summary>
-    /// Gets an icon for the provided <see cref="NavViewItemViewModel"/>
+    /// Gets an icon for the provided <see cref="NavigationItemDestination"/>
     /// based on the current icon pack.
     /// </summary>
-    public sealed class NavViewItemIconConverter : IValueConverter
+    public sealed class NavigationItemIconConverter : IValueConverter
     {
         private readonly string IconPack = App.SViewModel.IconPack;
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var item = (NavViewItemViewModel)value;
+            var item = (NavigationItemDestination)value;
             if (Uri.TryCreate(item.DefaultIcon, UriKind.Absolute, out var uri))
             {
                 return new BitmapIcon

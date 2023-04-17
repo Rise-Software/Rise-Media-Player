@@ -143,7 +143,7 @@
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\IntToBoolean.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
-    <Compile Include="Converters\NavViewItemIconConverter.cs" />
+    <Compile Include="Converters\NavigationItemIconConverter.cs" />
     <Compile Include="Converters\ResourceFallback.cs" />
     <Compile Include="Converters\StreamToBitmap.cs" />
     <Compile Include="Converters\EmptyStringFallback.cs" />
@@ -170,7 +170,7 @@
     <Compile Include="Setup\SetupPageContent.xaml.cs">
       <DependentUpon>SetupPageContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TemplateSelectors\NavViewItemTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\NavigationItemTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\TemplateSelectorBase.cs" />
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
