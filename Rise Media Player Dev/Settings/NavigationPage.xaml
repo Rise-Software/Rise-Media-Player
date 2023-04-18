@@ -9,7 +9,6 @@
     xmlns:nav="using:Rise.Data.Navigation"
     xmlns:selectors="using:Rise.App.TemplateSelectors"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:vm="using:Rise.Data.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -20,7 +19,7 @@
                         <ToggleSwitch
                             IsOn="{x:Bind IsVisible, Mode=OneWay}"
                             Loaded="ItemToggleSwitch_Loaded"
-                            Tag="{x:Bind Id}" />
+                            Tag="{x:Bind}" />
 
                         <labs:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="{x:Bind DefaultIcon}" />
@@ -34,8 +33,8 @@
                     <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" IsEnabled="{x:Bind IsGroupVisible, Mode=OneWay}">
                         <ToggleSwitch
                             IsOn="{x:Bind IsVisible, Mode=OneWay}"
-                            Loaded="HeaderToggleSwitch_Loaded"
-                            Tag="{x:Bind Group}" />
+                            Loaded="ItemToggleSwitch_Loaded"
+                            Tag="{x:Bind}" />
 
                         <labs:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE8D2;" />
@@ -109,7 +108,7 @@
                 Header="{markup:ResourceHelper Name=/Settings/NavigationGeneralItems}"
                 HeaderIcon="{ui:FontIcon Glyph=&#xE71D;}"
                 ItemTemplate="{StaticResource NavViewItemTemplateSelector}">
-                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="General" />
+                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="GeneralGroup" />
             </labs:SettingsExpander>
 
             <labs:SettingsExpander
@@ -117,7 +116,7 @@
                 Header="{markup:ResourceHelper Name=Music}"
                 HeaderIcon="{ui:FontIcon Glyph=&#xE8D6;}"
                 ItemTemplate="{StaticResource NavViewItemTemplateSelector}">
-                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="Music" />
+                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="MusicGroup" />
             </labs:SettingsExpander>
 
             <labs:SettingsExpander
@@ -125,7 +124,7 @@
                 Header="{markup:ResourceHelper Name=Videos}"
                 HeaderIcon="{ui:FontIcon Glyph=&#xE8B2;}"
                 ItemTemplate="{StaticResource NavViewItemTemplateSelector}">
-                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="Videos" />
+                <ToggleSwitch Loaded="GroupToggleSwitch_Loaded" Tag="VideosGroup" />
             </labs:SettingsExpander>
         </StackPanel>
     </ScrollViewer>

@@ -57,9 +57,9 @@ namespace Rise.App.Settings
         {
             var items = NavDataSource.AllItems;
 
-            GeneralItemsExpander.ItemsSource = items.Where(i => i.Group == "General");
-            MusicItemsExpander.ItemsSource = items.Where(i => i.Group == "Music");
-            VideoItemsExpander.ItemsSource = items.Where(i => i.Group == "Videos");
+            GeneralItemsExpander.ItemsSource = items.Where(i => i.Group == "GeneralGroup");
+            MusicItemsExpander.ItemsSource = items.Where(i => i.Group == "MusicGroup");
+            VideoItemsExpander.ItemsSource = items.Where(i => i.Group == "VideosGroup");
         }
 
         private void GroupToggleSwitch_Loaded(object sender, RoutedEventArgs e)
@@ -70,19 +70,9 @@ namespace Rise.App.Settings
             toggle.Toggled += GroupToggleSwitch_Toggled;
         }
 
-        private void HeaderToggleSwitch_Loaded(object sender, RoutedEventArgs e)
-        {
-            var toggle = (ToggleSwitch)sender;
-
-            toggle.IsOn = NavDataSource.IsHeaderVisible((string)toggle.Tag);
-            toggle.Toggled += HeaderToggleSwitch_Toggled;
-        }
-
         private void ItemToggleSwitch_Loaded(object sender, RoutedEventArgs e)
         {
             var toggle = (ToggleSwitch)sender;
-
-            toggle.IsOn = NavDataSource.IsItemVisible((string)toggle.Tag);
             toggle.Toggled += ItemToggleSwitch_Toggled;
         }
     }
@@ -105,13 +95,6 @@ namespace Rise.App.Settings
                 NavDataSource.ShowGroup(group);
             else
                 NavDataSource.HideGroup(group);
-        }
-
-        private void HeaderToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-        {
-            var toggle = (ToggleSwitch)sender;
-            if (toggle.Tag is string group)
-                NavDataSource.ChangeHeaderVisibility(group, toggle.IsOn);
         }
 
         private void ItemToggleSwitch_Toggled(object sender, RoutedEventArgs e)

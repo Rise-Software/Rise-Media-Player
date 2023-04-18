@@ -137,9 +137,10 @@ namespace Rise.Data.Sources
         public void ToggleItemVisibility(string id)
         {
             var item = GetItem(id);
-
             item.IsVisible = !item.IsVisible;
-            CheckHeaderVisibility(item.Group);
+
+            if (item.ItemType != NavigationItemType.Header)
+                CheckHeaderVisibility(item.Group);
         }
 
         /// <summary>
@@ -150,9 +151,10 @@ namespace Rise.Data.Sources
         public void ChangeItemVisibility(string id, bool vis)
         {
             var item = GetItem(id);
-
             item.IsVisible = vis;
-            CheckHeaderVisibility(item.Group);
+
+            if (item.ItemType != NavigationItemType.Header)
+                CheckHeaderVisibility(item.Group);
         }
 
         /// <summary>
@@ -162,8 +164,7 @@ namespace Rise.Data.Sources
         /// <param name="group">Header group to check.</param>
         public void CheckHeaderVisibility(string group)
         {
-            var header = HeaderFromGroupName(group);
-            if (header != null)
+            if (GetItem(group) is NavigationItemHeader header)
             {
                 foreach (NavigationItemBase item in AllItems)
                 {
@@ -183,14 +184,6 @@ namespace Rise.Data.Sources
         }
 
         /// <summary>
-        /// Changes the visibility of a NavigationView header.
-        /// </summary>
-        /// <param name="groupName">Group name of the header to change.</param>
-        /// <param name="vis">Whether or not the header should be visible.</param>
-        public void ChangeHeaderVisibility(string groupName, bool vis)
-            => HeaderFromGroupName(groupName).IsVisible = vis;
-
-        /// <summary>
         /// Whether or not is an item visible.
         /// </summary>
         /// <param name="id">Id of the item to check.</param>
@@ -200,14 +193,6 @@ namespace Rise.Data.Sources
             var item = GetItem(id);
             return item.IsVisible;
         }
-
-        /// <summary>
-        /// Whether or not is a header visible.
-        /// </summary>
-        /// <param name="groupName">Group name of the header to check.</param>
-        /// <returns>Whether or not is the item visible.</returns>
-        public bool IsHeaderVisible(string groupName)
-            => HeaderFromGroupName(groupName).IsVisible;
 
         /// <summary>
         /// Checks if any items in a header group are shown.
@@ -309,7 +294,7 @@ namespace Rise.Data.Sources
             }
             else
             {
-                var header = HeaderFromGroupName(item.Group);
+                var header = GetItem(item.Group);
                 AllItems.Move(index, AllItems.IndexOf(header) + 1);
             }
         }
@@ -339,25 +324,5 @@ namespace Rise.Data.Sources
         /// <param name="id">ID of the item.</param>
         public NavigationItemBase GetItem(string id)
             => AllItems.FirstOrDefault(i => i.Id.Equals(id));
-
-        /// <summary>
-        /// Tries to get an item with the specified ID.
-        /// </summary>
-        /// <param name="id">ID of the item.</param>
-        /// <param name="item">The item if found.</param>
-        /// <returns>true if the item is found, false otherwise.</returns>
-        public bool TryGetItem(string id, out NavigationItemBase item)
-        {
-            item = AllItems.FirstOrDefault(i => i.Id.Equals(id));
-            return item != null;
-        }
-
-        /// <summary>
-        /// Gets a header based on its group name.
-        /// </summary>
-        /// <param name="group">The header's group name.</param>
-        /// <returns>The header with the specified group name.</returns>
-        public NavigationItemHeader HeaderFromGroupName(string group)
-            => (NavigationItemHeader)AllItems.FirstOrDefault(i => i.ItemType == NavigationItemType.Header && i.Group == group);
     }
 }

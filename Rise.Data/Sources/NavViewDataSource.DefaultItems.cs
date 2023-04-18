@@ -10,7 +10,7 @@ namespace Rise.Data.Sources
             new NavigationItemDestination()
             {
                 Id = "HomePage",
-                Group = "General",
+                Group = "GeneralGroup",
                 DefaultIcon = "\uECA5",
                 Label = "Home",
                 AccessKey = "H",
@@ -19,7 +19,7 @@ namespace Rise.Data.Sources
             new NavigationItemDestination()
             {
                 Id = "PlaylistsPage",
-                Group = "General",
+                Group = "GeneralGroup",
                 DefaultIcon = "\uE8FD",
                 Label = "Playlists",
                 AccessKey = "P",
@@ -28,14 +28,14 @@ namespace Rise.Data.Sources
 
             new NavigationItemHeader()
             {
-                Id = "MHeader",
-                Group = "Music",
+                Id = "MusicGroup",
+                Group = "MusicGroup",
                 Label = "Music"
             },
             new NavigationItemDestination()
             {
                 Id = "SongsPage",
-                Group = "Music",
+                Group = "MusicGroup",
                 DefaultIcon = "\uEC4F",
                 Label = "Songs",
                 AccessKey = "N",
@@ -44,7 +44,7 @@ namespace Rise.Data.Sources
             new NavigationItemDestination()
             {
                 Id = "ArtistsPage",
-                Group = "Music",
+                Group = "MusicGroup",
                 DefaultIcon = "\uE125",
                 Label = "Artists",
                 AccessKey = "T",
@@ -53,7 +53,7 @@ namespace Rise.Data.Sources
             new NavigationItemDestination()
             {
                 Id = "AlbumsPage",
-                Group = "Music",
+                Group = "MusicGroup",
                 DefaultIcon = "\uE93C",
                 Label = "Albums",
                 AccessKey = "A",
@@ -62,14 +62,14 @@ namespace Rise.Data.Sources
 
             new NavigationItemHeader()
             {
-                Id = "VHeader",
-                Group = "Videos",
+                Id = "VideosGroup",
+                Group = "VideosGroup",
                 Label = "Videos"
             },
             new NavigationItemDestination()
             {
                 Id = "LocalVideosPage",
-                Group = "Videos",
+                Group = "VideosGroup",
                 DefaultIcon = "\uE8B2",
                 Label = "LocalVideos",
                 AccessKey = "V",
@@ -79,7 +79,7 @@ namespace Rise.Data.Sources
             new NavigationItemDestination()
             {
                 Id = "DiscyPage",
-                Group = "General",
+                Group = "GeneralGroup",
                 IsFooter = true,
                 DefaultIcon = "\uE9CE",
                 Label = "Discy",
@@ -89,7 +89,7 @@ namespace Rise.Data.Sources
             new NavigationItemDestination()
             {
                 Id = "SettingsPage",
-                Group = "Other",
+                Group = "NoGroup",
                 DefaultIcon = "\uE115",
                 Label = "Settings",
                 AccessKey = "S",

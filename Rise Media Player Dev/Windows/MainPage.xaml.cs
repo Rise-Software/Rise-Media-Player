@@ -374,8 +374,8 @@ namespace Rise.App.Views
 
             if (hasKey)
             {
-                bool hasItem = NavDataSource.TryGetItem(key, out var item);
-                if (hasItem)
+                var item = NavDataSource.GetItem(key);
+                if (item != null)
                     NavView.SelectedItem = item;
             }
         }
