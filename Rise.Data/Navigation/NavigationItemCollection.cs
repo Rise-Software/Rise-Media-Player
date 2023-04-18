@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,8 +12,27 @@ namespace Rise.Data.Navigation
     /// </summary>
     /// <remarks>This collection isn't observable on its own - the menu and
     /// footer views are, despite being read-only.</remarks>
-    public sealed class NavigationItemCollection : Collection<NavigationItemBase>
+    public sealed class NavigationItemCollection : IList<NavigationItemBase>
     {
+        public NavigationItemBase this[int index]
+        {
+            get
+            {
+                int menuCount = _menuItems.Count;
+                if (index >= menuCount)
+                    return _footerItems[index - menuCount];
+                return _menuItems[index];
+            }
+            set
+            {
+                int menuCount = _menuItems.Count;
+                if (index >= menuCount)
+                    _footerItems[index - menuCount] = value;
+                else
+                    _menuItems[index] = value;
+            }
+        }
+
         private readonly ObservableCollection<NavigationItemBase> _menuItems;
         /// <summary>
         /// Gets an observable view of the items in the main section.
@@ -25,8 +45,10 @@ namespace Rise.Data.Navigation
         /// </summary>
         public ReadOnlyObservableCollection<NavigationItemBase> FooterItems { get; }
 
+        public int Count => _menuItems.Count + _footerItems.Count;
+        public bool IsReadOnly => false;
+
         public NavigationItemCollection()
-            : base()
         {
             _menuItems = new();
             _footerItems = new();
@@ -36,7 +58,6 @@ namespace Rise.Data.Navigation
         }
 
         public NavigationItemCollection(IList<NavigationItemBase> list)
-            : base(list)
         {
             _menuItems = new(list.Where(i => !i.IsFooter));
             _footerItems = new(list.Where(i => i.IsFooter));
@@ -45,21 +66,34 @@ namespace Rise.Data.Navigation
             FooterItems = new(_footerItems);
         }
 
-        protected override void InsertItem(int index, NavigationItemBase item)
+        /// <summary>
+        /// Returns the footer items collection if getFooter is true,
+        /// otherwise returns the main one.
+        /// </summary>
+        public ReadOnlyObservableCollection<NavigationItemBase> GetView(bool getFooter)
         {
-            base.InsertItem(index, item);
+            if (getFooter)
+                return FooterItems;
+            return MenuItems;
+        }
 
-            int menuCount = _menuItems.Count;
-            if (index >= menuCount)
-                _footerItems.Insert(index - menuCount, item);
+        public int IndexOf(NavigationItemBase item)
+        {
+            if (item.IsFooter)
+                return _footerItems.IndexOf(item) + _menuItems.Count;
+            return _menuItems.IndexOf(item);
+        }
+
+        public void Insert(int index, NavigationItemBase item)
+        {
+            if (item.IsFooter)
+                _footerItems.Insert(index - _menuItems.Count, item);
             else
                 _menuItems.Insert(index, item);
         }
 
-        protected override void RemoveItem(int index)
+        public void RemoveAt(int index)
         {
-            base.RemoveItem(index);
-
             int menuCount = _menuItems.Count;
             if (index >= menuCount)
                 _footerItems.RemoveAt(index - menuCount);
@@ -67,23 +101,44 @@ namespace Rise.Data.Navigation
                 _menuItems.RemoveAt(index);
         }
 
-        protected override void SetItem(int index, NavigationItemBase item)
+        public void Add(NavigationItemBase item)
         {
-            base.SetItem(index, item);
-
-            int menuCount = _menuItems.Count;
-            if (index >= menuCount)
-                _footerItems[index - menuCount] = item;
+            if (item.IsFooter)
+                _footerItems.Add(item);
             else
-                _menuItems[index] = item;
+                _menuItems.Add(item);
         }
 
-        protected override void ClearItems()
+        public void Clear()
         {
-            base.ClearItems();
-
             _menuItems.Clear();
             _footerItems.Clear();
         }
+
+        public bool Contains(NavigationItemBase item)
+        {
+            if (item.IsFooter)
+                return _footerItems.Contains(item);
+            return _menuItems.Contains(item);
+        }
+
+        public void CopyTo(NavigationItemBase[] array, int arrayIndex)
+        {
+            _menuItems.CopyTo(array, arrayIndex);
+            _footerItems.CopyTo(array, arrayIndex + _menuItems.Count);
+        }
+
+        public bool Remove(NavigationItemBase item)
+        {
+            if (item.IsFooter)
+                return _footerItems.Remove(item);
+            return _menuItems.Remove(item);
+        }
+
+        public IEnumerator<NavigationItemBase> GetEnumerator()
+            => _menuItems.Concat(_footerItems).GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator()
+            => _menuItems.Concat(_footerItems).GetEnumerator();
     }
 }

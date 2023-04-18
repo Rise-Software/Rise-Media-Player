@@ -218,8 +218,8 @@ namespace Rise.Data.Sources
         private void MoveItem(string id, int offset)
         {
             var item = GetItem(id);
-
             int index = AllItems.IndexOf(item);
+
             AllItems.Move(index, index + offset);
         }
 
@@ -286,17 +286,13 @@ namespace Rise.Data.Sources
         public void MoveToTop(string id)
         {
             var item = GetItem(id);
+            var header = GetItem(item.Group);
 
-            int index = AllItems.IndexOf(item);
-            if (item.Group == "General")
-            {
-                AllItems.Move(index, 0);
-            }
-            else
-            {
-                var header = GetItem(item.Group);
-                AllItems.Move(index, AllItems.IndexOf(header) + 1);
-            }
+            var items = AllItems.GetView(item.IsFooter);
+
+            // If the header is null, the index will be -1, but thanks to the
+            // addition, the item will get inserted at the beginning
+            AllItems.Move(item, items.IndexOf(header) + 1);
         }
 
         /// <summary>
@@ -307,11 +303,10 @@ namespace Rise.Data.Sources
         public void MoveToBottom(string id)
         {
             var item = GetItem(id);
+            var items = AllItems.GetView(item.IsFooter);
 
-            int index = AllItems.IndexOf(item);
-
-            var lastInGroup = AllItems.LastOrDefault(i => i.Group == item.Group);
-            AllItems.Move(index, AllItems.IndexOf(lastInGroup));
+            var lastInGroup = items.LastOrDefault(i => i.Group == item.Group);
+            AllItems.Move(item, items.IndexOf(lastInGroup));
         }
     }
 
