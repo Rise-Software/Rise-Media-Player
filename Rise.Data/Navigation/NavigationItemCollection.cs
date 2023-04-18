@@ -49,10 +49,11 @@ namespace Rise.Data.Navigation
         {
             base.InsertItem(index, item);
 
-            if (!item.IsFooter)
-                _menuItems.Insert(index, item);
+            int menuCount = _menuItems.Count;
+            if (index >= menuCount)
+                _footerItems.Insert(index - menuCount, item);
             else
-                _footerItems.Insert(index, item);
+                _menuItems.Insert(index, item);
         }
 
         protected override void RemoveItem(int index)
@@ -70,10 +71,11 @@ namespace Rise.Data.Navigation
         {
             base.SetItem(index, item);
 
-            if (!item.IsFooter)
-                _menuItems[index] = item;
+            int menuCount = _menuItems.Count;
+            if (index >= menuCount)
+                _footerItems[index - menuCount] = item;
             else
-                _footerItems[index] = item;
+                _menuItems[index] = item;
         }
 
         protected override void ClearItems()
