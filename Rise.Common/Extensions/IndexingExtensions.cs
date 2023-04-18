@@ -59,9 +59,14 @@ namespace Rise.Common.Extensions
             QueryOptions queryOptions,
             PropertyPrefetchOptions prefetchOptions = PropertyPrefetchOptions.BasicProperties,
             IEnumerable<string> extraProps = null,
+            bool onlyScanLocalMedia = false,
             uint stepSize = 50)
         {
             queryOptions.SetPropertyPrefetch(prefetchOptions, extraProps);
+
+            if (onlyScanLocalMedia)
+                queryOptions.StorageProviderIdFilter.Add("computer");
+
             return IndexAsync(folder, queryOptions, stepSize);
         }
 
@@ -86,9 +91,6 @@ namespace Rise.Common.Extensions
             }
 
             int indexedFiles = 0;
-
-            if (PathUtils.PathIsNetworkPathW(folder.Path))
-                options.IndexerOption = IndexerOption.DoNotUseIndexer;
 
             // Prepare the query
             StorageFileQueryResult folderQueryResult = folder.CreateFileQueryWithOptions(options);

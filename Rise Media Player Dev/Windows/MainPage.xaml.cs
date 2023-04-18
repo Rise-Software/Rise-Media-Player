@@ -127,14 +127,18 @@ namespace Rise.App.Views
                     await App.InitializeChangeTrackingAsync();
 
                 if (SViewModel.IndexingAtStartupEnabled)
+                {
+                    _ = VisualStateManager.GoToState(this, "ScanningState", false);
                     await Task.Run(App.MViewModel.StartFullCrawlAsync);
+                    return;
+                }
                 else
                     await MViewModel.FetchArtistsArtAsync();
             }
 
             if (MViewModel.IsScanning)
             {
-                await Task.Delay(100);
+                await Task.Delay(60);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
             }
         }
