@@ -20,7 +20,7 @@ namespace Rise.Data.Navigation
         public bool IsGroupVisible
         {
             get => _isGroupVisible;
-            set => Set(ref _isGroupVisible, value);
+            internal set => Set(ref _isGroupVisible, value);
         }
     }
 }

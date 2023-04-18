@@ -502,10 +502,8 @@ namespace Rise.App.Views
                 RightClickedItem = item;
                 if (flyoutId == "DefaultItemFlyout")
                 {
-                    string id = item.Id;
-
-                    bool up = NavDataSource.CanMoveUp(id);
-                    bool down = NavDataSource.CanMoveDown(id);
+                    bool up = NavDataSource.CanMoveUp(item);
+                    bool down = NavDataSource.CanMoveDown(item);
 
                     TopOption.IsEnabled = up;
                     UpOption.IsEnabled = up;
@@ -521,12 +519,6 @@ namespace Rise.App.Views
             }
 
             args.Handled = true;
-        }
-
-        private void RemoveItem_Click(object sender, RoutedEventArgs e)
-        {
-            var item = RightClickedItem;
-            NavDataSource.ToggleItemVisibility(item.Id);
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)

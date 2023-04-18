@@ -100,8 +100,8 @@ namespace Rise.App.Settings
         private void ItemToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             var toggle = (ToggleSwitch)sender;
-            if (toggle.Tag is string id)
-                NavDataSource.ChangeItemVisibility(id, toggle.IsOn);
+            if (toggle.Tag is NavigationItemBase item)
+                NavDataSource.ChangeItemVisibility(item, toggle.IsOn);
         }
     }
 }

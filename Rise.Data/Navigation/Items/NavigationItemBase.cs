@@ -51,7 +51,7 @@ namespace Rise.Data.Navigation
         public bool IsVisible
         {
             get => _isVisible;
-            set => Set(ref _isVisible, value);
+            internal set => Set(ref _isVisible, value);
         }
 
         public override bool Equals(object obj)

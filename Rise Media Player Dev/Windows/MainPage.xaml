@@ -270,14 +270,14 @@
                 <MenuFlyoutItem
                     x:Name="TopOption"
                     Command="{x:Bind NavDataSource.MoveToTopCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Icon="Upload"
                     Text="{markup:ResourceHelper Name=MoveToTop}" />
 
                 <MenuFlyoutItem
                     x:Name="UpOption"
                     Command="{x:Bind NavDataSource.MoveUpCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Text="{markup:ResourceHelper Name=MoveUp}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
@@ -287,7 +287,7 @@
                 <MenuFlyoutItem
                     x:Name="DownOption"
                     Command="{x:Bind NavDataSource.MoveDownCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Text="{markup:ResourceHelper Name=MoveDown}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
@@ -297,7 +297,7 @@
                 <MenuFlyoutItem
                     x:Name="BottomOption"
                     Command="{x:Bind NavDataSource.MoveToBottomCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Icon="Download"
                     Text="{markup:ResourceHelper Name=MoveToBottom}" />
 
@@ -305,7 +305,7 @@
 
                 <MenuFlyoutItem
                     Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Icon="UnPin"
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
@@ -319,9 +319,10 @@
                 </MenuFlyoutItem>
             </MenuFlyout>
 
-            <MenuFlyout x:Key="RemoveItemFlyout">
+            <MenuFlyout x:Key="RemoveItemFlyout" x:Name="RemoveItemFlyout">
                 <MenuFlyoutItem
-                    Click="RemoveItem_Click"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Icon="UnPin"
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
             </MenuFlyout>

@@ -91,25 +91,50 @@ namespace Rise.Data.Sources
             => PathIO.WriteTextAsync($"ms-appdata:///local/{_fileName}", JsonSerializer.Serialize(AllItems));
     }
 
-    // Hiding/showing items
+    // Showing/hiding items
     public sealed partial class NavViewDataSource
     {
         /// <summary>
-        /// Hides a group of NavigationView items and their header.
+        /// Toggles the visibility of the provided item and updates the
+        /// visibility of its group header if necessary.
         /// </summary>
-        /// <param name="group">Group to hide.</param>
         [RelayCommand]
-        public void HideGroup(string group)
+        public void ToggleItemVisibility(NavigationItemBase item)
+            => ChangeItemVisibility(item, !item.IsVisible);
+
+        /// <summary>
+        /// Changes the visibility of the provided item and updates the
+        /// visibility of its group header if necessary.
+        /// </summary>
+        /// <param name="vis">Whether the item should be visible.</param>
+        public void ChangeItemVisibility(NavigationItemBase item, bool vis)
         {
+            item.IsVisible = vis;
+            if (GetItem(item.Group) is NavigationItemHeader header)
+            {
+                if (vis)
+                    header.IsGroupVisible = true;
+                else if (item.ItemType != NavigationItemType.Header)
+                    HideIfNeeded(header);
+            }
+        }
+
+        private void HideIfNeeded(NavigationItemHeader header)
+        {
+            string group = header.Group;
             foreach (NavigationItemBase item in AllItems)
             {
-                if (item.Group == group)
+                if (item.ItemType == NavigationItemType.Destination &&
+                    item.Group == group &&
+                    item.IsVisible)
                 {
-                    item.IsVisible = false;
-                    if (item is NavigationItemHeader header)
-                        header.IsGroupVisible = false;
+                    // An item is visible, no need to hide header
+                    return;
                 }
             }
+
+            header.IsGroupVisible = false;
+            header.IsVisible = false;
         }
 
         /// <summary>
@@ -130,68 +155,21 @@ namespace Rise.Data.Sources
         }
 
         /// <summary>
-        /// Toggles the visibility of a NavigationView item.
+        /// Hides a group of NavigationView items and their header.
         /// </summary>
-        /// <param name="id">Id of the item to change.</param>
+        /// <param name="group">Group to hide.</param>
         [RelayCommand]
-        public void ToggleItemVisibility(string id)
+        public void HideGroup(string group)
         {
-            var item = GetItem(id);
-            item.IsVisible = !item.IsVisible;
-
-            if (item.ItemType != NavigationItemType.Header)
-                CheckHeaderVisibility(item.Group);
-        }
-
-        /// <summary>
-        /// Changes the visibility of a NavigationView item.
-        /// </summary>
-        /// <param name="id">Id of the item to change.</param>
-        /// <param name="vis">Whether or not the item should be visible.</param>
-        public void ChangeItemVisibility(string id, bool vis)
-        {
-            var item = GetItem(id);
-            item.IsVisible = vis;
-
-            if (item.ItemType != NavigationItemType.Header)
-                CheckHeaderVisibility(item.Group);
-        }
-
-        /// <summary>
-        /// Changes the visibility of NavigationView headers based
-        /// on the visibility of the items in its group.
-        /// </summary>
-        /// <param name="group">Header group to check.</param>
-        public void CheckHeaderVisibility(string group)
-        {
-            if (GetItem(group) is NavigationItemHeader header)
+            foreach (NavigationItemBase item in AllItems)
             {
-                foreach (NavigationItemBase item in AllItems)
+                if (item.Group == group)
                 {
-                    if (item.ItemType == NavigationItemType.Destination &&
-                        item.Group == group &&
-                        item.IsVisible)
-                    {
-                        // An item is visible, no need to hide header
-                        header.IsGroupVisible = true;
-                        return;
-                    }
+                    item.IsVisible = false;
+                    if (item is NavigationItemHeader header)
+                        header.IsGroupVisible = false;
                 }
-
-                header.IsGroupVisible = false;
-                header.IsVisible = false;
             }
-        }
-
-        /// <summary>
-        /// Whether or not is an item visible.
-        /// </summary>
-        /// <param name="id">Id of the item to check.</param>
-        /// <returns>Whether or not is the item visible.</returns>
-        public bool IsItemVisible(string id)
-        {
-            var item = GetItem(id);
-            return item.IsVisible;
         }
 
         /// <summary>
@@ -215,24 +193,13 @@ namespace Rise.Data.Sources
     // Moving items
     public sealed partial class NavViewDataSource
     {
-        private void MoveItem(string id, int offset)
-        {
-            var item = GetItem(id);
-            int index = AllItems.IndexOf(item);
-
-            AllItems.Move(index, index + offset);
-        }
-
         /// <summary>
-        /// Checks if an item can be moved up.
+        /// Checks whether an item can be moved up without going under another
+        /// group's header or out of bounds.
         /// </summary>
-        /// <param name="id">Item's Id.</param>
-        /// <returns>True if the item can be moved up,
-        /// false otherwise.</returns>
-        public bool CanMoveUp(string id)
+        /// <returns>true if the item can be moved up, false otherwise.</returns>
+        public bool CanMoveUp(NavigationItemBase item)
         {
-            var item = GetItem(id);
-
             int index = AllItems.IndexOf(item);
             if (index == 0)
                 return false;
@@ -245,15 +212,12 @@ namespace Rise.Data.Sources
         }
 
         /// <summary>
-        /// Checks if an item can be moved down.
+        /// Checks whether an item can be moved down without going under another
+        /// group's header or out of bounds.
         /// </summary>
-        /// <param name="id">Item's Id.</param>
-        /// <returns>True if the item can be moved down,
-        /// false otherwise.</returns>
-        public bool CanMoveDown(string id)
+        /// <returns>true if the item can be moved down, false otherwise.</returns>
+        public bool CanMoveDown(NavigationItemBase item)
         {
-            var item = GetItem(id);
-
             int index = AllItems.IndexOf(item) + 1;
             if (index == AllItems.Count)
                 return false;
@@ -263,31 +227,26 @@ namespace Rise.Data.Sources
         }
 
         /// <summary>
-        /// Moves an item up.
+        /// Moves the provided item up.
         /// </summary>
-        /// <param name="id">Item's Id.</param>
         [RelayCommand]
-        public void MoveUp(string id)
-            => MoveItem(id, -1);
+        public void MoveUp(NavigationItemBase item)
+            => MoveItem(item, -1);
 
         /// <summary>
-        /// Moves an item down.
+        /// Moves the provided item down.
         /// </summary>
-        /// <param name="id">Item's Id.</param>
         [RelayCommand]
-        public void MoveDown(string id)
-            => MoveItem(id, 1);
+        public void MoveDown(NavigationItemBase item)
+            => MoveItem(item, 1);
 
         /// <summary>
-        /// Moves an item to the top.
+        /// Moves the provided item to the top of its group.
         /// </summary>
-        /// <param name="id">Item's Id.</param>
         [RelayCommand]
-        public void MoveToTop(string id)
+        public void MoveToTop(NavigationItemBase item)
         {
-            var item = GetItem(id);
             var header = GetItem(item.Group);
-
             var items = AllItems.GetView(item.IsFooter);
 
             // If the header is null, the index will be -1, but thanks to the
@@ -296,17 +255,21 @@ namespace Rise.Data.Sources
         }
 
         /// <summary>
-        /// Moves an item to the bottom.
+        /// Moves the provided item to the bottom of its group.
         /// </summary>
-        /// <param name="id">Item's Id.</param>
         [RelayCommand]
-        public void MoveToBottom(string id)
+        public void MoveToBottom(NavigationItemBase item)
         {
-            var item = GetItem(id);
             var items = AllItems.GetView(item.IsFooter);
-
             var lastInGroup = items.LastOrDefault(i => i.Group == item.Group);
+
             AllItems.Move(item, items.IndexOf(lastInGroup));
+        }
+
+        private void MoveItem(NavigationItemBase item, int offset)
+        {
+            int index = AllItems.IndexOf(item);
+            AllItems.Move(index, index + offset);
         }
     }
 
