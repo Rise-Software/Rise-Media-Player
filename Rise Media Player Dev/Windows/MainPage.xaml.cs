@@ -115,7 +115,7 @@ namespace Rise.App.Views
             NavDataSource.PopulateGroups();
 
             var playlists = (NavigationItemDestination)NavDataSource.GetItem("PlaylistsPage");
-            playlists.Children = new ObservableWrapper<object, PlaylistViewModel>(PBackend.Items);
+            playlists.Children = PBackend.Items;
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)

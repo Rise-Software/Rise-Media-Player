@@ -36,6 +36,6 @@ namespace Rise.Data.Navigation
         /// is not serialized by <see cref="System.Text.Json.JsonSerializer"/>.
         /// </summary>
         [JsonIgnore]
-        public IList<object> Children { get; set; }
+        public object Children { get; set; }
     }
 }
