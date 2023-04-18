@@ -128,6 +128,7 @@ namespace Rise.App.Views
 
                 if (SViewModel.IndexingAtStartupEnabled)
                 {
+                    await Task.Delay(200);
                     _ = VisualStateManager.GoToState(this, "ScanningState", false);
                     await Task.Run(App.MViewModel.StartFullCrawlAsync);
                     return;
@@ -137,10 +138,7 @@ namespace Rise.App.Views
             }
 
             if (MViewModel.IsScanning)
-            {
-                await Task.Delay(60);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
-            }
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)

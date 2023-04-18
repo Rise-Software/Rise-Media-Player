@@ -59,14 +59,9 @@ namespace Rise.Common.Extensions
             QueryOptions queryOptions,
             PropertyPrefetchOptions prefetchOptions = PropertyPrefetchOptions.BasicProperties,
             IEnumerable<string> extraProps = null,
-            bool onlyScanLocalMedia = false,
             uint stepSize = 50)
         {
             queryOptions.SetPropertyPrefetch(prefetchOptions, extraProps);
-
-            if (onlyScanLocalMedia)
-                queryOptions.StorageProviderIdFilter.Add("computer");
-
             return IndexAsync(folder, queryOptions, stepSize);
         }
 
