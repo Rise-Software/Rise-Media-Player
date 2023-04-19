@@ -222,7 +222,6 @@ namespace Rise.App
             var deferral = e.SuspendingOperation.GetDeferral();
             try
             {
-                await NavDataSource.SerializeGroupsAsync();
                 await SuspensionManager.SaveAsync();
             }
             catch (Exception ex)
