@@ -19,7 +19,7 @@
                     <RepositionThemeTransition IsStaggeringEnabled="False" />
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
-            
+
             <Border
                 Margin="0,12,0,0"
                 Padding="12,0,12,0"
@@ -101,30 +101,34 @@
                 HeaderIcon="{ui:FontIcon Glyph=&#xE15F;}">
                 <StackPanel Orientation="Horizontal">
                     <HyperlinkButton
-                        Padding="10"
+                        Padding="8"
                         Content="Discord"
                         NavigateUri="{x:Bind constants:URLs.Discord}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="•" />
                     <HyperlinkButton
-                        Padding="10"
+                        Padding="8"
                         Content="Reddit"
                         NavigateUri="{x:Bind constants:URLs.Reddit}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="•" />
                     <HyperlinkButton
-                        Padding="10"
+                        Padding="8"
                         Content="Twitter"
                         NavigateUri="{x:Bind constants:URLs.Twitter}" />
                 </StackPanel>
             </labs:SettingsCard>
 
             <labs:SettingsCard
+                ActionIcon="{ui:FontIcon Glyph=&#xE2B4;}"
                 Click="ExpanderControl_Click"
                 Header="{markup:ResourceHelper Name=TermsAndConditions}"
                 HeaderIcon="{ui:FontIcon Glyph=&#xF28B;}"
-                IsClickEnabled="True">
-                <FontIcon
-                    VerticalAlignment="Center"
-                    FontSize="16"
-                    Glyph="&#xE2B4;" />
-            </labs:SettingsCard>
+                IsClickEnabled="True" />
 
             <muxc:TeachingTip
                 x:Name="vTip"

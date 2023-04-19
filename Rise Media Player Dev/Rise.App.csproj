@@ -135,11 +135,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AnimatedVisuals\EulaLottie.cs" />
-    <Compile Include="AnimatedVisuals\LocalAccountLottie.cs" />
-    <Compile Include="AnimatedVisuals\PrivacySettingsLottie.cs" />
-    <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
-    <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\IntToBoolean.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
@@ -554,6 +549,11 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <Content Include="Assets\SettingsIcons.ttf" />
+    <LottieAnimation Include="Assets\Lottie\ConnectLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\EulaLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\PatchLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\PrivacyLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\SettingsLottie.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
@@ -1043,6 +1043,9 @@
     <PackageReference Include="ksemenenko.ColorThief">
       <Version>1.1.1.4</Version>
     </PackageReference>
+    <PackageReference Include="LottieGen.MsBuild">
+      <Version>7.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
@@ -1106,6 +1109,7 @@
     <Content Include="Assets\MediaPlayerIcons.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\LottieGen.targets" />
     <None Include="Rise.App_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -1139,11 +1143,5 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="Properties\LottieGen.targets" />
 </Project>
