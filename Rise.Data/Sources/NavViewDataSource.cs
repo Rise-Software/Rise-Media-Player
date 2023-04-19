@@ -117,6 +117,8 @@ namespace Rise.Data.Sources
                 else if (item.ItemType != NavigationItemType.Header)
                     HideIfNeeded(header);
             }
+
+            SerializeGroupsAsync().Get();
         }
 
         private void HideIfNeeded(NavigationItemHeader header)
@@ -152,6 +154,8 @@ namespace Rise.Data.Sources
                         header.IsGroupVisible = true;
                 }
             }
+
+            SerializeGroupsAsync().Get();
         }
 
         /// <summary>
@@ -170,6 +174,8 @@ namespace Rise.Data.Sources
                         header.IsGroupVisible = false;
                 }
             }
+
+            SerializeGroupsAsync().Get();
         }
 
         /// <summary>
@@ -252,6 +258,8 @@ namespace Rise.Data.Sources
             // If the header is null, the index will be -1, but thanks to the
             // addition, the item will get inserted at the beginning
             AllItems.Move(item, items.IndexOf(header) + 1);
+
+            SerializeGroupsAsync().Get();
         }
 
         /// <summary>
@@ -264,12 +272,16 @@ namespace Rise.Data.Sources
             var lastInGroup = items.LastOrDefault(i => i.Group == item.Group);
 
             AllItems.Move(item, items.IndexOf(lastInGroup));
+
+            SerializeGroupsAsync().Get();
         }
 
         private void MoveItem(NavigationItemBase item, int offset)
         {
             int index = AllItems.IndexOf(item);
             AllItems.Move(index, index + offset);
+
+            SerializeGroupsAsync().Get();
         }
     }
 
