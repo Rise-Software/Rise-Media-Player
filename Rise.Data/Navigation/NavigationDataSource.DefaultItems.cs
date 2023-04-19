@@ -1,9 +1,7 @@
-using Rise.Data.Navigation;
-
-namespace Rise.Data.Sources
+namespace Rise.Data.Navigation
 {
     // Default collection of items for this data source
-    public sealed partial class NavViewDataSource
+    public sealed partial class NavigationDataSource
     {
         private readonly NavigationItemBase[] _defaultItems = new NavigationItemBase[]
         {

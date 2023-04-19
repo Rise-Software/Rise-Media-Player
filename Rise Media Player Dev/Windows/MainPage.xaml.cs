@@ -10,10 +10,8 @@ using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
-using Rise.Data.Collections;
 using Rise.Data.Json;
 using Rise.Data.Navigation;
-using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -48,7 +46,7 @@ namespace Rise.App.Views
 
         private JsonBackendController<PlaylistViewModel> PBackend
             => App.MViewModel.PBackend;
-        private NavViewDataSource NavDataSource => App.NavDataSource;
+        private NavigationDataSource NavDataSource => App.NavDataSource;
 
         private static readonly DependencyProperty RightClickedItemProperty
             = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavigationItemBase),

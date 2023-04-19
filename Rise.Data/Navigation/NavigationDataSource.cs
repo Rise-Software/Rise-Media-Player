@@ -1,15 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.Common.Extensions;
-using Rise.Data.Navigation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using Windows.Foundation;
 using Windows.Storage;
 
-namespace Rise.Data.Sources
+namespace Rise.Data.Navigation
 {
-    public sealed partial class NavViewDataSource
+    /// <summary>
+    /// A set of tools to manage a collection of items shown in
+    /// a navigation control.
+    /// </summary>
+    public sealed partial class NavigationDataSource
     {
         private const string _fileName = "NavigationItemData.json";
 
@@ -20,7 +23,7 @@ namespace Rise.Data.Sources
     }
 
     // Saving/restoring item state
-    public sealed partial class NavViewDataSource
+    public sealed partial class NavigationDataSource
     {
         private bool _populated = false;
         /// <summary>
@@ -95,7 +98,7 @@ namespace Rise.Data.Sources
     }
 
     // Showing/hiding items
-    public sealed partial class NavViewDataSource
+    public sealed partial class NavigationDataSource
     {
         /// <summary>
         /// Toggles the visibility of the provided item and updates the
@@ -201,7 +204,7 @@ namespace Rise.Data.Sources
     }
 
     // Moving items
-    public sealed partial class NavViewDataSource
+    public sealed partial class NavigationDataSource
     {
         /// <summary>
         /// Checks whether an item can be moved up without going under another
@@ -290,7 +293,7 @@ namespace Rise.Data.Sources
     }
 
     // Getting items
-    public sealed partial class NavViewDataSource
+    public sealed partial class NavigationDataSource
     {
         /// <summary>
         /// Gets the item with the specified ID.

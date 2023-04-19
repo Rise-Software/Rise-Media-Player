@@ -1,7 +1,6 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Extensions.Markup;
 using Rise.Data.Navigation;
-using Rise.Data.Sources;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -11,7 +10,7 @@ namespace Rise.App.Settings
 {
     public sealed partial class NavigationPage : Page
     {
-        private NavViewDataSource NavDataSource => App.NavDataSource;
+        private NavigationDataSource NavDataSource => App.NavDataSource;
         private SettingsViewModel ViewModel => App.SViewModel;
 
         private readonly List<IconPack> IconPacks = new()

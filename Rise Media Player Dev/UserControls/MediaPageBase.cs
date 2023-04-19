@@ -8,7 +8,6 @@ using Rise.Common.Interfaces;
 using Rise.Data.Collections;
 using Rise.Data.Json;
 using Rise.Data.Navigation;
-using Rise.Data.Sources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ namespace Rise.App.UserControls
     /// </summary>
     public partial class MediaPageBase : Page
     {
-        private NavViewDataSource NavDataSource => App.NavDataSource;
+        private NavigationDataSource NavDataSource => App.NavDataSource;
 
         /// <summary>
         /// A property that stores the page's selected item.
