@@ -48,6 +48,7 @@ namespace Rise.Data.Navigation
         /// <summary>
         /// Whether the item should be visible.
         /// </summary>
+        [JsonInclude]
         public bool IsVisible
         {
             get => _isVisible;

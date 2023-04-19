@@ -88,7 +88,10 @@ namespace Rise.Data.Sources
         /// Serializes the <see cref="AllItems"/> collection to a JSON file.
         /// </summary>
         public IAsyncAction SerializeGroupsAsync()
-            => PathIO.WriteTextAsync($"ms-appdata:///local/{_fileName}", JsonSerializer.Serialize(AllItems));
+        {
+            string text = JsonSerializer.Serialize(AllItems);
+            return PathIO.WriteTextAsync($"ms-appdata:///local/{_fileName}", text);
+        }
     }
 
     // Showing/hiding items
@@ -176,6 +179,7 @@ namespace Rise.Data.Sources
             }
 
             SerializeGroupsAsync().Get();
+            return;
         }
 
         /// <summary>
