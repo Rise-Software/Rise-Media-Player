@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Rise.Data.Navigation
 {
     /// <summary>
@@ -19,11 +17,10 @@ namespace Rise.Data.Navigation
         /// <summary>
         /// Whether any item in this header's group is visible.
         /// </summary>
-        [JsonInclude]
         public bool IsGroupVisible
         {
             get => _isGroupVisible;
-            internal set => Set(ref _isGroupVisible, value);
+            set => Set(ref _isGroupVisible, value);
         }
     }
 }
