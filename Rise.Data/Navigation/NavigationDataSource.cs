@@ -45,7 +45,7 @@ namespace Rise.Data.Navigation
             {
                 _ = localFolder.CreateFileAsync(_fileName).Get();
                 AllItems = new(_defaultItems);
-
+                SerializeGroupsAsync().Get();
                 return;
             }
 
