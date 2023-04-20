@@ -253,7 +253,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel" x:DefaultBindMode="OneWay">
                     <uc:SongData
-                        Height="50"
+                        Height="54"
                         EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
                         GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
                         GoToGenreCommand="{Binding GoToGenreCommand, ElementName=PageRoot}"
