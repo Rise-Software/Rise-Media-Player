@@ -30,15 +30,14 @@
 
             <selectors:NavigationItemTemplateSelector.HeaderTemplate>
                 <DataTemplate x:DataType="nav:NavigationItemHeader">
-                    <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}" IsEnabled="{x:Bind IsGroupVisible, Mode=OneWay}">
+                    <labs:SettingsCard
+                        Header="{markup:ResourceHelper Name=/Settings/NavigationShowHeader}"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE8D2;}"
+                        IsEnabled="{x:Bind IsGroupVisible, Mode=OneWay}">
                         <ToggleSwitch
                             IsOn="{x:Bind IsVisible, Mode=OneWay}"
                             Loaded="ItemToggleSwitch_Loaded"
                             Tag="{x:Bind}" />
-
-                        <labs:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8D2;" />
-                        </labs:SettingsCard.HeaderIcon>
                     </labs:SettingsCard>
                 </DataTemplate>
             </selectors:NavigationItemTemplateSelector.HeaderTemplate>
@@ -46,7 +45,10 @@
     </Page.Resources>
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="0,0,0,12" Orientation="Vertical" Spacing="4">
+        <StackPanel
+            Margin="0,0,0,12"
+            Orientation="Vertical"
+            Spacing="4">
             <StackPanel.ChildrenTransitions>
                 <TransitionCollection>
                     <RepositionThemeTransition IsStaggeringEnabled="False" />
