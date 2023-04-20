@@ -50,6 +50,14 @@ namespace Rise.Data.Navigation
             }
 
             string jsonText = FileIO.ReadTextAsync(file).Get();
+
+            if (string.IsNullOrEmpty(jsonText))
+            {
+                AllItems = new(_defaultItems);
+                SerializeGroupsAsync().Get();
+                return;
+            }
+
             var items = JsonSerializer.Deserialize<List<NavigationItemBase>>(jsonText);
 
             // Remove items that shouldn't be there
