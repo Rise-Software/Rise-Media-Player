@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Rise.Data.Navigation
 {
@@ -57,10 +58,10 @@ namespace Rise.Data.Navigation
             FooterItems = new(_footerItems);
         }
 
-        public NavigationItemCollection(IList<NavigationItemBase> list)
+        public NavigationItemCollection(IEnumerable<NavigationItemBase> items)
         {
-            _menuItems = new(list.Where(i => !i.IsFooter));
-            _footerItems = new(list.Where(i => i.IsFooter));
+            _menuItems = new(items.Where(i => !i.IsFooter));
+            _footerItems = new(items.Where(i => i.IsFooter));
 
             MenuItems = new(_menuItems);
             FooterItems = new(_footerItems);
@@ -140,5 +141,10 @@ namespace Rise.Data.Navigation
 
         IEnumerator IEnumerable.GetEnumerator()
             => _menuItems.Concat(_footerItems).GetEnumerator();
+    }
+
+    [JsonSerializable(typeof(IEnumerable<NavigationItemBase>))]
+    internal sealed partial class NavigationItemCollectionContext : JsonSerializerContext
+    {
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.Common.Extensions;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using Windows.Foundation;
@@ -58,7 +57,9 @@ namespace Rise.Data.Navigation
                 return;
             }
 
-            var items = JsonSerializer.Deserialize<List<NavigationItemBase>>(jsonText);
+            var saved = JsonSerializer.Deserialize(jsonText,
+                NavigationItemCollectionContext.Default.IEnumerableNavigationItemBase);
+            var items = saved.ToList();
 
             // Remove items that shouldn't be there
             items.RemoveAll(i => !_defaultItems.Contains(i));
@@ -100,7 +101,9 @@ namespace Rise.Data.Navigation
         /// </summary>
         public IAsyncAction SerializeGroupsAsync()
         {
-            string text = JsonSerializer.Serialize(AllItems);
+            string text = JsonSerializer.Serialize(AllItems,
+                NavigationItemCollectionContext.Default.IEnumerableNavigationItemBase);
+
             return PathIO.WriteTextAsync($"ms-appdata:///local/{_fileName}", text);
         }
     }

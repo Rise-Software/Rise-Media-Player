@@ -158,7 +158,7 @@
       <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>7.0.2</Version>
+      <Version>8.0.0-preview.3.23174.8</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
