@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:appviewmodels="using:Rise.App.ViewModels"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
@@ -12,11 +11,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.UI.Xaml.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:nav="using:Rise.Data.Navigation"
     xmlns:selectors="using:Rise.App.TemplateSelectors"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:viewmodels="using:Rise.Data.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     Loaded="OnPageLoaded"
     Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
@@ -55,7 +55,8 @@
 
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
-            <conv:StringToIconElement x:Key="StrToIcon" />
+
+            <conv:NavigationItemIconConverter x:Key="NavItemToIcon" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
@@ -218,9 +219,9 @@
                 </Grid>
             </Flyout>
 
-            <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector">
-                <selectors:NavViewItemTemplateSelector.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+            <selectors:NavigationItemTemplateSelector x:Key="NavViewItemTemplateSelector">
+                <selectors:NavigationItemTemplateSelector.DestinationTemplate>
+                    <DataTemplate x:DataType="nav:NavigationItemDestination">
                         <muxc:NavigationViewItem
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
@@ -228,55 +229,56 @@
                             AutomationProperties.Name="{x:Bind Label}"
                             Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             ContextRequested="NavigationViewItem_ContextRequested"
-                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
-                            MenuItemsSource="{x:Bind SubItems}"
+                            Icon="{x:Bind Converter={StaticResource NavItemToIcon}}"
+                            MenuItemsSource="{x:Bind Children}"
                             Tag="{x:Bind}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.ItemTemplate>
+                </selectors:NavigationItemTemplateSelector.DestinationTemplate>
 
-                <selectors:NavViewItemTemplateSelector.SubItemTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                <selectors:NavigationItemTemplateSelector.PlaylistTemplate>
+                    <DataTemplate x:DataType="viewmodels:PlaylistViewModel">
                         <muxc:NavigationViewItem
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            AutomationProperties.Name="{x:Bind Label, Mode=OneWay}"
-                            Content="{x:Bind Label, Mode=OneWay}"
-                            ContextRequested="NavigationViewItem_ContextRequested"
-                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
-                            Tag="{x:Bind}"
-                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
+                            AutomationProperties.Name="{x:Bind Title, Mode=OneWay}"
+                            Content="{x:Bind Title, Mode=OneWay}"
+                            Tag="{x:Bind}">
+                            <muxc:NavigationViewItem.Icon>
+                                <BitmapIcon ShowAsMonochrome="False" UriSource="{x:Bind Icon, Mode=OneWay}" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
                     </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.SubItemTemplate>
+                </selectors:NavigationItemTemplateSelector.PlaylistTemplate>
 
-                <selectors:NavViewItemTemplateSelector.HeaderTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                <selectors:NavigationItemTemplateSelector.HeaderTemplate>
+                    <DataTemplate x:DataType="nav:NavigationItemHeader">
                         <muxc:NavigationViewItemHeader
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Content="{x:Bind markup:ResourceHelper.GetString(Label), Mode=OneWay}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.HeaderTemplate>
+                </selectors:NavigationItemTemplateSelector.HeaderTemplate>
 
-                <selectors:NavViewItemTemplateSelector.SeparatorTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                <selectors:NavigationItemTemplateSelector.SeparatorTemplate>
+                    <DataTemplate x:DataType="nav:NavigationItemSeparator">
                         <muxc:NavigationViewItemSeparator AutomationProperties.AutomationId="{x:Bind Id}" Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.SeparatorTemplate>
-            </selectors:NavViewItemTemplateSelector>
+                </selectors:NavigationItemTemplateSelector.SeparatorTemplate>
+            </selectors:NavigationItemTemplateSelector>
 
             <MenuFlyout x:Key="DefaultItemFlyout" x:Name="DefaultItemFlyout">
                 <MenuFlyoutItem
                     x:Name="TopOption"
-                    Text="{markup:ResourceHelper Name=MoveToTop}"
                     Command="{x:Bind NavDataSource.MoveToTopCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="Upload" />
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
+                    Icon="Upload"
+                    Text="{markup:ResourceHelper Name=MoveToTop}" />
 
                 <MenuFlyoutItem
                     x:Name="UpOption"
-                    Text="{markup:ResourceHelper Name=MoveUp}"
                     Command="{x:Bind NavDataSource.MoveUpCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=MoveUp}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
                     </MenuFlyoutItem.Icon>
@@ -284,9 +286,9 @@
 
                 <MenuFlyoutItem
                     x:Name="DownOption"
-                    Text="{markup:ResourceHelper Name=MoveDown}"
                     Command="{x:Bind NavDataSource.MoveDownCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=MoveDown}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
                     </MenuFlyoutItem.Icon>
@@ -294,32 +296,33 @@
 
                 <MenuFlyoutItem
                     x:Name="BottomOption"
-                    Text="{markup:ResourceHelper Name=MoveToBottom}"
                     Command="{x:Bind NavDataSource.MoveToBottomCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="Download" />
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
+                    Icon="Download"
+                    Text="{markup:ResourceHelper Name=MoveToBottom}" />
 
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
                     Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Icon="UnPin"
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
                 <MenuFlyoutItem
-                    Text="{markup:ResourceHelper Name=RemoveSection}"
                     Command="{x:Bind NavDataSource.HideGroupCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.Group, Mode=OneWay}"
+                    Text="{markup:ResourceHelper Name=RemoveSection}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xECC9;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
             </MenuFlyout>
 
-            <MenuFlyout x:Key="RemoveItemFlyout">
+            <MenuFlyout x:Key="RemoveItemFlyout" x:Name="RemoveItemFlyout">
                 <MenuFlyoutItem
-                    Click="RemoveItem_Click"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem, Mode=OneWay}"
                     Icon="UnPin"
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
             </MenuFlyout>
@@ -390,7 +393,7 @@
                     SuggestionChosen="OnSearchSuggestionChosen"
                     TextChanged="OnSearchTextChanged">
                     <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="appviewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
+                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
                             <Grid Padding="2,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60" />
@@ -480,12 +483,12 @@
 
                 <Button
                     x:Name="MoreButton"
-                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
                     Grid.Column="1"
                     Height="32"
                     Margin="46,0,0,0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource TransparentButtonStyle}">
+                    Style="{StaticResource TransparentButtonStyle}"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}">
                     <Button.Content>
                         <FontIcon Height="24" Glyph="&#xE13D;" />
                     </Button.Content>
@@ -511,7 +514,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=MessagesAndReports}" Click="Messages_Click">
+                            <MenuFlyoutItem Click="Messages_Click" Text="{markup:ResourceHelper Name=MessagesAndReports}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -525,7 +528,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Scan}" Click="StartScan_Click">
+                            <MenuFlyoutItem Click="StartScan_Click" Text="{markup:ResourceHelper Name=Scan}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE721;" />
                                 </MenuFlyoutItem.Icon>
@@ -533,13 +536,13 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Feedback}" Click="Button_Click">
+                            <MenuFlyoutItem Click="Button_Click" Text="{markup:ResourceHelper Name=Feedback}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=AppSettings}" Click="OpenSettings_Click">
+                            <MenuFlyoutItem Click="OpenSettings_Click" Text="{markup:ResourceHelper Name=AppSettings}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
@@ -557,14 +560,14 @@
             CompactModeThresholdWidth="800"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             ExpandedModeThresholdWidth="800"
-            FooterMenuItemsSource="{x:Bind NavDataSource.FooterItems}"
+            FooterMenuItemsSource="{x:Bind NavDataSource.AllItems.FooterItems}"
             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
             IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
-            MenuItemsSource="{x:Bind NavDataSource.Items}"
+            MenuItemsSource="{x:Bind NavDataSource.AllItems.MenuItems}"
             OpenPaneLength="260">
             <Grid>
                 <Frame

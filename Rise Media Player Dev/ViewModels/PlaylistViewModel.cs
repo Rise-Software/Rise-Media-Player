@@ -65,16 +65,6 @@ namespace Rise.App.ViewModels
         /// in the playlist.
         /// </summary>
         public TimeSpan Duration { get; private set; } = TimeSpan.Zero;
-
-        private bool _isPinned = false;
-        /// <summary>
-        /// Whether this playlist is pinned to the sidebar.
-        /// </summary>
-        public bool IsPinned
-        {
-            get => _isPinned;
-            set => Set(ref _isPinned, value);
-        }
     }
 
     // UI related properties

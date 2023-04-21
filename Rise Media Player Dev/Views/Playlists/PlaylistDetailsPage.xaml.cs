@@ -88,7 +88,10 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            if (MediaViewModel.Items.Any())
+                PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            else
+                PlaylistDuration.Text = TimeSpanToString.GetShortFormat(TimeSpan.Zero);
         }
     }
 

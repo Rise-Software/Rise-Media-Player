@@ -7,6 +7,15 @@ namespace Rise.Common.Extensions
     public static class CollectionExtensions
     {
         /// <summary>
+        /// Move the provided item to the provided index.
+        /// </summary>
+        public static void Move<T>(this IList<T> list, T item, int index)
+        {
+            _ = list.Remove(item);
+            list.Insert(index, item);
+        }
+
+        /// <summary>
         /// Move item at oldIndex to newIndex.
         /// </summary>
         public static void Move<T>(this IList<T> list, int oldIndex, int newIndex)

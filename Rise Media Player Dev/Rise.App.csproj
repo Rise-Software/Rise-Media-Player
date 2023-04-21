@@ -138,10 +138,10 @@
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\IntToBoolean.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
+    <Compile Include="Converters\NavigationItemIconConverter.cs" />
     <Compile Include="Converters\ResourceFallback.cs" />
     <Compile Include="Converters\StreamToBitmap.cs" />
     <Compile Include="Converters\EmptyStringFallback.cs" />
-    <Compile Include="Converters\StringToIconElement.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
     <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
       <DependentUpon>EqualizerDialog.xaml</DependentUpon>
@@ -165,7 +165,7 @@
     <Compile Include="Setup\SetupPageContent.xaml.cs">
       <DependentUpon>SetupPageContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TemplateSelectors\NavViewItemTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\NavigationItemTemplateSelector.cs" />
     <Compile Include="TemplateSelectors\TemplateSelectorBase.cs" />
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
@@ -1030,7 +1030,7 @@
       <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Labs.Uwp.SettingsControls">
-      <Version>0.0.17</Version>
+      <Version>0.0.18</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.1.0</Version>
@@ -1107,9 +1107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\NavViewItemData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\LottieGen.targets" />
