@@ -33,20 +33,9 @@ namespace Rise.Data.Navigation
             // No need to populate groups more than once
             if (_populated)
                 return;
-            _populated = true;
 
             var localFolder = ApplicationData.Current.LocalFolder;
-            var file = localFolder.TryGetItemAsync(_fileName).Get() as StorageFile;
-
-            // If the file doesn't exist, use the default items, and create
-            // the JSON file
-            if (file == null)
-            {
-                _ = localFolder.CreateFileAsync(_fileName).Get();
-                AllItems = new(_defaultItems);
-                SerializeGroupsAsync().Get();
-                return;
-            }
+            var file = localFolder.CreateFileAsync(_fileName, CreationCollisionOption.OpenIfExists).Get();
 
             string jsonText = FileIO.ReadTextAsync(file).Get();
 
@@ -94,6 +83,8 @@ namespace Rise.Data.Navigation
             }
 
             AllItems = new(items);
+
+            _populated = true;
         }
 
         /// <summary>
