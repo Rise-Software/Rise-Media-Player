@@ -420,7 +420,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\addednewmedia.png" />
     <Content Include="Assets\App\BadgeLogo.scale-100.png" />
     <Content Include="Assets\App\BadgeLogo.scale-125.png" />
     <Content Include="Assets\App\BadgeLogo.scale-150.png" />
@@ -481,26 +480,17 @@
     <Content Include="Assets\AtAGlance\WhatsNew\Discy.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\NPBar.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\playlists.png" />
-    <Content Include="Assets\AtAGlance\widgets.png" />
+    <Content Include="Assets\AtAGlance\Widgets.png" />
     <Content Include="Assets\AtAGlance\WidgetsComingSoon.png" />
     <Content Include="Assets\AtAGlance\WidgetsComingSoonDark.png" />
     <Content Include="Assets\BlankAlbum.png" />
     <Content Include="Assets\BlankArtist.png" />
     <Content Include="Assets\BlankGenre.png" />
     <Content Include="Assets\Branding\AlphaBanner.png" />
-    <Content Include="Assets\Branding\discygraphic.png" />
-    <Content Include="Assets\Branding\settingsbanner.png" />
+    <Content Include="Assets\Branding\DiscyBanner.png" />
+    <Content Include="Assets\Branding\SettingsBanner.png" />
     <Content Include="Assets\Default.png" />
-    <Content Include="Assets\DefaultPlaylistIcon.png" />
     <Content Include="Assets\Discy.png" />
-    <Content Include="Assets\Discy.svg" />
-    <Content Include="Assets\FileIcons\MUFILE.png" />
-    <Content Include="Assets\FileIcons\VIDFILE.png" />
-    <Content Include="Assets\gradientfill.png" />
-    <Content Include="Assets\HelpCentre.png" />
-    <Content Include="Assets\likedplaylist.png" />
-    <Content Include="Assets\lookingformedia.png" />
-    <Content Include="Assets\missingperson.png" />
     <Content Include="Assets\NavigationView\BrowsePage\Colorful.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\likedplaylist.png" />
@@ -508,12 +498,9 @@
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\HomePage\Colorful.png" />
-    <Content Include="Assets\NavigationView\Devices.png" />
     <Content Include="Assets\NavigationView\DiscyPage\Colorful.png" />
     <Content Include="Assets\NavigationView\GenresPage\Colorful.png" />
     <Content Include="Assets\NavigationView\LocalVideosPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\NowPlayingPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\Online Videos.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\SettingsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\SongsPage\Colorful.png" />
@@ -535,14 +522,6 @@
     <Content Include="Assets\Tiles\BG4.png" />
     <Content Include="Assets\Tiles\BG5.png" />
     <Content Include="Assets\Tiles\BG6.png" />
-    <Content Include="Assets\Unavailable\BG %28Dark%29.bmp" />
-    <Content Include="Assets\Unavailable\BG %28Light%29.bmp" />
-    <Content Include="Assets\Unavailable\MissingAccPic.png" />
-    <Content Include="Assets\Unavailable\Netflix.png" />
-    <Content Include="Assets\Unavailable\Playlists.png" />
-    <Content Include="Assets\Unavailable\Prime.png" />
-    <Content Include="Assets\Unavailable\Videos.png" />
-    <Content Include="Assets\Unavailable\YouTube.png" />
     <Content Include="Assets\Tiles\BG1.png" />
     <Content Include="Assets\Wallpapers\DarkBlue.png" />
     <Content Include="Assets\Wallpapers\DarkPink.png" />

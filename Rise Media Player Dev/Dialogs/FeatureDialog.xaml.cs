@@ -46,28 +46,28 @@ namespace Rise.App.Dialogs
             {
                 Name = "Albums and Artists",
                 Description = "Now you can see 'More albums by this artist' below an album. Quick switching! Albums are now shown on artist pages, meaning no messy song lists!",
-                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
+                ImageUri = "ms-appx:///Assets/Branding/SettingsBanner.png"
             });
 
             _features.Add(new Feature
             {
                 Name = "Now Playing Bar",
                 Description = "The now playing bar is back with a new design! You can now view the song title, artist and thumbnail from the now playing bar and view a song's album in one click!",
-                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
+                ImageUri = "ms-appx:///Assets/Branding/SettingsBanner.png"
             });
 
             _features.Add(new Feature
             {
                 Name = "Contextual help",
                 Description = "Now you can experience Discy in context menus!",
-                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
+                ImageUri = "ms-appx:///Assets/Branding/SettingsBanner.png"
             });
 
             _features.Add(new Feature
             {
                 Name = "More to come!",
                 Description = "Watch this space",
-                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
+                ImageUri = "ms-appx:///Assets/Branding/SettingsBanner.png"
             });
             InitializeComponent();
         }
