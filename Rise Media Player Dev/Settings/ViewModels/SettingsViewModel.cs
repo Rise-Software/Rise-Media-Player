@@ -1,10 +1,8 @@
 ﻿using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -14,8 +12,6 @@ namespace Rise.App.ViewModels
 {
     public sealed partial class SettingsViewModel : ViewModel
     {
-        private NavViewDataSource SBViewModel => App.NavDataSource;
-
         public SettingsViewModel()
         {
             UpdateStartupTaskInfo();
@@ -25,31 +21,6 @@ namespace Rise.App.ViewModels
         {
             "HomePage", "PlaylistsPage", "SongsPage",
             "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
-        };
-
-        private readonly string[] _iconPacks = new string[2]
-        {
-            "Default", "Colorful"
-        };
-
-        public List<string> GeneralTags = new()
-        {
-            "HomePage",
-            "PlaylistsPage"
-        };
-
-        public List<string> MusicTags = new()
-        {
-            "SongsPage",
-            "ArtistsPage",
-            "AlbumsPage",
-            "GenresPage"
-        };
-
-        public List<string> VideoTags = new()
-        {
-            "LocalVideosPage",
-            "StreamingPage"
         };
 
         #region Startup
@@ -321,146 +292,10 @@ namespace Rise.App.ViewModels
             set => Set(value, "Navigation");
         }
 
-        public string CurrentPack => _iconPacks[IconPack];
-        public int IconPack
+        public string IconPack
         {
-            get => Get(0, "Local");
-            set => Set(value, "Local");
-        }
-
-        public bool ShowAllGeneral
-        {
-            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre;
-            set
-            {
-                ShowAtAGlance = value;
-                ShowPlaylists = value;
-                ShowHelpCentre = value;
-
-                OnPropertyChanged(nameof(ShowAtAGlance));
-                OnPropertyChanged(nameof(ShowPlaylists));
-                OnPropertyChanged(nameof(ShowHelpCentre));
-            }
-        }
-
-        public bool ShowAllMusic
-        {
-            get
-            {
-                bool vis = ShowSongs || ShowArtists || ShowAlbums;
-                if (!vis)
-                {
-                    ShowMusicHeader = false;
-                }
-
-                OnPropertyChanged(nameof(ShowMusicHeader));
-                return vis;
-            }
-            set
-            {
-                ShowMusicHeader = value;
-                ShowSongs = value;
-                ShowArtists = value;
-                ShowAlbums = value;
-
-                OnPropertyChanged(nameof(ShowSongs));
-                OnPropertyChanged(nameof(ShowArtists));
-                OnPropertyChanged(nameof(ShowAlbums));
-            }
-        }
-
-        public bool ShowAllVideo
-        {
-            get
-            {
-                bool vis = ShowLocalVideos;
-                if (!vis)
-                {
-                    ShowVideoHeader = false;
-                }
-
-                OnPropertyChanged(nameof(ShowVideoHeader));
-                return vis;
-            }
-            set
-            {
-                ShowVideoHeader = value;
-                ShowLocalVideos = value;
-
-                OnPropertyChanged(nameof(ShowLocalVideos));
-            }
-        }
-
-        public bool ShowMusicHeader
-        {
-            get => SBViewModel.IsHeaderVisible("Music");
-            set => SBViewModel.ChangeHeaderVisibility("Music", value);
-        }
-
-        public bool ShowVideoHeader
-        {
-            get => SBViewModel.IsHeaderVisible("Videos");
-            set => SBViewModel.ChangeHeaderVisibility("Videos", value);
-        }
-
-        public bool ShowAtAGlance
-        {
-            get => SBViewModel.IsItemVisible("HomePage");
-            set => ChangeItemVisibility("HomePage", value);
-        }
-
-        public bool ShowPlaylists
-        {
-            get => SBViewModel.IsItemVisible("PlaylistsPage");
-            set => ChangeItemVisibility("PlaylistsPage", value);
-        }
-
-        public bool ShowSongs
-        {
-            get => SBViewModel.IsItemVisible("SongsPage");
-            set => ChangeItemVisibility("SongsPage", value);
-        }
-
-        public bool ShowArtists
-        {
-            get => SBViewModel.IsItemVisible("ArtistsPage");
-            set => ChangeItemVisibility("ArtistsPage", value);
-        }
-
-        public bool ShowAlbums
-        {
-            get => SBViewModel.IsItemVisible("AlbumsPage");
-            set => ChangeItemVisibility("AlbumsPage", value);
-        }
-
-        public bool ShowLocalVideos
-        {
-            get => SBViewModel.IsItemVisible("LocalVideosPage");
-            set => ChangeItemVisibility("LocalVideosPage", value);
-        }
-
-        public bool ShowHelpCentre
-        {
-            get => SBViewModel.IsItemVisible("DiscyPage");
-            set => ChangeItemVisibility("DiscyPage", value);
-        }
-
-        private void ChangeItemVisibility(string tag, bool value)
-        {
-            SBViewModel.ChangeItemVisibility(tag, value);
-
-            if (GeneralTags.Contains(tag))
-            {
-                OnPropertyChanged(nameof(ShowAllGeneral));
-            }
-            else if (MusicTags.Contains(tag))
-            {
-                OnPropertyChanged(nameof(ShowAllMusic));
-            }
-            else
-            {
-                OnPropertyChanged(nameof(ShowAllVideo));
-            }
+            get => Get(string.Empty, "Navigation");
+            set => Set(value, "Navigation");
         }
         #endregion
 
