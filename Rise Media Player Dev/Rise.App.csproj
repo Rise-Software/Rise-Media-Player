@@ -26,6 +26,7 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <EnableTypeInfoReflection>false</EnableTypeInfoReflection>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>latest</LangVersion>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
