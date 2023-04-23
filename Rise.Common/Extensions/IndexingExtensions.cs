@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
+using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
@@ -123,21 +124,23 @@ namespace Rise.Common.Extensions
             var changeReader = changeTracker.GetChangeReader();
             var changes = await changeReader.ReadBatchAsync();
 
-            ulong lastChangeId = changeReader.GetLastChangeId();
-
             var addedItems = new List<StorageFile>();
             var removedItems = new List<string>();
 
-            if (lastChangeId == StorageLibraryLastChangeId.Unknown)
+            if (ApiInformation.IsMethodPresent(typeof(StorageLibraryChangeReader).FullName, "GetLastChangeId"))
             {
-                changeTracker.Reset();
-                return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
+                ulong lastChangeId = changeReader.GetLastChangeId();
+
+                if (lastChangeId == StorageLibraryLastChangeId.Unknown)
+                {
+                    changeTracker.Reset();
+                    return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
+                }
             }
 
             foreach (StorageLibraryChange change in changes)
             {
-                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost ||
-                    !change.IsOfType(StorageItemTypes.File))
+                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost || change.IsOfType(StorageItemTypes.None))
                 {
                     changeTracker.Reset();
                     return new StorageLibraryChangeResult(StorageLibraryChangeStatus.Unknown);
