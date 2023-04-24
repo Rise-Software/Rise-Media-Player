@@ -25,7 +25,7 @@
             PreferredPlacement="Auto"
             Subtitle="Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="ms-appx:///Assets/Branding/discygraphic.png" />
+                <Image Source="ms-appx:///Assets/Branding/DiscyBanner.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 

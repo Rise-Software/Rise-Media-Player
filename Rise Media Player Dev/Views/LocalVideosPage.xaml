@@ -40,7 +40,7 @@
             PreferredPlacement="Auto"
             Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnVideoDesc}">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="ms-appx:///Assets/Branding/discygraphic.png" />
+                <Image Source="ms-appx:///Assets/Branding/DiscyBanner.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 

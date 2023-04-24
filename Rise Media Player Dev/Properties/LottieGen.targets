@@ -28,18 +28,7 @@
 		<LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">14</LottieTargetUAPVersion>
 		<LottieAnimationNamespace>Rise.App.AnimatedVisuals</LottieAnimationNamespace>
 		<LottieVerbosity Condition="'$(LottieVerbosity)' == ''">normal</LottieVerbosity>
-
-		<!--
-			Visual Studio has its own incremental build logic on top of MSBuild's that
-			will skip targets if it thinks inputs haven't changed. This falls over for
-			changes dependent on anything outside of our project.
-		-->
-		<DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<UpToDateCheckInput Include="@(LottieAnimation)" />
-	</ItemGroup>
 
 	<!--
 		Add metadata to LottieAnimation items. The generated name needs to match what LottieGen outputs.

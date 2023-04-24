@@ -29,7 +29,7 @@
             PreferredPlacement="Auto"
             Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnSongDesc}">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
+                <Image Source="/Assets/Branding/DiscyBanner.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 

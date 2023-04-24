@@ -26,6 +26,7 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <EnableTypeInfoReflection>false</EnableTypeInfoReflection>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>latest</LangVersion>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
@@ -420,12 +421,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\addednewmedia.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-100.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-125.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-150.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-200.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-400.png" />
     <Content Include="Assets\App\LargeTile.scale-100.png" />
     <Content Include="Assets\App\LargeTile.scale-125.png" />
     <Content Include="Assets\App\LargeTile.scale-150.png" />
@@ -481,26 +476,17 @@
     <Content Include="Assets\AtAGlance\WhatsNew\Discy.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\NPBar.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\playlists.png" />
-    <Content Include="Assets\AtAGlance\widgets.png" />
+    <Content Include="Assets\AtAGlance\Widgets.png" />
     <Content Include="Assets\AtAGlance\WidgetsComingSoon.png" />
     <Content Include="Assets\AtAGlance\WidgetsComingSoonDark.png" />
     <Content Include="Assets\BlankAlbum.png" />
     <Content Include="Assets\BlankArtist.png" />
     <Content Include="Assets\BlankGenre.png" />
     <Content Include="Assets\Branding\AlphaBanner.png" />
-    <Content Include="Assets\Branding\discygraphic.png" />
-    <Content Include="Assets\Branding\settingsbanner.png" />
+    <Content Include="Assets\Branding\DiscyBanner.png" />
+    <Content Include="Assets\Branding\SettingsBanner.png" />
     <Content Include="Assets\Default.png" />
-    <Content Include="Assets\DefaultPlaylistIcon.png" />
     <Content Include="Assets\Discy.png" />
-    <Content Include="Assets\Discy.svg" />
-    <Content Include="Assets\FileIcons\MUFILE.png" />
-    <Content Include="Assets\FileIcons\VIDFILE.png" />
-    <Content Include="Assets\gradientfill.png" />
-    <Content Include="Assets\HelpCentre.png" />
-    <Content Include="Assets\likedplaylist.png" />
-    <Content Include="Assets\lookingformedia.png" />
-    <Content Include="Assets\missingperson.png" />
     <Content Include="Assets\NavigationView\BrowsePage\Colorful.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\likedplaylist.png" />
@@ -508,12 +494,9 @@
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\HomePage\Colorful.png" />
-    <Content Include="Assets\NavigationView\Devices.png" />
     <Content Include="Assets\NavigationView\DiscyPage\Colorful.png" />
     <Content Include="Assets\NavigationView\GenresPage\Colorful.png" />
     <Content Include="Assets\NavigationView\LocalVideosPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\NowPlayingPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\Online Videos.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\SettingsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\SongsPage\Colorful.png" />
@@ -535,14 +518,6 @@
     <Content Include="Assets\Tiles\BG4.png" />
     <Content Include="Assets\Tiles\BG5.png" />
     <Content Include="Assets\Tiles\BG6.png" />
-    <Content Include="Assets\Unavailable\BG %28Dark%29.bmp" />
-    <Content Include="Assets\Unavailable\BG %28Light%29.bmp" />
-    <Content Include="Assets\Unavailable\MissingAccPic.png" />
-    <Content Include="Assets\Unavailable\Netflix.png" />
-    <Content Include="Assets\Unavailable\Playlists.png" />
-    <Content Include="Assets\Unavailable\Prime.png" />
-    <Content Include="Assets\Unavailable\Videos.png" />
-    <Content Include="Assets\Unavailable\YouTube.png" />
     <Content Include="Assets\Tiles\BG1.png" />
     <Content Include="Assets\Wallpapers\DarkBlue.png" />
     <Content Include="Assets\Wallpapers\DarkPink.png" />
@@ -1035,11 +1010,6 @@
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.1.0</Version>
     </PackageReference>
-    <PackageReference Include="IsExternalInit">
-      <Version>1.0.3</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="ksemenenko.ColorThief">
       <Version>1.1.1.4</Version>
     </PackageReference>
@@ -1068,7 +1038,7 @@
       <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.2</Version>
+      <Version>2.8.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
@@ -1078,6 +1048,11 @@
     </PackageReference>
     <PackageReference Include="Opportunity.LrcParser">
       <Version>1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="PolySharp">
+      <Version>1.13.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>
