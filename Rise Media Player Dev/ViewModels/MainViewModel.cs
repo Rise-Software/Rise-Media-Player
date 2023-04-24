@@ -40,7 +40,6 @@ namespace Rise.App.ViewModels
         }
 
         private uint _indexedMedia = 0;
-        
         /// <summary>
         /// The media indexed so far.
         /// </summary>
@@ -50,22 +49,10 @@ namespace Rise.App.ViewModels
             set => Set(ref _indexedMedia, value);
         }
 
-        private uint _indexedSongs = 0;
-        private uint _indexedVideos = 0;
-
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
-        private uint IndexedSongs
-        {
-            get => _indexedSongs;
-            set => Set(ref _indexedSongs, value);
-        }
-
-        private uint IndexedVideos
-        {
-            get => _indexedVideos;
-            set => Set(ref _indexedVideos, value);
-        }
+        private uint _indexedSongs = 0;
+        private uint _indexedVideos = 0;
 
         /// <summary>
         /// Helps cancel indexing related Tasks.
@@ -191,11 +178,11 @@ namespace Rise.App.ViewModels
                 await FetchArtistsArtAsync(token);
             }
 
-            IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+            IndexingFinished?.Invoke(this, new(_indexedSongs, _indexedVideos));
             IsScanning = false;
 
-            IndexedSongs = 0;
-            IndexedVideos = 0;
+            _indexedSongs = 0;
+            _indexedVideos = 0;
             IndexedMedia = 0;
         }
 
@@ -207,7 +194,7 @@ namespace Rise.App.ViewModels
                     PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
                     if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
-                        IndexedSongs++;
+                        this._indexedSongs++;
 
                     IndexedMedia++;
                 }
@@ -219,7 +206,7 @@ namespace Rise.App.ViewModels
                     PropertyPrefetchOptions.VideoProperties))
                 {
                     if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))
-                        IndexedVideos++;
+                        this._indexedVideos++;
 
                     IndexedMedia++;
                 }
@@ -451,7 +438,7 @@ namespace Rise.App.ViewModels
         }
     }
 
-    public class IndexingFinishedEventArgs : EventArgs
+    public sealed class IndexingFinishedEventArgs : EventArgs
     {
         public uint IndexedSongs { get; private set; }
         public uint IndexedVideos { get; private set; }
