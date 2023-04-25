@@ -120,6 +120,7 @@ namespace Rise.App.Views
         {
             IndexingTip.Visibility = Visibility.Collapsed;
             UpdateTitleBarItems(NavView);
+
             if (!_loaded)
             {
                 _loaded = true;
@@ -128,15 +129,14 @@ namespace Rise.App.Views
                 if (ContentFrame.Content == null)
                     ContentFrame.Navigate(Destinations[SViewModel.Open]);
 
-                // Auto indexing
-                if (SViewModel.IndexingFileTrackingEnabled)
-                    await App.InitializeChangeTrackingAsync();
+                // Change tracking
+                await App.InitializeChangeTrackingAsync();
 
                 if (SViewModel.IndexingAtStartupEnabled)
                 {
                     await Task.Delay(200);
                     _ = VisualStateManager.GoToState(this, "ScanningState", false);
-                    await Task.Run(App.MViewModel.StartFullCrawlAsync);
+                    await Task.Run(MViewModel.StartFullCrawlAsync);
                     return;
                 }
                 else

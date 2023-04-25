@@ -1,6 +1,5 @@
 ﻿using Rise.Common.Constants;
 using Rise.Common.Enums;
-using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,7 +129,6 @@ namespace Rise.Common.Extensions
             if (ApiInformation.IsMethodPresent(typeof(StorageLibraryChangeReader).FullName, "GetLastChangeId"))
             {
                 ulong lastChangeId = changeReader.GetLastChangeId();
-
                 if (lastChangeId == StorageLibraryLastChangeId.Unknown)
                 {
                     changeTracker.Reset();
@@ -194,33 +192,6 @@ namespace Rise.Common.Extensions
         }
 
         /// <summary>
-        /// Registers a <see cref="StorageFolder"/> for foreground change tracking.
-        /// </summary>
-        /// <param name="folder"><see cref="StorageFolder"/> to register.</param>
-        /// <param name="queryOptions"><see cref="QueryOptions"/> to use.
-        /// The tracker will only show changes that fit the query.</param>
-        /// <param name="queryEventHandler">Event handler to control the changes.</param>
-        /// <returns>The <see cref="StorageFileQueryResult"/>, ready for
-        /// change tracking.</returns>
-        public static async Task<StorageFileQueryResult> TrackForegroundAsync(this StorageFolder folder,
-            StorageLibraryChangeTracker tracker,
-            QueryOptions queryOptions,
-            TypedEventHandler<IStorageQueryResultBase, object> queryEventHandler)
-        {
-            tracker.Enable();
-
-            StorageFileQueryResult resultSet =
-                folder.CreateFileQueryWithOptions(queryOptions);
-
-            // Attach an event handler for when something changes on the system
-            resultSet.ContentsChanged += queryEventHandler;
-
-            // Indicate to the system the app is ready to change track
-            await resultSet.GetFilesAsync(0, 1);
-            return resultSet;
-        }
-
-        /// <summary>
         /// Registers a background <see cref="StorageLibraryChangeTracker"/>.
         /// </summary>
         /// <param name="library">Library to track.</param>
@@ -228,36 +199,38 @@ namespace Rise.Common.Extensions
         /// <param name="entryPoint">The <see cref="BackgroundTaskBuilder.TaskEntryPoint"/>.
         /// If not provided, the single process model will be used for the background
         /// task.</param>
-        /// <returns>Whether or not the registration was successful.</returns>
-        public static async Task<bool> TrackBackgroundAsync(this StorageLibrary library,
+        /// <returns>A <see cref="BackgroundTaskRegistrationStatus" /> which represents the status.</returns>
+        public static async Task<BackgroundTaskRegistrationStatus> TrackBackgroundAsync(this StorageLibrary library,
             string taskName, string entryPoint = null)
         {
             // Check if there's access to the background.
             var requestStatus = await BackgroundExecutionManager.RequestAccessAsync();
-
             if (!(requestStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy ||
                 requestStatus == BackgroundAccessStatus.AlwaysAllowed))
             {
-                return false;
+                return BackgroundTaskRegistrationStatus.NotAllowed;
+            }
+
+            library.ChangeTracker.Enable();
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == taskName)
+                    return BackgroundTaskRegistrationStatus.AlreadyExists;
             }
 
             // Build up the trigger to fire when something changes in the library.
-            var builder = new BackgroundTaskBuilder
-            {
-                Name = taskName
-            };
+            var builder = new BackgroundTaskBuilder();
+            builder.Name = taskName;
 
             if (entryPoint != null)
-            {
                 builder.TaskEntryPoint = entryPoint;
-            }
 
             var libraryTrigger = StorageLibraryContentChangedTrigger.Create(library);
 
             builder.SetTrigger(libraryTrigger);
             _ = builder.Register();
 
-            return true;
+            return BackgroundTaskRegistrationStatus.Successful;
         }
         #endregion
     }

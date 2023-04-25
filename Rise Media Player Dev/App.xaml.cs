@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using Rise.App.ChangeTrackers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
-using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
@@ -271,6 +270,44 @@ namespace Rise.App
     // Indexing
     public sealed partial class App
     {
+        // Change tracking
+        public static async Task InitializeChangeTrackingAsync()
+        {
+            if (SViewModel.IndexingFileTrackingEnabled)
+            {
+                var result = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
+                if (result == BackgroundTaskRegistrationStatus.Successful)
+                {
+                    _ = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
+                    return;
+                }
+            }
+
+            RestartIndexingTimer();
+        }
+
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            var instance = args.TaskInstance;
+            var deferral = instance.GetDeferral();
+
+            System.Diagnostics.Debug.WriteLine("Task Triggered!");
+
+            // Check whether the task was triggered for the music or the video library
+            string name = instance.Task.Name;
+            if (name.Contains(nameof(MusicLibrary)))
+            {
+                await SongsTracker.HandleLibraryChangesAsync();
+            }
+            else if (name.Contains(nameof(VideoLibrary)))
+            {
+                await VideosTracker.HandleLibraryChangesAsync();
+            }
+
+            deferral?.Complete();
+        }
+
+        // Indexing timer
         public static void RestartIndexingTimer()
         {
             if (IndexingTimer != null && IndexingTimer.Enabled)
@@ -288,25 +325,6 @@ namespace Rise.App
             IndexingTimer.Elapsed += IndexingTimer_Elapsed;
             IndexingTimer.Start();
         }
-
-        public static async Task InitializeChangeTrackingAsync()
-        {
-            RestartIndexingTimer();
-
-            _ = await KnownFolders.MusicLibrary.TrackForegroundAsync(MusicLibrary.ChangeTracker, 
-                QueryPresets.SongQueryOptions, 
-                SongsTracker.MusicQueryResultChanged);
-
-            _ = await KnownFolders.VideosLibrary.TrackForegroundAsync(VideoLibrary.ChangeTracker, 
-                QueryPresets.VideoQueryOptions, 
-                VideosTracker.VideosLibrary_ContentsChanged);
-
-            MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
-            VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
-        }
-
-        private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
-            => await Task.Run(MViewModel.StartFullCrawlAsync);
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
             => await Task.Run(MViewModel.StartFullCrawlAsync);
