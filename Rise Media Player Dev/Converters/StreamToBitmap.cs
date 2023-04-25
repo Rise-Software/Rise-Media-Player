@@ -19,7 +19,7 @@ namespace Rise.App.Converters
                 throw new ArgumentException($"The provided value must be of type {typeof(IRandomAccessStream)}.", nameof(value));
 
             var img = new BitmapImage();
-            img.SetSource(strm);
+            _ = img.SetSourceAsync(strm);
 
             return img;
         }
