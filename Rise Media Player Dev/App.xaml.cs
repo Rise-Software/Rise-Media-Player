@@ -327,7 +327,15 @@ namespace Rise.App
         }
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
-            => await Task.Run(MViewModel.StartFullCrawlAsync);
+        {
+            await Task.WhenAll(
+                SongsTracker.HandleLibraryChangesAsync(true),
+                VideosTracker.HandleLibraryChangesAsync(true)
+            );
+
+            await Repository.UpsertQueuedAsync();
+            await Repository.DeleteQueuedAsync();
+        }
     }
 
     // Error handling
