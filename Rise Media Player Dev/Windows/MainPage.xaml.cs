@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.Helpers;
+using Rise.App.ChangeTrackers;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
@@ -13,6 +15,7 @@ using Rise.Common.Interfaces;
 using Rise.Data.Json;
 using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
+using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -134,13 +137,30 @@ namespace Rise.App.Views
 
                 if (SViewModel.IndexingAtStartupEnabled)
                 {
-                    await Task.Delay(200);
+                    await Task.Delay(300);
                     _ = VisualStateManager.GoToState(this, "ScanningState", false);
+
                     await Task.Run(MViewModel.StartFullCrawlAsync);
                     return;
                 }
                 else
+                {
+                    // Only run the neccessary steps for startup - change tracking & artist image fetching. 
+                    await Task.Delay(300);
+                    _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
+
                     await MViewModel.FetchArtistsArtAsync();
+
+                    MViewModel_IndexingFinished(null, null);
+
+                    await Task.WhenAll(
+                        SongsTracker.HandleLibraryChangesAsync(true),
+                        VideosTracker.HandleLibraryChangesAsync(true)
+                    );
+
+                    await Repository.UpsertQueuedAsync();
+                    await Repository.DeleteQueuedAsync();
+                }
             }
 
             if (MViewModel.IsScanning)
