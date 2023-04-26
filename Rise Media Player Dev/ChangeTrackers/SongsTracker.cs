@@ -14,11 +14,6 @@ namespace Rise.App.ChangeTrackers
     {
         private static MainViewModel ViewModel => App.MViewModel;
 
-        public static async void MusicQueryResultChanged(IStorageQueryResultBase sender, object args)
-        {
-            await HandleLibraryChangesAsync();
-        }
-
         /// <summary>
         /// Manage changes to the music library folders.
         /// </summary>

@@ -59,14 +59,6 @@ namespace Rise.App.ChangeTrackers
             }
         }
 
-        /// <summary>
-        /// Handle changes in the user's video library.
-        /// </summary>
-        public static async void VideosLibrary_ContentsChanged(IStorageQueryResultBase sender, object args)
-        {
-            await HandleLibraryChangesAsync();
-        }
-
         public static async Task HandleLibraryChangesAsync(bool queue = false)
         {
             await using var changes = await App.VideoLibrary.GetLibraryChangesAsync();
