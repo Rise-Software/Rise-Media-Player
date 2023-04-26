@@ -23,41 +23,6 @@ namespace Rise.App.ViewModels
 {
     public sealed partial class MainViewModel : ViewModel
     {
-        public event EventHandler IndexingStarted;
-        public event EventHandler MetadataFetchingStarted;
-        public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
-
-        private bool _isScanning;
-
-        /// <summary>
-        /// Whether the app is currently looking for new media.
-        /// </summary>
-        public bool IsScanning
-        {
-            get => _isScanning;
-            private set => Set(ref _isScanning, value);
-        }
-
-        private uint _indexedMedia = 0;
-        /// <summary>
-        /// The media indexed so far.
-        /// </summary>
-        public uint IndexedMedia
-        {
-            get => _indexedMedia;
-            set => Set(ref _indexedMedia, value);
-        }
-
-        // Amount of indexed items. These are used to provide data to the
-        // IndexingFinished event.
-        private uint _indexedSongs = 0;
-        private uint _indexedVideos = 0;
-
-        /// <summary>
-        /// Helps cancel indexing related Tasks.
-        /// </summary>
-        private readonly CancellableTaskHelper IndexingCancelHelper = new();
-
         /// <summary>
         /// The collection of songs in the list. 
         /// </summary>
@@ -134,6 +99,45 @@ namespace Rise.App.ViewModels
                     Videos.Add(new(item));
             }
         }
+    }
+
+    // Indexing libraries
+    public sealed partial class MainViewModel
+    {
+        public event EventHandler IndexingStarted;
+        public event EventHandler MetadataFetchingStarted;
+        public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
+
+        private bool _isScanning;
+
+        /// <summary>
+        /// Whether the app is currently looking for new media.
+        /// </summary>
+        public bool IsScanning
+        {
+            get => _isScanning;
+            private set => Set(ref _isScanning, value);
+        }
+
+        private uint _indexedMedia = 0;
+        /// <summary>
+        /// The media indexed so far.
+        /// </summary>
+        public uint IndexedMedia
+        {
+            get => _indexedMedia;
+            set => Set(ref _indexedMedia, value);
+        }
+
+        // Amount of indexed items. These are used to provide data to the
+        // IndexingFinished event.
+        private uint _indexedSongs = 0;
+        private uint _indexedVideos = 0;
+
+        /// <summary>
+        /// Helps cancel indexing related Tasks.
+        /// </summary>
+        private readonly CancellableTaskHelper IndexingCancelHelper = new();
 
         public async Task StartFullCrawlAsync()
         {
@@ -213,7 +217,11 @@ namespace Rise.App.ViewModels
 
             await Task.WhenAll(songsTask, videosTask);
         }
+    }
 
+    // Artist images
+    public sealed partial class MainViewModel
+    {
         public async Task FetchArtistsArtAsync(CancellationToken token = default)
         {
             using var wc = new HttpClient(new HttpClientHandler()
@@ -245,6 +253,45 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets artist image using the artist name.
+        /// </summary>
+        /// <param name="artist">The artist name to look up.</param>
+        /// <param name="wc">The <see cref="HttpClient"/> used for the operation.</param>
+        /// <returns>A string that represents the URL of the artist image if found, otherwise <see cref="string.Empty"/></returns>
+        public async Task<string> GetArtistImageAsync(string artist, HttpClient wc)
+        {
+            if (artist != ResourceHelper.GetString("UnknownArtistResource"))
+            {
+                try
+                {
+                    string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
+
+                    wc ??= new HttpClient(new HttpClientHandler()
+                    {
+                        Proxy = null,
+                        UseProxy = false
+                    });
+
+                    string xmlStr = await wc.GetStringAsync(m_strFilePath);
+
+                    var xmlDoc = new XmlDocument();
+                    xmlDoc.LoadXml(xmlStr);
+
+                    var node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
+                    if (node != null)
+                        return node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
+                }
+                catch { }
+            }
+
+            return string.Empty;
+        }
+    }
+
+    // Adding items
+    public sealed partial class MainViewModel
+    {
         /// <summary>
         /// Saves a song to the repository and ViewModel.
         /// </summary>
@@ -374,41 +421,6 @@ namespace Rise.App.ViewModels
             await Task.WhenAll(tasks);
 
             return !songExists;
-        }
-
-        /// <summary>
-        /// Gets artist image using the artist name.
-        /// </summary>
-        /// <param name="artist">The artist name to look up.</param>
-        /// <param name="wc">The <see cref="HttpClient"/> used for the operation.</param>
-        /// <returns>A string that represents the URL of the artist image if found, otherwise <see cref="string.Empty"/></returns>
-        public async Task<string> GetArtistImageAsync(string artist, HttpClient wc)
-        {
-            if (artist != ResourceHelper.GetString("UnknownArtistResource"))
-            {
-                try
-                {
-                    string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
-
-                    wc ??= new HttpClient(new HttpClientHandler()
-                    {
-                        Proxy = null,
-                        UseProxy = false
-                    });
-
-                    string xmlStr = await wc.GetStringAsync(m_strFilePath);
-
-                    var xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(xmlStr);
-
-                    var node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
-                    if (node != null)
-                        return node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
-                }
-                catch { }
-            }
-
-            return string.Empty;
         }
 
         /// <summary>
