@@ -296,8 +296,6 @@ namespace Rise.App
             var instance = args.TaskInstance;
             var deferral = instance.GetDeferral();
 
-            System.Diagnostics.Debug.WriteLine("Task Triggered!");
-
             // Check whether the task was triggered for the music or the video library
             string name = instance.Task.Name;
             if (name.Contains(nameof(MusicLibrary)))
@@ -332,7 +330,15 @@ namespace Rise.App
         }
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
-            => await Task.Run(MViewModel.StartFullCrawlAsync);
+        {
+            await Task.WhenAll(
+                SongsTracker.HandleLibraryChangesAsync(true),
+                VideosTracker.HandleLibraryChangesAsync(true)
+            );
+
+            await Repository.UpsertQueuedAsync();
+            await Repository.DeleteQueuedAsync();
+        }
     }
 
     // Error handling

@@ -245,7 +245,7 @@ namespace Rise.App.ViewModels
             if (parameter is AlbumViewModel album)
                 return PlaySingleAlbumAsync(album, PlaybackCancelHelper.Token);
             else if (parameter is ArtistViewModel artist)
-                PlaySingleArtistAsync(artist, PlaybackCancelHelper.Token);
+                return PlaySingleArtistAsync(artist, PlaybackCancelHelper.Token);
             else if (parameter is GenreViewModel genre)
                 return PlaySingleGenreAsync(genre, PlaybackCancelHelper.Token);
             else if (parameter is PlaylistViewModel playlist)
