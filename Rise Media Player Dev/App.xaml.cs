@@ -192,7 +192,6 @@ namespace Rise.App
                 }
 
                 await Repository.InitializeDatabaseAsync();
-                await MViewModel.GetListsAsync();
             }
 
             if (!prelaunched)

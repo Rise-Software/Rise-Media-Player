@@ -23,30 +23,40 @@ namespace Rise.App.ViewModels
 {
     public sealed partial class MainViewModel : ViewModel
     {
+        private SafeObservableCollection<SongViewModel> _songs;
         /// <summary>
-        /// The collection of songs in the list. 
+        /// The collection of songs in the list.
         /// </summary>
-        public readonly SafeObservableCollection<SongViewModel> Songs = new();
+        public SafeObservableCollection<SongViewModel> Songs
+            => _songs ??= CreateCollection<Song, SongViewModel>((s) => new(s));
 
+        private SafeObservableCollection<AlbumViewModel> _albums;
         /// <summary>
-        /// The collection of albums in the list. 
+        /// The collection of albums in the list.
         /// </summary>
-        public readonly SafeObservableCollection<AlbumViewModel> Albums = new();
+        public SafeObservableCollection<AlbumViewModel> Albums
+            => _albums ??= CreateCollection<Album, AlbumViewModel>((a) => new(a));
 
+        private SafeObservableCollection<ArtistViewModel> _artists;
         /// <summary>
-        /// The collection of artists in the list. 
+        /// The collection of artists in the list.
         /// </summary>
-        public readonly SafeObservableCollection<ArtistViewModel> Artists = new();
+        public SafeObservableCollection<ArtistViewModel> Artists
+            => _artists ??= CreateCollection<Artist, ArtistViewModel>((a) => new(a));
 
+        private SafeObservableCollection<GenreViewModel> _genres;
         /// <summary>
-        /// The collection of genres in the list. 
+        /// The collection of genres in the list.
         /// </summary>
-        public readonly SafeObservableCollection<GenreViewModel> Genres = new();
+        public SafeObservableCollection<GenreViewModel> Genres
+            => _genres ??= CreateCollection<Genre, GenreViewModel>((g) => new(g));
 
+        private SafeObservableCollection<VideoViewModel> _videos;
         /// <summary>
-        /// The collection of videos in the list. 
+        /// The collection of videos in the list.
         /// </summary>
-        public readonly SafeObservableCollection<VideoViewModel> Videos = new();
+        public SafeObservableCollection<VideoViewModel> Videos
+            => _videos ??= CreateCollection<Video, VideoViewModel>((v) => new(v));
 
         private JsonBackendController<PlaylistViewModel> _pBackend;
         public JsonBackendController<PlaylistViewModel> PBackend
@@ -57,47 +67,14 @@ namespace Rise.App.ViewModels
         public JsonBackendController<BasicNotification> NBackend
             => _nBackend ??= JsonBackendController<BasicNotification>.Get("Messages");
 
-        /// <summary>
-        /// Gets the complete list of data from the database.
-        /// </summary>
-        public async Task GetListsAsync()
+        private static SafeObservableCollection<TOutput> CreateCollection<TEntity, TOutput>(Converter<TEntity, TOutput> converter)
+            where TEntity : DbObject, new()
         {
-            var songs = await Repository.GetItemsAsync<Song>();
+            var items = Repository.GetItems<TEntity>();
+            if (!items.Any())
+                return new();
 
-            // If we have no songs, we have no albums, artists or genres
-            if (songs != null)
-            {
-                foreach (var item in songs)
-                    Songs.Add(new(item));
-
-                var albums = await Repository.GetItemsAsync<Album>();
-                if (albums != null)
-                {
-                    foreach (var item in albums)
-                        Albums.Add(new(item));
-                }
-
-                var artists = await Repository.GetItemsAsync<Artist>();
-                if (artists != null)
-                {
-                    foreach (var item in artists)
-                        Artists.Add(new(item));
-                }
-
-                var genres = await Repository.GetItemsAsync<Genre>();
-                if (genres != null)
-                {
-                    foreach (var item in genres)
-                        Genres.Add(new(item));
-                }
-            }
-
-            var videos = await Repository.GetItemsAsync<Video>();
-            if (videos != null)
-            {
-                foreach (var item in videos)
-                    Videos.Add(new(item));
-            }
+            return new(items.ConvertAll(converter));
         }
     }
 
