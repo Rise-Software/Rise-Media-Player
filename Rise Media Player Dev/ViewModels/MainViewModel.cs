@@ -376,6 +376,12 @@ namespace Rise.App.ViewModels
             return !songExists;
         }
 
+        /// <summary>
+        /// Gets artist image using the artist name.
+        /// </summary>
+        /// <param name="artist">The artist name to look up.</param>
+        /// <param name="wc">The <see cref="HttpClient"/> used for the operation.</param>
+        /// <returns>A string that represents the URL of the artist image if found, otherwise <see cref="string.Empty"/></returns>
         public async Task<string> GetArtistImageAsync(string artist, HttpClient wc)
         {
             if (artist != ResourceHelper.GetString("UnknownArtistResource"))
@@ -408,6 +414,9 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves a video to the repository and ViewModel.
         /// </summary>
+        /// <param name="queue">Whether to queue database operations. If set to
+        /// true, you must call <see cref="Repository.UpsertQueuedAsync"/> to
+        /// commit the changes to the database.</param>
         /// <param name="file">Video file to add.</param>
         /// <returns>true if the video didn't exist beforehand,
         /// otherwise false.</returns>
@@ -445,7 +454,7 @@ namespace Rise.App.ViewModels
         /// This method also checks if its album and artist can be removed.
         /// </summary>
         /// <param name="queue">Whether to queue database operations. If set to
-        /// true, you must call <see cref="Repository.UpsertQueuedAsync"/> to
+        /// true, you must call <see cref="Repository.DeleteQueuedAsync"/> to
         /// commit the changes to the database.</param>
         public async Task RemoveSongAsync(SongViewModel song, bool queue)
         {
@@ -473,7 +482,7 @@ namespace Rise.App.ViewModels
         /// only if there are no songs with the album.
         /// </summary>
         /// <param name="queue">Whether to queue database operations. If set to
-        /// true, you must call <see cref="Repository.UpsertQueuedAsync"/> to
+        /// true, you must call <see cref="Repository.DeleteQueuedAsync"/> to
         /// commit the changes to the database.</param>
         /// <returns>true if the album was removed, false otherwise.</returns>
         public async Task<bool> TryRemoveAlbumAsync(AlbumViewModel album, bool queue)
@@ -496,7 +505,7 @@ namespace Rise.App.ViewModels
         /// only if there are no songs or albums with the artist.
         /// </summary>
         /// <param name="queue">Whether to queue database operations. If set to
-        /// true, you must call <see cref="Repository.UpsertQueuedAsync"/> to
+        /// true, you must call <see cref="Repository.DeleteQueuedAsync"/> to
         /// commit the changes to the database.</param>
         /// <returns>true if the artist was removed, false otherwise.</returns>
         public async Task<bool> TryRemoveArtistAsync(ArtistViewModel artist, bool queue)
