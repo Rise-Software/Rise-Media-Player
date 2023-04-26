@@ -62,6 +62,9 @@ namespace Rise.Models
     // Constructors/Factory methods
     public partial class Song
     {
+        private static readonly StorageFolder ThumbnailFolder
+            = ApplicationData.Current.LocalFolder;
+
         /// <summary>
         /// Creates a <see cref="Song"/> based on a <see cref="StorageFile"/>.
         /// </summary>
@@ -108,11 +111,17 @@ namespace Rise.Models
             string albumTitle = musicProperties.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
             string thumb = URIs.MusicThumb;
 
-            using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
             string filename = albumTitle.AsValidFileName();
-
-            if (await thumbnail.SaveToFileAsync($@"{filename}.png"))
+            if (await ThumbnailFolder.TryGetItemAsync($@"{filename}.png") == null)
+            {
+                using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 64);
+                if (await thumbnail.SaveToFileAsync($@"{filename}.png", ThumbnailFolder))
+                    thumb = $@"ms-appdata:///local/{filename}.png";
+            }
+            else
+            {
                 thumb = $@"ms-appdata:///local/{filename}.png";
+            }
 
             return new Song
             {

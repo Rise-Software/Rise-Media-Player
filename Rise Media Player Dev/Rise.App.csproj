@@ -137,6 +137,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Converters\AlbumArtConverter.cs" />
     <Compile Include="Converters\IntToBoolean.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
     <Compile Include="Converters\NavigationItemIconConverter.cs" />

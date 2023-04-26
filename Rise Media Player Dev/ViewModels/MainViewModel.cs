@@ -280,73 +280,69 @@ namespace Rise.App.ViewModels
             var song = await Song.GetFromFileAsync(file);
 
             // Check if song exists.
-            bool songExists = Songs.
-                Any(s => s.Model.Equals(song));
+            bool songExists = Songs.Any(s => s.Model.Equals(song));
 
             // Check if album exists.
-            bool albumExists = Albums.
-                Any(a => a.Model.Title == song.Album);
+            var album = Albums.FirstOrDefault(a => a.Model.Title == song.Album);
 
             // Check if artist exists.
-            bool artistExists = Artists.
-                Any(a => a.Model.Name == song.Artist);
+            bool artistExists = Artists.Any(a => a.Model.Name == song.Artist);
 
             // Check if genre exists.
-            bool genreExists = Genres.
-                Any(g => g.Model.Name == song.Genres);
+            bool genreExists = Genres.Any(g => g.Model.Name == song.Genres);
 
-            var albumArtist = song.AlbumArtist.ReplaceIfNullOrWhiteSpace(song.Artist);
+            string albumArtist = song.AlbumArtist.ReplaceIfNullOrWhiteSpace(song.Artist);
 
             List<Task> tasks = new();
 
             // If album isn't there already, add it to the database.
-            if (!albumExists)
+            if (album == null)
             {
-                // Set AlbumViewModel data.
-                AlbumViewModel alvm = new()
+                album = new()
                 {
                     Title = song.Album,
                     Artist = albumArtist,
                     Genres = song.Genres,
-                    Thumbnail = song.Thumbnail,
                     Year = song.Year
                 };
 
-                // Add new data to the MViewModel.
-                tasks.Add(alvm.SaveAsync(queue));
+                if (song.Thumbnail == URIs.MusicThumb)
+                    album.Thumbnail = URIs.AlbumThumb;
+                else
+                    album.Thumbnail = song.Location;
+
+                tasks.Add(album.SaveAsync(queue));
             }
             else
             {
-                AlbumViewModel alvm = Albums.FirstOrDefault(a => a.Model.Title == song.Album);
-
                 // Update album information, in case previous songs don't have it
                 // and the album is known.
-                if (alvm.Model.Title != "UnknownAlbumResource")
+                if (album.Model.Title != "UnknownAlbumResource")
                 {
                     bool save = false;
-                    if (alvm.Model.Artist == "UnknownArtistResource")
+                    if (album.Model.Artist == "UnknownArtistResource" &&
+                        albumArtist != "UnknownArtistResource")
                     {
-                        alvm.Model.Artist = albumArtist;
+                        album.Model.Artist = albumArtist;
                         save = true;
                     }
 
-                    if (alvm.Thumbnail == URIs.AlbumThumb)
+                    if (album.Thumbnail == URIs.AlbumThumb &&
+                        song.Thumbnail != URIs.MusicThumb)
                     {
-                        alvm.Thumbnail = song.Thumbnail;
+                        album.Thumbnail = song.Location;
                         save = true;
                     }
 
-                    if (alvm.Year == 0)
+                    if (album.Year == 0 && song.Year != 0)
                     {
-                        alvm.Year = song.Year;
+                        album.Year = song.Year;
                         save = true;
                     }
 
                     if (save)
-                        tasks.Add(alvm.SaveAsync(queue));
+                        tasks.Add(album.SaveAsync(queue));
                 }
-
-                song.Thumbnail ??= alvm.Thumbnail;
             }
 
             // If artist isn't there already, add it to the database.
@@ -412,22 +408,12 @@ namespace Rise.App.ViewModels
         public async Task<bool> SaveVideoModelAsync(StorageFile file, bool queue = false)
         {
             var video = await Video.GetFromFileAsync(file);
-
             bool videoExists = Videos.
                 Any(v => v.Model.Equals(video));
 
             if (!videoExists)
             {
                 VideoViewModel vid = new(video);
-
-                // Get song thumbnail and make a PNG out of it.
-                using StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
-
-                string filename = vid.Title.AsValidFileName();
-                bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
-
-                vid.Thumbnail = result ? $@"ms-appdata:///local/{filename}.png" : URIs.AlbumThumb;
-
                 await vid.SaveAsync(queue);
             }
 

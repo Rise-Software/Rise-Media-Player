@@ -57,15 +57,7 @@ namespace Rise.App.Views
 
             if (file != null)
             {
-                // Get file thumbnail and make a PNG out of it.
-                using StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await thumbnail.SaveToFileAsync($@"modified-artist-{file.Name}.png");
-
-                var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
-
-                Props.Thumbnail = uri.ToString();
-
-                imgAlbum.Source = new BitmapImage(uri);
+                //TODO: Actually implement thumbnails
             }
         }
 

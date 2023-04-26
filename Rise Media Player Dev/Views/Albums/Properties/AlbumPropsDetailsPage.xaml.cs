@@ -41,16 +41,7 @@ namespace Rise.App.Views.Albums.Properties
 
             if (file != null)
             {
-                // Get file thumbnail and make a PNG out of it.
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.PicturesView, 200);
-                await thumbnail.SaveToFileAsync($@"modified-artist-{file.Name}.png");
-
-                var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
-
-                thumbnail?.Dispose();
-                Album.Thumbnail = uri.ToString();
-                //Update the source in the XAML view
-                imgAlbum.Source = new BitmapImage(uri);
+                //TODO: Actually implement thumbnails
             }
         }
 

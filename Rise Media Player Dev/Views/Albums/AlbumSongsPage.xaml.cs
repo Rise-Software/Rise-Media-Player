@@ -10,6 +10,8 @@ using System;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Streams;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,6 +40,7 @@ namespace Rise.App.Views
 
         private bool MoreAlbumsExpanded;
 
+        private IRandomAccessStream _strm;
         private CompositionPropertySet _propSet;
         private SpriteVisual _backgroundVisual;
 
@@ -53,9 +56,11 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
-        private void OnMainListLoaded(object sender, RoutedEventArgs e)
+        private async void OnMainListLoaded(object sender, RoutedEventArgs e)
         {
-            var surface = LoadedImageSurface.StartLoadFromUri(new(SelectedAlbum.Thumbnail));
+            _strm = await SelectedAlbum.GetThumbnailAsync(ThumbnailMode.SingleItem, 500);
+
+            var surface = LoadedImageSurface.StartLoadFromStream(_strm);
             (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
         }
 
@@ -107,6 +112,7 @@ namespace Rise.App.Views
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             AlbumsByArtist.Dispose();
+            _strm.Dispose();
         }
     }
 

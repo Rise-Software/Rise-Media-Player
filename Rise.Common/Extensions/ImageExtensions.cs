@@ -200,13 +200,14 @@ namespace Rise.Common.Extensions
         /// <returns>true if the thumbnail could be saved, false otherwise.</returns>
         public static async Task<bool> SaveToFileAsync(this StorageItemThumbnail thumbnail,
             string filename,
+            StorageFolder destination,
             CreationCollisionOption collisionOption = CreationCollisionOption.ReplaceExisting)
         {
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
                 try
                 {
-                    StorageFile destinationFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, collisionOption);
+                    var destinationFile = await destination.CreateFileAsync(filename, collisionOption);
 
                     Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
                     IBuffer iBuf = await thumbnail.ReadAsync(buffer,
