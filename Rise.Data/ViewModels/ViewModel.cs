@@ -12,7 +12,7 @@ namespace Rise.Data.ViewModels
     /// to handle property changes.
     /// </summary>
     /// <typeparam name="Type">Type of the underlying model.</typeparam>
-    public abstract class ViewModel<Type> : ViewModel, IEquatable<Type>
+    public abstract class ViewModel<Type> : ViewModel, IEquatable<Type>, IEquatable<ViewModel<Type>>
     {
         private Type _model;
         /// <summary>
@@ -34,9 +34,10 @@ namespace Rise.Data.ViewModels
         }
 
         public bool Equals(Type other)
-        {
-            return other.Equals(Model);
-        }
+            => other.Equals(_model);
+
+        public bool Equals(ViewModel<Type> other)
+            => _model.Equals(other._model);
     }
 
     /// <summary>

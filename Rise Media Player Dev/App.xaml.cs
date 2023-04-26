@@ -276,6 +276,11 @@ namespace Rise.App
             if (SViewModel.IndexingFileTrackingEnabled)
             {
                 var result = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
+
+                // Avoid double registration
+                if (result == BackgroundTaskRegistrationStatus.AlreadyExists)
+                    return;
+
                 if (result == BackgroundTaskRegistrationStatus.Successful)
                 {
                     _ = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");

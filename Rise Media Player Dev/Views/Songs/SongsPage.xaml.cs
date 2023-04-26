@@ -13,6 +13,7 @@ namespace Rise.App.Views
 {
     public sealed partial class SongsPage : MediaPageBase
     {
+        private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
         public SongViewModel SelectedItem
@@ -103,7 +104,7 @@ namespace Rise.App.Views
 
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
-                await svm.DeleteAsync();
+                await MViewModel.RemoveSongAsync(svm, false);
             else
                 dialog.Hide();
         }

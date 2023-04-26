@@ -1,10 +1,10 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage.Search;
 
@@ -22,11 +22,8 @@ namespace Rise.App.ChangeTrackers
         /// <summary>
         /// Manage changes to the music library folders.
         /// </summary>
-        public static async Task CheckDuplicatesAsync(CancellationToken token = default)
+        public static async Task CheckDuplicatesAsync()
         {
-            if (token.IsCancellationRequested)
-                return;
-
             List<SongViewModel> songDuplicates = new();
             List<ArtistViewModel> artistDuplicates = new();
             List<AlbumViewModel> albumDuplicates = new();
@@ -35,14 +32,8 @@ namespace Rise.App.ChangeTrackers
             // Check for duplicates and remove if any duplicate is found.
             for (int i = 0; i < ViewModel.Songs.Count; i++)
             {
-                if (token.IsCancellationRequested)
-                    return;
-
                 for (int j = i + 1; j < ViewModel.Songs.Count; j++)
                 {
-                    if (token.IsCancellationRequested)
-                        return;
-
                     if (ViewModel.Songs[i].Location == ViewModel.Songs[j].Location)
                         songDuplicates.Add(ViewModel.Songs[j]);
                 }
@@ -50,14 +41,8 @@ namespace Rise.App.ChangeTrackers
 
             for (int i = 0; i < ViewModel.Artists.Count; i++)
             {
-                if (token.IsCancellationRequested)
-                    return;
-
                 for (int j = i + 1; j < ViewModel.Artists.Count; j++)
                 {
-                    if (token.IsCancellationRequested)
-                        return;
-
                     if (ViewModel.Artists[i].Name.Equals(ViewModel.Artists[j].Name))
                         artistDuplicates.Add(ViewModel.Artists[j]);
                 }
@@ -65,14 +50,8 @@ namespace Rise.App.ChangeTrackers
 
             for (int i = 0; i < ViewModel.Albums.Count; i++)
             {
-                if (token.IsCancellationRequested)
-                    return;
-
                 for (int j = i + 1; j < ViewModel.Albums.Count; j++)
                 {
-                    if (token.IsCancellationRequested)
-                        return;
-
                     if (ViewModel.Albums[i].Title.Equals(ViewModel.Albums[j].Title))
                         albumDuplicates.Add(ViewModel.Albums[j]);
                 }
@@ -80,49 +59,32 @@ namespace Rise.App.ChangeTrackers
 
             for (int i = 0; i < ViewModel.Genres.Count; i++)
             {
-                if (token.IsCancellationRequested)
-                    return;
-
                 for (int j = i + 1; j < ViewModel.Genres.Count; j++)
                 {
-                    if (token.IsCancellationRequested)
-                        return;
-
                     if (ViewModel.Genres[i].Name.Equals(ViewModel.Genres[j].Name))
                         genreDuplicates.Add(ViewModel.Genres[j]);
                 }
             }
 
-            foreach (SongViewModel song in songDuplicates)
-            {
-                if (token.IsCancellationRequested)
-                    return;
+            foreach (var song in songDuplicates)
+                await ViewModel.RemoveSongAsync(song, true);
 
-                await song.DeleteAsync(true);
+            foreach (var artist in artistDuplicates)
+            {
+                _ = ViewModel.Artists.Remove(artist);
+                _ = Repository.QueueRemove(artist.Model);
             }
 
-            foreach (ArtistViewModel artist in artistDuplicates)
+            foreach (var album in albumDuplicates)
             {
-                if (token.IsCancellationRequested)
-                    return;
-
-                await artist.DeleteAsync(true);
+                _ = ViewModel.Albums.Remove(album);
+                _ = Repository.QueueRemove(album.Model);
             }
 
-            foreach (AlbumViewModel album in albumDuplicates)
+            foreach (var genre in genreDuplicates)
             {
-                if (token.IsCancellationRequested)
-                    return;
-
-                await album.DeleteAsync(true);
-            }
-
-            foreach (GenreViewModel genre in genreDuplicates)
-            {
-                if (token.IsCancellationRequested)
-                    return;
-
-                await genre.DeleteAsync(true);
+                _ = ViewModel.Genres.Remove(genre);
+                _ = Repository.QueueRemove(genre.Model);
             }
         }
 
@@ -143,12 +105,9 @@ namespace Rise.App.ChangeTrackers
                 if (string.IsNullOrEmpty(removedItemPath))
                     continue;
 
-                var song = App.MViewModel.Songs.FirstOrDefault(s => s.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
-
-                if (song == null)
-                    continue;
-
-                await song.DeleteAsync(queue);
+                var song = ViewModel.Songs.FirstOrDefault(s => s.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
+                if (song != null)
+                    await ViewModel.RemoveSongAsync(song, queue);
             }
         }
     }

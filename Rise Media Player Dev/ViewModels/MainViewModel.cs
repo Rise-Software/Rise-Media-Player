@@ -16,13 +16,12 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
-using TagLib.Ape;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 
 namespace Rise.App.ViewModels
 {
-    public sealed class MainViewModel : ViewModel
+    public sealed partial class MainViewModel : ViewModel
     {
         public event EventHandler IndexingStarted;
         public event EventHandler MetadataFetchingStarted;
@@ -435,6 +434,87 @@ namespace Rise.App.ViewModels
             }
 
             return !videoExists;
+        }
+    }
+
+    // Removing items
+    public sealed partial class MainViewModel
+    {
+        /// <summary>
+        /// Removes the provided song from the database and songs collection.
+        /// This method also checks if its album and artist can be removed.
+        /// </summary>
+        /// <param name="queue">Whether to queue database operations. If set to
+        /// true, you must call <see cref="Repository.UpsertQueuedAsync"/> to
+        /// commit the changes to the database.</param>
+        public async Task RemoveSongAsync(SongViewModel song, bool queue)
+        {
+            _ = Songs.Remove(song);
+            if (queue)
+                _ = Repository.QueueRemove(song.Model);
+            else
+                _ = await Repository.DeleteAsync(song.Model);
+
+            var artist = Artists.FirstOrDefault(a => a.Model.Name == song.Model.Artist);
+            _ = await TryRemoveArtistAsync(artist, queue);
+
+            var album = Albums.FirstOrDefault(a => a.Model.Title == song.Model.Album);
+            bool removedAlbum = await TryRemoveAlbumAsync(album, queue);
+
+            if (removedAlbum)
+            {
+                var albumArtist = Artists.FirstOrDefault(a => a.Model.Name == song.Model.AlbumArtist);
+                _ = await TryRemoveArtistAsync(albumArtist, queue);
+            }
+        }
+
+        /// <summary>
+        /// Removes the provided album from the database and albums collection,
+        /// only if there are no songs with the album.
+        /// </summary>
+        /// <param name="queue">Whether to queue database operations. If set to
+        /// true, you must call <see cref="Repository.UpsertQueuedAsync"/> to
+        /// commit the changes to the database.</param>
+        /// <returns>true if the album was removed, false otherwise.</returns>
+        public async Task<bool> TryRemoveAlbumAsync(AlbumViewModel album, bool queue)
+        {
+            bool hasNoTracks = Songs.Count(s => s.Model.Album == album.Model.Title) == 0;
+            if (hasNoTracks)
+            {
+                _ = Albums.Remove(album);
+                if (queue)
+                    _ = Repository.QueueRemove(album.Model);
+                else
+                    _ = await Repository.DeleteAsync(album.Model);
+            }
+
+            return hasNoTracks;
+        }
+
+        /// <summary>
+        /// Removes the provided artist from the database and artists collection,
+        /// only if there are no songs or albums with the artist.
+        /// </summary>
+        /// <param name="queue">Whether to queue database operations. If set to
+        /// true, you must call <see cref="Repository.UpsertQueuedAsync"/> to
+        /// commit the changes to the database.</param>
+        /// <returns>true if the artist was removed, false otherwise.</returns>
+        public async Task<bool> TryRemoveArtistAsync(ArtistViewModel artist, bool queue)
+        {
+            var songCount = Songs.Count(s => s.Artist == artist.Model.Name);
+            var albumCount = Albums.Count(a => a.Artist == artist.Model.Name);
+
+            bool hasNoMedia = songCount == 0 && albumCount == 0;
+            if (hasNoMedia)
+            {
+                _ = Artists.Remove(artist);
+                if (queue)
+                    _ = Repository.QueueRemove(artist.Model);
+                else
+                    _ = await Repository.DeleteAsync(artist.Model);
+            }
+
+            return hasNoMedia;
         }
     }
 
