@@ -520,6 +520,7 @@
     <Content Include="Assets\Tiles\BG5.png" />
     <Content Include="Assets\Tiles\BG6.png" />
     <Content Include="Assets\Tiles\BG1.png" />
+    <Content Include="Assets\Unavailable\MissingAccPic.png" />
     <Content Include="Assets\Wallpapers\DarkBlue.png" />
     <Content Include="Assets\Wallpapers\DarkPink.png" />
     <Content Include="Assets\Wallpapers\LightBlue.png" />

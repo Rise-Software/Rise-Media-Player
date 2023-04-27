@@ -58,7 +58,7 @@ namespace Rise.App.Views
 
         private async void OnMainListLoaded(object sender, RoutedEventArgs e)
         {
-            _strm = await SelectedAlbum.GetThumbnailAsync(ThumbnailMode.SingleItem, 500);
+            _strm = await SelectedAlbum.GetThumbnailAsync(ThumbnailMode.MusicView, 500);
 
             var surface = LoadedImageSurface.StartLoadFromStream(_strm);
             (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
