@@ -135,8 +135,10 @@ namespace Rise.App.Views
                 // Change tracking
                 await App.InitializeChangeTrackingAsync();
 
-                if (SViewModel.IndexingAtStartupEnabled)
+                if (SViewModel.IndexingAtStartupEnabled || SViewModel.IsFirstLaunch)
                 {
+                    SViewModel.IsFirstLaunch = false;
+
                     await Task.Delay(300);
                     _ = VisualStateManager.GoToState(this, "ScanningState", false);
 
@@ -145,13 +147,14 @@ namespace Rise.App.Views
                 }
                 else
                 {
-                    // Only run the neccessary steps for startup - change tracking & artist image fetching. 
-                    await Task.Delay(300);
-                    _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
+                    // Only run the neccessary steps for startup - change tracking & artist image fetching.
+                    if (SViewModel.FetchOnlineData)
+                    {
+                        await Task.Delay(300);
 
-                    await MViewModel.FetchArtistsArtAsync();
-
-                    MViewModel_IndexingFinished(null, null);
+                        _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
+                        await MViewModel.FetchArtistsArtAsync();
+                    }
 
                     await Task.WhenAll(
                         SongsTracker.HandleLibraryChangesAsync(true),
@@ -160,6 +163,8 @@ namespace Rise.App.Views
 
                     await Repository.UpsertQueuedAsync();
                     await Repository.DeleteQueuedAsync();
+
+                    MViewModel_IndexingFinished(null, null);
                 }
             }
 
