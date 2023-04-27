@@ -34,7 +34,8 @@ namespace Rise.Common
 
         public async ValueTask DisposeAsync()
         {
-            await changeReader?.AcceptChangesAsync();
+            if (changeReader != null)
+                await changeReader.AcceptChangesAsync();
         }
     }
 }
