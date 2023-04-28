@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
@@ -149,19 +148,22 @@ namespace Rise.Common.Extensions
                     case StorageLibraryChangeType.MovedIntoLibrary:
                     case StorageLibraryChangeType.Created:
                         {
-                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
+                            var item = await change.GetStorageItemAsync();
+                            if (item.IsOfType(StorageItemTypes.File))
+                            {
+                                var file = (StorageFile)item;
+                                if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
+                                    continue;
 
-                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
-                                continue;
-
-                            addedItems.Add(file);
+                                addedItems.Add(file);
+                            }
                             break;
                         }
 
                     case StorageLibraryChangeType.MovedOutOfLibrary:
                     case StorageLibraryChangeType.Deleted:
                         {
-                            removedItems.Add(change.PreviousPath);
+                            removedItems.Add(change.Path);
                             break;
                         }
 
@@ -169,13 +171,18 @@ namespace Rise.Common.Extensions
                     case StorageLibraryChangeType.ContentsChanged:
                     case StorageLibraryChangeType.ContentsReplaced:
                         {
-                            StorageFile file = (StorageFile)await change.GetStorageItemAsync();
+                            var item = await change.GetStorageItemAsync();
+                            if (item.IsOfType(StorageItemTypes.File))
+                            {
+                                var file = (StorageFile)item;
+                                if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
+                                    continue;
 
-                            if (!SupportedFileTypes.MediaFiles.Contains(file.FileType.ToLowerInvariant()))
-                                continue;
+                                string changePath = change.PreviousPath.ReplaceIfNullOrWhiteSpace(file.Path);
 
-                            removedItems.Add(change.PreviousPath ?? file.Path);
-                            addedItems.Add(file);
+                                removedItems.Add(changePath);
+                                addedItems.Add(file);
+                            }
                             break;
                         }
 
