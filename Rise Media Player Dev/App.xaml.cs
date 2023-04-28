@@ -295,6 +295,8 @@ namespace Rise.App
             var instance = args.TaskInstance;
             var deferral = instance.GetDeferral();
 
+            await Repository.InitializeDatabaseAsync();
+
             // Check whether the task was triggered for the music or the video library
             string name = instance.Task.Name;
             if (name.Contains(nameof(MusicLibrary)))

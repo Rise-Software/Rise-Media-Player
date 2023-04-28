@@ -22,11 +22,17 @@ namespace Rise.NewRepository
         private static ConcurrentQueue<DbObject> _upsertQueue;
         private static ConcurrentQueue<DbObject> _removeQueue;
 
+        private static bool _initialized = false;
+
         /// <summary>
         /// Initializes the database and its tables.
         /// </summary>
         public static async Task InitializeDatabaseAsync()
         {
+            if (_initialized)
+                return;
+            _initialized = true;
+
             _ = await ApplicationData.Current.LocalFolder.CreateFileAsync("Lists.db", CreationCollisionOption.OpenIfExists);
 
             _db ??= new SQLiteConnection(DbPath);
