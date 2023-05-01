@@ -1,7 +1,6 @@
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.UI.Xaml.Controls;
-using Rise.App.ChangeTrackers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Constants;

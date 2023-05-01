@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.Helpers;
-using Rise.App.ChangeTrackers;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
@@ -156,10 +154,7 @@ namespace Rise.App.Views
                         await MViewModel.FetchArtistsArtAsync();
                     }
 
-                    await Task.WhenAll(
-                        SongsTracker.HandleLibraryChangesAsync(true),
-                        VideosTracker.HandleLibraryChangesAsync(true)
-                    );
+                    await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Both, true);
 
                     await Repository.UpsertQueuedAsync();
                     await Repository.DeleteQueuedAsync();
