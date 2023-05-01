@@ -1,6 +1,6 @@
-﻿using Rise.App.ChangeTrackers;
-using Rise.Common;
+﻿using Rise.Common;
 using Rise.Common.Constants;
+using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
@@ -140,14 +140,11 @@ namespace Rise.App.ViewModels
             token.ThrowIfCancellationRequested();
 
             await Task.WhenAll(
-                SongsTracker.CheckDuplicatesAsync(),
-                VideosTracker.CheckDuplicatesAsync()
+                CheckMusicLibraryDuplicatesAsync(),
+                CheckVideoLibraryDuplicatesAsync(token)
             );
 
-            await Task.WhenAll(
-                SongsTracker.HandleLibraryChangesAsync(true),
-                VideosTracker.HandleLibraryChangesAsync(true)
-            );
+            await HandleLibraryChangesAsync(ChangedLibraryType.Both, true);
 
             await Repository.UpsertQueuedAsync();
             await Repository.DeleteQueuedAsync();
@@ -499,6 +496,186 @@ namespace Rise.App.ViewModels
             }
 
             return hasNoMedia;
+        }
+    }
+
+    // Change handling
+    public sealed partial class MainViewModel
+    {
+        public async Task HandleLibraryChangesAsync(ChangedLibraryType type, bool queue = false)
+        {
+            switch (type)
+            {
+                case ChangedLibraryType.Music:
+                    await HandleMusicLibraryChangesAsync(queue);
+                    break;
+                case ChangedLibraryType.Videos:
+                    await HandleVideoLibraryChangesAsync(queue);
+                    break;
+                case ChangedLibraryType.Both:
+                    await Task.WhenAll(
+                        HandleMusicLibraryChangesAsync(queue),
+                        HandleVideoLibraryChangesAsync(queue)
+                    );
+                    break;
+                default:
+                    throw new NotSupportedException($"The provided ChangedLibraryType ({type}) is not supported by this method.");
+            }
+        }
+
+        private async Task HandleMusicLibraryChangesAsync(bool queue = false)
+        {
+            await using var changes = await App.MusicLibrary.GetLibraryChangesAsync();
+
+            if (changes.Status != StorageLibraryChangeStatus.HasChange)
+                return;
+
+            foreach (var addedItem in changes.AddedItems)
+            {
+                _ = await SaveMusicModelsAsync(addedItem, queue);
+            }
+
+            foreach (var removedItemPath in changes.RemovedItems)
+            {
+                if (string.IsNullOrEmpty(removedItemPath))
+                    continue;
+
+                var song = Songs.FirstOrDefault(s => s.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
+                if (song != null)
+                    await RemoveSongAsync(song, queue);
+            }
+        }
+
+        private async Task HandleVideoLibraryChangesAsync(bool queue = false)
+        {
+            await using var changes = await App.VideoLibrary.GetLibraryChangesAsync();
+
+            if (changes.Status != StorageLibraryChangeStatus.HasChange)
+                return;
+
+            foreach (var addedItem in changes.AddedItems)
+            {
+                _ = await SaveVideoModelAsync(addedItem, queue);
+            }
+
+            foreach (var removedItemPath in changes.RemovedItems)
+            {
+                if (string.IsNullOrEmpty(removedItemPath))
+                    continue;
+
+                var video = App.MViewModel.Videos.FirstOrDefault(v => v.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
+
+                if (video == null)
+                    continue;
+
+                await video.DeleteAsync(queue);
+            }
+        }
+
+        /// <summary>
+        /// Checks for duplicates in the music library.
+        /// </summary>
+        public async Task CheckMusicLibraryDuplicatesAsync()
+        {
+            List<SongViewModel> songDuplicates = new();
+            List<ArtistViewModel> artistDuplicates = new();
+            List<AlbumViewModel> albumDuplicates = new();
+            List<GenreViewModel> genreDuplicates = new();
+
+            // Check for duplicates and remove if any duplicate is found.
+            for (int i = 0; i < Songs.Count; i++)
+            {
+                for (int j = i + 1; j < Songs.Count; j++)
+                {
+                    if (Songs[i].Location == Songs[j].Location)
+                        songDuplicates.Add(Songs[j]);
+                }
+            }
+
+            for (int i = 0; i < Artists.Count; i++)
+            {
+                for (int j = i + 1; j < Artists.Count; j++)
+                {
+                    if (Artists[i].Name.Equals(Artists[j].Name))
+                        artistDuplicates.Add(Artists[j]);
+                }
+            }
+
+            for (int i = 0; i < Albums.Count; i++)
+            {
+                for (int j = i + 1; j < Albums.Count; j++)
+                {
+                    if (Albums[i].Title.Equals(Albums[j].Title))
+                        albumDuplicates.Add(Albums[j]);
+                }
+            }
+
+            for (int i = 0; i < Genres.Count; i++)
+            {
+                for (int j = i + 1; j < Genres.Count; j++)
+                {
+                    if (Genres[i].Name.Equals(Genres[j].Name))
+                        genreDuplicates.Add(Genres[j]);
+                }
+            }
+
+            foreach (var song in songDuplicates)
+                await RemoveSongAsync(song, true);
+
+            foreach (var artist in artistDuplicates)
+            {
+                _ = Artists.Remove(artist);
+                _ = Repository.QueueRemove(artist.Model);
+            }
+
+            foreach (var album in albumDuplicates)
+            {
+                _ = Albums.Remove(album);
+                _ = Repository.QueueRemove(album.Model);
+            }
+
+            foreach (var genre in genreDuplicates)
+            {
+                _ = Genres.Remove(genre);
+                _ = Repository.QueueRemove(genre.Model);
+            }
+        }
+
+        /// <summary>
+        /// Checks for duplicates in the video library.
+        /// </summary>
+        public async Task CheckVideoLibraryDuplicatesAsync(CancellationToken token = default)
+        {
+            if (token.IsCancellationRequested)
+                return;
+
+            List<VideoViewModel> duplicates = new();
+
+            // Check for duplicates and remove if any duplicate is found.
+            for (int i = 0; i < Videos.Count; i++)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                for (int j = i + 1; j < Videos.Count; j++)
+                {
+                    if (token.IsCancellationRequested)
+                        return;
+
+                    if (Videos[i].Location == Videos[j].Location)
+                    {
+                        duplicates.Add(Videos[j]);
+                    }
+                }
+            }
+
+            foreach (VideoViewModel video in duplicates)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                await video.DeleteAsync(true);
+            }
         }
     }
 

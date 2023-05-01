@@ -136,7 +136,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\AlbumArtConverter.cs" />
     <Compile Include="Converters\IntToBoolean.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
@@ -192,7 +191,6 @@
     <Compile Include="Converters\MathConverters.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
-    <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">

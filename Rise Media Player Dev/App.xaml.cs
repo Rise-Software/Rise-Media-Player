@@ -301,11 +301,11 @@ namespace Rise.App
             string name = instance.Task.Name;
             if (name.Contains(nameof(MusicLibrary)))
             {
-                await SongsTracker.HandleLibraryChangesAsync();
+                await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Music);
             }
             else if (name.Contains(nameof(VideoLibrary)))
             {
-                await VideosTracker.HandleLibraryChangesAsync();
+                await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Videos);
             }
 
             deferral?.Complete();
@@ -332,10 +332,7 @@ namespace Rise.App
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            await Task.WhenAll(
-                SongsTracker.HandleLibraryChangesAsync(true),
-                VideosTracker.HandleLibraryChangesAsync(true)
-            );
+            await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Both, true);
 
             await Repository.UpsertQueuedAsync();
             await Repository.DeleteQueuedAsync();
