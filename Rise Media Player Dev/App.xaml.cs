@@ -11,7 +11,7 @@ using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Data.Messages;
-using Rise.Data.Sources;
+using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
 using Rise.Effects;
 using Rise.NewRepository;
@@ -43,7 +43,7 @@ namespace Rise.App
         // No lazy init (used very early on, so lazy init is not needed)
         public static MainViewModel MViewModel { get; } = new();
         public static SettingsViewModel SViewModel { get; } = new();
-        public static NavViewDataSource NavDataSource { get; } = new();
+        public static NavigationDataSource NavDataSource { get; } = new();
 
         // Lazy init
         private readonly static Lazy<MediaPlaybackViewModel> _mpViewModel
@@ -116,9 +116,7 @@ namespace Rise.App
                             if (args["exceptionName"] != null)
                             {
                                 string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
-
-                                _ = typeof(CrashDetailsPage).
-                                    ShowInApplicationViewAsync(text, 600, 600);
+                                _ = await CrashDetailsPage.TryShowAsync(text);
                             }
                         }
                         break;
@@ -224,7 +222,6 @@ namespace Rise.App
             var deferral = e.SuspendingOperation.GetDeferral();
             try
             {
-                await NavDataSource.SerializeGroupsAsync();
                 await SuspensionManager.SaveAsync();
             }
             catch (Exception ex)

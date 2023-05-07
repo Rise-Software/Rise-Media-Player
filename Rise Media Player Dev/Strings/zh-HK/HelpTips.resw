@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
+    <value>增加個人音樂及影片</value>
+  </data>
+  <data name="Alpha.Text" xml:space="preserve">
+    <value>• 這些版本將會在微軟商店推出
+• 播放列表
+• 裝置支援
+• 燒碟
+• 支援12種不同語言（未完成）
+• 背景 Discord Rich Presence 及 Last.fm Scrobbling 服務
+• 新增音樂的檢視和排序
+• 影片索引和播放
+• 改進了正在播放體驗和排序
+• 重新設計的設定使用者介面已在所有新版本
+• 本地推薦和最近遊玩
+• Discy 在程式大部分功能中</value>
+  </data>
+  <data name="AlphaH.Text" xml:space="preserve">
+    <value>後期最初版前版 - 最初版</value>
+  </data>
+  <data name="Benefits.Text" xml:space="preserve">
+    <value>首先，應用程式很早。
+
+Bloom Channel的測試者可以使用最新的構建。 這會給予你機會看到我們正在做什麼，並給予我們反饋，因為您的反饋意義重大！ 當然，它並非沒有缺點。 Bloom Channel也比其他使用者面臨更多的漏洞和問題。 Bloom Insiders亦可以試用標記為「實驗性」的功能；「實驗性」功能再推出時可能未經整理或改善的，或者非常不穩定，但試起來很有趣。這些功能在預設下不會自動啟用。
+
+Early Access Insiders（前稱 Seeding Insiders）可以比主版較早試用該應用程式，但遲於Blooming Insiders，不過比Blooming Channel穩定得多。 本頻道的測試者將無法使用實驗功能。 *
+
+*在設定中標記為「實驗性功能」</value>
+  </data>
+  <data name="BenefitsH.Text" xml:space="preserve">
+    <value>我加入試用者有什麼好處？</value>
+  </data>
+  <data name="Beta.Text" xml:space="preserve">
+    <value>• 提供流媒體服務和建議（有限）
+• 均衡器
+• 視覺化
+• 專輯資訊
+• 共碟翻錄
+• 網路支援
+• 還有更多</value>
+  </data>
+  <data name="BetaH.Text" xml:space="preserve">
+    <value>測試版</value>
+  </data>
+  <data name="DiscyAboutTipDesc" xml:space="preserve">
+    <value>你可以透過點擊不同的東西來找我。 例如，一張專輯。 我會告訴你你能做什麼 :). 我現在還在學習中，所以我不會無處不在。</value>
+  </data>
+  <data name="DiscyAboutTipTitle" xml:space="preserve">
+    <value>你好！我是Discy。</value>
+  </data>
+  <data name="DiscyOnAlbumDesc" xml:space="preserve">
+    <value>使用命令欄將你的專輯分類為不同的類型。 按下專輯可查看存儲的內容。 你可以將整張專輯添加到播放列表、隨機播放或與朋友分享。</value>
+  </data>
+  <data name="DiscyOnAlbumH" xml:space="preserve">
+    <value>管理及整理你的專輯</value>
+  </data>
+  <data name="DiscyOnArtistDesc" xml:space="preserve">
+    <value>播放音樂家整個的唱片。 按一按音樂家就可以看到有關音樂家、他們的專輯（儲你在裝置上）和歌曲的信息。 同你朋友分享你最喜歡的音樂家或將音樂家所有音樂添加到播放列表。</value>
+  </data>
+  <data name="DiscyOnPlaylistDesc" xml:space="preserve">
+    <value>將你最喜歡的音樂，特別的音樂，你的音樂一起放在播放列表。給它們名稱和描述。然後加入新的音樂並移除你不太喜歡的音樂。聆聽快樂！</value>
+  </data>
+  <data name="DiscyOnPlaylistH" xml:space="preserve">
+    <value>與播放列表分組</value>
+  </data>
+  <data name="DiscyOnSongDesc" xml:space="preserve">
+    <value>將滑鼠懸停在歌曲上，雙點歌曲或單點播放以播放音樂。跳過，返回並在現在播放欄（在你視窗的底部）查看音樂歌曲資訊。按「 資訊及屬性」以更改音樂的Metadata及檔案資訊。你亦可以分享歌曲或把它加到播放清單！</value>
+  </data>
+  <data name="DiscyOnSongH" xml:space="preserve">
+    <value>對歌曲（資料）作出更改</value>
+  </data>
+  <data name="DiscyOnVideoDesc" xml:space="preserve">
+    <value>按下影片已播放。更改名稱並將他們排序。影片會使用整個視窗，你可以調節播放的時間，暫停，跳過和更多。</value>
+  </data>
+  <data name="DiscyOnVideoH" xml:space="preserve">
+    <value>播放影片</value>
+  </data>
+  <data name="FAQH.Text" xml:space="preserve">
+    <value>基本</value>
+  </data>
+  <data name="Features.Title" xml:space="preserve">
+    <value>你會優先考慮什麽功能？</value>
+  </data>
+  <data name="HowTrans.Text" xml:space="preserve">
+    <value>如果你想貢獻或翻譯，加入我們的Discord伺服器！https://disboard.org/server/872910570003791922</value>
+  </data>
+  <data name="HowTransH.Text" xml:space="preserve">
+    <value>我可以如何加入貢獻或翻譯團隊？</value>
+  </data>
+  <data name="Insider.Text" xml:space="preserve">
+    <value>在你提交表格後，你無需做任何其他動作，就等。在下一個版本發佈時你會收到一份往我們Insider網站的電郵，裏面含有新版本的MSIX包下載。備注：Alpha版本會使用微軟商店作分發，但我們基於過多版本選擇用在Alpha前版本使用MSIX包。有些星期兩者頻道的Insider會收到一樣的版本，不要擔心，這是正常的!</value>
+  </data>
+  <data name="InsiderH.Text" xml:space="preserve">
+    <value>我是個Insider，我如可取得新版本？</value>
+  </data>
+  <data name="InsiderProgram.Title" xml:space="preserve">
+    <value>Insider計劃，翻譯和貢獻</value>
+  </data>
+  <data name="Join.Text" xml:space="preserve">
+    <value>前往以下的表格然後回答問題。選擇頻道，並輸入電郵地址和另外幾樣資料。
+https://bit.ly/rise-insider
+
+開心測試！</value>
+  </data>
+  <data name="JoinH.Text" xml:space="preserve">
+    <value>我如何加入Insider計劃？</value>
+  </data>
+  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+    <value>播放媒體和正在播放</value>
+  </data>
+  <data name="PreAlpha.Text" xml:space="preserve">
+    <value>• 歌曲，專輯，歌手和類別索引
+• 專輯，歌手，類別及歌曲播放次數
+• 媒體播放
+• 指令欄（基本）
+• 用家控制媒體位置
+• 版面
+• 基本音樂Metadata控制
+• 基本現在播放版面
+• 基本屬性視窗
+• 常問問題幫助區
+• 小範圍中有Discy</value>
+  </data>
+  <data name="PreAlphaH.Text" xml:space="preserve">
+    <value>Pre Alpha (there will be many pre-alpha versions)</value>
+  </data>
+  <data name="ReleaseDate.Title" xml:space="preserve">
+    <value>When will Rise Media Player be released?</value>
+  </data>
+  <data name="ReleaseInfo.Text" xml:space="preserve">
+    <value>There is no official release date. Pre-Alpha 1 is being released October 21 (alongside Rise Notes) and we're so happy to finally have users testing! :)
+
+In terms of other versions, we have no exact dates to give you all, but this is what we are aiming for (versions may be released earlier or later depending on features:
+
+• Pre Alpha Process - October to December 2021 (Pre-Alpha 1 is the first version)
+
+• Alpha Builds - New Year (2022) up to March 2022. Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.
+
+• Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
+  </data>
+  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+    <value>Sorting and managing your library</value>
+  </data>
+  <data name="WhatDiscy.Description" xml:space="preserve">
+    <value>You'll have to see ;)</value>
+  </data>
+  <data name="WhatDiscy.Title" xml:space="preserve">
+    <value>What's Discy?</value>
+  </data>
+</root>

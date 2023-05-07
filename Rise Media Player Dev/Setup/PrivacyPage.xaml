@@ -3,11 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:local="using:Rise.App.Setup"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:visuals="using:Rise.App.AnimatedVisuals"
     mc:Ignorable="d">
 
@@ -16,7 +17,7 @@
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
-                        <visuals:PrivacySettingsLottie />
+                        <visuals:PrivacyLottie />
                     </muxc:AnimatedVisualPlayer.Source>
                 </muxc:AnimatedVisualPlayer>
             </local:SetupPageContent.Icon>
@@ -26,35 +27,31 @@
                     <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/ConnectDesc}" />
 
                     <StackPanel Orientation="Vertical" Spacing="4">
-                        <uc:ExpanderControl
-                            Title="{markup:ResourceHelper Name=/Setup/AppearanceHistoryTitle}"
-                            Margin="0,0,0,4"
-                            ExpanderStyle="Static"
+                        <labs:SettingsCard
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Icon="&#xEADF;">
+                            Header="{markup:ResourceHelper Name=/Setup/AppearanceHistoryTitle}"
+                            HeaderIcon="{ui:FontIcon Glyph=&#xEADF;}">
                             <!--  ToggleSwitch IsOn="{Binding TrackHistory, Mode=TwoWay}" /  -->
-                        </uc:ExpanderControl>
+                        </labs:SettingsCard>
 
-                        <uc:ExpanderControl
-                            Title="{markup:ResourceHelper Name=/Setup/AppearanceCuratedPlaylistsTitle}"
+                        <labs:SettingsCard
                             Description="{markup:ResourceHelper Name=/Setup/AppearanceCuratedPlaylistsDesc}"
-                            ExpanderStyle="Static"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Icon="&#xE8FD;">
+                            Header="{markup:ResourceHelper Name=/Setup/AppearanceCuratedPlaylistsTitle}"
+                            HeaderIcon="{ui:FontIcon Glyph=&#xE8FD;}">
                             <!--  ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /  -->
-                        </uc:ExpanderControl>
+                        </labs:SettingsCard>
 
-                        <uc:ExpanderControl
-                            Title="{markup:ResourceHelper Name=/Setup/AppearanceAtAGlanceTitle}"
+                        <labs:SettingsCard
                             Description="{markup:ResourceHelper Name=/Setup/AppearanceAtAGlanceDesc}"
-                            ExpanderStyle="Disabled"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Icon="&#xECA5;">
+                            Header="{markup:ResourceHelper Name=/Setup/AppearanceAtAGlanceTitle}"
+                            HeaderIcon="{ui:FontIcon Glyph=&#xECA5;}">
                             <!--
                                 FontIcon FontSize="16"
                                 Glyph="&#xE00F;" /
                             -->
-                        </uc:ExpanderControl>
+                        </labs:SettingsCard>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

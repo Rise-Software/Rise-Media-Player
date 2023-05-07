@@ -21,7 +21,7 @@ using Windows.Storage.FileProperties;
 
 namespace Rise.App.ViewModels
 {
-    public class MainViewModel : ViewModel
+    public sealed class MainViewModel : ViewModel
     {
         public event EventHandler IndexingStarted;
         public event EventHandler MetadataFetchingStarted;
@@ -390,7 +390,7 @@ namespace Rise.App.ViewModels
                     Name = song.Genres
                 };
 
-                tasks.Add(gvm.SaveAsync());
+                tasks.Add(gvm.SaveAsync(queue));
             }
 
             // If song isn't there already, add it to the database

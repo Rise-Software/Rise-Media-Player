@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Rise.Models
 {
     [XmlRoot(ElementName = "artist")]
-    public class ArtistT
+    public sealed class ArtistT
     {
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
@@ -17,7 +17,7 @@ namespace Rise.Models
     }
 
     [XmlRoot(ElementName = "image")]
-    public class Image
+    public sealed class Image
     {
         [XmlAttribute(AttributeName = "size")]
         public string Size { get; set; }
@@ -27,7 +27,7 @@ namespace Rise.Models
     }
 
     [XmlRoot(ElementName = "track")]
-    public class Track
+    public sealed class Track
     {
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
@@ -58,7 +58,7 @@ namespace Rise.Models
     }
 
     [XmlRoot(ElementName = "toptracks")]
-    public class Toptracks
+    public sealed class Toptracks
     {
         [XmlElement(ElementName = "track")]
         public List<Track> Track { get; set; }
@@ -80,7 +80,7 @@ namespace Rise.Models
     }
 
     [XmlRoot(ElementName = "lfm")]
-    public class LFM
+    public sealed class LFM
     {
         [XmlElement(ElementName = "toptracks")]
         public Toptracks Toptracks { get; set; }

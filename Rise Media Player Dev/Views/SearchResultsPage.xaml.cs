@@ -2,6 +2,7 @@
 using Rise.App.ViewModels;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Rise.App.Views
         };
 
         public SearchResultsPage()
-            : base("Title", App.MViewModel.Songs)
+            : base("SongTitle", SortDirection.Ascending, false, App.MViewModel.Songs)
         {
             InitializeComponent();
 

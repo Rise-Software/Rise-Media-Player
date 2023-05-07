@@ -3,10 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Rise.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls" xmlns:markup="using:Rise.Common.Extensions.Markup"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
@@ -17,9 +20,15 @@
     </Page.Resources>
 
     <StackPanel
-        Margin="0,10,0,0"
+        Margin="0,12,0,12"
         Orientation="Vertical"
         Spacing="4">
+        <StackPanel.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </TransitionCollection>
+        </StackPanel.ChildrenTransitions>
+        
         <muxc:TeachingTip
             x:Name="ChangeThemeTip"
             Title="{markup:ResourceHelper Name=/Settings/AppThemeChanged}"
@@ -41,7 +50,7 @@
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="3"
-            Style="{StaticResource SettingsCard}">
+            Style="{StaticResource BorderCardStyle}">
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -53,92 +62,80 @@
                 TextWrapping="WrapWholeWords" />
         </Border>
 
-        <uc:ExpanderControl
-            Title="{markup:ResourceHelper Name=/Settings/AppearanceChooseTheme}"
+        <labs:SettingsCard
             Margin="0,8,0,0"
-            Padding="0,10,0,0"
-            ExpanderStyle="Static"
-            Icon="&#xE790;">
+            Header="{markup:ResourceHelper Name=/Settings/AppearanceChooseTheme}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE790;}">
             <ComboBox
                 x:Name="ThemeChange"
                 ItemsSource="{x:Bind Themes}"
                 SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
-        </uc:ExpanderControl>
+        </labs:SettingsCard>
 
-        <uc:ExpanderControl
+        <labs:SettingsExpander
             x:Name="ChooseColorExpander"
-            Title="{markup:ResourceHelper Name=/Settings/AppearanceChooseColor}"
-            Icon="&#xE771;">
-            <uc:ExpanderControl.HeaderControls>
-                <ComboBox
-                    x:Name="ColorThemeComboBox"
-                    ItemsSource="{x:Bind ColorThemes}"
-                    SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}" />
-            </uc:ExpanderControl.HeaderControls>
+            Header="{markup:ResourceHelper Name=/Settings/AppearanceChooseColor}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE771;}">
+            <ComboBox
+                x:Name="ColorThemeComboBox"
+                ItemsSource="{x:Bind ColorThemes}"
+                SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}" />
 
-            <Grid>
-                <TextBlock
-                    x:Name="Nothing"
-                    HorizontalAlignment="Center"
-                    FontSize="14"
-                    FontWeight="Normal"
-                    HorizontalTextAlignment="Center"
-                    Text="{markup:ResourceHelper Name=/Settings/AppearanceNothing}"
-                    TextWrapping="WrapWholeWords" />
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard>
+                    <labs:SettingsCard.Header>
+                        <Grid>
+                            <TextBlock
+                                x:Name="Nothing"
+                                HorizontalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="Normal"
+                                HorizontalTextAlignment="Center"
+                                Text="{markup:ResourceHelper Name=/Settings/AppearanceNothing}"
+                                TextWrapping="WrapWholeWords" />
 
-                <StackPanel
-                    x:Name="CustomColorPanel"
-                    Padding="30,0,0,0"
-                    Visibility="Collapsed">
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/RecentColors}" />
-                    <TextBlock
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Text="{markup:ResourceHelper Name=ComingSoon}" />
+                            <StackPanel Margin="0,4,0,0" x:Name="CustomColorPanel" Visibility="Collapsed">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/RecentColors}" />
+                                <TextBlock
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    Text="{markup:ResourceHelper Name=ComingSoon}" />
 
-                    <TextBlock
-                        Margin="0,20,0,0"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{markup:ResourceHelper Name=/Settings/WindowsColors}" />
-                    <GridView
-                        x:Name="ColorGrid"
-                        MaxWidth="448"
-                        Margin="0,6,0,24"
-                        HorizontalAlignment="Left"
-                        ItemsSource="{x:Bind GlazeColors}"
-                        SelectedIndex="{x:Bind ViewModel.GlazeColorIndex, Mode=TwoWay}"
-                        SelectionMode="Single">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:NamedColor">
-                                <Border
-                                    Width="50"
-                                    Height="50"
-                                    ToolTipService.ToolTip="{x:Bind Name}">
-                                    <Border.Background>
-                                        <SolidColorBrush Color="{x:Bind Color}" />
-                                    </Border.Background>
-                                </Border>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                                <TextBlock
+                                    Margin="0,20,0,0"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{markup:ResourceHelper Name=/Settings/WindowsColors}" />
+                                <GridView
+                                    x:Name="ColorGrid"
+                                    MaxWidth="448"
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Left"
+                                    ItemsSource="{x:Bind GlazeColors}"
+                                    SelectedIndex="{x:Bind ViewModel.GlazeColorIndex, Mode=TwoWay}"
+                                    SelectionMode="Single">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:NamedColor">
+                                            <Border
+                                                Width="50"
+                                                Height="50"
+                                                ToolTipService.ToolTip="{x:Bind Name}">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{x:Bind Color}" />
+                                                </Border.Background>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                </GridView>
+                            </StackPanel>
+                        </Grid>
+                    </labs:SettingsCard.Header>
+                </labs:SettingsCard>
 
-                    <Rectangle Margin="-46,0,-16,0" Style="{StaticResource ExpanderDividerStyle}" />
-
-                    <Grid Margin="0,16,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{markup:ResourceHelper Name=/Settings/CustomizedColors}" />
-                        <Button Grid.Column="1" Content="{markup:ResourceHelper Name=/Settings/ViewColors}" />
-                    </Grid>
-                </StackPanel>
-            </Grid>
-        </uc:ExpanderControl>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/CustomizedColors}">
+                    <Button Grid.Column="1" Content="{markup:ResourceHelper Name=/Settings/ViewColors}" />
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="CustomGlazeStates">

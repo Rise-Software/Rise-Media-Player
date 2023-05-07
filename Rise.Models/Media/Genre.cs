@@ -9,7 +9,7 @@ namespace Rise.Models
     /// Represents a genre.
     /// </summary>
     [Table("Genres")]
-    public class Genre : DbObject, IEquatable<Genre>, IMatchable<Genre>
+    public sealed class Genre : DbObject, IEquatable<Genre>, IMatchable<Genre>
     {
         [Column(nameof(Name))]
         public string Name { get; set; }

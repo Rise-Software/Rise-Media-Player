@@ -61,7 +61,7 @@ namespace Rise.Common.Extensions
 
             int indexedFiles = 0;
 
-            if (PathUtils.PathIsNetworkPath(folder.Path))
+            if (PathUtils.PathIsNetworkPathW(folder.Path))
                 options.IndexerOption = IndexerOption.DoNotUseIndexer;
 
             // Prepare the query

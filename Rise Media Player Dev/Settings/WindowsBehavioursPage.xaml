@@ -6,11 +6,18 @@
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d">
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
-            <Border Margin="0,4,0,0" Style="{StaticResource SettingsCard}">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            
+            <Border Margin="0,4,0,0" Style="{StaticResource BorderCardStyle}">
                 <RelativePanel Margin="0,4,0,0">
                     <FontIcon
                         x:Name="WindowsLogo"
@@ -70,17 +77,16 @@
                 </muxc:InfoBar.ActionButton>
             </muxc:InfoBar>
 
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=OpenRiseOnStartupH}"
+            <labs:SettingsCard
+                Header="{markup:ResourceHelper Name=OpenRiseOnStartupH}"
                 Description="{markup:ResourceHelper Name=OpenRiseOnStartup}"
-                ExpanderStyle="Static"
-                Icon="&#xE102;">
+                HeaderIcon="{ui:FontIcon Glyph=&#xE102;}">
                 <ToggleSwitch
                     x:Name="OpenAtStartup"
                     IsEnabled="{x:Bind ViewModel.CanOpenInLogin, Mode=OneWay}"
                     IsOn="{x:Bind ViewModel.OpenInLogin, Mode=OneWay}"
                     Toggled="OpenAtStartup_Toggled" />
-            </uc:ExpanderControl>
+            </labs:SettingsCard>
         </StackPanel>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowsVersionStates">

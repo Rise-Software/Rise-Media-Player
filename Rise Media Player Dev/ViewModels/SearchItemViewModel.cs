@@ -3,7 +3,7 @@ using Rise.Models;
 
 namespace Rise.App.ViewModels
 {
-    public class SearchItemViewModel : ViewModel<SearchItem>
+    public sealed class SearchItemViewModel : ViewModel<SearchItem>
     {
         public SearchItemViewModel(SearchItem model = null)
         {

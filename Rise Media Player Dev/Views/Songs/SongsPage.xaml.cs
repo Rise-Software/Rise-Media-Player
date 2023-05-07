@@ -2,6 +2,8 @@
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions.Markup;
+using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,12 +22,29 @@ namespace Rise.App.Views
         }
 
         public SongsPage()
-            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddSelectedItemToPlaylistCommand);
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            var (del, direction, alphabetical) = GetSavedSortPreferences("Songs");
+            if (!string.IsNullOrEmpty(del))
+                CreateViewModel(del, direction, alphabetical, App.MViewModel.Songs);
+            else
+                CreateViewModel("GSongTitle|SongTitle", SortDirection.Ascending, true, App.MViewModel.Songs);
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            SaveSortingPreferences("Songs");
         }
     }
 

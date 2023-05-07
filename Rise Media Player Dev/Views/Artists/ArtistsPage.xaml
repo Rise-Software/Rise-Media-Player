@@ -37,7 +37,7 @@
             PreferredPlacement="Auto"
             Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnArtistDesc}">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
+                <Image Source="/Assets/Branding/DiscyBanner.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
@@ -87,38 +87,38 @@
                 Label="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
-        <tkitui:AdaptiveGridView
-            x:Name="MainGrid"
-            Grid.Row="2"
-            Margin="-56,0"
-            Padding="44,0,44,120"
-            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
-            DesiredWidth="230"
-            IsItemClickEnabled="True"
-            ItemClick="MainGrid_ItemClick"
-            ItemsSource="{x:Bind MediaViewModel.Items}"
-            SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-            SelectionMode="Single">
-            <GridView.ContextFlyout>
-                <MenuFlyout Opening="MenuFlyout_Opening">
-                    <MenuFlyoutItem
-                        Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play"
-                        Text="{markup:ResourceHelper Name=Play}" />
+        <SemanticZoom Grid.Row="2" Margin="-56,0">
+            <SemanticZoom.ZoomedInView>
+                <GridView
+                    x:Name="MainGrid"
+                    Grid.Row="2"
+                    Padding="48,0,48,120"
+                    tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
+                    IsItemClickEnabled="True"
+                    ItemClick="MainGrid_ItemClick"
+                    ItemsSource="{x:Bind MediaViewModel.Items}"
+                    SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+                    SelectionMode="Single">
+                    <GridView.ContextFlyout>
+                        <MenuFlyout Opening="MenuFlyout_Opening">
+                            <MenuFlyoutItem
+                                Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
+                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                Icon="Play"
+                                Text="{markup:ResourceHelper Name=Play}" />
 
-                    <MenuFlyoutItem
-                        Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Shuffle"
-                        Text="{markup:ResourceHelper Name=ShuffleArtist}" />
+                            <MenuFlyoutItem
+                                Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
+                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                Icon="Shuffle"
+                                Text="{markup:ResourceHelper Name=ShuffleArtist}" />
 
-                    <MenuFlyoutSeparator />
+                            <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
-                        <MenuFlyoutSubItem.Icon>
-                            <FontIcon Glyph="&#xECC8;" />
-                        </MenuFlyoutSubItem.Icon>
+                            <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
+                                <MenuFlyoutSubItem.Icon>
+                                    <FontIcon Glyph="&#xECC8;" />
+                                </MenuFlyoutSubItem.Icon>
 
                         <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
@@ -127,73 +127,93 @@
                         </MenuFlyoutItem>
                     </MenuFlyoutSubItem>
 
-                    <MenuFlyoutItem
-                        Icon="Share"
-                        IsEnabled="False"
-                        Text="{markup:ResourceHelper Name=Share}" />
+                            <MenuFlyoutItem
+                                Icon="Share"
+                                IsEnabled="False"
+                                Text="{markup:ResourceHelper Name=Share}" />
 
-                    <MenuFlyoutSeparator />
+                            <MenuFlyoutSeparator />
 
-                    <MenuFlyoutItem
-                        Click="AskDiscy_Click"
-                        Icon="Help"
-                        Text="{markup:ResourceHelper Name=AskDiscy}" />
+                            <MenuFlyoutItem
+                                Click="AskDiscy_Click"
+                                Icon="Help"
+                                Text="{markup:ResourceHelper Name=AskDiscy}" />
 
-                    <MenuFlyoutSeparator />
+                            <MenuFlyoutSeparator />
 
-                    <MenuFlyoutItem
-                        Icon="Delete"
-                        IsEnabled="False"
-                        Text="{markup:ResourceHelper Name=RemoveThing}" />
+                            <MenuFlyoutItem
+                                Icon="Delete"
+                                IsEnabled="False"
+                                Text="{markup:ResourceHelper Name=RemoveThing}" />
 
-                    <MenuFlyoutItem Click="ChngArtImg_Click" Text="{markup:ResourceHelper Name=ChangeArtistImage}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xEF1F;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                </MenuFlyout>
-            </GridView.ContextFlyout>
+                            <MenuFlyoutItem Click="ChngArtImg_Click" Text="{markup:ResourceHelper Name=ChangeArtistImage}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xEF1F;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </GridView.ContextFlyout>
 
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:ArtistViewModel" x:DefaultBindMode="OneWay">
-                    <Grid Margin="12" ColumnSpacing="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <tkitui:ImageEx
-                            x:Name="ArtistThumb"
-                            Height="80"
-                            CornerRadius="40"
-                            DecodePixelType="Logical"
-                            PlaceholderSource="ms-appx:///Assets/BlankArtist.png"
-                            PlaceholderStretch="Fill"
-                            Source="{x:Bind Picture}" />
+                    <GridView.GroupStyle>
+                        <GroupStyle HeaderTemplate="{StaticResource DefaultGroupStyleHeaderTemplate}" HidesIfEmpty="True" />
+                    </GridView.GroupStyle>
 
-                        <StackPanel
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Orientation="Vertical"
-                            Spacing="2">
-                            <TextBlock
-                                FontSize="16"
-                                MaxLines="1"
-                                Style="{StaticResource BaseTextBlockStyle}"
-                                Text="{x:Bind Name}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind LocalizedSongCount}" />
-                            <TextBlock
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind LocalizedAlbumCount}" />
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </tkitui:AdaptiveGridView>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:ArtistViewModel" x:DefaultBindMode="OneWay">
+                            <Grid
+                                Width="256"
+                                Margin="12"
+                                ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <tkitui:ImageEx
+                                    x:Name="ArtistThumb"
+                                    Height="80"
+                                    CornerRadius="40"
+                                    DecodePixelType="Logical"
+                                    PlaceholderSource="ms-appx:///Assets/BlankArtist.png"
+                                    PlaceholderStretch="Fill"
+                                    Source="{x:Bind Picture}" />
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Orientation="Vertical"
+                                    Spacing="2">
+                                    <TextBlock
+                                        FontSize="16"
+                                        MaxLines="1"
+                                        Style="{StaticResource BaseTextBlockStyle}"
+                                        Text="{x:Bind Name}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{x:Bind LocalizedSongCount}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{x:Bind LocalizedAlbumCount}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </SemanticZoom.ZoomedInView>
+
+            <SemanticZoom.ZoomedOutView>
+                <GridView
+                    x:Name="ZoomedOutGrid"
+                    Width="512"
+                    Padding="56,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    ItemTemplate="{StaticResource GroupOverviewLetterItemTemplate}"
+                    ItemsSource="{x:Bind MediaViewModel.Items.CollectionGroups}" />
+            </SemanticZoom.ZoomedOutView>
+        </SemanticZoom>
     </Grid>
 </uc:MediaPageBase>

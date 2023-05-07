@@ -18,7 +18,7 @@ using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {
-    public partial class SongViewModel : ViewModel<Song>, IMediaItem
+    public sealed partial class SongViewModel : ViewModel<Song>, IMediaItem
     {
 
         #region Constructor

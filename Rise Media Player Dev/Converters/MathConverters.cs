@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class DecimalPointToPercentageConverter : IValueConverter
+    public sealed class DecimalPointToPercentageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -21,7 +21,7 @@ namespace Rise.App.Converters
         }
     }
 
-    public class UintToStringConverter : IValueConverter
+    public sealed class UintToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -35,7 +35,7 @@ namespace Rise.App.Converters
             throw new NotImplementedException();
         }
     }
-    public class FormatNumber
+    public sealed class FormatNumber
     {
         public static string Format(long num)
         {

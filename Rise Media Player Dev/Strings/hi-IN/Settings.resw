@@ -118,333 +118,333 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutExtrasH" xml:space="preserve">
-    <value>Insider Extras</value>
+    <value>इनसाइडर एक्स्ट्रास</value>
   </data>
   <data name="AboutMoreCopyVersion" xml:space="preserve">
-    <value>Copy version</value>
+    <value>कॉपी संस्करण</value>
   </data>
   <data name="AboutMoreH" xml:space="preserve">
-    <value>More</value>
+    <value>और</value>
   </data>
   <data name="AboutMoreReleases" xml:space="preserve">
-    <value>Releases</value>
+    <value>रिलीज़ें</value>
   </data>
   <data name="AboutMoreTitle" xml:space="preserve">
-    <value>More version info</value>
+    <value>अतिरिक्त संस्करण जानकारी</value>
   </data>
   <data name="AboutSave" xml:space="preserve">
-    <value>Save to my device</value>
+    <value>उपकरण पर सेव करें</value>
   </data>
   <data name="AboutSocialDesc" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+    <value>नवीनतम अपडेट्स के साथ बने रहें।</value>
   </data>
   <data name="AboutSocialTitle" xml:space="preserve">
-    <value>Social media</value>
+    <value>सोशल मीडिया</value>
   </data>
   <data name="AboutWallsDesc" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
+    <value>राइज़ म प ब्रांडेड कुछ विशेष वॉलपेपर का अभिगमन करें।</value>
   </data>
   <data name="AboutWallsTitle" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+    <value>डेस्कटॉप वॉलपेपर एवं थीम</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
-    <value>Add an account</value>
+    <value>अकाउंट जोड़ें</value>
   </data>
   <data name="AddFolder" xml:space="preserve">
-    <value>Add folder</value>
+    <value>फोलडर जोड़ें</value>
   </data>
   <data name="AddFolders" xml:space="preserve">
-    <value>Add folders</value>
+    <value>फ़ोल्डर जोड़ें</value>
   </data>
   <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
-    <value>Use album art</value>
+    <value>एल्बम कला इस्तेमाल करें</value>
   </data>
   <data name="AppearanceAppLayout" xml:space="preserve">
-    <value>App layout</value>
+    <value>ऐप अभिन्यास</value>
   </data>
   <data name="AppearanceAppWindow" xml:space="preserve">
-    <value>App window</value>
+    <value>ऐप विंडो</value>
   </data>
   <data name="AppearanceChooseColor" xml:space="preserve">
-    <value>Choose your window glaze</value>
+    <value>अपना विंडो ग्लेज़ चुनें</value>
   </data>
   <data name="AppearanceChooseTheme" xml:space="preserve">
-    <value>Choose your colour</value>
+    <value>अपना रंग चुनें</value>
   </data>
   <data name="AppearanceCustomGlazeColor" xml:space="preserve">
-    <value>Use custom colour</value>
+    <value>कस्टम रंग चुनें</value>
   </data>
   <data name="AppearanceIconsAndFonts" xml:space="preserve">
-    <value>Icons &amp; fonts</value>
+    <value>आइकॉन एवं फ़ॉन्ट</value>
   </data>
   <data name="AppearanceItemDesc" xml:space="preserve">
-    <value>Customise app colours, themes, icons, layouts and motion.</value>
+    <value>ऐप के रंग, थीम, आइकॉन, अभिन्यास एवं गति अनुकूलित करें।</value>
   </data>
   <data name="AppearanceNoGlaze" xml:space="preserve">
-    <value>No glaze</value>
+    <value>कोई ग्लेज़ नहीं</value>
   </data>
   <data name="AppearanceNothing" xml:space="preserve">
-    <value>There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown.</value>
+    <value>यहां पर कुछ भी दिखाने को नहीं है। उपलब्ध रंग दिखाने के लिए ड्रॉपडाउन से 'अनुकूलित रंग इस्तेमाल करें' का चयन करें।</value>
   </data>
   <data name="AppearanceOverview" xml:space="preserve">
-    <value>Overview</value>
+    <value>अवलोकन</value>
   </data>
   <data name="AppearancePickUp" xml:space="preserve">
-    <value>Pick up where you left off</value>
+    <value>जहां से छोड़ा गया, वहीं से शुरू करें</value>
   </data>
   <data name="AppearanceStartupTitle" xml:space="preserve">
-    <value>On startup</value>
+    <value>शुरूआत होने पर</value>
   </data>
   <data name="AppearanceSystemGlazeColor" xml:space="preserve">
-    <value>Use system accent colour</value>
+    <value>सिस्टम एक्सेंट रंग का इस्तेमाल करें</value>
   </data>
   <data name="AppearanceTip" xml:space="preserve">
-    <value>*Compact mode changes won't take effect until after setup has completed.</value>
+    <value>*कॉम्पैक्ट मोड के बदलाव तब तक लागू नहीं होंगीं जब तक सेटअप ख़त्म नहीं हो जाता।</value>
   </data>
   <data name="AppThemeChanged" xml:space="preserve">
-    <value>App theme changed</value>
+    <value>ऐप थीम बदल चुका है</value>
   </data>
   <data name="ColorfulIcons" xml:space="preserve">
-    <value>Colourful Icons</value>
+    <value>रंगीन आइकॉन</value>
   </data>
   <data name="ConnectToLastFmDesc" xml:space="preserve">
-    <value>Discover your recently played, listening history and scrobble to the internet.</value>
+    <value>अपने हाल ही में चलाए हुए, सुनावट इतिहास को खोजें एवं इंटरनेट को स्क्रॉबल करें</value>
   </data>
   <data name="ConnectToLastFmH" xml:space="preserve">
-    <value>Connect to last.fm</value>
+    <value>लास्ट.फ म से संयोजन करें</value>
   </data>
   <data name="CustomizedColors" xml:space="preserve">
-    <value>Customised colours</value>
+    <value>अनुकूलित रंग</value>
   </data>
   <data name="HighContrastIcons" xml:space="preserve">
-    <value>High Contrast Icons</value>
+    <value>हाई कॉन्ट्रास्ट आईकॉन</value>
   </data>
   <data name="InsiderHub" xml:space="preserve">
-    <value>Insider Hub</value>
+    <value>इनसाइडर हब</value>
   </data>
   <data name="MatchSystemAppLang" xml:space="preserve">
-    <value>Match system &amp; app languages</value>
+    <value>सिस्टम और ऐप भाषा मिलाएँ</value>
   </data>
   <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
-    <value>Scan per a specified period of time when the app is open.</value>
+    <value>जब एप खुला हो, तब समय की निर्दिष्ट अवधिानुसार स्कैन करें।</value>
   </data>
   <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
-    <value>Periodic scanning</value>
+    <value>सामयिक स्कैनिंग</value>
   </data>
   <data name="MediaLibraryDeletionTitle" xml:space="preserve">
-    <value>When removing local media</value>
+    <value>लोकल मीडिया हटाने पर</value>
   </data>
   <data name="MediaLibraryDone" xml:space="preserve">
-    <value>Clear all</value>
+    <value>सब हटा दें</value>
   </data>
   <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
-    <value>Scan for new media after an event or events take place.</value>
+    <value>किसी घटना या घटना के घटित होने के बाद नई मीडिया के लिए स्कैन करें।</value>
   </data>
   <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
-    <value>Scan when a removable device or drive is connected</value>
+    <value>जब एक हटाने योग्य उपकरण या ड्राइव जुड़ता है, तब स्कैन करें</value>
   </data>
   <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
-    <value>Scan when adding files to your media sources</value>
+    <value>जब आपके मीडिया स्रोत में फ़ाईलें जुड़तीं हैं, तब स्कैन करें</value>
   </data>
   <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
-    <value>Scan when you add a new media location</value>
+    <value>जब आप मीडिया की एक नए लोकेशन जोड़ते हैं, तब स्कैन करें</value>
   </data>
   <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
-    <value>Scan when the app is opened</value>
+    <value>जब एप खुला हो, तब स्कैन करें</value>
   </data>
   <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
-    <value>Smart event scan</value>
+    <value>स्मार्ट घटना स्कैन</value>
   </data>
   <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
-    <value>Fetch data from the Internet when needed</value>
+    <value>जब ज़रूरत पड़े तब इंटरनेट से डाटा लाएँ</value>
   </data>
   <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
-    <value>Files &amp; folders</value>
+    <value>फ़ाइल फ़ोल्डर</value>
   </data>
   <data name="MediaLibraryItemDesc" xml:space="preserve">
-    <value>Manage media sources, your online services and scanning settings.</value>
+    <value>अपने मीडिया स्रोत, ऑनलाईन सेवाएँ एवं स्कैनिंग सेटिंग्स प्रबंधित करें।</value>
   </data>
   <data name="MediaLibraryLocalMediaH" xml:space="preserve">
-    <value>Local media &amp; devices</value>
+    <value>लोकल मीडिया और उपकरण</value>
   </data>
   <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
-    <value>Videos, music and more</value>
+    <value>वीडियो, संगीत और बहुत कुछ</value>
   </data>
   <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
-    <value>Manage local media folders</value>
+    <value>लोकल मीडिया फ़ोल्डर प्रबंधित करें</value>
   </data>
   <data name="MediaLibraryManualScanDesc" xml:space="preserve">
-    <value>Scans the folders you've already added for music and videos to add to your library.</value>
+    <value>आपकी लाइब्रेरी में जोड़ने के लिए वही फ़ोल्डरों को स्कैन करता है जहां से आपने पहले ही संगीत एवं वीडियो जोड़े हैं।</value>
   </data>
   <data name="MediaLibraryManualScanTitle" xml:space="preserve">
-    <value>Manual scan</value>
+    <value>मैनुअल स्कैन</value>
   </data>
   <data name="MediaLibraryMetadata" xml:space="preserve">
-    <value>Metadata</value>
+    <value>मेटाडाटा</value>
   </data>
   <data name="MediaLibraryOnlineDataH" xml:space="preserve">
-    <value>Online data</value>
+    <value>ऑनलाइन डाटा</value>
   </data>
   <data name="MediaLibraryRemoveFolder" xml:space="preserve">
-    <value>Remove folder</value>
+    <value>फोल्डर हटाएँ</value>
   </data>
   <data name="MediaLibraryRippingDesc" xml:space="preserve">
-    <value>Choose what you want to happen when you rip a disc.</value>
+    <value>चुनें कि डिस्क को रिप करते समय आप क्या करना चाहते हैं</value>
   </data>
   <data name="MediaLibraryRippingTitle" xml:space="preserve">
-    <value>Disc ripping options</value>
+    <value>डिस्क रिप्पिंग विकल्प</value>
   </data>
   <data name="MediaSourcesContainsMusic" xml:space="preserve">
-    <value>Contains music</value>
+    <value>इसमें संगीत है</value>
   </data>
   <data name="MediaSourcesContainsVideos" xml:space="preserve">
-    <value>Contains videos</value>
+    <value>इसमें वीडियो हैं</value>
   </data>
   <data name="MediaSourcesInfo" xml:space="preserve">
-    <value>We already look for your media in the default media locations (Music &amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.</value>
+    <value>हम आपकी मीडिया के लिए डीफ़ॉल्ट मीडिया लोकेशन (संगीत एवं वीडियो) में पहले से ही देखते हैं। अगर आप यहीं पर अपनी मीडिया संग्रहित करते हैं, तब नए फ़ोल्डर जोड़ने की ज़रूरत नहीं है। अगर नहीं, तो अपने सभी मीडिया फ़ोल्डरों को जोड़ने के लिए 'फ़ोल्डर जोड़ें' पर क्लिक करें।</value>
   </data>
   <data name="NavigationAddRemoveH" xml:space="preserve">
-    <value>Add/remove sidebar items</value>
+    <value>साइडबार आइटम जोडे़ं/हटाएँ</value>
   </data>
   <data name="NavigationAppearanceH" xml:space="preserve">
-    <value>Appearance</value>
+    <value>दिखावट</value>
   </data>
   <data name="NavigationGeneralItems" xml:space="preserve">
-    <value>General items</value>
+    <value>जनरल आइटम</value>
   </data>
   <data name="NavigationHamburgerTitle" xml:space="preserve">
-    <value>Show the hamburger button</value>
+    <value>हैमबर्गर बटन दिखाएँ</value>
   </data>
   <data name="NavigationIconStyle" xml:space="preserve">
-    <value>Icon style</value>
+    <value>आइकॉन स्टाईल</value>
   </data>
   <data name="NavigationItemDesc" xml:space="preserve">
-    <value>Change click actions, startup options.</value>
+    <value>क्लिक क्रियाओं, स्टार्टअप विकल्पों को बदलें।</value>
   </data>
   <data name="NavigationResize" xml:space="preserve">
-    <value>Window resize changes</value>
+    <value>विंडो आकार बदलाव</value>
   </data>
   <data name="NavigationShowHeader" xml:space="preserve">
-    <value>Show header</value>
+    <value>शीर्षणी दिखाएँ</value>
   </data>
   <data name="OpenClassicDialog" xml:space="preserve">
-    <value>Open classic dialog</value>
+    <value>क्लासिक डायलॉग खोलें</value>
   </data>
   <data name="PlaybackCrossfadeDesc" xml:space="preserve">
-    <value>Blend the end &amp; beginning of your music tracks.</value>
+    <value>अपने संगीत ट्रैकों के अंत और शुरूआतों को सम्मिश्रित करें</value>
   </data>
   <data name="PlaybackCrossfadeTitle" xml:space="preserve">
-    <value>Crossfade</value>
+    <value>क्रॉसफेड करें</value>
   </data>
   <data name="PlaybackEQDesc" xml:space="preserve">
-    <value>Choose different sound profiles depending on your media type.</value>
+    <value>अपने मीडिया प्रकार के आधार पर भिन्न ध्वनि प्रोफ़ाइल चुनें।</value>
   </data>
   <data name="PlaybackEQTitle" xml:space="preserve">
-    <value>Equaliser</value>
+    <value>इक्वलाइज़र</value>
   </data>
   <data name="PlaybackGaplessDesc" xml:space="preserve">
-    <value>We will instantly move to your next track without waiting.</value>
+    <value>हम आपके अगले ट्रैक पर प्रतीक्षा किए बिना तुरंत चले जाएंगे।</value>
   </data>
   <data name="PlaybackGaplessTitle" xml:space="preserve">
-    <value>Gapless playback</value>
+    <value>गैपलेस प्लेबैक</value>
   </data>
   <data name="PlaybackGeneralH" xml:space="preserve">
-    <value>General</value>
+    <value>जनरल</value>
   </data>
   <data name="PlaybackMusicH" xml:space="preserve">
-    <value>Music</value>
+    <value>संगीत</value>
   </data>
   <data name="PlaybackScalingDesc" xml:space="preserve">
-    <value>Adjust how your video scales depending on window size.</value>
+    <value>विंडो के आकार के आधार पर समायोजित करें कि आपका वीडियो कैसे मपता है।</value>
   </data>
   <data name="PlaybackScalingTitle" xml:space="preserve">
-    <value>Scaling</value>
+    <value>मापन</value>
   </data>
   <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
-    <value>Change video resolution and music bitrate.</value>
+    <value>विडियो रेज़ोल्यूशन और संगीत बिटरेट बदलें।</value>
   </data>
   <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
-    <value>Manage streaming quality</value>
+    <value>स्ट्रीमिंग गुणवत्ता प्रबंधित करें</value>
   </data>
   <data name="PlaybackVideoH" xml:space="preserve">
-    <value>Video</value>
+    <value>वीडियो</value>
   </data>
   <data name="PlaybackVisualizerTitle" xml:space="preserve">
-    <value>Visualiser</value>
+    <value>विज़्वालाइज़र</value>
   </data>
   <data name="RecentColors" xml:space="preserve">
-    <value>Recent colours</value>
+    <value>हाल के रंग</value>
   </data>
   <data name="RestoreDefaults" xml:space="preserve">
-    <value>Restore defaults</value>
+    <value>डीफ़ॉल्टों को पुन: स्थापित करें</value>
   </data>
   <data name="RunEvery" xml:space="preserve">
-    <value>Run every:</value>
+    <value>इस समयानुसार चले:</value>
   </data>
   <data name="ScanNow" xml:space="preserve">
-    <value>Scan now</value>
+    <value>अभी स्कैन करें</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
-    <value>Select language</value>
+    <value>भाषा का चयन करें</value>
   </data>
   <data name="SelectLanguageDesc" xml:space="preserve">
-    <value>Choose your language manually from a list.</value>
+    <value>सूची से अपनी भाषा मैनुअली चुनें।</value>
   </data>
   <data name="SettingsFluentColor" xml:space="preserve">
-    <value>Fluent Colour</value>
+    <value>फ़्लूएंट रंग</value>
   </data>
   <data name="SettingsHighContrast" xml:space="preserve">
-    <value>High Contrast</value>
+    <value>उच्च विषमता</value>
   </data>
   <data name="SettingsMenuBar" xml:space="preserve">
-    <value>Menu bar</value>
+    <value>मेन्यू बार</value>
   </data>
   <data name="SettingsMenus" xml:space="preserve">
-    <value>Settings menus</value>
+    <value>सेटिंग्स मेन्यू</value>
   </data>
   <data name="SettingsSidebar" xml:space="preserve">
-    <value>Sidebar (Classic)</value>
+    <value>साइडबार(क्लासिक)</value>
   </data>
   <data name="SettingsStyle" xml:space="preserve">
-    <value>Settings style</value>
+    <value>सेटिंग्स स्टाईल</value>
   </data>
   <data name="StartupSettings" xml:space="preserve">
-    <value>Startup settings</value>
+    <value>स्टार्टअप सेटिंग्स</value>
   </data>
   <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
-    <value>This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
+    <value>यह फीचर आपके प्रशासक की वर्तमान नीतियों के कारण अक्षम है। अगर यह अति-आवश्यक है, तो कृपया अपने सिस्टम प्रशासक से संपर्क करें।</value>
   </data>
   <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
-    <value>This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app.</value>
+    <value>यह फीचर आपके वर्तमान स्टार्टअप सेटिंग्स के कारण अक्षम है। इन सेटिंग्स को बदलने के लिए नीचे दिए गए लिंक पर क्लिक करें, फ़िर एप को पुनः आरंभ करें।</value>
   </data>
   <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
-    <value>This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
+    <value>यह फीचर सक्षम है किंतु प्रशासक की वर्तमान नीतियों के कारण बदला नहीं जा सकता। अगर यह अति-आवश्यक है, तो कृपया अपने सिस्टम प्रशासक से संपर्क करें।</value>
   </data>
   <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
-    <value>Some settings might be unavailable because you are running Rise Media Player on the leaked build.</value>
+    <value>कुछ सेटिंग्स अनउपलब्ध हो सकते हैं क्योंकि आप राईज़ मीडिया प्लेयर लीक निर्माण पर चला रहे हैं।</value>
   </data>
   <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
-    <value>Some settings might be unavailable. To use them, upgrade your PC to Windows 11.</value>
+    <value>कुछ सेटिंग्स अनउपलब्ध हो सकते हैं। इन्हें इस्तेमाल करने के लिए अपने पीसी को विंडोज 11 में अपग्रेड करें।</value>
   </data>
   <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
-    <value>You are running Windows 10</value>
+    <value>आप विंडोज़ 10 चला रहे हैं</value>
   </data>
   <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
-    <value>All settings should be available.</value>
+    <value>सभी सेटिंग्स उपलब्ध होने चाहिए।</value>
   </data>
   <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
-    <value>You are running Windows 11</value>
+    <value>आप विंडोज़ 11 चला रहे हैं</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>App settings</value>
+    <value>ऐप सेटिंग्स</value>
   </data>
   <data name="ViewColors" xml:space="preserve">
-    <value>View colours</value>
+    <value>रंग देखें</value>
   </data>
   <data name="ViewFiles" xml:space="preserve">
-    <value>View files</value>
+    <value>फ़ाइलें देखें</value>
   </data>
   <data name="WindowsColors" xml:space="preserve">
-    <value>Windows colours</value>
+    <value>विंडोज़ रंग</value>
   </data>
 </root>

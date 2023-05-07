@@ -3,25 +3,25 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
             <TextBlock
-                Text="{markup:ResourceHelper Name=/Settings/AboutExtrasH}"
-                Margin="0,-10,0,0"
-                Style="{StaticResource SubheaderTextBlockStyle}" />
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/AboutWallsTitle}"
+                Margin="0,-8,0,0"
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                Text="{markup:ResourceHelper Name=/Settings/AboutExtrasH}" />
+            <labs:SettingsCard
                 Click="ExpanderControl_Click"
                 Description="{markup:ResourceHelper Name=/Settings/AboutWallsDesc}"
-                ExpanderStyle="Button"
-                Icon="&#xE8B9;">
-                <FontIcon Glyph="&#xE00F;" />
-            </uc:ExpanderControl>
+                Header="{markup:ResourceHelper Name=/Settings/AboutWallsTitle}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE8B9;}"
+                IsClickEnabled="True" />
         </StackPanel>
     </ScrollViewer>
 </Page>

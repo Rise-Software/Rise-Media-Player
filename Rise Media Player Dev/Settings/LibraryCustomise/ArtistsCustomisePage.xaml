@@ -9,7 +9,7 @@
 
     <Grid>
         <StackPanel>
-            <Border Style="{StaticResource SettingsCard}">
+            <Border Style="{StaticResource BorderCardStyle}">
                 <StackPanel Orientation="Horizontal">
                     <Image MaxHeight="64" Source="ms-appx:///Assets/Settings/LibraryCustomise/widgettoptrackpreview.png" />
                     <StackPanel Orientation="Vertical">

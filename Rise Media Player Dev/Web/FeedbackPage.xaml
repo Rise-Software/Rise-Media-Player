@@ -4,65 +4,52 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Web"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <Grid>
-
-
-        <Border
-            x:Name="AppTitleBar"
+        <skuc:TitleBar
+            x:Name="TitleBar"
+            Title="{markup:ResourceHelper Name=Feedback}"
             Height="32"
-            Margin="16,0,0,0"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            IsHitTestVisible="True">
-            <StackPanel Orientation="Horizontal">
-                <FontIcon
-                    Width="16"
-                    Height="16"
-                    FontSize="16"
-                    Glyph="&#xED15;" />
-                <TextBlock
-                    x:Name="AppTitle"
-                    Width="60"
-                    Margin="12,0,0,0"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{markup:ResourceHelper Name=Feedback}" />
-            </StackPanel>
-        </Border>
+            VerticalAlignment="Top">
+            <skuc:TitleBar.Icon>
+                <FontIcon Glyph="&#xED15;" />
+            </skuc:TitleBar.Icon>
+        </skuc:TitleBar>
 
         <Button
             Width="32"
             Height="28"
             Margin="98,2,0,0"
+            Padding="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            IsEnabled="true"
-            Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+            Style="{StaticResource TransparentButtonStyle}">
             <Button.Content>
                 <FontIcon FontSize="12" Glyph="&#xE011;" />
             </Button.Content>
+
             <Button.Flyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem Text="GitHub Issues Window">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE8D1;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
                     <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="{markup:ResourceHelper Name=OpenInBrowser}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE12B;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
+
                     <MenuFlyoutSeparator />
-                    <MenuFlyoutItem Text="New design (WIP)">
+
+                    <MenuFlyoutItem IsEnabled="False" Text="GitHub Issues Window">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE8D1;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem IsEnabled="False" Text="New design (WIP)">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xF4A5;" />
                         </MenuFlyoutItem.Icon>
@@ -71,10 +58,6 @@
             </Button.Flyout>
         </Button>
 
-        <muxc:ProgressRing
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            IsActive="True" />
         <control:WebView2
             x:Name="wv2"
             Margin="0,32,0,0"

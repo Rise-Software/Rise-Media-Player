@@ -3,9 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="700"
     d:Width="500"
@@ -20,6 +22,12 @@
             d:Padding="0"
             Orientation="Vertical"
             Spacing="4">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
                     <Button
@@ -40,12 +48,12 @@
             </uc:AdaptiveItemPane>
 
             <Border
-                Margin="0,15,0,0"
+                Margin="0,16,0,0"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="6"
                 Opacity="1"
-                Style="{StaticResource SettingsCard}">
+                Style="{StaticResource BorderCardStyle}">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Padding="0,50,0,20">
                         <Image
@@ -79,31 +87,30 @@
 
             <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=QuickH}" />
 
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=AddRemoveTitle}"
+            <labs:SettingsCard
                 Click="FoldersButton_Click"
                 Description="{markup:ResourceHelper Name=AddRemoveDesc}"
-                ExpanderStyle="Button"
-                Icon="&#xE19C;" />
-            <uc:ExpanderControl
-                x:Name="BrowseMedia"
-                Title="{markup:ResourceHelper Name=BrowseMediaTitle}"
+                Header="{markup:ResourceHelper Name=AddRemoveTitle}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE19C;}"
+                IsClickEnabled="True" />
+            <labs:SettingsCard
                 Click="BrowseMedia_Click"
                 Description="{markup:ResourceHelper Name=BrowseMediaDesc}"
-                ExpanderStyle="Button"
-                Icon="&#xE838;" />
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=SupportDevTitle}"
+                Header="{markup:ResourceHelper Name=BrowseMediaTitle}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE838;}"
+                IsClickEnabled="True" />
+            <labs:SettingsCard
                 Click="SupportButton_Click"
                 Description="{markup:ResourceHelper Name=SupportDevDesc}"
-                ExpanderStyle="Button"
-                Icon="&#xE822;" />
-            <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=WhatsNewTitle}"
+                Header="{markup:ResourceHelper Name=SupportDevTitle}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xE822;}"
+                IsClickEnabled="True" />
+            <labs:SettingsCard
                 Click="WhatsNew_Click"
                 Description="{markup:ResourceHelper Name=WhatsNewDesc}"
-                ExpanderStyle="Button"
-                Icon="&#xF4A5;" />
+                Header="{markup:ResourceHelper Name=WhatsNewTitle}"
+                HeaderIcon="{ui:FontIcon Glyph=&#xF4A5;}"
+                IsClickEnabled="True" />
         </StackPanel>
     </ScrollViewer>
 </Page>

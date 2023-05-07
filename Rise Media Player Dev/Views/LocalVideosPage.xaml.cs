@@ -3,6 +3,7 @@ using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using Rise.Data.ViewModels;
 using System;
 using Windows.UI.Xaml;
@@ -21,11 +22,28 @@ namespace Rise.App.Views
         }
 
         public LocalVideosPage()
-            : base("Title", App.MViewModel.Videos, App.MViewModel.Playlists)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            var (del, direction, alphabetical) = GetSavedSortPreferences("Videos");
+            if (!string.IsNullOrEmpty(del))
+                CreateViewModel(del, direction, alphabetical, App.MViewModel.Videos);
+            else
+                CreateViewModel("VideoTitle", SortDirection.Ascending, false, App.MViewModel.Videos);
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            SaveSortingPreferences("Videos");
         }
     }
 

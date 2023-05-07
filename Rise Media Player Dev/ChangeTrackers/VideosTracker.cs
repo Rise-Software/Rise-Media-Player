@@ -13,7 +13,7 @@ using Rise.Data.ViewModels;
 
 namespace Rise.App.ChangeTrackers
 {
-    public class VideosTracker
+    public sealed class VideosTracker
     {
         /// <summary>
         /// Gets the app-wide MViewModel instance.
