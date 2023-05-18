@@ -41,8 +41,8 @@ namespace Rise.App.Views
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            _ = ApplyVisualizer(SViewModel.VisualizerType);
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            _ = ApplyVisualizer(SViewModel.VisualizerType);
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)

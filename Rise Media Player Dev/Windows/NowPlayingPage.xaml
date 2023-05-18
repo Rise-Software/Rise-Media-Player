@@ -151,6 +151,12 @@
                                 HorizontalAlignment="Center"
                                 x:DefaultBindMode="OneWay"
                                 ColumnSpacing="12">
+                                <Grid.Transitions>
+                                    <TransitionCollection>
+                                        <RepositionThemeTransition IsStaggeringEnabled="False" />
+                                    </TransitionCollection>
+                                </Grid.Transitions>
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition x:Name="ThumbnailColumn" Width="120" />
                                     <ColumnDefinition Width="Auto" />
@@ -163,6 +169,12 @@
                                     BorderBrush="{ThemeResource ControlElevationBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
+                                    <Border.Transitions>
+                                        <TransitionCollection>
+                                            <RepositionThemeTransition IsStaggeringEnabled="True" />
+                                        </TransitionCollection>
+                                    </Border.Transitions>
+                                    
                                     <ui:Effects.Shadow>
                                         <media:AttachedCardShadow
                                             BlurRadius="8"
@@ -212,6 +224,11 @@
                                 Width="292"
                                 Margin="0,48,24,12"
                                 Canvas.ZIndex="1">
+                                <Border.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition />
+                                    </TransitionCollection>
+                                </Border.Transitions>
                                 <ui:Effects.Shadow>
                                     <media:AttachedCardShadow
                                         BlurRadius="64"
