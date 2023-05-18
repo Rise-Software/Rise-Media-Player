@@ -67,7 +67,8 @@ namespace Rise.App.Views
 
         private void LyricItem_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
         {
-            MPViewModel.Player.PlaybackSession.Position = ((SyncedLyricItem)((LyricItem)sender).DataContext).TimeSpan;
+            var syncedLyricItem = (SyncedLyricItem)((LyricItem)sender).DataContext;
+            MPViewModel.Player.PlaybackSession.Position = syncedLyricItem.TimeSpan + TimeSpan.FromMilliseconds(150);
         }
     }
 
@@ -84,6 +85,7 @@ namespace Rise.App.Views
         private void ToggleFullScreen()
         {
             var view = ApplicationView.GetForCurrentView();
+
             if (view.IsFullScreenMode)
                 view.ExitFullScreenMode();
             else
@@ -92,13 +94,13 @@ namespace Rise.App.Views
 
         private async void OnLyricsListLoaded(object sender, RoutedEventArgs e)
         {
-            if (SViewModel.FetchOnlineData)
-            {
-                await FetchLyricsForCurrentItemAsync();
+            if (!SViewModel.FetchOnlineData)
+                return;
 
-                MPViewModel.Player.SeekCompleted += Player_SeekCompleted;
-                MPViewModel.Player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
-            }
+            await FetchLyricsForCurrentItemAsync();
+
+            MPViewModel.Player.SeekCompleted += Player_SeekCompleted;
+            MPViewModel.Player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
         }
 
         private void OnExitButtonClick(object sender, RoutedEventArgs e)
