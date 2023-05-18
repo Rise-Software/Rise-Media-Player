@@ -174,7 +174,7 @@
                                             <RepositionThemeTransition IsStaggeringEnabled="True" />
                                         </TransitionCollection>
                                     </Border.Transitions>
-                                    
+
                                     <ui:Effects.Shadow>
                                         <media:AttachedCardShadow
                                             BlurRadius="8"
@@ -258,7 +258,11 @@
 
                                         <ListView.ItemTemplate>
                                             <DataTemplate x:DataType="models:SyncedLyricItem">
-                                                <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
+                                                <uc:LyricItem
+                                                    DoubleTapped="LyricItem_DoubleTapped"
+                                                    IsDoubleTapEnabled="True"
+                                                    IsSelected="{x:Bind IsSelected, Mode=OneWay}"
+                                                    Text="{x:Bind Text}" />
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
 

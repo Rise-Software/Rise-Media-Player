@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.Helpers;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Threading;
@@ -62,6 +63,11 @@ namespace Rise.App.Views
         {
             if (FullScreenRequested)
                 ApplicationView.GetForCurrentView().ExitFullScreenMode();
+        }
+
+        private void LyricItem_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            MPViewModel.Player.PlaybackSession.Position = ((SyncedLyricItem)((LyricItem)sender).DataContext).TimeSpan;
         }
     }
 
