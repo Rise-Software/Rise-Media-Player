@@ -1,13 +1,9 @@
-﻿using Rise.Common.Constants;
-using Rise.Common.Extensions.Markup;
+﻿using Rise.Common.Extensions.Markup;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
-using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
@@ -107,33 +103,6 @@ namespace Rise.App.ViewModels
                     OnPropertyChanged();
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets the album's thumbnail as a stream using the provided size.
-        /// If unable to get the thumbnail, the default image will be used.
-        /// </summary>
-        /// <returns>A task that contains the random access stream.</returns>
-        public async Task<IRandomAccessStream> GetThumbnailAsync(ThumbnailMode mode, uint size)
-        {
-            if (Thumbnail != URIs.AlbumThumb)
-            {
-                try
-                {
-                    var file = await StorageFile.GetFileFromPathAsync(Thumbnail);
-                    var thumb = await file.GetThumbnailAsync(mode, size);
-
-                    if (thumb?.Type == ThumbnailType.Image)
-                        return thumb;
-
-                    thumb?.Dispose();
-                }
-                catch (Exception) { }
-            }
-
-            // Use the default album thumbnail if the above fails
-            var defaultFile = await StorageFile.GetFileFromApplicationUriAsync(new(URIs.AlbumThumb));
-            return await defaultFile.OpenAsync(FileAccessMode.Read);
         }
 
         /// <summary>

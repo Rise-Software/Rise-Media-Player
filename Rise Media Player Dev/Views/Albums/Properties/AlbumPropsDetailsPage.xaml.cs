@@ -45,20 +45,18 @@ namespace Rise.App.Views.Albums.Properties
             }
         }
 
-        private async void exportAlbumArt_Click(object sender, RoutedEventArgs e)
+        private async void ExportAlbumArt_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(Album.Thumbnail));
-
-            FileSavePicker fileSavePicker = new()
+            var picFile = await StorageFile.GetFileFromApplicationUriAsync(new(Album.Thumbnail));
+            FileSavePicker savePicker = new()
             {
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
 
-            fileSavePicker.FileTypeChoices.Add("PNG Image", new string[] { ".png" });
-            fileSavePicker.FileTypeChoices.Add("JPEG Image", new string[] { ".jpg" });
+            savePicker.FileTypeChoices.Add("PNG Image", new string[] { ".png" });
+            savePicker.FileTypeChoices.Add("JPEG Image", new string[] { ".jpg" });
 
-            StorageFile file = await fileSavePicker.PickSaveFileAsync();
-
+            var file = await savePicker.PickSaveFileAsync();
             if (file != null)
                 await picFile.CopyAndReplaceAsync(file);
         }

@@ -306,7 +306,7 @@ namespace Rise.App.ViewModels
                 if (song.Thumbnail == URIs.MusicThumb)
                     album.Thumbnail = URIs.AlbumThumb;
                 else
-                    album.Thumbnail = song.Location;
+                    album.Thumbnail = song.Thumbnail;
 
                 tasks.Add(album.SaveAsync(queue));
             }
@@ -327,7 +327,7 @@ namespace Rise.App.ViewModels
                     if (album.Thumbnail == URIs.AlbumThumb &&
                         song.Thumbnail != URIs.MusicThumb)
                     {
-                        album.Thumbnail = song.Location;
+                        album.Thumbnail = song.Thumbnail;
                         save = true;
                     }
 

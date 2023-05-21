@@ -71,8 +71,8 @@
                             <muxc:SplitButton.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
                                     <MenuFlyoutItem
-                                        Name="exportAlbumArt"
-                                        Click="exportAlbumArt_Click"
+                                        x:Name="ExportAlbumArt"
+                                        Click="ExportAlbumArt_Click"
                                         Text="{markup:ResourceHelper Name=ExportAlbumArt}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xE159;" />

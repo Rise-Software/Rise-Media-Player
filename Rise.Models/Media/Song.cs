@@ -114,7 +114,7 @@ namespace Rise.Models
             string filename = albumTitle.AsValidFileName();
             if (await ThumbnailFolder.TryGetItemAsync($@"{filename}.png") == null)
             {
-                using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 64);
+                using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
                 if (await thumbnail.SaveToFileAsync($@"{filename}.png", ThumbnailFolder))
                     thumb = $@"ms-appdata:///local/{filename}.png";
             }

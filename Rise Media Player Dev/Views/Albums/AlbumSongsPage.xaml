@@ -18,8 +18,6 @@
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
-        <conv:AlbumArtConverter x:Key="AlbumToArt" />
-
         <conv:BooleanToVisibility x:Key="BoolToVis" />
         <conv:NullToBoolean x:Key="NullToBool" />
     </uc:MediaPageBase.Resources>
@@ -139,7 +137,11 @@
                         BorderThickness="1"
                         CornerRadius="8">
                         <Border.Background>
-                            <ImageBrush ImageSource="{x:Bind SelectedAlbum, Converter={StaticResource AlbumToArt}, ConverterParameter=172}" Stretch="UniformToFill" />
+                            <ImageBrush>
+                                <ImageBrush.ImageSource>
+                                    <BitmapImage UriSource="{x:Bind SelectedAlbum.Thumbnail}" />
+                                </ImageBrush.ImageSource>
+                            </ImageBrush>
                         </Border.Background>
                     </Border>
 

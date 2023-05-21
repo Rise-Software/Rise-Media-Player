@@ -40,7 +40,6 @@ namespace Rise.App.Views
 
         private bool MoreAlbumsExpanded;
 
-        private IRandomAccessStream _strm;
         private CompositionPropertySet _propSet;
         private SpriteVisual _backgroundVisual;
 
@@ -56,11 +55,9 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
-        private async void OnMainListLoaded(object sender, RoutedEventArgs e)
+        private void OnMainListLoaded(object sender, RoutedEventArgs e)
         {
-            _strm = await SelectedAlbum.GetThumbnailAsync(ThumbnailMode.MusicView, 500);
-
-            var surface = LoadedImageSurface.StartLoadFromStream(_strm);
+            var surface = LoadedImageSurface.StartLoadFromUri(new(SelectedAlbum.Thumbnail));
             (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
         }
 
@@ -112,7 +109,6 @@ namespace Rise.App.Views
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             AlbumsByArtist.Dispose();
-            _strm.Dispose();
         }
     }
 
