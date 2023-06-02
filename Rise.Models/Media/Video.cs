@@ -51,10 +51,10 @@ namespace Rise.Models
             = ApplicationData.Current.LocalFolder;
 
         /// <summary>
-        /// Creates a <see cref="Video"/> based on a <see cref="StorageFile"/>.
+        /// Creates a <see cref="Video"/> based on the provided file.
         /// </summary>
-        /// <param name="file">Video file.</param>
-        /// <returns>A video based on the file.</returns>
+        /// <returns>A task that, when complete, returns a new video based on
+        /// the file's properties.</returns>
         public static async Task<Video> GetFromFileAsync(StorageFile file)
         {
             // Put the value into memory to make sure that the system
@@ -67,7 +67,7 @@ namespace Rise.Models
                 ? string.Join(";", videoProperties.Directors) : "UnknownArtistResource";
 
             string filename = title.AsValidFileName();
-            string thumb = URIs.AlbumThumb;
+            string thumb = URIs.VideoThumb;
 
             if (await ThumbnailFolder.TryGetItemAsync($@"{filename}.png") == null)
             {
@@ -85,7 +85,7 @@ namespace Rise.Models
                 Year = videoProperties.Year,
                 Location = file.Path,
                 Rating = videoProperties.Rating,
-                IsLocal = file.Provider.Id == "computer"
+                IsLocal = file.IsAvailable
             };
         }
     }

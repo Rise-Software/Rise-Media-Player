@@ -132,7 +132,7 @@ namespace Rise.Common.Extensions
             if (thumb?.Type == ThumbnailType.Image)
                 props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
             else
-                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
+                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.VideoThumb));
 
             media.ApplyDisplayProperties(props);
             return media;

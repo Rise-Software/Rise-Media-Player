@@ -274,7 +274,7 @@ namespace Rise.App.ViewModels
         /// otherwise false.</returns>
         public async Task<bool> SaveMusicModelsAsync(StorageFile file, bool queue = false)
         {
-            var song = await Song.GetFromFileAsync(file);
+            var song = await Song.GetFromFileAsync(file, false);
 
             // Check if song exists.
             bool songExists = Songs.Any(s => s.Model.Equals(song));
@@ -300,46 +300,56 @@ namespace Rise.App.ViewModels
                     Title = song.Album,
                     Artist = albumArtist,
                     Genres = song.Genres,
+                    Thumbnail = URIs.AlbumThumb,
                     Year = song.Year
                 };
 
-                if (song.Thumbnail == URIs.MusicThumb)
-                    album.Thumbnail = URIs.AlbumThumb;
-                else
-                    album.Thumbnail = song.Thumbnail;
+                string filename = album.Model.Id.ToString();
+                var (saved, path) = await Song.TrySaveThumbnailAsync(file, filename);
+
+                song.Thumbnail = path;
+                if (saved)
+                    album.Thumbnail = path;
 
                 tasks.Add(album.SaveAsync(queue));
             }
             else
             {
-                // Update album information, in case previous songs don't have it
-                // and the album is known.
-                if (album.Model.Title != "UnknownAlbumResource")
+                // Update album information, in case previous songs didn't have it
+                bool save = false;
+
+                if (album.Model.Artist == "UnknownArtistResource" &&
+                    albumArtist != "UnknownArtistResource")
                 {
-                    bool save = false;
-                    if (album.Model.Artist == "UnknownArtistResource" &&
-                        albumArtist != "UnknownArtistResource")
-                    {
-                        album.Model.Artist = albumArtist;
-                        save = true;
-                    }
-
-                    if (album.Thumbnail == URIs.AlbumThumb &&
-                        song.Thumbnail != URIs.MusicThumb)
-                    {
-                        album.Thumbnail = song.Thumbnail;
-                        save = true;
-                    }
-
-                    if (album.Year == 0 && song.Year != 0)
-                    {
-                        album.Year = song.Year;
-                        save = true;
-                    }
-
-                    if (save)
-                        tasks.Add(album.SaveAsync(queue));
+                    album.Model.Artist = albumArtist;
+                    save = true;
                 }
+
+                if (album.Year == 0 && song.Year != 0)
+                {
+                    album.Year = song.Year;
+                    save = true;
+                }
+
+                if (album.Thumbnail != URIs.AlbumThumb)
+                {
+                    song.Thumbnail = album.Thumbnail;
+                }
+                else
+                {
+                    string filename = album.Model.Id.ToString();
+                    var (saved, path) = await Song.TrySaveThumbnailAsync(file, filename);
+
+                    song.Thumbnail = path;
+                    if (saved)
+                    {
+                        album.Thumbnail = path;
+                        save = true;
+                    }
+                }
+
+                if (save)
+                    tasks.Add(album.SaveAsync(queue));
             }
 
             // If artist isn't there already, add it to the database.
