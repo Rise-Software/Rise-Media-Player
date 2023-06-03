@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using Rise.Common.Extensions;
+﻿using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -16,7 +16,7 @@ namespace Rise.Data.Json
     /// <typeparam name="T">Type of items to store.</typeparam>
     public sealed partial class JsonBackendController<T>
     {
-        private static readonly Dictionary<string, object> _controllers = new();
+        private static readonly Dictionary<string, JsonBackendController<T>> _controllers = new();
 
         private static StorageFolder _dataFolder;
         private static readonly StorageFolder dataFolder
@@ -42,18 +42,17 @@ namespace Rise.Data.Json
             if (_controllers.ContainsKey(filename))
             {
                 var cached = _controllers[filename];
-                if (cached is JsonBackendController<T> ctrl)
-                    return ctrl;
-                throw new InvalidOperationException("The cached instance of this controller uses a different type.");
+                return cached;
             }
 
             var file = dataFolder.CreateFileAsync($"{filename}.json", CreationCollisionOption.OpenIfExists).Get();
+
             var controller = new JsonBackendController<T>(file);
+            _controllers[filename] = controller;
 
             var items = controller.GetStoredItems();
             controller.Items = new(items);
 
-            _controllers[filename] = controller;
             return controller;
         }
 
@@ -69,18 +68,17 @@ namespace Rise.Data.Json
             if (_controllers.ContainsKey(filename))
             {
                 var cached = _controllers[filename];
-                if (cached is JsonBackendController<T> ctrl)
-                    return ctrl;
-                throw new InvalidOperationException("The cached instance of this controller uses a different type.");
+                return cached;
             }
 
             var file = await dataFolder.CreateFileAsync($"{filename}.json", CreationCollisionOption.OpenIfExists);
+
             var controller = new JsonBackendController<T>(file);
+            _controllers[filename] = controller;
 
             var items = await controller.GetStoredItemsAsync();
             controller.Items = new(items);
 
-            _controllers[filename] = controller;
             return controller;
         }
     }
@@ -100,7 +98,7 @@ namespace Rise.Data.Json
         {
             var text = FileIO.ReadTextAsync(BackingFile).Get();
             if (!string.IsNullOrWhiteSpace(text))
-                return JsonConvert.DeserializeObject<IEnumerable<T>>(text);
+                return JsonSerializer.Deserialize<IEnumerable<T>>(text);
 
             return Enumerable.Empty<T>();
         }
@@ -112,7 +110,7 @@ namespace Rise.Data.Json
         {
             var text = await FileIO.ReadTextAsync(BackingFile);
             if (!string.IsNullOrWhiteSpace(text))
-                return JsonConvert.DeserializeObject<IEnumerable<T>>(text);
+                return JsonSerializer.Deserialize<IEnumerable<T>>(text);
 
             return Enumerable.Empty<T>();
         }
@@ -124,7 +122,7 @@ namespace Rise.Data.Json
         {
             Semaphore.Wait();
 
-            string json = JsonConvert.SerializeObject(Items);
+            string json = JsonSerializer.Serialize(Items);
             FileIO.WriteTextAsync(BackingFile, json).Get();
 
             _ = Semaphore.Release();
@@ -138,7 +136,7 @@ namespace Rise.Data.Json
         {
             await Semaphore.WaitAsync();
 
-            string json = JsonConvert.SerializeObject(Items);
+            string json = JsonSerializer.Serialize(Items);
             await FileIO.WriteTextAsync(BackingFile, json);
 
             _ = Semaphore.Release();
