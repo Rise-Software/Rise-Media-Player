@@ -282,11 +282,19 @@ namespace Rise.App
                 if (result == BackgroundTaskRegistrationStatus.Successful)
                 {
                     _ = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
+
+                    MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+                    VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
                     return;
                 }
             }
 
             RestartIndexingTimer();
+        }
+
+        private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
+        {
+            await MViewModel.StartFullCrawlAsync();
         }
 
         protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
