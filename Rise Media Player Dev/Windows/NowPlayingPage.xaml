@@ -323,6 +323,7 @@
                         <Setter Target="MainPlayer.Margin" Value="0" />
 
                         <Setter Target="PlayerControls.IsCompact" Value="True" />
+                        <Setter Target="PlayerControls.IsLyricsButtonVisible" Value="False" />
                         <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
                         <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
                         <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />

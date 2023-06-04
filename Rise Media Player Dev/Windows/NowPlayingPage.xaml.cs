@@ -64,12 +64,6 @@ namespace Rise.App.Views
             if (FullScreenRequested)
                 ApplicationView.GetForCurrentView().ExitFullScreenMode();
         }
-
-        private void LyricItem_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
-        {
-            var syncedLyricItem = (SyncedLyricItem)((LyricItem)sender).DataContext;
-            MPViewModel.Player.PlaybackSession.Position = syncedLyricItem.TimeSpan + TimeSpan.FromMilliseconds(150);
-        }
     }
 
     // Event handlers
@@ -127,6 +121,12 @@ namespace Rise.App.Views
     // Lyrics
     public sealed partial class NowPlayingPage
     {
+        private void LyricItem_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            var syncedLyricItem = (SyncedLyricItem)((LyricItem)sender).DataContext;
+            MPViewModel.Player.PlaybackSession.Position = syncedLyricItem.TimeSpan + TimeSpan.FromMilliseconds(150);
+        }
+
         private async void Player_SeekCompleted(MediaPlayer sender, object args)
             => await UpdateCurrentLyricAsync(sender.PlaybackSession.Position);
 
