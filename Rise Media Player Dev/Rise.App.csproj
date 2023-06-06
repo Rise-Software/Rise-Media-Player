@@ -150,6 +150,9 @@
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\MusixmatchTokenDialog.xaml.cs">
+      <DependentUpon>MusixmatchTokenDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SetupDialogContent.xaml.cs">
       <DependentUpon>SetupDialogContent.xaml</DependentUpon>
     </Compile>
@@ -692,6 +695,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\MessagesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\MusixmatchTokenDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

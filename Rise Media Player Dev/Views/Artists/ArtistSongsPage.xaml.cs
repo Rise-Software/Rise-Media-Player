@@ -89,7 +89,7 @@ namespace Rise.App.Views
             ArtistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
 
             string name = SelectedArtist.Name;
-            if (!SViewModel.FetchOnlineData ||
+            if (!SViewModel.FetchArtistPictures ||
                 !WebHelpers.IsInternetAccessAvailable() ||
                 name == ResourceHelper.GetString("UnknownArtistResource"))
             {

@@ -1,5 +1,5 @@
-﻿using System;
-using Rise.Models;
+﻿using Rise.Models;
+using System;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 
@@ -12,7 +12,7 @@ namespace Rise.App.Helpers
             using HttpClient httpClient = new();
 
             HttpResponseMessage httpResponse = new();
-            
+
             string httpResponseBody = null;
 
             try
@@ -25,13 +25,13 @@ namespace Rise.App.Helpers
             {
                 httpResponseBody = null;
             }
-            
+
             return httpResponseBody;
         }
-        
+
         public static async Task<MusixmatchLyrics> GetLyricsAsync(string trackName, string artistName, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {

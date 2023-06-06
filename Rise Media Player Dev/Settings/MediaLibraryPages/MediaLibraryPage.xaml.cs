@@ -1,5 +1,7 @@
-﻿using Rise.App.ViewModels;
+﻿using Rise.App.Dialogs;
+using Rise.App.ViewModels;
 using Rise.Common.Extensions.Markup;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,6 +28,11 @@ namespace Rise.App.Settings
             AllSettingsPage.Current.MainSettingsHeader.Text = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle");
             AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
             AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
+        }
+
+        private async void SetupLyrics_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await new MusixmatchTokenDialog().ShowAsync();
         }
     }
 }

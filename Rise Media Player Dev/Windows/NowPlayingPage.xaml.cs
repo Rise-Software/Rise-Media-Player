@@ -88,7 +88,7 @@ namespace Rise.App.Views
 
         private async void OnLyricsListLoaded(object sender, RoutedEventArgs e)
         {
-            if (!SViewModel.FetchOnlineData)
+            if (string.IsNullOrWhiteSpace(SViewModel.MusixmatchLyricsToken))
             {
                 _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
                 return;
@@ -110,7 +110,7 @@ namespace Rise.App.Views
         {
             await Dispatcher;
 
-            if (SViewModel.FetchOnlineData)
+            if (!string.IsNullOrWhiteSpace(SViewModel.MusixmatchLyricsToken))
                 await FetchLyricsForCurrentItemAsync();
         }
 

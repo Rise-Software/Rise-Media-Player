@@ -199,7 +199,7 @@ namespace Rise.App.ViewModels
             await Repository.UpsertQueuedAsync();
             await Repository.DeleteQueuedAsync();
 
-            if (App.SViewModel.FetchOnlineData)
+            if (App.SViewModel.FetchArtistPictures)
             {
                 MetadataFetchingStarted?.Invoke(this, EventArgs.Empty);
                 await FetchArtistsArtAsync(token);
