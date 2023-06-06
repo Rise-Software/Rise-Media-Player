@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 namespace Rise.Common.Constants
 {
-    public sealed class SupportedFileTypes
+    public static class SupportedFileTypes
     {
         public static readonly string[] MusicFiles = new string[]
         {
@@ -22,16 +22,6 @@ namespace Rise.Common.Constants
         private static string[] mediaFiles;
 
         public static string[] MediaFiles
-        {
-            get
-            {
-                var list = new List<string>();
-
-                list.AddRange(MusicFiles);
-                list.AddRange(VideoFiles);
-
-                return mediaFiles ??= list.ToArray();
-            }
-        }
+            => mediaFiles ??= MusicFiles.Concat(VideoFiles).ToArray();
     }
 }
