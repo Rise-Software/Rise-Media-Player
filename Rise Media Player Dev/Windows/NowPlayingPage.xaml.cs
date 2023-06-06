@@ -89,7 +89,10 @@ namespace Rise.App.Views
         private async void OnLyricsListLoaded(object sender, RoutedEventArgs e)
         {
             if (!SViewModel.FetchOnlineData)
+            {
+                _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
                 return;
+            }
 
             await FetchLyricsForCurrentItemAsync();
 

@@ -118,6 +118,7 @@
                     IsEqualizerButtonEnabled="True"
                     IsEqualizerButtonVisible="True"
                     IsFullWindowButtonVisible="True"
+                    IsLyricsButtonVisible="True"
                     IsLyricsEnabled="True"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
@@ -288,6 +289,7 @@
                 <VisualState x:Name="LyricsUnavailableState">
                     <VisualState.Setters>
                         <Setter Target="PlayerControls.IsLyricsButtonChecked" Value="False" />
+                        <Setter Target="PlayerControls.IsLyricsButtonVisible" Value="False" />
                         <Setter Target="PlayerControls.IsLyricsEnabled" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
@@ -323,7 +325,6 @@
                         <Setter Target="MainPlayer.Margin" Value="0" />
 
                         <Setter Target="PlayerControls.IsCompact" Value="True" />
-                        <Setter Target="PlayerControls.IsLyricsButtonVisible" Value="False" />
                         <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
                         <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
                         <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
