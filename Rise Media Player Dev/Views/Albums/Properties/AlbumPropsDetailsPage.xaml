@@ -34,12 +34,12 @@
 
                     <Border CornerRadius="5">
                         <Image
-                            x:Name="imgAlbum"
+                            x:Name="AlbumThumb"
                             Width="96"
                             Height="96"
                             Stretch="UniformToFill">
                             <Image.Source>
-                                <BitmapImage UriSource="{x:Bind Album.Thumbnail}" />
+                                <BitmapImage UriSource="{x:Bind Album.Thumbnail, Mode=OneWay}" />
                             </Image.Source>
                         </Image>
                     </Border>

@@ -3,11 +3,9 @@ using Rise.Common.Extensions;
 using Rise.Models;
 using System;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -43,7 +41,7 @@ namespace Rise.App.Views
 
         private async void EditArtButton_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
         {
-            var picker = new FileOpenPicker
+            FileOpenPicker picker = new()
             {
                 ViewMode = PickerViewMode.Thumbnail,
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
@@ -53,28 +51,27 @@ namespace Rise.App.Views
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            StorageFile file = await picker.PickSingleFileAsync();
-
+            var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                //TODO: Actually implement thumbnails
+                var (saved, path) = await Song.TrySaveThumbnailAsync(file, Props.Album.AsValidFileName());
+                if (saved)
+                    Props.Thumbnail = path;
             }
         }
 
-        private async void exportAlbumArt_Click(object sender, RoutedEventArgs e)
+        private async void ExportAlbumArt_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(Props.Thumbnail));
-
-            FileSavePicker fileSavePicker = new()
+            var picFile = await StorageFile.GetFileFromApplicationUriAsync(new(Props.Thumbnail));
+            FileSavePicker savePicker = new()
             {
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
 
-            fileSavePicker.FileTypeChoices.Add("PNG Image", new string[] { ".png" });
-            fileSavePicker.FileTypeChoices.Add("JPEG Image", new string[] { ".jpg" });
+            savePicker.FileTypeChoices.Add("PNG Image", new string[] { ".png" });
+            savePicker.FileTypeChoices.Add("JPEG Image", new string[] { ".jpg" });
 
-            StorageFile file = await fileSavePicker.PickSaveFileAsync();
-
+            var file = await savePicker.PickSaveFileAsync();
             if (file != null)
                 await picFile.CopyAndReplaceAsync(file);
         }

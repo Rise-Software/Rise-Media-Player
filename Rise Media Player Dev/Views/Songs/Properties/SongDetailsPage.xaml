@@ -81,12 +81,12 @@
 
                     <Border CornerRadius="5">
                         <Image
-                            x:Name="imgAlbum"
+                            x:Name="SongThumb"
                             Width="96"
                             Height="96"
                             Stretch="UniformToFill">
                             <Image.Source>
-                                <BitmapImage UriSource="{x:Bind Props.Thumbnail}" />
+                                <BitmapImage UriSource="{x:Bind Props.Thumbnail, Mode=OneWay}" />
                             </Image.Source>
                         </Image>
                     </Border>
@@ -120,8 +120,8 @@
                             <muxc:SplitButton.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
                                     <MenuFlyoutItem
-                                        Name="exportAlbumArt"
-                                        Click="exportAlbumArt_Click"
+                                        Name="ExportAlbumArt"
+                                        Click="ExportAlbumArt_Click"
                                         Text="{markup:ResourceHelper Name=ExportThumbnail}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xE159;" />

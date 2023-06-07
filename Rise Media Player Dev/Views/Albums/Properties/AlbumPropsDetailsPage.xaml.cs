@@ -1,12 +1,10 @@
 ﻿using Rise.App.ViewModels;
-using Rise.Common.Extensions;
+using Rise.Models;
 using System;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views.Albums.Properties
@@ -28,20 +26,22 @@ namespace Rise.App.Views.Albums.Properties
 
         private async void EditArtButton_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
         {
-            var picker = new FileOpenPicker
+            FileOpenPicker picker = new()
             {
                 ViewMode = PickerViewMode.Thumbnail,
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
+
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            StorageFile file = await picker.PickSingleFileAsync();
-
+            var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                //TODO: Actually implement thumbnails
+                var (saved, path) = await Song.TrySaveThumbnailAsync(file, Album.Model.Id.ToString());
+                if (saved)
+                    Album.Thumbnail = path;
             }
         }
 
