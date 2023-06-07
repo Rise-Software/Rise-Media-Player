@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="120"
     d:DesignWidth="256"
@@ -23,18 +24,15 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Border
+        <tkitctrls:ImageEx
             x:Name="AlbumThumb"
-            x:Load="{x:Bind ShowThumbnail}"
-            CornerRadius="{x:Bind ThumbnailCornerRadius}">
-            <Border.Background>
-                <ImageBrush>
-                    <ImageBrush.ImageSource>
-                        <BitmapImage UriSource="{x:Bind Album.Thumbnail}" />
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Border.Background>
-        </Border>
+            CornerRadius="{x:Bind ThumbnailCornerRadius}"
+            DecodePixelType="Logical"
+            IsCacheEnabled="True"
+            PlaceholderSource="ms-appx:///Assets/BlankAlbum.png"
+            Source="{x:Bind Album.Thumbnail}"
+            ToolTipService.ToolTip="{x:Bind Album.TitleWithArtist}"
+            Visibility="{x:Bind ShowThumbnail}" />
 
         <StackPanel
             x:Name="InfoPanel"
