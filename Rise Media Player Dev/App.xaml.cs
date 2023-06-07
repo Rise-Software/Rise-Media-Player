@@ -273,22 +273,22 @@ namespace Rise.App
         {
             if (SViewModel.IndexingFileTrackingEnabled)
             {
-                var result = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
+                _ = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
+                var result = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
 
-                // Avoid double registration
-                if (result == BackgroundTaskRegistrationStatus.AlreadyExists)
-                    return;
-
-                if (result == BackgroundTaskRegistrationStatus.Successful)
+                // If the trackers were registered successfully, we also have to
+                // track definition changes
+                if (result == BackgroundTaskRegistrationStatus.Successful ||
+                    result == BackgroundTaskRegistrationStatus.AlreadyExists)
                 {
-                    _ = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
-
                     MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
                     VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
                     return;
                 }
             }
 
+            // If file tracking is off, or the background tasks can't be
+            // registered, use the indexing timer
             RestartIndexingTimer();
         }
 
