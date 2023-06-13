@@ -143,9 +143,9 @@
                         BorderThickness="1"
                         CornerRadius="8">
                         <Border.Background>
-                            <ImageBrush Stretch="UniformToFill">
+                            <ImageBrush>
                                 <ImageBrush.ImageSource>
-                                    <BitmapImage DecodePixelType="Logical" UriSource="{x:Bind SelectedAlbum.Thumbnail, Mode=OneWay}" />
+                                    <BitmapImage UriSource="{x:Bind SelectedAlbum.Thumbnail}" />
                                 </ImageBrush.ImageSource>
                             </ImageBrush>
                         </Border.Background>

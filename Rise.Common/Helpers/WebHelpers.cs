@@ -51,7 +51,7 @@ namespace Rise.Common.Helpers
             props.Type = MediaPlaybackType.Video;
             props.VideoProperties.Title = title ?? "Online video";
             props.VideoProperties.Subtitle = subtitle ?? "UnknownArtistResource";
-            props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(thumbnail ?? URIs.MusicThumb));
+            props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(thumbnail ?? URIs.VideoThumb));
 
             media.ApplyDisplayProperties(props);
             return media;

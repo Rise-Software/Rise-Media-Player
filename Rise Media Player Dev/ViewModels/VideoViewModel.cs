@@ -233,7 +233,7 @@ namespace Rise.App.ViewModels
                 Location = item.Source.Uri.ToString(),
                 Year = (uint)item.Source.CustomProperties["Year"],
                 Length = (TimeSpan)item.Source.Duration,
-                Thumbnail = URIs.MusicThumb
+                Thumbnail = URIs.VideoThumb
             };
 
             return Task.FromResult(video);

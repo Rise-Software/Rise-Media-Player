@@ -14,6 +14,7 @@ using Rise.Common.Interfaces;
 using Rise.Data.Json;
 using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
+using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,6 +122,7 @@ namespace Rise.App.Views
         {
             IndexingTip.Visibility = Visibility.Collapsed;
             UpdateTitleBarItems(NavView);
+
             if (!_loaded)
             {
                 _loaded = true;
@@ -129,21 +131,41 @@ namespace Rise.App.Views
                 if (ContentFrame.Content == null)
                     ContentFrame.Navigate(Destinations[SViewModel.Open]);
 
-                // Auto indexing
-                if (SViewModel.IndexingFileTrackingEnabled)
-                    await App.InitializeChangeTrackingAsync();
+                // Change tracking
+                await App.InitializeChangeTrackingAsync();
 
-                if (SViewModel.IndexingAtStartupEnabled)
-                    await Task.Run(App.MViewModel.StartFullCrawlAsync);
+                if (SViewModel.IndexingAtStartupEnabled || SViewModel.IsFirstLaunch)
+                {
+                    SViewModel.IsFirstLaunch = false;
+
+                    await Task.Delay(300);
+                    _ = VisualStateManager.GoToState(this, "ScanningState", false);
+
+                    await Task.Run(MViewModel.StartFullCrawlAsync);
+                    return;
+                }
                 else
-                    await MViewModel.FetchArtistsArtAsync();
+                {
+                    // Only run the neccessary steps for startup - change tracking & artist image fetching.
+                    if (SViewModel.FetchArtistPictures)
+                    {
+                        await Task.Delay(300);
+
+                        _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
+                        await MViewModel.FetchArtistsArtAsync();
+                    }
+
+                    await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Both, true);
+
+                    await Repository.UpsertQueuedAsync();
+                    await Repository.DeleteQueuedAsync();
+
+                    MViewModel_IndexingFinished(null, null);
+                }
             }
 
             if (MViewModel.IsScanning)
-            {
-                await Task.Delay(60);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
-            }
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
