@@ -27,10 +27,13 @@
             <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:IntToVisibility x:Key="IntToVis" />
+
+            <Thickness x:Key="TitleBarIconMargin">48,0,0,0</Thickness>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid x:Name="RootGrid">
+        <!--  Background area  -->
         <Grid.Background>
             <ImageBrush
                 x:Name="ThumbnailBrush"
@@ -59,22 +62,18 @@
             </Border.Background>
         </Border>
 
-        <skuc:ExtendedTitleBar
+        <!--  Title area  -->
+        <skuc:TitleBar
             x:Name="TitleBar"
+            Title="{markup:ResourceHelper Name=NowPlaying}"
             Grid.ColumnSpan="2"
             Height="36"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            Canvas.ZIndex="1">
-            <StackPanel Margin="48,0,0,0" Orientation="Horizontal">
-                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE768;" />
-
-                <TextBlock
-                    Margin="12,0,0,0"
-                    VerticalAlignment="Center"
-                    Text="{markup:ResourceHelper Name=NowPlaying}" />
-            </StackPanel>
-        </skuc:ExtendedTitleBar>
+            Background="{StaticResource GradientBlackToTransparentBrush}"
+            Canvas.ZIndex="1"
+            Icon="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily},
+                               Glyph=&#xE768;}" />
 
         <Button
             Height="28"
@@ -97,6 +96,7 @@
             </muxc:AnimatedIcon>
         </Button>
 
+        <!--  Player area  -->
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
             Grid.ColumnSpan="2"
