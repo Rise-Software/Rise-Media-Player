@@ -142,7 +142,7 @@ namespace Rise.Data.ViewModels
             try
             {
                 PasswordVault vault = new();
-                var credentials = vault.FindAllByResource(resource);
+                var credentials = vault.RetrieveAll().Where(p => p.Resource == resource);
 
                 foreach (var credential in credentials)
                 {
@@ -151,8 +151,8 @@ namespace Rise.Data.ViewModels
                     _sessionKey = credential.Password;
                 }
 
-                Authenticated = true;
-                return true;
+                Authenticated = !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(_sessionKey);
+                return Authenticated;
             }
             catch (Exception)
             {
