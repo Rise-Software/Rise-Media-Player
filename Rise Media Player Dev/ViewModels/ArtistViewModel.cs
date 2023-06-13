@@ -99,54 +99,6 @@ namespace Rise.App.ViewModels
                 await NewRepository.Repository.UpsertAsync(Model);
             }
         }
-
-        /// <summary>
-        /// Deletes item data from the backend.
-        /// </summary>
-        public async Task DeleteAsync(bool queue)
-        {
-            if (App.MViewModel.Artists.Contains(this))
-            {
-                App.MViewModel.Artists.Remove(this);
-
-                if (queue)
-                    NewRepository.Repository.QueueRemove(Model);
-                else
-                    await NewRepository.Repository.DeleteAsync(Model);
-            }
-        }
-
-        /// <summary>
-        /// Checks whether or not the item is available. If it's not,
-        /// delete it.
-        /// </summary>
-        public async Task CheckAvailabilityAsync(bool queue)
-        {
-            var songCount = (await NewRepository.Repository.GetItemsAsync<Song>()).Count(s => s.Artist == Model.Name);
-            var albumCount = (await NewRepository.Repository.GetItemsAsync<Album>()).Count(a => a.Artist == Model.Name);
-
-            if (songCount == 0 && albumCount == 0)
-                await DeleteAsync(queue);
-        }
-        #endregion
-
-        #region Editing
-        /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        /*public async Task StartEditAsync()
-        {
-            _ = await typeof(PropertiesPage).
-                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
-        }*/
-
-        /// <summary>
-        /// Discards any edits that have been made, restoring the original values.
-        /// </summary>
-        public async Task CancelEditsAsync()
-        {
-            Model = await NewRepository.Repository.GetItemAsync<Artist>(Model.Id);
-        }
         #endregion
     }
 }

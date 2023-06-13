@@ -201,13 +201,13 @@ namespace Rise.App.ViewModels
 
         public bool IndexingAtStartupEnabled
         {
-            get => Get(true, "MediaLibrary");
+            get => Get(false, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 
         public bool IndexingFileTrackingEnabled
         {
-            get => Get(false, "MediaLibrary");
+            get => Get(true, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 
@@ -394,6 +394,12 @@ namespace Rise.App.ViewModels
         {
             get => Get(0);
             set => Set(value);
+        }
+
+        public bool IsFirstLaunch
+        {
+            get => Get(true, "Setup");
+            set => Set(value, "Setup");
         }
         #endregion
 

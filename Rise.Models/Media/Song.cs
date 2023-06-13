@@ -62,12 +62,18 @@ namespace Rise.Models
     // Constructors/Factory methods
     public partial class Song
     {
+        private static readonly StorageFolder ThumbnailFolder
+            = ApplicationData.Current.LocalFolder;
+
         /// <summary>
-        /// Creates a <see cref="Song"/> based on a <see cref="StorageFile"/>.
+        /// Creates a <see cref="Song"/> based on the provided file.
         /// </summary>
-        /// <param name="file">Song file.</param>
-        /// <returns>A song based on the file.</returns>
-        public static async Task<Song> GetFromFileAsync(StorageFile file)
+        /// <param name="saveThumbnail">Whether to save the song's thumbnail. If
+        /// true, the song's thumbnail will be fetched and saved to the app's
+        /// local folder. Otherwise, the default thumbnail will be used.</param>
+        /// <returns>A task that, when complete, returns a new song based on
+        /// the file's properties.</returns>
+        public static async Task<Song> GetFromFileAsync(StorageFile file, bool saveThumbnail = true)
         {
             // Put the value into memory to make sure that the system
             // really fetches the properties
@@ -108,11 +114,12 @@ namespace Rise.Models
             string albumTitle = musicProperties.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
             string thumb = URIs.MusicThumb;
 
-            using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-            string filename = albumTitle.AsValidFileName();
-
-            if (await thumbnail.SaveToFileAsync($@"{filename}.png"))
-                thumb = $@"ms-appdata:///local/{filename}.png";
+            if (saveThumbnail)
+            {
+                string filename = albumTitle.AsValidFileName();
+                var (_, path) = await TrySaveThumbnailAsync(file, filename);
+                thumb = path;
+            }
 
             return new Song
             {
@@ -129,8 +136,28 @@ namespace Rise.Models
                 Location = file.Path,
                 Rating = musicProperties.Rating,
                 Bitrate = musicProperties.Bitrate,
-                IsLocal = file.Provider.Id == "computer"
+                IsLocal = file.IsAvailable
             };
+        }
+
+        /// <summary>
+        /// Attempts to save the provided file's thumbnail, using the preferences
+        /// suited for song display.
+        /// </summary>
+        /// <returns>When the task completes, it returns tuple with a boolean that
+        /// indicates whether the thumbnail could be saved, and a string with the
+        /// thumbnail's file path. If the boolean is false, the string will hold
+        /// an URI to the default thumbnail for songs.</returns>
+        public static async Task<(bool, string)> TrySaveThumbnailAsync(StorageFile file, string filename)
+        {
+            if (await ThumbnailFolder.TryGetItemAsync($@"{filename}.png") == null)
+            {
+                using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
+                if (!await thumbnail.SaveToFileAsync($@"{filename}.png", ThumbnailFolder))
+                    return (false, URIs.MusicThumb);
+            }
+
+            return (true, $@"ms-appdata:///local/{filename}.png");
         }
     }
 

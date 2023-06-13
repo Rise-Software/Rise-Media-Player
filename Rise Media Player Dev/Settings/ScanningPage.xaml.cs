@@ -56,7 +56,7 @@ namespace Rise.App.Settings
 
         private async void ManualScanButton_Click(object sender, RoutedEventArgs e)
         {
-            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+            await Task.Run(App.MViewModel.StartFullCrawlAsync);
         }
     }
 }
