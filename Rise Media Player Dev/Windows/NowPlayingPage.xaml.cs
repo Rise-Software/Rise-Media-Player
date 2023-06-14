@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Helpers;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
@@ -17,6 +19,8 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -32,6 +36,10 @@ namespace Rise.App.Views
 
         private List<SyncedLyricItem> _lyrics;
 
+        // Used to check when transport controls are hiding or showing
+        private TranslateTransform PlayerControlsTransform;
+        private DependencyPropertyWatcher<double> PlayerControlsTransformWatcher;
+
         public NowPlayingPage()
         {
             InitializeComponent();
@@ -42,8 +50,26 @@ namespace Rise.App.Views
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            MainPlayer.SetMediaPlayer(MPViewModel.Player);
             _ = ApplyVisualizer(SViewModel.VisualizerType);
+        }
+
+        private void OnMainPlayerLoaded(object sender, RoutedEventArgs e)
+        {
+            MainPlayer.SetMediaPlayer(MPViewModel.Player);
+
+            var controlGrid = MainPlayer.FindDescendant<Grid>((elm) => elm.Name == "ControlPanelGrid");
+            if (controlGrid != null)
+            {
+                PlayerControlsTransform = (TranslateTransform)controlGrid.RenderTransform;
+
+                PlayerControlsTransformWatcher = new(PlayerControlsTransform, "Y");
+                PlayerControlsTransformWatcher.PropertyChanged += OnPlayerControlsTransformChanged;
+            }
+        }
+
+        private void OnPlayerControlsTransformChanged(object sender, EventArgs e)
+        {
+            TitleAreaTranslate.Y = -PlayerControlsTransform.Y;
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -51,6 +77,8 @@ namespace Rise.App.Views
             MPViewModel.Player.SeekCompleted -= Player_SeekCompleted;
             MPViewModel.Player.PlaybackSession.PositionChanged -= PlaybackSession_PositionChanged;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
+
+            PlayerControlsTransformWatcher.Dispose();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -105,6 +133,9 @@ namespace Rise.App.Views
             if (Frame.CanGoBack)
                 Frame.GoBack();
         }
+
+        private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
+            => PlayerControls.Show();
 
         private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
         {

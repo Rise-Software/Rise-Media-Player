@@ -252,15 +252,6 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// The position of the display item.
-        /// </summary>
-        public DisplayItemPosition DisplayItemPosition
-        {
-            get => (DisplayItemPosition)GetValue(DisplayItemPositionProperty);
-            set => SetValue(DisplayItemPositionProperty, value);
-        }
-
-        /// <summary>
         /// Gets or sets the <see cref="DisplayItem"/> visibility.
         /// </summary>
         public Visibility DisplayItemVisibility
@@ -302,10 +293,6 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty DisplayItemProperty =
             DependencyProperty.Register(nameof(DisplayItem), typeof(object),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
-        public readonly static DependencyProperty DisplayItemPositionProperty =
-            DependencyProperty.Register(nameof(DisplayItemPosition), typeof(DisplayItemPosition),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(DisplayItemPosition.Left, OnDisplayItemPositionChanged));
 
         public readonly static DependencyProperty DisplayItemVisibilityProperty =
             DependencyProperty.Register(nameof(DisplayItemVisibility), typeof(Visibility),
@@ -445,7 +432,6 @@ namespace Rise.App.UserControls
             }
 
             UpdateTimelineDisplayMode(this, TimelineDisplayMode);
-            UpdateDisplayItemPosition(this, DisplayItemPosition);
         }
     }
 
@@ -455,9 +441,6 @@ namespace Rise.App.UserControls
         private static void OnTimelineDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
             => UpdateTimelineDisplayMode((RiseMediaTransportControls)d, (SliderDisplayModes)e.NewValue);
 
-        private static void OnDisplayItemPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-            => UpdateDisplayItemPosition((RiseMediaTransportControls)d, (DisplayItemPosition)e.NewValue);
-
         private static void UpdateTimelineDisplayMode(RiseMediaTransportControls transportControls, SliderDisplayModes displayMode)
         {
             string state = displayMode switch
@@ -466,17 +449,6 @@ namespace Rise.App.UserControls
                 SliderDisplayModes.Minimal => "MinimalTimelineState",
                 SliderDisplayModes.SliderOnly => "SliderOnlyTimelineState",
                 _ => "FullTimelineState"
-            };
-
-            _ = VisualStateManager.GoToState(transportControls, state, true);
-        }
-
-        private static void UpdateDisplayItemPosition(RiseMediaTransportControls transportControls, DisplayItemPosition position)
-        {
-            string state = position switch
-            {
-                DisplayItemPosition.Top => "DisplayItemPositionTopState",
-                _ => "DisplayItemPositionLeftState"
             };
 
             _ = VisualStateManager.GoToState(transportControls, state, true);

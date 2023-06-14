@@ -134,7 +134,6 @@
     <Compile Include="Enums\AlbumViewMode.cs" />
     <Compile Include="Enums\BackgroundTaskRegistrationStatus.cs" />
     <Compile Include="Enums\ChangedLibraryType.cs" />
-    <Compile Include="Enums\DisplayItemPosition.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\GlazeTypes.cs" />
     <Compile Include="Enums\IndexingMode.cs" />

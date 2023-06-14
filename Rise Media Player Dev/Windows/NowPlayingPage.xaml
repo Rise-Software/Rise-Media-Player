@@ -19,6 +19,7 @@
     d:DesignHeight="300"
     d:DesignWidth="320"
     Loaded="OnPageLoaded"
+    PointerMoved="OnPointerMoved"
     Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
 
@@ -33,6 +34,17 @@
     </Page.Resources>
 
     <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleBarArea" Height="32" />
+            <RowDefinition x:Name="MediaDisplayArea" Height="1*" />
+            <RowDefinition x:Name="TransportControlsArea" Height="92" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MediaDataArea" Width="1*" />
+            <ColumnDefinition x:Name="SidebarArea" Width="0" />
+        </Grid.ColumnDefinitions>
+
         <!--  Background area  -->
         <Grid.Background>
             <ImageBrush
@@ -43,6 +55,7 @@
 
         <visualizers:BloomView
             x:Name="BloomVis"
+            Grid.RowSpan="3"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -50,6 +63,7 @@
             Visibility="Collapsed" />
 
         <Border
+            Grid.RowSpan="3"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
@@ -63,55 +77,61 @@
         </Border>
 
         <!--  Title area  -->
-        <skuc:TitleBar
-            x:Name="TitleBar"
-            Title="{markup:ResourceHelper Name=NowPlaying}"
+        <Grid
+            x:Name="TitleAreaGrid"
             Grid.ColumnSpan="2"
-            Height="36"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            Background="{StaticResource GradientBlackToTransparentBrush}"
-            Canvas.ZIndex="1"
-            Icon="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily},
-                               Glyph=&#xE768;}" />
+            Canvas.ZIndex="1">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="TitleAreaTranslate" />
+            </Grid.RenderTransform>
 
-        <Button
-            Height="28"
-            Margin="4,4,0,0"
-            VerticalAlignment="Top"
-            Canvas.ZIndex="2"
-            Click="OnExitButtonClick"
-            Style="{StaticResource TransparentButtonStyle}"
-            ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
-            <muxc:AnimatedIcon
-                x:Name="BackAnimatedIcon"
-                Width="16"
-                Height="16">
-                <muxc:AnimatedIcon.Source>
-                    <animatedvisuals:AnimatedBackVisualSource />
-                </muxc:AnimatedIcon.Source>
-                <muxc:AnimatedIcon.FallbackIconSource>
-                    <muxc:SymbolIconSource Symbol="Back" />
-                </muxc:AnimatedIcon.FallbackIconSource>
-            </muxc:AnimatedIcon>
-        </Button>
+            <skuc:TitleBar
+                x:Name="TitleBar"
+                Title="{markup:ResourceHelper Name=NowPlaying}"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="{StaticResource GradientBlackToTransparentBrush}"
+                Canvas.ZIndex="0"
+                Icon="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily},
+                                   Glyph=&#xE768;}" />
+
+            <Button
+                Height="32"
+                Margin="2"
+                Canvas.ZIndex="1"
+                Click="OnExitButtonClick"
+                Style="{StaticResource TransparentButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
+                <muxc:AnimatedIcon
+                    x:Name="BackAnimatedIcon"
+                    Width="16"
+                    Height="16">
+                    <muxc:AnimatedIcon.Source>
+                        <animatedvisuals:AnimatedBackVisualSource />
+                    </muxc:AnimatedIcon.Source>
+
+                    <muxc:AnimatedIcon.FallbackIconSource>
+                        <muxc:SymbolIconSource Symbol="Back" />
+                    </muxc:AnimatedIcon.FallbackIconSource>
+                </muxc:AnimatedIcon>
+            </Button>
+        </Grid>
 
         <!--  Player area  -->
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
+            Grid.RowSpan="3"
             Grid.ColumnSpan="2"
-            Margin="4,0,8,8"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
+            VerticalContentAlignment="Bottom"
             Canvas.ZIndex="0"
+            Loaded="OnMainPlayerLoaded"
             MediaPlayerVisibility="Visible">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
-                    DisplayItemPosition="Top"
-                    DisplayItemVisibility="Visible"
+                    Height="92"
+                    Margin="12,0,12,12"
                     HorizontalControlsAlignment="Left"
                     IsCompactOverlayButtonVisible="True"
                     IsCompactOverlayEnabled="True"
@@ -138,150 +158,139 @@
 
                         <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
                     </uc:RiseMediaTransportControls.Resources>
-
-                    <uc:RiseMediaTransportControls.DisplayItem>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition x:Name="SidebarColumn" Width="0" />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid
-                                x:Name="InfoGrid"
-                                Margin="0,40,0,0"
-                                HorizontalAlignment="Center"
-                                x:DefaultBindMode="OneWay"
-                                ColumnSpacing="12">
-                                <Grid.Transitions>
-                                    <TransitionCollection>
-                                        <RepositionThemeTransition IsStaggeringEnabled="False" />
-                                    </TransitionCollection>
-                                </Grid.Transitions>
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition x:Name="ThumbnailColumn" Width="120" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <Border
-                                    x:Name="ThumbBorder"
-                                    Width="120"
-                                    Height="120"
-                                    BorderBrush="{ThemeResource ControlElevationBorderBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
-                                    <Border.Transitions>
-                                        <TransitionCollection>
-                                            <RepositionThemeTransition IsStaggeringEnabled="True" />
-                                        </TransitionCollection>
-                                    </Border.Transitions>
-
-                                    <ui:Effects.Shadow>
-                                        <media:AttachedCardShadow
-                                            BlurRadius="8"
-                                            CornerRadius="8"
-                                            Opacity="0.2"
-                                            Offset="0,4,0" />
-                                    </ui:Effects.Shadow>
-
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="UniformToFill" />
-                                    </Border.Background>
-                                </Border>
-
-                                <Grid
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    RowSpacing="4">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*" />
-                                        <RowDefinition Height="1*" />
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock
-                                        x:Name="TitleText"
-                                        d:Text="Title"
-                                        FontSize="24"
-                                        FontWeight="Bold"
-                                        MaxLines="2"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
-                                    <TextBlock
-                                        x:Name="SubtitleText"
-                                        Grid.Row="1"
-                                        d:Text="Subtitle"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        MaxLines="2"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
-                                </Grid>
-                            </Grid>
-
-                            <Border
-                                x:Name="SidebarGrid"
-                                Grid.Column="1"
-                                Width="292"
-                                Margin="0,48,24,12"
-                                Canvas.ZIndex="1">
-                                <Border.Transitions>
-                                    <TransitionCollection>
-                                        <EdgeUIThemeTransition />
-                                    </TransitionCollection>
-                                </Border.Transitions>
-                                <ui:Effects.Shadow>
-                                    <media:AttachedCardShadow
-                                        BlurRadius="64"
-                                        CornerRadius="8"
-                                        Opacity=".25"
-                                        Offset="0,16,0" />
-                                </ui:Effects.Shadow>
-
-                                <Grid
-                                    BorderBrush="{ThemeResource ControlElevationBorderBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
-                                    <ListView
-                                        x:Name="LyricsList"
-                                        Padding="4,16,8,16"
-                                        ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
-                                        Loaded="OnLyricsListLoaded"
-                                        SelectionMode="None"
-                                        Visibility="Collapsed">
-                                        <ListView.Foreground>
-                                            <LinearGradientBrush>
-                                                <GradientStop Offset="0.2" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
-                                                <GradientStop Offset="0.5" Color="{ThemeResource ApplicationForegroundThemeBrush}" />
-                                                <GradientStop Offset="0.8" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
-                                            </LinearGradientBrush>
-                                        </ListView.Foreground>
-
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate x:DataType="models:SyncedLyricItem">
-                                                <uc:LyricItem
-                                                    DoubleTapped="LyricItem_DoubleTapped"
-                                                    IsDoubleTapEnabled="True"
-                                                    IsSelected="{x:Bind IsSelected, Mode=OneWay}"
-                                                    Text="{x:Bind Text}" />
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-
-                                        <ListView.Footer>
-                                            <TextBlock
-                                                Padding="0,12"
-                                                HorizontalAlignment="Center"
-                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                                                Text="Licensed and provided by Musixmatch." />
-                                        </ListView.Footer>
-                                    </ListView>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
+
+        <!--  Media data area  -->
+        <Grid
+            x:Name="InfoGrid"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            x:DefaultBindMode="OneWay"
+            ColumnSpacing="12">
+            <Grid.Transitions>
+                <TransitionCollection>
+                    <EdgeUIThemeTransition />
+                </TransitionCollection>
+            </Grid.Transitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="ThumbnailColumn" Width="120" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                x:Name="ThumbBorder"
+                Width="120"
+                Height="120"
+                BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <ui:Effects.Shadow>
+                    <media:AttachedCardShadow
+                        BlurRadius="8"
+                        CornerRadius="8"
+                        Opacity="0.2"
+                        Offset="0,4,0" />
+                </ui:Effects.Shadow>
+
+                <Border.Background>
+                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>
+
+            <Grid
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                RowSpacing="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    x:Name="TitleText"
+                    d:Text="Title"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    MaxLines="2"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                <TextBlock
+                    x:Name="SubtitleText"
+                    Grid.Row="1"
+                    d:Text="Subtitle"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    MaxLines="2"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+            </Grid>
+        </Grid>
+
+        <!--  Sidebar area  -->
+        <Border
+            x:Name="SidebarGrid"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="292"
+            Margin="0,16,24,16"
+            Canvas.ZIndex="1">
+            <Border.Transitions>
+                <TransitionCollection>
+                    <PaneThemeTransition />
+                </TransitionCollection>
+            </Border.Transitions>
+
+            <ui:Effects.Shadow>
+                <media:AttachedCardShadow
+                    BlurRadius="64"
+                    CornerRadius="8"
+                    Opacity=".25"
+                    Offset="0,16,0" />
+            </ui:Effects.Shadow>
+
+            <Grid
+                BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <ListView
+                    x:Name="LyricsList"
+                    Padding="4,16,8,16"
+                    ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
+                    Loaded="OnLyricsListLoaded"
+                    SelectionMode="None"
+                    Visibility="Collapsed">
+                    <ListView.Foreground>
+                        <LinearGradientBrush>
+                            <GradientStop Offset="0.2" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                            <GradientStop Offset="0.5" Color="{ThemeResource ApplicationForegroundThemeBrush}" />
+                            <GradientStop Offset="0.8" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                        </LinearGradientBrush>
+                    </ListView.Foreground>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SyncedLyricItem">
+                            <uc:LyricItem
+                                DoubleTapped="LyricItem_DoubleTapped"
+                                IsDoubleTapEnabled="True"
+                                IsSelected="{x:Bind IsSelected, Mode=OneWay}"
+                                Text="{x:Bind Text}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.Footer>
+                        <TextBlock
+                            Padding="0,12"
+                            HorizontalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                            Text="Licensed and provided by Musixmatch." />
+                    </ListView.Footer>
+                </ListView>
+            </Grid>
+        </Border>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LyricsAvailabilityStates">
@@ -307,7 +316,7 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="SidebarColumn.Width" Value="Auto" />
+                        <Setter Target="SidebarArea.Width" Value="Auto" />
                         <Setter Target="LyricsList.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
@@ -321,12 +330,12 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Stretch" />
-                        <Setter Target="MainPlayer.Margin" Value="0" />
+                        <Setter Target="InfoGrid.Visibility" Value="Collapsed" />
 
-                        <Setter Target="PlayerControls.IsCompact" Value="True" />
+                        <Setter Target="PlayerControls.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
+                        <Setter Target="PlayerControls.IsCompact" Value="False" />
+
                         <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
-                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
                         <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
@@ -348,8 +357,6 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="PlayerControls.IsLyricsButtonVisible" Value="True" />
-
                         <Setter Target="ThumbBorder.Width" Value="184" />
                         <Setter Target="ThumbBorder.Height" Value="184" />
                         <Setter Target="ThumbnailColumn.Width" Value="190" />

@@ -65,7 +65,7 @@
     <FontFamily x:Key="PlayerIconsFontFamily">ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons</FontFamily>
 
     <Style x:Key="DefaultRiseMediaTransportControlsStyle" TargetType="co:RiseMediaTransportControls">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{ThemeResource MediaTransportControlsPanelBackground}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="FlowDirection" Value="LeftToRight" />
@@ -78,7 +78,7 @@
                     <Grid x:Name="RootGrid">
                         <Grid
                             x:Name="ControlPanelGrid"
-                            Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                            Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
@@ -91,13 +91,12 @@
                             </Grid.RenderTransform>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition x:Name="DisplayItemColumn" Width="Auto" />
                                 <ColumnDefinition x:Name="PrimaryBarColumn" Width="1*" />
                                 <ColumnDefinition x:Name="SecondaryBarColumn" Width="168" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1*" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -112,14 +111,13 @@
 
                             <muxc:ProgressBar
                                 x:Name="BufferingProgressBar"
-                                Grid.Row="1"
                                 Grid.ColumnSpan="3"
                                 VerticalAlignment="Top"
                                 IsIndeterminate="True"
                                 Visibility="Collapsed" />
 
                             <!--  Display item  -->
-                            <Border x:Name="DisplayItemPresenter_Border">
+                            <Border x:Name="DisplayItemPresenter_Border" Grid.RowSpan="2">
                                 <ContentPresenter
                                     x:Name="DisplayItemPresenter"
                                     Content="{TemplateBinding DisplayItem}"
@@ -131,7 +129,6 @@
                             <!--  Primary area  -->
                             <CommandBar
                                 x:Name="MainMediaControlsCommandBar"
-                                Grid.Row="1"
                                 Grid.Column="1"
                                 Margin="0,4,0,0"
                                 HorizontalAlignment="{TemplateBinding HorizontalControlsAlignment}"
@@ -239,7 +236,7 @@
 
                             <Grid
                                 x:Name="MediaTransportControls_Timeline"
-                                Grid.Row="2"
+                                Grid.Row="1"
                                 Grid.Column="1"
                                 Margin="12,0"
                                 HorizontalAlignment="Stretch"
@@ -274,7 +271,6 @@
                             <!--  Secondary area  -->
                             <CommandBar
                                 x:Name="SecondaryMediaControlsCommandBar"
-                                Grid.Row="1"
                                 Grid.Column="2"
                                 Margin="0"
                                 DefaultLabelPosition="Collapsed"
@@ -439,7 +435,7 @@
 
                             <Grid
                                 x:Name="VolumeMuteButton"
-                                Grid.Row="2"
+                                Grid.Row="1"
                                 Grid.Column="2"
                                 Margin="12,0,12,4"
                                 ColumnSpacing="6">
@@ -501,7 +497,7 @@
                                             Storyboard.TargetName="TranslateVertical"
                                             Storyboard.TargetProperty="Y"
                                             Duration="0:0:0.3">
-                                            <LinearDoubleKeyFrame KeyTime="0" Value="20" />
+                                            <LinearDoubleKeyFrame KeyTime="0" Value="32" />
                                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />
@@ -530,28 +526,13 @@
                                             Storyboard.TargetProperty="Y"
                                             Duration="0:0:0.3">
                                             <LinearDoubleKeyFrame KeyTime="0" Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="20">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="32">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-
-                            <VisualStateGroup x:Name="DisplayItemPositionStates">
-                                <VisualState x:Name="DisplayItemPositionLeftState">
-                                    <VisualState.Setters>
-                                        <Setter Target="DisplayItemPresenter_Border.(Grid.Row)" Value="1" />
-                                        <Setter Target="DisplayItemPresenter_Border.(Grid.RowSpan)" Value="2" />
-                                    </VisualState.Setters>
-                                </VisualState>
-
-                                <VisualState x:Name="DisplayItemPositionTopState">
-                                    <VisualState.Setters>
-                                        <Setter Target="DisplayItemPresenter_Border.(Grid.ColumnSpan)" Value="3" />
-                                    </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
 

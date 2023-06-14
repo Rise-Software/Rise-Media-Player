@@ -40,6 +40,13 @@
     </Page.Resources>
 
     <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleBarArea" Height="40" />
+            <RowDefinition x:Name="MediaDisplayArea" Height="1*" />
+            <RowDefinition x:Name="TransportControlsArea" Height="92" />
+        </Grid.RowDefinitions>
+
+        <!--  Background area  -->
         <Grid.Background>
             <ImageBrush
                 x:Name="ThumbnailBrush"
@@ -49,6 +56,7 @@
 
         <Border
             x:Name="BlurBrushBorder"
+            Grid.RowSpan="3"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
             <Border.Background>
@@ -60,17 +68,14 @@
             </Border.Background>
         </Border>
 
-        <skuc:ExtendedTitleBar
+        <!--  Title area  -->
+        <skuc:TitleBar
             x:Name="TitleBar"
-            Height="40"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
             Canvas.ZIndex="1" />
 
         <Button
-            Height="32"
-            Margin="4,4,0,0"
-            VerticalAlignment="Top"
+            Margin="4"
             Canvas.ZIndex="2"
             Click="OnExitButtonClick"
             Style="{StaticResource TransparentButtonStyle}"
@@ -81,20 +86,19 @@
                 FontSize="16" />
         </Button>
 
+        <!--  Player area  -->
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
+            Grid.RowSpan="3"
+            VerticalContentAlignment="Bottom"
             Canvas.ZIndex="0"
             Loaded="OnPlayerLoaded"
             MediaPlayerVisibility="Visible">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
-                    DisplayItemPosition="Top"
-                    DisplayItemVisibility="Visible"
+                    Height="92"
+                    Margin="2,0"
                     HorizontalControlsAlignment="Left"
                     IsCompact="True"
                     IsFullWindowButtonVisible="False"
@@ -104,44 +108,44 @@
                     IsVolumeButtonVisible="False"
                     IsZoomButtonVisible="False"
                     ShowAndHideAutomatically="False"
-                    TimelineDisplayMode="Minimal">
-                    <uc:RiseMediaTransportControls.DisplayItem>
-                        <Grid
-                            x:Name="InfoGrid"
-                            Margin="16,40,16,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            RowSpacing="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <TextBlock
-                                x:Name="TitleText"
-                                d:Text="Title"
-                                FontSize="20"
-                                FontWeight="SemiBold"
-                                HorizontalTextAlignment="Center"
-                                MaxLines="2"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
-                            <TextBlock
-                                x:Name="SubtitleText"
-                                Grid.Row="1"
-                                d:Text="Subtitle"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                HorizontalTextAlignment="Center"
-                                MaxLines="2"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource, Mode=OneWay}" />
-                        </Grid>
-                    </uc:RiseMediaTransportControls.DisplayItem>
-                </uc:RiseMediaTransportControls>
+                    TimelineDisplayMode="Minimal" />
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
+
+        <!--  Media data area  -->
+        <Grid
+            x:Name="InfoGrid"
+            Grid.Row="1"
+            Margin="16,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            RowSpacing="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                x:Name="TitleText"
+                d:Text="Title"
+                FontSize="20"
+                FontWeight="SemiBold"
+                HorizontalTextAlignment="Center"
+                MaxLines="2"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
+            <TextBlock
+                x:Name="SubtitleText"
+                Grid.Row="1"
+                d:Text="Subtitle"
+                FontSize="16"
+                FontWeight="SemiBold"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                HorizontalTextAlignment="Center"
+                MaxLines="2"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource, Mode=OneWay}" />
+        </Grid>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="PlaybackItemTypeStates">
@@ -150,16 +154,12 @@
                     <VisualState.StateTriggers>
                         <triggers:IsEqualStateTrigger Value="{x:Bind MPViewModel.PlayingItemType, Mode=OneWay}" To="Video" />
                     </VisualState.StateTriggers>
+
                     <VisualState.Setters>
-                        <Setter Target="BlurBrushBorder.Visibility" Value="Collapsed" />
-                        
-                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Stretch" />
-                        <Setter Target="MainPlayer.Margin" Value="0" />
+                        <Setter Target="InfoGrid.Visibility" Value="Collapsed" />
 
                         <Setter Target="PlayerControls.IsCompact" Value="True" />
                         <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
-                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
-                        <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -200,6 +200,17 @@
                                 </EasingDoubleKeyFrame.EasingFunction>
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="InfoGrid"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
 
@@ -230,6 +241,17 @@
 
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="PlayerControls"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="InfoGrid"
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
