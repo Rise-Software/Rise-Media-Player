@@ -30,6 +30,9 @@
             <conv:IntToVisibility x:Key="IntToVis" />
 
             <Thickness x:Key="TitleBarIconMargin">48,0,0,0</Thickness>
+
+            <StaticResource x:Key="TitleBarBackgroundThemeBrush" ResourceKey="GradientBlackToTransparentBrush" />
+            <StaticResource x:Key="TitleBarInactiveBackgroundThemeBrush" ResourceKey="GradientBlackToTransparentBrush" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -91,7 +94,6 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="{StaticResource GradientBlackToTransparentBrush}"
                 Canvas.ZIndex="0"
                 Icon="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily},
                                    Glyph=&#xE768;}" />
