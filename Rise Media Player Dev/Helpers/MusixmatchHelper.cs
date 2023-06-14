@@ -5,6 +5,7 @@ using Windows.Web.Http;
 
 namespace Rise.App.Helpers
 {
+    // Thanks to @ahmed605 (https://github.com/ahmed605) for the Musixmatch code contribution.
     public static class MusixmatchHelper
     {
         private static async Task<string> GetStringAsync(Uri url)
@@ -50,7 +51,7 @@ namespace Rise.App.Helpers
         // Duration is in seconds
         public static async Task<MusixmatchLyrics> GetLyricsAsync(string trackName, string artistName, int duration, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {
@@ -68,7 +69,7 @@ namespace Rise.App.Helpers
 
         public static async Task<MusixmatchLyrics> GetLyricsAsync(string id, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {
@@ -86,7 +87,7 @@ namespace Rise.App.Helpers
 
         public static async Task<SyncedLyrics> GetSyncedLyricsAsync(string trackName, string artistName, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {
@@ -105,7 +106,7 @@ namespace Rise.App.Helpers
         // Duration is in seconds
         public static async Task<SyncedLyrics> GetSyncedLyricsAsync(string trackName, string artistName, int duration, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {
@@ -123,7 +124,7 @@ namespace Rise.App.Helpers
 
         public static async Task<SyncedLyrics> GetSyncedLyricsAsync(string id, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {
@@ -141,7 +142,7 @@ namespace Rise.App.Helpers
 
         public static async Task<MusixmatchTrack> GetTrackAsync(string trackName, string artistName, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {
@@ -160,7 +161,7 @@ namespace Rise.App.Helpers
         // Duration is in seconds
         public static async Task<MusixmatchTrack> GetTrackAsync(string trackName, string artistName, int duration, UserToken token = null)
         {
-            string userToken = "190523f77464fba06fa5f82a9bfab0aa9dc201244ecf5124a06d95";
+            string userToken = App.SViewModel.MusixmatchLyricsToken;
 
             if (token != null && token.Message.Header.StatusCode == 200 && !string.IsNullOrEmpty(token.Message.Body.Token))
             {
