@@ -240,7 +240,7 @@
             x:Name="SidebarBorder"
             Grid.Row="1"
             Grid.Column="1"
-            Width="192"
+            Width="292"
             Margin="0,16,24,16"
             Canvas.ZIndex="1">
             <Border.Transitions>
@@ -307,7 +307,7 @@
                 </Grid>
 
                 <Grid x:Name="QueueGrid" Visibility="Collapsed">
-                    <uc:DefaultQueueFlyout />
+                    <uc:DefaultQueueFlyout Margin="4,8,4,0" />
                 </Grid>
             </Grid>
         </Border>
@@ -373,6 +373,8 @@
                         <Setter Target="TitleBar.Icon" Value="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily}, Glyph=&#xE8B2;}" />
                         <Setter Target="TitleBar.Title" Value="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
 
+                        <Setter Target="QueueGrid.Background" Value="{ThemeResource MediaTransportControlsPanelBackground}" />
+
                         <Setter Target="PlayerControls.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
 
                         <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
@@ -397,8 +399,6 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="SidebarBorder.Width" Value="292" />
-
                         <Setter Target="ThumbBorder.Width" Value="184" />
                         <Setter Target="ThumbBorder.Height" Value="184" />
                         <Setter Target="ThumbnailColumn.Width" Value="190" />

@@ -398,7 +398,7 @@ namespace Rise.App.ViewModels
                 return await file.GetSongAsync();
             }
 
-            return WebHelpers.GetSongFromUri(uri, Title, Artist, Thumbnail);
+            return await WebHelpers.GetSongFromUriAsync(uri, Title, Artist, Thumbnail, !uri.IsFile);
         }
         #endregion
     }

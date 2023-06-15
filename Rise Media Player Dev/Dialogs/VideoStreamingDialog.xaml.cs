@@ -36,7 +36,9 @@ namespace Rise.App.Dialogs
                 return;
             }
 
-            if (url.Contains("youtube.com/watch"))
+            bool isYoutubeLink = url.Contains("youtube.com/watch");
+
+            if (isYoutubeLink)
             {
                 var youtubeClient = new YoutubeClient();
                 var youtubeVideo = await youtubeClient.Videos.GetAsync(url.Replace("music.youtube.com", "www.youtube.com"));
@@ -54,7 +56,7 @@ namespace Rise.App.Dialogs
 
             await ViewModel.ResetPlaybackAsync();
 
-            var video = WebHelpers.GetVideoFromUri(uri, title, subtitle, thumbnailUrl);
+            var video = await WebHelpers.GetVideoFromUriAsync(uri, title, subtitle, thumbnailUrl, !isYoutubeLink);
             ViewModel.AddSingleItemToQueue(video);
             ViewModel.Player.Play();
 

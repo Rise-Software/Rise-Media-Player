@@ -735,7 +735,9 @@ namespace Rise.App.Views
         private void OpenQueue()
         {
             var queueButton = MainPlayer.FindDescendant<AppBarToggleButton>(a => a.Name == "QueueButton");
-            QueueFlyout.ShowAt(queueButton);
+
+            if (queueButton != null)
+                QueueFlyout.ShowAt(queueButton);
         }
 
         private void QueueFlyout_Closed(object sender, object e)

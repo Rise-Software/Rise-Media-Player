@@ -304,6 +304,7 @@
                                     Padding="4"
                                     IsChecked="{Binding IsQueueButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
+                                    Label="{markup:ResourceHelper Name=Queue}"
                                     ToolTipService.ToolTip="{markup:ResourceHelper Name=Queue}"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarToggleButton.Icon>
