@@ -112,16 +112,6 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a command that runs whenever the
-        /// queue button is clicked.
-        /// </summary>
-        public ICommand QueueButtonCommand
-        {
-            get => (ICommand)GetValue(QueueButtonCommandProperty);
-            set => SetValue(QueueButtonCommandProperty, value);
-        }
-
-        /// <summary>
         /// Gets or sets a value that indicates whether the user
         /// can see the lyrics of the current song.
         /// </summary>
@@ -142,7 +132,7 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the shuffle
+        /// Gets or sets a value that indicates whether the lyrics
         /// button is checked.
         /// </summary>
         public bool IsLyricsButtonChecked
@@ -229,6 +219,16 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsQueueButtonVisibleProperty);
             set => SetValue(IsQueueButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the queue
+        /// button is checked.
+        /// </summary>
+        public bool IsQueueButtonChecked
+        {
+            get => (bool)GetValue(IsQueueButtonCheckedProperty);
+            set => SetValue(IsQueueButtonCheckedProperty, value);
         }
 
         /// <summary>
@@ -342,10 +342,6 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(AddToPlaylistCommand), typeof(ICommand),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
 
-        public readonly static DependencyProperty QueueButtonCommandProperty =
-            DependencyProperty.Register(nameof(QueueButtonCommand), typeof(ICommand),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
         public readonly static DependencyProperty IsOverlayEnabledProperty =
             DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
@@ -372,6 +368,10 @@ namespace Rise.App.UserControls
 
         public readonly static DependencyProperty IsQueueButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsQueueButtonCheckedProperty =
+            DependencyProperty.Register(nameof(IsQueueButtonChecked), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsEqualizerButtonEnabledProperty =

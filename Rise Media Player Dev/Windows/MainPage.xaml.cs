@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Helpers;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
@@ -11,6 +12,7 @@ using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Common.Threading;
 using Rise.Data.Json;
 using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
@@ -83,6 +85,8 @@ namespace Rise.App.Views
             { "AlbumsPage", typeof(AlbumSongsPage) },
             { "GenresPage", typeof(GenreSongsPage) }
         };
+
+        private DependencyPropertyWatcher<bool> QueueCheckedWatcher;
 
         public MainPage()
         {
@@ -179,6 +183,7 @@ namespace Rise.App.Views
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
+            QueueCheckedWatcher?.Dispose();
             goToNowPlayingCommand = null;
         }
 
@@ -188,7 +193,7 @@ namespace Rise.App.Views
                 ContentFrame.SetNavigationState(_navState);
 
             if (MPViewModel.PlayerCreated)
-                MainPlayer.SetMediaPlayer(MPViewModel.Player);
+                InitializePlayerElement(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
 
@@ -229,10 +234,22 @@ namespace Rise.App.Views
 
         private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                MainPlayer.SetMediaPlayer(e);
-            });
+            await Dispatcher;
+            InitializePlayerElement(e);
+        }
+
+        private void InitializePlayerElement(MediaPlayer player)
+        {
+            MainPlayer.SetMediaPlayer(player);
+
+            QueueCheckedWatcher = new(PlayerControls, "IsQueueButtonChecked");
+            QueueCheckedWatcher.PropertyChanged += OnQueueCheckedChanged;
+        }
+
+        private void OnQueueCheckedChanged(object sender, EventArgs e)
+        {
+            if (PlayerControls.IsQueueButtonChecked)
+                OpenQueue();
         }
 
         [RelayCommand]
@@ -711,14 +728,17 @@ namespace Rise.App.Views
         private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(AllSettingsPage));
 
-        [RelayCommand]
-        private void OpenQueue()
-        {
-            var queueButton = MainPlayer.FindDescendant<AppBarButton>(a => a.Name == "QueueButton");
-            QueueFlyout.ShowAt(queueButton);
-        }
 
         private void DismissButton_Click(object sender, RoutedEventArgs e)
             => _ = VisualStateManager.GoToState(this, "NotScanningState", false);
+
+        private void OpenQueue()
+        {
+            var queueButton = MainPlayer.FindDescendant<AppBarToggleButton>(a => a.Name == "QueueButton");
+            QueueFlyout.ShowAt(queueButton);
+        }
+
+        private void QueueFlyout_Closed(object sender, object e)
+            => PlayerControls.IsQueueButtonChecked = false;
     }
 }

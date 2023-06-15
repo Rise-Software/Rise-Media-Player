@@ -302,6 +302,10 @@
                         </ListView.Footer>
                     </ListView>
                 </Grid>
+
+                <Grid x:Name="QueueGrid" Visibility="Collapsed">
+                    <uc:DefaultQueueFlyout />
+                </Grid>
             </Grid>
         </Border>
 
@@ -334,6 +338,21 @@
                     <VisualState.Setters>
                         <Setter Target="SidebarArea.Width" Value="Auto" />
                         <Setter Target="LyricsGrid.Visibility" Value="Visible" />
+
+                        <Setter Target="PlayerControls.IsQueueButtonChecked" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="SidebarQueueState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind PlayerControls.IsQueueButtonChecked, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="SidebarArea.Width" Value="Auto" />
+                        <Setter Target="QueueGrid.Visibility" Value="Visible" />
+
+                        <Setter Target="PlayerControls.IsLyricsButtonChecked" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

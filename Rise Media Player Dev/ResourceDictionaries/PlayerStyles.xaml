@@ -298,16 +298,18 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton
+                                <AppBarToggleButton
                                     x:Name="QueueButton"
-                                    Command="{TemplateBinding QueueButtonCommand}"
+                                    Width="40"
+                                    Padding="4"
+                                    IsChecked="{Binding IsQueueButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
                                     ToolTipService.ToolTip="{markup:ResourceHelper Name=Queue}"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                    <AppBarButton.Icon>
+                                    <AppBarToggleButton.Icon>
                                         <FontIcon Glyph="&#xE142;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
+                                    </AppBarToggleButton.Icon>
+                                </AppBarToggleButton>
 
                                 <AppBarToggleButton
                                     x:Name="LyricsButton"

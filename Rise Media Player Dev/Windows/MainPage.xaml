@@ -63,6 +63,13 @@
             <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
 
             <Flyout
+                x:Name="QueueFlyout"
+                Closed="QueueFlyout_Closed"
+                ShouldConstrainToRootBounds="False">
+                <uc:DefaultQueueFlyout Width="300" Height="300" />
+            </Flyout>
+
+            <Flyout
                 x:Name="PlayingItemMusicFlyout"
                 x:DefaultBindMode="OneWay"
                 Placement="TopEdgeAlignedLeft">
@@ -326,10 +333,6 @@
                     Icon="UnPin"
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
             </MenuFlyout>
-
-            <Flyout x:Name="QueueFlyout">
-                <uc:DefaultQueueFlyout Width="300" Height="500" />
-            </Flyout>
         </ResourceDictionary>
     </Page.Resources>
 
