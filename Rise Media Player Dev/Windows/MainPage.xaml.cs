@@ -179,11 +179,11 @@ namespace Rise.App.Views
 
             MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
             MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
+            MViewModel.MetadataFetchingStarted -= MViewModel_MetadataFetchingStarted;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
-            QueueCheckedWatcher.PropertyChanged -= OnQueueCheckedChanged;
             QueueCheckedWatcher?.Dispose();
 
             enterFullScreenCommand = null;
