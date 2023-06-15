@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Helpers;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.App.Web;
 using Rise.Common.Constants;
@@ -183,8 +183,14 @@ namespace Rise.App.Views
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
+            QueueCheckedWatcher.PropertyChanged -= OnQueueCheckedChanged;
             QueueCheckedWatcher?.Dispose();
+
+            enterFullScreenCommand = null;
+            addToPlaylistCommand = null;
             goToNowPlayingCommand = null;
+
+            Bindings.StopTracking();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -242,15 +248,22 @@ namespace Rise.App.Views
         {
             MainPlayer.SetMediaPlayer(player);
 
-            QueueCheckedWatcher = new(PlayerControls, "IsQueueButtonChecked");
+            QueueCheckedWatcher = new(PlayerControls, RiseMediaTransportControls.IsQueueButtonCheckedProperty);
             QueueCheckedWatcher.PropertyChanged += OnQueueCheckedChanged;
         }
 
-        private void OnQueueCheckedChanged(object sender, EventArgs e)
+        private void OnQueueCheckedChanged(DependencyPropertyWatcher<bool> sender, bool newValue)
         {
-            if (PlayerControls.IsQueueButtonChecked)
-                OpenQueue();
+            if (newValue)
+            {
+                var queueButton = MainPlayer.FindDescendant<AppBarToggleButton>(a => a.Name == "QueueButton");
+                if (queueButton != null)
+                    QueueFlyout.ShowAt(queueButton);
+            }
         }
+
+        private void QueueFlyout_Closed(object sender, object e)
+            => PlayerControls.IsQueueButtonChecked = false;
 
         [RelayCommand]
         private void EnterFullScreen()
@@ -731,16 +744,5 @@ namespace Rise.App.Views
 
         private void DismissButton_Click(object sender, RoutedEventArgs e)
             => _ = VisualStateManager.GoToState(this, "NotScanningState", false);
-
-        private void OpenQueue()
-        {
-            var queueButton = MainPlayer.FindDescendant<AppBarToggleButton>(a => a.Name == "QueueButton");
-
-            if (queueButton != null)
-                QueueFlyout.ShowAt(queueButton);
-        }
-
-        private void QueueFlyout_Closed(object sender, object e)
-            => PlayerControls.IsQueueButtonChecked = false;
     }
 }

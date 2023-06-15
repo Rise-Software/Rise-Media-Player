@@ -1,6 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Helpers;
+﻿using Rise.Common.Helpers;
 using System;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Core;
@@ -14,8 +13,6 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaPlayerElement : MediaPlayerElement
     {
-        private DependencyPropertyWatcher<MediaPlayer> playerWatcher;
-
         /// <summary>
         /// Gets or sets the player's visibility.
         /// </summary>
@@ -75,44 +72,34 @@ namespace Rise.App.UserControls
             });
         }
 
-        private async Task RegisterVolumeChangedAsync()
+        private IAsyncAction RegisterVolumeChangedAsync()
         {
             MediaPlayer.VolumeChanged += OnVolumeChanged;
             MediaPlayer.IsMutedChanged += OnIsMutedChanged;
 
-            await HandleVolumeChangedAsync(MediaPlayer.Volume);
+            return HandleVolumeChangedAsync(MediaPlayer.Volume);
         }
     }
 
     // Constructor
     public sealed partial class RiseMediaPlayerElement : MediaPlayerElement
     {
+        private readonly DependencyPropertyWatcher<MediaPlayer> _playerWatcher;
+
         public RiseMediaPlayerElement()
         {
             DefaultStyleKey = typeof(RiseMediaPlayerElement);
 
-            Loaded += OnLoaded;
+            _playerWatcher = new(this, MediaPlayerProperty);
+            _playerWatcher.PropertyChanged += OnMediaPlayerChanged;
+
             Unloaded += OnUnloaded;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (MediaPlayer != null)
-            {
-                await RegisterVolumeChangedAsync();
-            }
-            else
-            {
-                playerWatcher = new(this, "MediaPlayer");
-                playerWatcher.PropertyChanged += OnWatcherPropertyChanged;
-            }
-        }
-
-        private async void OnWatcherPropertyChanged(object sender, EventArgs e)
+        private async void OnMediaPlayerChanged(DependencyPropertyWatcher<MediaPlayer> sender, MediaPlayer newValue)
         {
             await RegisterVolumeChangedAsync();
-            playerWatcher.PropertyChanged -= OnWatcherPropertyChanged;
-            playerWatcher.Dispose();
+            _playerWatcher.Dispose();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -123,11 +110,8 @@ namespace Rise.App.UserControls
                 MediaPlayer.IsMutedChanged -= OnIsMutedChanged;
             }
 
-            if (playerWatcher != null)
-            {
-                playerWatcher.PropertyChanged -= OnWatcherPropertyChanged;
-                playerWatcher.Dispose();
-            }
+            _playerWatcher.PropertyChanged -= OnMediaPlayerChanged;
+            _playerWatcher.Dispose();
         }
     }
 }
