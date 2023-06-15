@@ -339,7 +339,10 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="ZoomButton" Visibility="Collapsed">
+                                <AppBarButton
+                                    x:Name="ZoomButton"
+                                    Label="{markup:ResourceHelper Name=AspectRatio}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=AspectRatio}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE799;" />
                                     </AppBarButton.Icon>
