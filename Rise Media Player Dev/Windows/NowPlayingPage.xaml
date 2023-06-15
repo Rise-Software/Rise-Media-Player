@@ -94,7 +94,7 @@
                 Background="{StaticResource GradientBlackToTransparentBrush}"
                 Canvas.ZIndex="0"
                 Icon="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily},
-                                   Glyph=&#xE768;}" />
+                                   Glyph=&#xE93D;}" />
 
             <Button
                 Height="32"
@@ -211,12 +211,15 @@
 
                 <TextBlock
                     x:Name="TitleText"
+                    MaxWidth="200"
                     d:Text="Title"
                     FontSize="24"
                     FontWeight="Bold"
                     MaxLines="2"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
+                    TextTrimming="CharacterEllipsis"
+                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
                 <TextBlock
                     x:Name="SubtitleText"
                     Grid.Row="1"
@@ -332,8 +335,10 @@
                     <VisualState.Setters>
                         <Setter Target="InfoGrid.Visibility" Value="Collapsed" />
 
+                        <Setter Target="TitleBar.Icon" Value="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily}, Glyph=&#xE8B2;}" />
+                        <Setter Target="TitleBar.Title" Value="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
+
                         <Setter Target="PlayerControls.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
-                        <Setter Target="PlayerControls.IsCompact" Value="False" />
 
                         <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
                         <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
