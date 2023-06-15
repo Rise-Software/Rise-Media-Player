@@ -20,7 +20,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Padding="0,0,0,12" Style="{StaticResource SubtitleTextBlockStyle}" Text="{markup:ResourceHelper Name=Queue}" />
+        <TextBlock
+            Padding="12,4"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{markup:ResourceHelper Name=Queue}" />
 
         <ListView
             x:Name="MainList"

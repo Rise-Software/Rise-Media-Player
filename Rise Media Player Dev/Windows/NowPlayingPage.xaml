@@ -30,6 +30,9 @@
             <conv:IntToVisibility x:Key="IntToVis" />
 
             <Thickness x:Key="TitleBarIconMargin">48,0,0,0</Thickness>
+
+            <StaticResource x:Key="TitleBarBackgroundThemeBrush" ResourceKey="GradientBlackToTransparentBrush" />
+            <StaticResource x:Key="TitleBarInactiveBackgroundThemeBrush" ResourceKey="GradientBlackToTransparentBrush" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -91,7 +94,6 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="{StaticResource GradientBlackToTransparentBrush}"
                 Canvas.ZIndex="0"
                 Icon="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily},
                                    Glyph=&#xE93D;}" />
@@ -177,7 +179,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="ThumbnailColumn" Width="120" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
             <Border
@@ -235,10 +237,10 @@
 
         <!--  Sidebar area  -->
         <Border
-            x:Name="SidebarGrid"
+            x:Name="SidebarBorder"
             Grid.Row="1"
             Grid.Column="1"
-            Width="292"
+            Width="192"
             Margin="0,16,24,16"
             Canvas.ZIndex="1">
             <Border.Transitions>
@@ -255,48 +257,70 @@
                     Offset="0,16,0" />
             </ui:Effects.Shadow>
 
+            <!--  Sidebar content  -->
             <Grid
+                x:Name="SidebarGrid"
                 BorderBrush="{ThemeResource ControlElevationBorderBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
-                <ListView
-                    x:Name="LyricsList"
-                    Padding="4,16,8,16"
-                    ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
-                    Loaded="OnLyricsListLoaded"
-                    SelectionMode="None"
-                    Visibility="Collapsed">
-                    <ListView.Foreground>
-                        <LinearGradientBrush>
-                            <GradientStop Offset="0.2" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
-                            <GradientStop Offset="0.5" Color="{ThemeResource ApplicationForegroundThemeBrush}" />
-                            <GradientStop Offset="0.8" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
-                        </LinearGradientBrush>
-                    </ListView.Foreground>
+                <Grid x:Name="LyricsGrid" Visibility="Collapsed">
+                    <muxc:ProgressRing
+                        x:Name="LyricsLoadingRing"
+                        Padding="0,0,0,24"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:SyncedLyricItem">
-                            <uc:LyricItem
-                                DoubleTapped="LyricItem_DoubleTapped"
-                                IsDoubleTapEnabled="True"
-                                IsSelected="{x:Bind IsSelected, Mode=OneWay}"
-                                Text="{x:Bind Text}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                    <ListView
+                        x:Name="LyricsList"
+                        Padding="4,16,8,16"
+                        ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
+                        Loaded="OnLyricsListLoaded"
+                        SelectionMode="None">
+                        <ListView.Foreground>
+                            <LinearGradientBrush>
+                                <GradientStop Offset="0.2" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                                <GradientStop Offset="0.5" Color="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                <GradientStop Offset="0.8" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                            </LinearGradientBrush>
+                        </ListView.Foreground>
 
-                    <ListView.Footer>
-                        <TextBlock
-                            Padding="0,12"
-                            HorizontalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                            Text="Licensed and provided by Musixmatch." />
-                    </ListView.Footer>
-                </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:SyncedLyricItem">
+                                <uc:LyricItem
+                                    DoubleTapped="LyricItem_DoubleTapped"
+                                    IsDoubleTapEnabled="True"
+                                    IsSelected="{x:Bind IsSelected, Mode=OneWay}"
+                                    Text="{x:Bind Text}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.Footer>
+                            <TextBlock
+                                Padding="0,8"
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="Licensed and provided by Musixmatch."
+                                TextAlignment="Center" />
+                        </ListView.Footer>
+                    </ListView>
+                </Grid>
+
+                <Grid x:Name="QueueGrid" Visibility="Collapsed">
+                    <uc:DefaultQueueFlyout />
+                </Grid>
             </Grid>
         </Border>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LyricsAvailabilityStates">
+                <VisualState x:Name="LyricsLoadingState">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.IsLyricsEnabled" Value="False" />
+                        <Setter Target="LyricsLoadingRing.IsActive" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+
                 <VisualState x:Name="LyricsAvailableState" />
                 <VisualState x:Name="LyricsUnavailableState">
                     <VisualState.Setters>
@@ -311,16 +335,27 @@
                 <VisualState x:Name="EmptySidebarState" />
                 <VisualState x:Name="SidebarLyricsState">
                     <VisualState.StateTriggers>
-                        <triggers:ControlSizeTrigger
-                            MinWidth="840"
-                            MinHeight="400"
-                            CanTrigger="{x:Bind PlayerControls.IsLyricsButtonChecked, Mode=OneWay}"
-                            TargetElement="{x:Bind RootGrid}" />
+                        <StateTrigger IsActive="{x:Bind PlayerControls.IsLyricsButtonChecked, Mode=OneWay}" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
                         <Setter Target="SidebarArea.Width" Value="Auto" />
-                        <Setter Target="LyricsList.Visibility" Value="Visible" />
+                        <Setter Target="LyricsGrid.Visibility" Value="Visible" />
+
+                        <Setter Target="PlayerControls.IsQueueButtonChecked" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="SidebarQueueState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind PlayerControls.IsQueueButtonChecked, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="SidebarArea.Width" Value="Auto" />
+                        <Setter Target="QueueGrid.Visibility" Value="Visible" />
+
+                        <Setter Target="PlayerControls.IsLyricsButtonChecked" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -362,6 +397,8 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
+                        <Setter Target="SidebarBorder.Width" Value="292" />
+
                         <Setter Target="ThumbBorder.Width" Value="184" />
                         <Setter Target="ThumbBorder.Height" Value="184" />
                         <Setter Target="ThumbnailColumn.Width" Value="190" />
