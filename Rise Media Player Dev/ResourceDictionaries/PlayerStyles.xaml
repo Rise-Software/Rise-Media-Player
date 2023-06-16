@@ -61,6 +61,7 @@
     <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="co:RiseMediaPlayerElement" />
 
     <x:Double x:Key="MTCPositionSliderMaximumWidth">Infinity</x:Double>
+    <x:Double x:Key="MTCSecondaryControlsColumnWidth">172</x:Double>
 
     <FontFamily x:Key="PlayerIconsFontFamily">ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons</FontFamily>
 
@@ -84,6 +85,7 @@
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid.Resources>
                                 <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
+                                <Style BasedOn="{StaticResource AppBarToggleButtonCompactStyle}" TargetType="AppBarToggleButton" />
                             </Grid.Resources>
 
                             <Grid.RenderTransform>
@@ -93,7 +95,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition x:Name="DisplayItemColumn" Width="Auto" />
                                 <ColumnDefinition x:Name="PrimaryBarColumn" Width="1*" />
-                                <ColumnDefinition x:Name="SecondaryBarColumn" Width="168" />
+                                <ColumnDefinition x:Name="SecondaryBarColumn" Width="{ThemeResource MTCSecondaryControlsColumnWidth}" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -131,6 +133,7 @@
                                 x:Name="MainMediaControlsCommandBar"
                                 Grid.Column="1"
                                 Margin="0,4,0,0"
+                                Padding="0"
                                 HorizontalAlignment="{TemplateBinding HorizontalControlsAlignment}"
                                 DefaultLabelPosition="Collapsed"
                                 IsDynamicOverflowEnabled="False"
@@ -153,8 +156,6 @@
 
                                 <AppBarToggleButton
                                     x:Name="ShuffleButton"
-                                    Width="40"
-                                    Padding="4"
                                     IsChecked="{Binding IsShuffleButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsShuffleEnabled}"
                                     ToolTipService.ToolTip="{markup:ResourceHelper Name=Shuffle}"
@@ -224,10 +225,7 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarToggleButton
-                                    x:Name="RepeatButton"
-                                    Width="40"
-                                    Padding="4">
+                                <AppBarToggleButton x:Name="RepeatButton">
                                     <AppBarToggleButton.Icon>
                                         <SymbolIcon x:Name="RepeatSymbol" Symbol="RepeatAll" />
                                     </AppBarToggleButton.Icon>
@@ -272,21 +270,10 @@
                             <CommandBar
                                 x:Name="SecondaryMediaControlsCommandBar"
                                 Grid.Column="2"
-                                Margin="0"
+                                Margin="0,4,0,0"
+                                Padding="0"
                                 DefaultLabelPosition="Collapsed"
                                 OverflowButtonVisibility="Visible">
-                                <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xED1E;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton x:Name="AudioTracksSelectionButton" Visibility="Collapsed">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xED1F;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     Command="{TemplateBinding OverlayCommand}"
@@ -300,11 +287,8 @@
 
                                 <AppBarToggleButton
                                     x:Name="QueueButton"
-                                    Width="40"
-                                    Padding="4"
                                     IsChecked="{Binding IsQueueButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
-                                    Label="{markup:ResourceHelper Name=Queue}"
                                     ToolTipService.ToolTip="{markup:ResourceHelper Name=Queue}"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarToggleButton.Icon>
@@ -314,8 +298,6 @@
 
                                 <AppBarToggleButton
                                     x:Name="LyricsButton"
-                                    Width="40"
-                                    Padding="4"
                                     IsChecked="{Binding IsLyricsButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsLyricsEnabled}"
                                     ToolTipService.ToolTip="{markup:ResourceHelper Name=Lyrics}"
@@ -439,12 +421,13 @@
                                 </CommandBar.SecondaryCommands>
                             </CommandBar>
 
+                            <!--  Audio control area  -->
                             <Grid
-                                x:Name="VolumeMuteButton"
+                                x:Name="VolumeControlGrid"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                Margin="12,0,12,4"
-                                ColumnSpacing="6">
+                                Height="48"
+                                Margin="12,0,12,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="1*" />
@@ -453,11 +436,10 @@
 
                                 <Button
                                     x:Name="AudioMuteButton"
-                                    Width="32"
-                                    Height="32"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="2,6"
                                     Padding="0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
                                     Style="{StaticResource TransparentButtonStyle}">
                                     <Button.Content>
                                         <FontIcon
@@ -477,10 +459,75 @@
                                 <TextBlock
                                     x:Name="VolumeValue"
                                     Grid.Column="2"
+                                    Margin="8,0,0,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Text="{Binding Value, ElementName=VolumeSlider}" />
                             </Grid>
+
+                            <CommandBar
+                                x:Name="TrackMediaControlsCommandBar"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="12,0,0,0"
+                                HorizontalAlignment="Right"
+                                DefaultLabelPosition="Collapsed"
+                                OverflowButtonVisibility="Collapsed"
+                                Visibility="Collapsed">
+                                <AppBarButton x:Name="AudioTracksSelectionButton" Visibility="Collapsed">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xED1F;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
+                                <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xED1E;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
+                                <AppBarButton x:Name="VolumeControlButton">
+                                    <AppBarButton.Icon>
+                                        <FontIcon
+                                            x:Name="CurrentVolumeIcon"
+                                            FontSize="16"
+                                            Glyph="&#xE995;" />
+                                    </AppBarButton.Icon>
+
+                                    <Button.Flyout>
+                                        <Flyout Placement="Top">
+                                            <Grid Width="32" RowSpacing="6">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1*" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <Slider
+                                                    x:Name="FlyoutVolumeSlider"
+                                                    MinHeight="{ThemeResource MTCVerticalVolumeSliderMinHeight}"
+                                                    MaxHeight="{ThemeResource MTCVerticalVolumeSliderMaxHeight}"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Stretch"
+                                                    IsThumbToolTipEnabled="False"
+                                                    Orientation="Vertical"
+                                                    Value="{Binding Value, ElementName=VolumeSlider, Mode=TwoWay}" />
+
+                                                <TextBlock
+                                                    x:Name="FlyoutVolumeValue"
+                                                    Grid.Row="1"
+                                                    HorizontalAlignment="Center"
+                                                    Text="{Binding Value, ElementName=VolumeSlider}" />
+                                            </Grid>
+
+                                            <Flyout.FlyoutPresenterStyle>
+                                                <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
+                                                    <Setter Property="MinWidth" Value="0" />
+                                                </Style>
+                                            </Flyout.FlyoutPresenterStyle>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </AppBarButton>
+                            </CommandBar>
                         </Grid>
 
                         <VisualStateManager.VisualStateGroups>
@@ -604,6 +651,9 @@
                                 <VisualState x:Name="AudioSelectionAvailable">
                                     <VisualState.Setters>
                                         <Setter Target="AudioTracksSelectionButton.Visibility" Value="Visible" />
+                                        <Setter Target="TrackMediaControlsCommandBar.Visibility" Value="Visible" />
+
+                                        <Setter Target="VolumeControlGrid.Visibility" Value="Collapsed" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -613,6 +663,9 @@
                                 <VisualState x:Name="CCSelectionAvailable">
                                     <VisualState.Setters>
                                         <Setter Target="CCSelectionButton.Visibility" Value="Visible" />
+                                        <Setter Target="TrackMediaControlsCommandBar.Visibility" Value="Visible" />
+
+                                        <Setter Target="VolumeControlGrid.Visibility" Value="Collapsed" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -639,17 +692,7 @@
 
                             <VisualStateGroup x:Name="MediaTransportControlMode">
                                 <VisualState x:Name="NormalMode" />
-                                <VisualState x:Name="CompactMode">
-                                    <VisualState.Setters>
-                                        <Setter Target="ControlPanelGrid.Padding" Value="0" />
-
-                                        <Setter Target="MediaTransportControls_Timeline.(Grid.Column)" Value="0" />
-                                        <Setter Target="MediaTransportControls_Timeline.(Grid.ColumnSpan)" Value="3" />
-
-                                        <Setter Target="VolumeMuteButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="SecondaryBarColumn.Width" Value="Auto" />
-                                    </VisualState.Setters>
-                                </VisualState>
+                                <VisualState x:Name="CompactMode" />
                             </VisualStateGroup>
 
                             <VisualStateGroup x:Name="PlayPauseStates">
@@ -669,25 +712,29 @@
                             <VisualStateGroup x:Name="VolumeStates">
                                 <VisualState x:Name="NoVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE198;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE74F;" />
+                                        <Setter Target="CurrentVolumeIcon.Glyph" Value="&#xE74F;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="LowVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="VolumeIcon.Glyph" Value="&#xE993;" />
+                                        <Setter Target="CurrentVolumeIcon.Glyph" Value="&#xE993;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="MidVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="VolumeIcon.Glyph" Value="&#xE994;" />
+                                        <Setter Target="CurrentVolumeIcon.Glyph" Value="&#xE994;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="HighVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="VolumeIcon.Glyph" Value="&#xE995;" />
+                                        <Setter Target="CurrentVolumeIcon.Glyph" Value="&#xE995;" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

@@ -40,7 +40,7 @@
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleBarArea" Height="32" />
             <RowDefinition x:Name="MediaDisplayArea" Height="1*" />
-            <RowDefinition x:Name="TransportControlsArea" Height="92" />
+            <RowDefinition x:Name="TransportControlsArea" Height="102" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -132,7 +132,7 @@
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
-                    Height="92"
+                    Height="102"
                     Margin="12,0,12,12"
                     HorizontalControlsAlignment="Left"
                     IsCompactOverlayButtonVisible="True"
@@ -151,6 +151,10 @@
                     IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                     IsShuffleButtonVisible="True"
                     IsShuffleEnabled="True"
+                    IsSkipBackwardButtonVisible="True"
+                    IsSkipBackwardEnabled="True"
+                    IsSkipForwardButtonVisible="True"
+                    IsSkipForwardEnabled="True"
                     IsVolumeButtonVisible="True"
                     IsZoomButtonVisible="False"
                     OverlayCommand="{x:Bind GoToMiniViewCommand}"
