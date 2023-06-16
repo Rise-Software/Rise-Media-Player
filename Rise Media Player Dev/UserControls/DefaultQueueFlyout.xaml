@@ -14,7 +14,7 @@
         <conv:ResourceFallback x:Key="ResFallback" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid RowSpacing="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
