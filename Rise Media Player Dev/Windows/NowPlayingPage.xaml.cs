@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Helpers;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Helpers;
 using Rise.Common.Threading;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -34,8 +34,11 @@ namespace Rise.App.Views
         private List<SyncedLyricItem> _lyrics;
 
         // Used to check when transport controls are hiding or showing
-        private TranslateTransform PlayerControlsTransform;
         private DependencyPropertyWatcher<double> PlayerControlsTransformWatcher;
+
+        // Used to handle the sidebar
+        private DependencyPropertyWatcher<bool> PlayerControlsLyricsWatcher;
+        private DependencyPropertyWatcher<bool> PlayerControlsQueueWatcher;
 
         public NowPlayingPage()
         {
@@ -55,25 +58,65 @@ namespace Rise.App.Views
             var controlGrid = MainPlayer.FindDescendant<Grid>((elm) => elm.Name == "ControlPanelGrid");
             if (controlGrid != null)
             {
-                PlayerControlsTransform = (TranslateTransform)controlGrid.RenderTransform;
+                var transform = (TranslateTransform)controlGrid.RenderTransform;
 
-                PlayerControlsTransformWatcher = new(PlayerControlsTransform, "Y");
+                PlayerControlsTransformWatcher = new(transform, TranslateTransform.YProperty);
                 PlayerControlsTransformWatcher.PropertyChanged += OnPlayerControlsTransformChanged;
+            }
+
+            // Update the sidebar whenever the queue or lyrics buttons are checked
+            PlayerControlsLyricsWatcher = new(PlayerControls, RiseMediaTransportControls.IsLyricsButtonCheckedProperty);
+            PlayerControlsQueueWatcher = new(PlayerControls, RiseMediaTransportControls.IsQueueButtonCheckedProperty);
+
+            PlayerControlsLyricsWatcher.PropertyChanged += OnPlayerControlsLyricsToggled;
+            PlayerControlsQueueWatcher.PropertyChanged += OnPlayerControlsQueueToggled;
+        }
+
+        private void OnPlayerControlsLyricsToggled(DependencyPropertyWatcher<bool> sender, bool newValue)
+        {
+            if (newValue)
+            {
+                PlayerControls.IsQueueButtonChecked = false;
+                _ = VisualStateManager.GoToState(this, "SidebarLyricsState", true);
+            }
+            else if (!PlayerControls.IsQueueButtonChecked)
+            {
+                _ = VisualStateManager.GoToState(this, "SidebarHiddenState", true);
             }
         }
 
-        private void OnPlayerControlsTransformChanged(object sender, EventArgs e)
+        private void OnPlayerControlsQueueToggled(DependencyPropertyWatcher<bool> sender, bool newValue)
         {
-            TitleAreaTranslate.Y = -PlayerControlsTransform.Y;
+            if (newValue)
+            {
+                PlayerControls.IsLyricsButtonChecked = false;
+                _ = VisualStateManager.GoToState(this, "SidebarQueueState", true);
+            }
+            else if (!PlayerControls.IsLyricsButtonChecked)
+            {
+                _ = VisualStateManager.GoToState(this, "SidebarHiddenState", true);
+            }
+        }
+
+        private void OnPlayerControlsTransformChanged(DependencyPropertyWatcher<double> sender, double newValue)
+        {
+            TitleAreaTranslate.Y = -newValue;
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
+            goToMiniViewCommand = null;
+            toggleFullScreenCommand = null;
+
             MPViewModel.Player.SeekCompleted -= Player_SeekCompleted;
             MPViewModel.Player.PlaybackSession.PositionChanged -= PlaybackSession_PositionChanged;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
-            PlayerControlsTransformWatcher.Dispose();
+            PlayerControlsTransformWatcher?.Dispose();
+            PlayerControlsLyricsWatcher?.Dispose();
+            PlayerControlsQueueWatcher?.Dispose();
+
+            Bindings.StopTracking();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -119,6 +162,7 @@ namespace Rise.App.Views
 
             await UpdateCurrentLyricsAsync();
 
+            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
             MPViewModel.Player.SeekCompleted += Player_SeekCompleted;
             MPViewModel.Player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
         }
@@ -133,9 +177,7 @@ namespace Rise.App.Views
             => PlayerControls.Show();
 
         private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
-        {
-            await UpdateCurrentLyricsAsync();
-        }
+            => await UpdateCurrentLyricsAsync();
 
         private bool ApplyVisualizer(int index) => index switch
         {
@@ -150,6 +192,12 @@ namespace Rise.App.Views
         private async Task UpdateCurrentLyricsAsync()
         {
             await Dispatcher;
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+            {
+                _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
+                return;
+            }
+
             _ = VisualStateManager.GoToState(this, "LyricsLoadingState", true);
 
             await ThreadSwitcher.ResumeBackgroundAsync();
@@ -172,18 +220,15 @@ namespace Rise.App.Views
 
         private async Task<IEnumerable<SyncedLyricItem>> FetchLyricsForCurrentItemAsync()
         {
-            if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+            try
             {
-                try
-                {
-                    var props = MPViewModel.PlayingItemProperties;
-                    var lyrics = await MusixmatchHelper.GetSyncedLyricsAsync(props.Title, props.Artist);
+                var props = MPViewModel.PlayingItemProperties;
+                var lyrics = await MusixmatchHelper.GetSyncedLyricsAsync(props.Title, props.Artist);
 
-                    var body = lyrics?.Message?.Body;
-                    return body?.Subtitle?.Subtitles?.Where(i => !string.IsNullOrWhiteSpace(i.Text));
-                }
-                catch { }
+                var body = lyrics?.Message?.Body;
+                return body?.Subtitle?.Subtitles?.Where(i => !string.IsNullOrWhiteSpace(i.Text));
             }
+            catch { }
 
             return Enumerable.Empty<SyncedLyricItem>();
         }

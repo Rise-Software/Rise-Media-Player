@@ -268,7 +268,8 @@
                         x:Name="LyricsLoadingRing"
                         Padding="0,0,0,24"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        IsActive="False" />
 
                     <ListView
                         x:Name="LyricsList"
@@ -332,30 +333,18 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="SidebarStates">
-                <VisualState x:Name="EmptySidebarState" />
+                <VisualState x:Name="SidebarHiddenState" />
                 <VisualState x:Name="SidebarLyricsState">
-                    <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{x:Bind PlayerControls.IsLyricsButtonChecked, Mode=OneWay}" />
-                    </VisualState.StateTriggers>
-
                     <VisualState.Setters>
                         <Setter Target="SidebarArea.Width" Value="Auto" />
                         <Setter Target="LyricsGrid.Visibility" Value="Visible" />
-
-                        <Setter Target="PlayerControls.IsQueueButtonChecked" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
 
                 <VisualState x:Name="SidebarQueueState">
-                    <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{x:Bind PlayerControls.IsQueueButtonChecked, Mode=OneWay}" />
-                    </VisualState.StateTriggers>
-
                     <VisualState.Setters>
                         <Setter Target="SidebarArea.Width" Value="Auto" />
                         <Setter Target="QueueGrid.Visibility" Value="Visible" />
-
-                        <Setter Target="PlayerControls.IsLyricsButtonChecked" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -373,8 +362,7 @@
                         <Setter Target="TitleBar.Icon" Value="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily}, Glyph=&#xE8B2;}" />
                         <Setter Target="TitleBar.Title" Value="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
 
-                        <Setter Target="QueueGrid.Background" Value="{ThemeResource MediaTransportControlsPanelBackground}" />
-
+                        <Setter Target="SidebarGrid.Background" Value="{ThemeResource MediaTransportControlsPanelBackground}" />
                         <Setter Target="PlayerControls.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
 
                         <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
