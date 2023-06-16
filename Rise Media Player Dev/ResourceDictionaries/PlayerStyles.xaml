@@ -84,7 +84,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid.Resources>
-                                <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
+                                <Style BasedOn="{StaticResource AppBarButtonCompactStyle}" TargetType="AppBarButton" />
                                 <Style BasedOn="{StaticResource AppBarToggleButtonCompactStyle}" TargetType="AppBarToggleButton" />
                             </Grid.Resources>
 

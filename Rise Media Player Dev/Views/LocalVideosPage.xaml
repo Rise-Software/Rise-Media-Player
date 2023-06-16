@@ -56,7 +56,7 @@
                 Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Play"
-                Style="{StaticResource AppBarCompactButtonStyle}"
+                Style="{StaticResource AppBarButtonCompactStyle}"
                 ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}" />
 
             <AppBarSeparator />
@@ -65,11 +65,11 @@
                 Icon="Delete"
                 IsEnabled="False"
                 Label="{markup:ResourceHelper Name=RemoveThing}"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarButtonCompactStyle}" />
             <AppBarButton
                 Icon="Rename"
                 IsEnabled="False"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarButtonCompactStyle}" />
 
             <AppBarSeparator />
 
