@@ -245,7 +245,7 @@
             Grid.Row="1"
             Grid.Column="1"
             Width="292"
-            Margin="0,16,24,16"
+            Margin="0,16,24,32"
             Canvas.ZIndex="1">
             <Border.Transitions>
                 <TransitionCollection>
@@ -255,6 +255,7 @@
 
             <ui:Effects.Shadow>
                 <media:AttachedCardShadow
+                    x:Name="SidebarShadow"
                     BlurRadius="64"
                     CornerRadius="8"
                     Opacity=".25"
@@ -365,6 +366,8 @@
 
                         <Setter Target="TitleBar.Icon" Value="{ui:FontIcon FontFamily={StaticResource PlayerIconsFontFamily}, Glyph=&#xE8B2;}" />
                         <Setter Target="TitleBar.Title" Value="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
+
+                        <Setter Target="SidebarShadow.Opacity" Value=".75" />
 
                         <Setter Target="SidebarGrid.Background" Value="{ThemeResource MediaTransportControlsPanelBackground}" />
                         <Setter Target="PlayerControls.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />

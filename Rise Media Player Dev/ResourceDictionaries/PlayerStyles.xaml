@@ -496,7 +496,7 @@
 
                                     <Button.Flyout>
                                         <Flyout Placement="Top">
-                                            <Grid Width="32" RowSpacing="6">
+                                            <Grid Width="32" RowSpacing="16">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="1*" />
                                                     <RowDefinition Height="Auto" />
