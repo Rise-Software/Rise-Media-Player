@@ -101,7 +101,16 @@
                         Command="{x:Bind RemoveItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                         Icon="Delete"
-                        Text="{markup:ResourceHelper Name=RemoveFromPlaylist}" />
+                        Foreground="{ThemeResource DeleteColour}"
+                        Text="{markup:ResourceHelper Name=RemoveFromPlaylist}">
+                        <MenuFlyoutItem.Resources>
+                            <SolidColorBrush x:Name="MenuFlyoutItemForegroundPointerOver" Color="{ThemeResource DeleteColour}" />
+                            <SolidColorBrush x:Name="MenuFlyoutItemForegroundPressed" Color="{ThemeResource DeleteColour}" />
+                            <SolidColorBrush x:Name="MenuFlyoutItemKeyboardAcceleratorTextForeground" Color="{ThemeResource DeleteColour}" />
+                            <SolidColorBrush x:Name="MenuFlyoutItemKeyboardAcceleratorTextForegroundPointerOver" Color="{ThemeResource DeleteColour}" />
+                            <SolidColorBrush x:Name="MenuFlyoutItemKeyboardAcceleratorTextForegroundPressed" Color="{ThemeResource DeleteColour}" />
+                        </MenuFlyoutItem.Resources>
+                    </MenuFlyoutItem>
 
                     <MenuFlyoutItem
                         Command="{x:Bind EditItemCommand}"

@@ -9,7 +9,7 @@ namespace Rise.Data.Navigation
             {
                 Id = "HomePage",
                 Group = "GeneralGroup",
-                DefaultIcon = "\uECA5",
+                DefaultIcon = "\uE10F",
                 Label = "Home",
                 AccessKey = "H",
                 FlyoutId = "DefaultItemFlyout"
@@ -32,20 +32,20 @@ namespace Rise.Data.Navigation
             },
             new NavigationItemDestination()
             {
+                Id = "DiscoverMusicPage",
+                Group = "MusicGroup",
+                DefaultIcon = "\uE794",
+                Label = "Discover",
+                AccessKey = "D",
+                FlyoutId = "DefaultItemFlyout"
+            },
+            new NavigationItemDestination()
+            {
                 Id = "SongsPage",
                 Group = "MusicGroup",
                 DefaultIcon = "\uEC4F",
                 Label = "Songs",
                 AccessKey = "N",
-                FlyoutId = "DefaultItemFlyout"
-            },
-            new NavigationItemDestination()
-            {
-                Id = "ArtistsPage",
-                Group = "MusicGroup",
-                DefaultIcon = "\uE125",
-                Label = "Artists",
-                AccessKey = "T",
                 FlyoutId = "DefaultItemFlyout"
             },
             new NavigationItemDestination()
@@ -57,6 +57,15 @@ namespace Rise.Data.Navigation
                 AccessKey = "A",
                 FlyoutId = "DefaultItemFlyout"
             },
+            new NavigationItemDestination()
+            {
+                Id = "ArtistsPage",
+                Group = "MusicGroup",
+                DefaultIcon = "\uE125",
+                Label = "Artists",
+                AccessKey = "T",
+                FlyoutId = "DefaultItemFlyout"
+            },
 
             new NavigationItemHeader()
             {
@@ -66,33 +75,22 @@ namespace Rise.Data.Navigation
             },
             new NavigationItemDestination()
             {
+                Id = "ExploreVideoPage",
+                Group = "VideosGroup",
+                DefaultIcon = "\uE714",
+                Label = "Explore",
+                AccessKey = "E",
+                FlyoutId = "DefaultItemFlyout"
+            },
+            new NavigationItemDestination()
+            {
                 Id = "LocalVideosPage",
                 Group = "VideosGroup",
-                DefaultIcon = "\uE8B2",
+                DefaultIcon = "\uE1D3",
                 Label = "LocalVideos",
-                AccessKey = "V",
+                AccessKey = "L",
                 FlyoutId = "RemoveItemFlyout"
             },
-
-            new NavigationItemDestination()
-            {
-                Id = "DiscyPage",
-                Group = "GeneralGroup",
-                IsFooter = true,
-                DefaultIcon = "\uE9CE",
-                Label = "Discy",
-                AccessKey = "C",
-                FlyoutId = "RemoveItemFlyout"
-            },
-            new NavigationItemDestination()
-            {
-                Id = "SettingsPage",
-                Group = "NoGroup",
-                DefaultIcon = "\uE115",
-                Label = "Settings",
-                AccessKey = "S",
-                IsFooter = true
-            }
         };
     }
 }

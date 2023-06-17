@@ -2,6 +2,7 @@
     x:Class="Rise.App.Views.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
@@ -13,104 +14,212 @@
     d:Width="500"
     mc:Ignorable="d">
 
-    <ScrollViewer
-        Padding="56,56,56,0"
-        d:Padding="12"
-        VerticalScrollBarVisibility="Auto">
-        <StackPanel
-            Padding="0,0,0,120"
-            d:Padding="0"
-            Orientation="Vertical"
-            Spacing="4">
-            <StackPanel.ChildrenTransitions>
-                <TransitionCollection>
-                    <RepositionThemeTransition IsStaggeringEnabled="False" />
-                </TransitionCollection>
-            </StackPanel.ChildrenTransitions>
-            
-            <uc:AdaptiveItemPane>
-                <uc:AdaptiveItemPane.LeftPane>
-                    <Button
-                        Padding="4"
-                        HorizontalContentAlignment="Left"
-                        Style="{StaticResource TransparentButtonStyle}">
-                        <Image Height="42" Source="ms-appx:///Assets/Branding/alphabanner.png" />
-                    </Button>
-                </uc:AdaptiveItemPane.LeftPane>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Padding="56,56,56,0">
+            <TextBlock
+                Margin="0,-56,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalTextAlignment="Center"
+                Opacity="0.6"
+                Visibility="Collapsed"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Text="Welcome to RiseMP! More stuff coming here soon." />
 
-                <uc:AdaptiveItemPane.RightPane>
-                    <Button
-                        x:Name="GlanceManage"
-                        Width="125"
-                        Click="GlanceManage_Click"
-                        Content="{markup:ResourceHelper Name=AddWidgets}" />
-                </uc:AdaptiveItemPane.RightPane>
-            </uc:AdaptiveItemPane>
-
-            <Border
-                Margin="0,16,0,0"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="6"
-                Opacity="1"
-                Style="{StaticResource BorderCardStyle}">
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Padding="0,50,0,20">
-                        <Image
-                            Width="88"
-                            Height="80"
-                            Source="ms-appx:///Assets/AtAGlance/widgets.png" />
-                    </StackPanel>
-
+            <Grid x:Name="NewHomePage" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <TextBlock
-                        FontSize="24"
-                        FontWeight="SemiBold"
-                        Text="{markup:ResourceHelper Name=HomeNothingToShow}"
-                        TextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                    <TextBlock
-                        FontSize="24"
-                        FontWeight="SemiBold"
-                        Text="{markup:ResourceHelper Name=HomeAddSomeWidgets}"
-                        TextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                    <TextBlock
-                        Padding="0,20,0,50"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{markup:ResourceHelper Name=HomeThingsYouLove}"
-                        TextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                </StackPanel>
-            </Border>
-
-            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=QuickH}" />
-
-            <labs:SettingsCard
-                Click="FoldersButton_Click"
-                Description="{markup:ResourceHelper Name=AddRemoveDesc}"
-                Header="{markup:ResourceHelper Name=AddRemoveTitle}"
-                HeaderIcon="{ui:FontIcon Glyph=&#xE19C;}"
-                IsClickEnabled="True" />
-            <labs:SettingsCard
-                Click="BrowseMedia_Click"
-                Description="{markup:ResourceHelper Name=BrowseMediaDesc}"
-                Header="{markup:ResourceHelper Name=BrowseMediaTitle}"
-                HeaderIcon="{ui:FontIcon Glyph=&#xE838;}"
-                IsClickEnabled="True" />
-            <labs:SettingsCard
-                Click="SupportButton_Click"
-                Description="{markup:ResourceHelper Name=SupportDevDesc}"
-                Header="{markup:ResourceHelper Name=SupportDevTitle}"
-                HeaderIcon="{ui:FontIcon Glyph=&#xE822;}"
-                IsClickEnabled="True" />
-            <labs:SettingsCard
-                Click="WhatsNew_Click"
-                Description="{markup:ResourceHelper Name=WhatsNewDesc}"
-                Header="{markup:ResourceHelper Name=WhatsNewTitle}"
-                HeaderIcon="{ui:FontIcon Glyph=&#xF4A5;}"
-                IsClickEnabled="True" />
-        </StackPanel>
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Welcome, Name!" />
+                    <CommandBar
+                        x:Name="CollectionCommands"
+                        Grid.Column="1"
+                        Visibility="Collapsed"
+                        Margin="0,-4,0,0"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        DefaultLabelPosition="Right">
+                        <AppBarButton Icon="Edit" Label="Personalise">
+                            <animations:Implicit.ShowAnimations>
+                                <animations:TranslationAnimation
+                                    From="0,56,0"
+                                    To="0, 0, 0"
+                                    Duration="0:0:0.5" />
+                                <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                            </animations:Implicit.ShowAnimations>
+                        </AppBarButton>
+                    </CommandBar>
+                </Grid>
+                <Grid Grid.Row="1" RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Opacity="0.6"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="Quick actions" />
+                        <ScrollViewer Grid.Row="1">
+                            <StackPanel  Orientation="Horizontal" Spacing="4">
+                                <Border
+                                Width="200"
+                                Height="80"
+                                Padding="0"
+                                CornerRadius="7"
+                                Style="{StaticResource BorderCardStyle}">
+                                    <Button
+                                    x:Name="BrowseBtn"
+                                    Padding="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Click="BrowseMedia_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                        <StackPanel Orientation="Vertical" Padding="16" Margin="-100,0" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            <FontIcon
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="24"
+                                            Glyph="&#xE773;" />
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Browse for media files" FontSize="16"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+                                <Border
+                                Width="200"
+                                Height="80"
+                                Padding="0"
+                                CornerRadius="7"
+                                Style="{StaticResource BorderCardStyle}">
+                                    <Button
+                                    x:Name="OpenBtn"
+                                    Padding="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Click="BrowseMedia_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                        <StackPanel Orientation="Vertical" Padding="16" Margin="-100,0" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            <FontIcon
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="24"
+                                            Glyph="&#xE838;" />
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Open a file" FontSize="16"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+                                <Border
+                                Width="200"
+                                Height="80"
+                                Padding="0"
+                                CornerRadius="7"
+                                Style="{StaticResource BorderCardStyle}">
+                                    <Button
+                                    x:Name="PlayURLBtn"
+                                    Padding="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Click="BrowseMedia_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                        <StackPanel Orientation="Vertical" Padding="16" Margin="-100,0" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            <FontIcon
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="24"
+                                            Glyph="&#xE704;" />
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Play from URL" FontSize="16"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+                                <Border
+                                Width="200"
+                                Height="80"
+                                Padding="0"
+                                CornerRadius="7"
+                                Style="{StaticResource BorderCardStyle}">
+                                    <Button
+                                    x:Name="ManageDevicesBtn"
+                                    Padding="0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Click="BrowseMedia_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                        <StackPanel Orientation="Vertical" Padding="16" Margin="-100,0" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            <FontIcon
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="24"
+                                            Glyph="&#xE88E;" />
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Manage external media" FontSize="16"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                        
+                    </Grid>
+                    <Grid Grid.Row="1" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="1"
+                                FontSize="16"
+                                Style="{StaticResource SubtitleTextBlockStyle}"
+                                Text="ListView goes here" />
+                            <TextBlock
+                                Opacity="0.6"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="Recently played" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="1"
+                                FontSize="16"
+                                Style="{StaticResource SubtitleTextBlockStyle}"
+                                Text="ListView goes here" />
+                            <TextBlock
+                                Opacity="0.6"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="Your favourites" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
     </ScrollViewer>
 </Page>

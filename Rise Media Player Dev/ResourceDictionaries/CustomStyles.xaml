@@ -17,6 +17,7 @@
                 <GradientStop Offset="1" Color="#1affffff" />
                 <GradientStop Offset="0" Color="#CCffffff" />
             </LinearGradientBrush>
+            <Color x:Key="DeleteColour">#C42B1C</Color>
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
@@ -24,6 +25,7 @@
                 <GradientStop Offset="1" Color="#00000000" />
                 <GradientStop Offset="0" Color="#99000000" />
             </LinearGradientBrush>
+            <Color x:Key="DeleteColour">#FF99A4</Color>
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="HighContrast">
