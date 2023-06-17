@@ -204,7 +204,7 @@ namespace Rise.App.Views
             var lyrics = await FetchLyricsForCurrentItemAsync();
 
             await Dispatcher;
-            if (lyrics.Any())
+            if (lyrics?.Any() ?? false)
             {
                 _lyrics = lyrics.ToList();
                 LyricsList.ItemsSource = _lyrics;
