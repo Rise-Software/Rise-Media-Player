@@ -33,10 +33,15 @@
 
             <StaticResource x:Key="TitleBarBackgroundThemeBrush" ResourceKey="GradientBlackToTransparentBrush" />
             <StaticResource x:Key="TitleBarInactiveBackgroundThemeBrush" ResourceKey="GradientBlackToTransparentBrush" />
+
+            <ImageBrush
+                x:Key="CurrentItemThumbnailBrush"
+                ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
+                Stretch="UniformToFill" />
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" Background="{StaticResource CurrentItemThumbnailBrush}">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleBarArea" Height="32" />
             <RowDefinition x:Name="MediaDisplayArea" Height="1*" />
@@ -49,13 +54,6 @@
         </Grid.ColumnDefinitions>
 
         <!--  Background area  -->
-        <Grid.Background>
-            <ImageBrush
-                x:Name="ThumbnailBrush"
-                ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
-                Stretch="UniformToFill" />
-        </Grid.Background>
-
         <visualizers:BloomView
             x:Name="BloomVis"
             Grid.RowSpan="3"
@@ -173,7 +171,6 @@
             x:Name="InfoGrid"
             Grid.Row="1"
             HorizontalAlignment="Center"
-            x:DefaultBindMode="OneWay"
             ColumnSpacing="12">
             <Grid.Transitions>
                 <TransitionCollection>
@@ -190,6 +187,7 @@
                 x:Name="ThumbBorder"
                 Width="120"
                 Height="120"
+                Background="{StaticResource CurrentItemThumbnailBrush}"
                 BorderBrush="{ThemeResource ControlElevationBorderBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
@@ -200,10 +198,6 @@
                         Opacity="0.2"
                         Offset="0,4,0" />
                 </ui:Effects.Shadow>
-
-                <Border.Background>
-                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="UniformToFill" />
-                </Border.Background>
             </Border>
 
             <Grid
@@ -223,9 +217,9 @@
                     FontWeight="Bold"
                     MaxLines="2"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
+                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis"
-                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
                 <TextBlock
                     x:Name="SubtitleText"
                     Grid.Row="1"
@@ -235,7 +229,7 @@
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     MaxLines="2"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                    Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource, Mode=OneWay}" />
             </Grid>
         </Grid>
 

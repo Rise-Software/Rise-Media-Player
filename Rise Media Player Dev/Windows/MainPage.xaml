@@ -69,6 +69,11 @@
                 <uc:DefaultQueueFlyout Width="300" Height="300" />
             </Flyout>
 
+            <ImageBrush
+                x:Key="CurrentItemThumbnailBrush"
+                ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
+                Stretch="Uniform" />
+
             <Flyout
                 x:Name="PlayingItemMusicFlyout"
                 x:DefaultBindMode="OneWay"
@@ -92,10 +97,9 @@
 
                     <Border
                         Grid.RowSpan="4"
+                        Background="{StaticResource CurrentItemThumbnailBrush}"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
-                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
-                    </Border>
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
 
                     <TextBlock
                         Grid.Column="1"
@@ -194,10 +198,9 @@
 
                     <Border
                         Grid.RowSpan="3"
+                        Background="{StaticResource CurrentItemThumbnailBrush}"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
-                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
-                    </Border>
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
 
                     <TextBlock
                         Grid.Column="1"
@@ -858,11 +861,8 @@
                                                 x:Name="ImageBorder"
                                                 Width="80"
                                                 HorizontalAlignment="Left"
+                                                Background="{StaticResource CurrentItemThumbnailBrush}"
                                                 CornerRadius="4">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
-                                                </Border.Background>
-
                                                 <Border.RenderTransform>
                                                     <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
                                                 </Border.RenderTransform>
