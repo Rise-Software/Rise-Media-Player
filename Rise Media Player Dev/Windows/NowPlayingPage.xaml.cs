@@ -136,9 +136,9 @@ namespace Rise.App.Views
     public sealed partial class NowPlayingPage
     {
         [RelayCommand]
-        private void GoToMiniView()
+        private Task GoToMiniViewAsync()
         {
-            _ = Frame.Navigate(typeof(CompactNowPlayingPage));
+            return CompactNowPlayingPage.NavigateAsync(Frame);
         }
 
         [RelayCommand]

@@ -1,11 +1,12 @@
 ﻿using Rise.Common.Threading;
 using Rise.Data.ViewModels;
 using System;
+using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Rise.App.Views
 {
@@ -29,26 +30,24 @@ namespace Rise.App.Views
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        public static async Task NavigateAsync(Frame frame)
         {
             _ = await ApplicationView.GetForCurrentView().
                 TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
-        }
 
-        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            _ = await ApplicationView.GetForCurrentView().
-                TryEnterViewModeAsync(ApplicationViewMode.Default);
+            _ = frame.Navigate(typeof(CompactNowPlayingPage), null, new SuppressNavigationTransitionInfo());
         }
     }
 
     // Event handlers
     public sealed partial class CompactNowPlayingPage
     {
-        private void OnExitButtonClick(object sender, RoutedEventArgs e)
+        private async void OnExitButtonClick(object sender, RoutedEventArgs e)
         {
-            if (Frame.CanGoBack)
-                Frame.GoBack();
+            _ = await ApplicationView.GetForCurrentView().
+                TryEnterViewModeAsync(ApplicationViewMode.Default);
+
+            Frame.GoBack();
         }
 
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)

@@ -31,6 +31,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -307,18 +308,21 @@ namespace Rise.App.Views
         }
 
         [RelayCommand]
-        private void GoToNowPlaying(ApplicationViewMode newMode)
+        private Task GoToNowPlayingAsync(ApplicationViewMode newMode)
         {
-            if (MPViewModel.PlayingItem == null) return;
+            if (MPViewModel.PlayingItem != null)
+            {
+                if (newMode == ApplicationViewMode.CompactOverlay)
+                    return CompactNowPlayingPage.NavigateAsync(Frame);
+                else
+                    _ = Frame.Navigate(typeof(NowPlayingPage), null, new DrillInNavigationTransitionInfo());
+            }
 
-            if (newMode == ApplicationViewMode.CompactOverlay)
-                Frame.Navigate(typeof(CompactNowPlayingPage));
-            else
-                Frame.Navigate(typeof(NowPlayingPage));
+            return Task.CompletedTask;
         }
 
-        private void OnDisplayItemClick(object sender, RoutedEventArgs e)
-            => GoToNowPlaying(ApplicationViewMode.Default);
+        private async void OnDisplayItemClick(object sender, RoutedEventArgs e)
+            => await GoToNowPlayingAsync(ApplicationViewMode.Default);
 
         private void OnDisplayItemRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
