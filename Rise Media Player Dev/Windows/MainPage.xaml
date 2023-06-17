@@ -70,7 +70,7 @@
             </Flyout>
 
             <ImageBrush
-                x:Key="CurrentItemThumbnailBrush"
+                x:Name="CurrentItemThumbnailBrush"
                 ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
                 Stretch="Uniform" />
 
@@ -97,9 +97,10 @@
 
                     <Border
                         Grid.RowSpan="4"
-                        Background="{StaticResource CurrentItemThumbnailBrush}"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
+                        <Image Source="{x:Bind CurrentItemThumbnailBrush.ImageSource, Mode=OneWay}" />
+                    </Border>
 
                     <TextBlock
                         Grid.Column="1"
@@ -198,9 +199,10 @@
 
                     <Border
                         Grid.RowSpan="3"
-                        Background="{StaticResource CurrentItemThumbnailBrush}"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
+                        <Image Source="{x:Bind CurrentItemThumbnailBrush.ImageSource, Mode=OneWay}" />
+                    </Border>
 
                     <TextBlock
                         Grid.Column="1"
