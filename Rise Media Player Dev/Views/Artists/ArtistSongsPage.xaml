@@ -109,7 +109,7 @@
             </ListView.ContextFlyout>
 
             <ListView.Header>
-                <Grid RowSpacing="12" Margin="0,0,0,-32">
+                <Grid RowSpacing="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="230" />
                         <RowDefinition Height="Auto" />
@@ -229,7 +229,6 @@
                         <Grid
                             x:Name="TopTracksCard"
                             Height="200"
-                            Visibility="Collapsed"
                             RowSpacing="12"
                             Style="{StaticResource GridCardStyle}">
                             <Grid.RowDefinitions>
@@ -285,7 +284,6 @@
                             x:Name="MusicVideosCard"
                             Grid.Column="1"
                             Height="200"
-                            Visibility="Collapsed"
                             RowSpacing="12"
                             Style="{StaticResource GridCardStyle}">
                             <Grid.RowDefinitions>
@@ -339,7 +337,7 @@
             <ListView.Footer>
                 <Grid
                     x:Name="LastFMFooterCards"
-                    Margin="0,0,0,0"
+                    Margin="0,12,0,0"
                     ColumnSpacing="12">
                     <Grid
                         x:Name="AboutArtistCard"

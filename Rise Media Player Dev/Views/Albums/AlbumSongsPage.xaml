@@ -110,16 +110,7 @@
                     <MenuFlyoutItem
                         Icon="Delete"
                         IsEnabled="False"
-                        Foreground="{ThemeResource DeleteColour}"
-                        Text="{markup:ResourceHelper Name=RemoveThing}">
-                        <MenuFlyoutItem.Resources>
-                            <SolidColorBrush x:Name="MenuFlyoutItemForegroundPointerOver" Color="{ThemeResource DeleteColour}" />
-                            <SolidColorBrush x:Name="MenuFlyoutItemForegroundPressed" Color="{ThemeResource DeleteColour}" />
-                            <SolidColorBrush x:Name="MenuFlyoutItemKeyboardAcceleratorTextForeground" Color="{ThemeResource DeleteColour}" />
-                            <SolidColorBrush x:Name="MenuFlyoutItemKeyboardAcceleratorTextForegroundPointerOver" Color="{ThemeResource DeleteColour}" />
-                            <SolidColorBrush x:Name="MenuFlyoutItemKeyboardAcceleratorTextForegroundPressed" Color="{ThemeResource DeleteColour}" />
-                        </MenuFlyoutItem.Resources>
-                    </MenuFlyoutItem>
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                     <MenuFlyoutItem
                         Command="{x:Bind EditItemCommand}"
@@ -285,7 +276,6 @@
                     x:Name="MoreAlbumsByArtist"
                     Margin="0,12,0,8"
                     Padding="16,0,8,0"
-                    CornerRadius="8"
                     HorizontalAlignment="Stretch"
                     x:Load="False"
                     Style="{StaticResource BorderCardStyle}">

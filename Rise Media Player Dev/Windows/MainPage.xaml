@@ -383,7 +383,6 @@
                 <AutoSuggestBox
                     x:Name="Search"
                     Height="32"
-                    Visibility="Collapsed"
                     MaxWidth="530"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
@@ -428,11 +427,9 @@
                     </AutoSuggestBox.ItemTemplate>
                 </AutoSuggestBox>
 
-                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,-4,0" HorizontalAlignment="Right">
-                    <Button
+                <Button
                     x:Name="SyncCentre"
                     Grid.Column="1"
-                    Visibility="Collapsed"
                     Height="32"
                     Margin="0,0,0,0"
                     HorizontalAlignment="Left"
@@ -440,122 +437,119 @@
                     IsEnabled="False"
                     Style="{StaticResource TransparentButtonStyle}"
                     ToolTipService.ToolTip="{markup:ResourceHelper Name=SyncCenter}">
-                        <Button.Content>
-                            <Grid>
-                                <FontIcon
+                    <Button.Content>
+                        <Grid>
+                            <FontIcon
                                 x:Name="SyncCentreIcon"
                                 Height="24"
                                 Glyph="&#xE117;" />
 
-                                <muxc:ProgressRing
+                            <muxc:ProgressRing
                                 x:Name="ScanningRing"
                                 Width="20"
                                 Height="20"
                                 IsActive="False" />
-                            </Grid>
-                        </Button.Content>
+                        </Grid>
+                    </Button.Content>
 
-                        <Button.Flyout>
-                            <Flyout>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
                                         Margin="0,2,0,12"
                                         Style="{ThemeResource BaseTextBlockStyle}"
                                         Text="{markup:ResourceHelper Name=SyncCenter}" />
-                                        <Button
+                                    <Button
                                         Height="32"
                                         Margin="70,-9,-2,0"
                                         Content="{markup:ResourceHelper Name=SyncAll}"
                                         FontSize="12"
                                         FontStretch="Normal" />
-                                    </StackPanel>
+                                </StackPanel>
 
-                                    <StackPanel Padding="25" Orientation="Vertical">
-                                        <FontIcon Height="32" Glyph="" />
-                                        <TextBlock
+                                <StackPanel Padding="25" Orientation="Vertical">
+                                    <FontIcon Height="32" Glyph="" />
+                                    <TextBlock
                                         FontSize="14"
                                         FontWeight="Normal"
                                         Text="{markup:ResourceHelper Name=ComingSoon}"
                                         TextAlignment="Center" />
-                                    </StackPanel>
                                 </StackPanel>
-                            </Flyout>
-                        </Button.Flyout>
-                    </Button>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
 
-
-
-                    <Button
+                <Button
                     x:Name="MoreButton"
                     Grid.Column="1"
-                    Height="36"
-                    Width="36"
-                    CornerRadius="5"
-                    Padding="0"
-                    Margin="0,-4"
+                    Height="32"
+                    Margin="46,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource TransparentButtonStyle}"
                     ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}">
-                        <Button.Content>
-                            <FontIcon Height="24" Glyph="&#xE10C;" />
-                        </Button.Content>
+                    <Button.Content>
+                        <FontIcon Height="24" Glyph="&#xE13D;" />
+                    </Button.Content>
 
-                        <Button.Flyout>
-                            <MenuFlyout x:Name="ProfileMenu">
-                                <MenuFlyoutItem
+                    <Button.Flyout>
+                        <MenuFlyout x:Name="ProfileMenu">
+                            <MenuFlyoutItem
                                 x:Name="Acc"
                                 Height="44"
-                                    Visibility="Collapsed"
                                 Margin="3"
                                 Click="Account_Click"
                                 FontSize="14"
                                 FontWeight="SemiBold"
                                 Text="{x:Bind LMViewModel.Username, Mode=OneWay}">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon x:Name="AccountPic" Glyph="&#xE13D;" />
-                                    </MenuFlyoutItem.Icon>
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon x:Name="AccountPic" Glyph="&#xE13D;" />
+                                </MenuFlyoutItem.Icon>
 
-                                    <MenuFlyoutItem.Background>
-                                        <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png" />
-                                    </MenuFlyoutItem.Background>
-                                </MenuFlyoutItem>
+                                <MenuFlyoutItem.Background>
+                                    <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png" />
+                                </MenuFlyoutItem.Background>
+                            </MenuFlyoutItem>
 
-                                <MenuFlyoutItem Click="StartScan_Click" Text="{markup:ResourceHelper Name=Scan}">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon Glyph="&#xE721;" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
+                            <MenuFlyoutSeparator />
 
-                                <MenuFlyoutSeparator />
+                            <MenuFlyoutItem Click="Messages_Click" Text="{markup:ResourceHelper Name=MessagesAndReports}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xF716;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
-                                <MenuFlyoutItem Click="Button_Click" Text="{markup:ResourceHelper Name=Feedback}">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon Glyph="&#xED15;" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                    <Button
-                    x:Name="SettingsButton"
-                    Grid.Column="1"
-                    Height="36"
-                    Width="36"
-                        Click="OpenSettings_Click"
-                    CornerRadius="5"
-                    Padding="0"
-                    Margin="0,-4"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}">
-                        <Button.Content>
-                            <FontIcon Height="16" Glyph="&#xE115;" />
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                            <MenuFlyoutItem Click="Support_Click" Text="{markup:ResourceHelper Name=SupportProject}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE125;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
-                
+                            <MenuFlyoutSeparator />
+
+                            <MenuFlyoutItem Click="StartScan_Click" Text="{markup:ResourceHelper Name=Scan}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE721;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutSeparator />
+
+                            <MenuFlyoutItem Click="Button_Click" Text="{markup:ResourceHelper Name=Feedback}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xED15;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutItem Click="OpenSettings_Click" Text="{markup:ResourceHelper Name=AppSettings}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE115;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
             </Grid>
         </Grid>
 
@@ -575,54 +569,6 @@
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.AllItems.MenuItems}"
             OpenPaneLength="260">
-            <muxc:NavigationView.AutoSuggestBox>
-                <AutoSuggestBox
-                    x:Name="SearchSidebar"
-                    Height="32"
-                    MaxWidth="530"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="Search"
-                    PlaceholderText="Search all media"
-                    QueryIcon="Find"
-                    QuerySubmitted="OnSearchQuerySubmitted"
-                    SuggestionChosen="OnSearchSuggestionChosen"
-                    TextChanged="OnSearchTextChanged">
-                    <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
-                            <Grid Padding="2,10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <Border
-                                    Width="40"
-                                    Height="40"
-                                    CornerRadius="3">
-                                    <Image>
-                                        <Image.Source>
-                                            <BitmapImage
-                                                DecodePixelHeight="40"
-                                                DecodePixelWidth="40"
-                                                UriSource="{x:Bind Thumbnail}" />
-                                        </Image.Source>
-                                    </Image>
-                                </Border>
-
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{x:Bind Title}" />
-                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.IsStringEmpty(Subtitle)}" />
-                                    <TextBlock
-                                        Margin="0,3,0,0"
-                                        FontSize="13"
-                                        Text="{x:Bind ItemType}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </AutoSuggestBox.ItemTemplate>
-                </AutoSuggestBox>
-            </muxc:NavigationView.AutoSuggestBox>
             <Grid>
                 <Frame
                     x:Name="ContentFrame"

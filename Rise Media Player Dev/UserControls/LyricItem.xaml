@@ -14,9 +14,9 @@
             x:Name="LyricTextBlock"
             Margin="0,4"
             HorizontalAlignment="Stretch"
-            FontSize="18"
+            FontSize="16"
             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            HorizontalTextAlignment="Left"
+            HorizontalTextAlignment="Center"
             Text="{x:Bind Text, Mode=OneWay}"
             TextWrapping="WrapWholeWords" />
 
@@ -30,7 +30,7 @@
                                 Storyboard.TargetName="LyricTextBlock"
                                 Storyboard.TargetProperty="FontSize"
                                 Duration="0:0:0.3">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="28">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="20">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <ExponentialEase EasingMode="EaseIn" />
                                     </EasingDoubleKeyFrame.EasingFunction>
@@ -39,7 +39,7 @@
                         </Storyboard>
                     </VisualState.Storyboard>
                     <VisualState.Setters>
-                        <Setter Target="LyricTextBlock.FontWeight" Value="Bold" />
+                        <Setter Target="LyricTextBlock.FontWeight" Value="SemiBold" />
                         <Setter Target="LyricTextBlock.Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                     </VisualState.Setters>
                 </VisualState>
@@ -51,7 +51,7 @@
                                 Storyboard.TargetName="LyricTextBlock"
                                 Storyboard.TargetProperty="FontSize"
                                 Duration="0:0:0.3">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="18">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="16">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <ExponentialEase EasingMode="EaseOut" />
                                     </EasingDoubleKeyFrame.EasingFunction>

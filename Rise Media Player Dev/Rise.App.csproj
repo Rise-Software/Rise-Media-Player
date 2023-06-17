@@ -219,12 +219,6 @@
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DiscoverMusicPage.xaml.cs">
-      <DependentUpon>DiscoverMusicPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExploreVideoPage.xaml.cs">
-      <DependentUpon>ExploreVideoPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml.cs">
       <DependentUpon>PlaylistVideosPropertiesPage.xaml</DependentUpon>
     </Compile>
@@ -754,14 +748,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BrowsePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DiscoverMusicPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExploreVideoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
