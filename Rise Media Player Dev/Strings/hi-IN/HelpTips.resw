@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>आपके निजी गाने और विडियो को जोड़ा जा रहा है</value>
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
+    <value>आपके निजी गाने और विडियों को जोड़ा जा रहा है</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
-    <value>• यह संस्करण माइक्रोसॉफ्ट स्टोर से पुश होंगे
+    <value>• यह रूपांतरण माइक्रोसॉफ्ट स्टोर से पुश होंगे
 • प्लेलिस्ट
 • उपकरण सहयोग
 • डिस्क बर्निंग
@@ -224,7 +224,7 @@ https://disboard.org/server/872910570003791922</value>
   <data name="JoinH.Text" xml:space="preserve">
     <value>मैं इनसाइडर प्रोग्राम कैसे ज्वॉइन करूँ?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
     <value>मीडिया प्ले करना और नाउ प्लेइंग</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
@@ -257,7 +257,7 @@ https://disboard.org/server/872910570003791922</value>
 
 • बीटा - अप्रैल - निर्धारित किए जाने हेतु ( यह रूपांतरण सभी सार्वजनिक यूजरों के लिए माइक्रोसॉफ्ट स्टोर से उपलब्ध होगा। आपको इनसाइडर प्रोग्राम का हिस्सा होने की ज़रूरत नहीं होगी, हालांकि आप फीचरों पर चूक जाएंगे/ जाएंगीं।)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
     <value>आपके लाइब्रेरी की छँटाई और प्रबंधन</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">

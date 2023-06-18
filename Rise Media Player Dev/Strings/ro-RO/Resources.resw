@@ -946,4 +946,7 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   <data name="Warning" xml:space="preserve">
     <value>Avertizare</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

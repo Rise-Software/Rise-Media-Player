@@ -118,49 +118,49 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+    <value>Tee siitä omasi</value>
   </data>
   <data name="ConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+    <value>Yhdistä Internet-tili</value>
   </data>
   <data name="DoneH" xml:space="preserve">
-    <value>You're done!</value>
+    <value>Olet valmis!</value>
   </data>
   <data name="Intro" xml:space="preserve">
-    <value>We're glad you're here. You just need to go through a few simple steps and you'll be all up and running!</value>
+    <value>Olemme iloisia siitä, että olet täällä. Sinun täytyy vain käydä läpi muutamia yksinkertaisia askelia ja olet valmis!</value>
   </data>
   <data name="LocalH" xml:space="preserve">
-    <value>Add your personal media</value>
+    <value>Lisää henkilökohtainen mediasi</value>
   </data>
   <data name="PrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Yksityisyys ja suositukset</value>
   </data>
   <data name="SetupPre" xml:space="preserve">
-    <value>Pre-setup</value>
+    <value>Esiasetukset</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Start setup</value>
+    <value>Aloita asennus</value>
   </data>
   <data name="TermsH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
+    <value>Lisenssisopimus ja ehdot</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome to</value>
+    <value>Tervetuloa</value>
   </data>
   <data name="TermsLastUpdated" xml:space="preserve">
-    <value>Last Updated December 2021 - GPL License 3.0</value>
+    <value>Päivitetty viimeksi joulukuussa 2021 - GPL License 3.0</value>
   </data>
   <data name="TermsLocalH" xml:space="preserve">
-    <value>Local Media Handling</value>
+    <value>Paikallisen median käsittely</value>
   </data>
   <data name="TermsStreamingH" xml:space="preserve">
-    <value>Streaming &amp; Online Services</value>
+    <value>Suoratoistaminen ja verkkopalvelut</value>
   </data>
   <data name="TermsStart" xml:space="preserve">
-    <value>Rise Media Player - Licence Agreement &amp; Terms for Use</value>
+    <value>Rise Media Player - Lisenssisopimus ja käyttöehdot</value>
   </data>
   <data name="TermsBaseH" xml:space="preserve">
-    <value>Base Software &amp; Copyright</value>
+    <value>Perusohjelmisto ja tekijänoikeudet</value>
   </data>
   <data name="TermsBodyPart1" xml:space="preserve">
     <value>GNU GENERAL PUBLIC LICENSE
@@ -275,9 +275,9 @@ IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY C
 If the disclaimer of warranty and limitation of liability provided above cannot be given local legal effect according to their terms, reviewing courts shall apply local law that most closely approximates an absolute waiver of all civil liability in connection with the Program, unless a warranty or assumption of liability accompanies a copy of the Program in return for a fee.</value>
   </data>
   <data name="TermsBodyPart2" xml:space="preserve">
-    <value>By using this software and adding your folders, you give Rise Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music &amp; Videos) by default.
+    <value>Käyttämällä tätä ohjelmistoa ja lisäämällä kansioita annat Rise Media Playerille täydet oikeudet muokata median metatietoja, tarkastella tiedostoja, poistaa tiedostoja ja tietoja jne. Oletuksena annat myös pääsyn kirjastojesi oletussijainteihin mediaa varten (Musiikki ja videot).
 
-By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.</value>
+Oletuksena annat ohjelmistolle pääsyn kuunteluhistoriaasi ja tottumuksiisi palvelemaan sinua yksilöllisillä suosituksilla. Tämä ominaisuus voidaan poistaa käytöstä.</value>
   </data>
   <data name="TermsBodyPart3" xml:space="preserve">
     <value>Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service(s).

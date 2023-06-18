@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
     <value>Adding your personal music and videos</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
@@ -223,7 +223,7 @@ Good luck testing!</value>
   <data name="JoinH.Text" xml:space="preserve">
     <value>How do I join the Insider Program?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
     <value>Playing media and now playing</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
@@ -256,7 +256,7 @@ In terms of other versions, we have no exact dates to give you all, but this is 
 
 • Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
     <value>Sorting and managing your library</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
