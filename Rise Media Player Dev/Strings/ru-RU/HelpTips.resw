@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Добавление вашей персональной музыки и видео</value>
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
+    <value>Adding your personal music and videos</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• Эти версии будут распространяться из Microsoft Store
@@ -223,8 +223,8 @@
   <data name="JoinH.Text" xml:space="preserve">
     <value>Как присоединиться к программе предварительной оценки?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Плэйбек мультимедии и «Сейчас играет»</value>
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
+    <value>Playing media and now playing</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
     <value>• Индексирование песен, альбомов, исполнителей и жанров
@@ -256,8 +256,8 @@
 
 • Бета-версия — апрель — подлежит уточнению (эта версия будет доступна для всех общедоступных пользователей в Microsoft Store. Вам не нужно будет участвовать в программе предварительной оценки, хотя вы пропустите некоторые функции)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Сортировка и управление своей библиотекой</value>
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
+    <value>Sorting and managing your library</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
     <value>Вы должны это увидеть ;)</value>

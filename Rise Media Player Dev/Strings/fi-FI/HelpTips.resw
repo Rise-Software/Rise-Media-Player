@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Adding your personal music and videos</value>
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
+    <value>Henkilökohtaisen musiikin ja videoiden lisääminen</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
-    <value>• These versions will be pushed from the Microsoft Store
-• Playlists
-• Devices support
-• Disc Burning
-• Multi-language support for 12 languages at start (not complete)
-• Some online services in background - Discord Rich Presence &amp; Last.fm Scrobbling
-• Views and sorting for music added
-• Video indexing and playback
-• Improved Now Playing experience and queue
-• Overhauled Settings UI brought to all builds
-• Local recommendations and recently played
-• Discy in the majority of the app</value>
+    <value>• Näitä versioita jaellaan Microsoft Storen kautta
+• Soittolistat
+• Tuki laitteille
+• Levyjen polttaminen
+• Monikielisyyden tuki, aluksi 12 kielelle (ei valmis)
+• Joitakin taustalla toimivia verkkopalveluita (Discord Rich Presence ja soittotietojen lataus last.fm -palveluun)
+• Näkymät ja musiikin lajittelu lisätty
+• Videoiden indeksointi ja toisto
+• Parannettu Nyt Soi -kokemus ja jono
+• Uudistettu Asetukset -käyttöliittymä tuotu kaikkiin koontiversioihin
+• Paikalliset suositukset ja viimeksi soitetut
+• Discy suurimmassa osassa ohjelmaa</value>
   </data>
   <data name="AlphaH.Text" xml:space="preserve">
-    <value>Late Pre-Alpha - Alpha</value>
+    <value>Myöhäinen Esi-Alfa-versio - Alfa</value>
   </data>
   <data name="Benefits.Text" xml:space="preserve">
     <value>First, the app early.
@@ -147,64 +147,64 @@ Early Access Insiders (previously Seeding Insiders) get access to the app earlie
 *Features tagged as Experimental in the Settings interface</value>
   </data>
   <data name="BenefitsH.Text" xml:space="preserve">
-    <value>What benefits do I get from joining the Insider Program?</value>
+    <value>Mitä hyötyä voin saada liittymisestä sisäpiiriohjelmaan?</value>
   </data>
   <data name="Beta.Text" xml:space="preserve">
-    <value>• Streaming services and reccommendations in some form
-• Equaliser
-• Visualiser
-• Find album info
-• Disc ripping
-• Networks support
-• More stuff</value>
+    <value>• Suoratoistopalvelut ja suositukset jossain muodossa
+• Taajuuskorjain
+• Visualisoija
+• Albumin tietojen haku
+• Levyjen kopiointi
+• Verkkoyhteyksien tuki
+• Lisää juttuja</value>
   </data>
   <data name="BetaH.Text" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="DiscyAboutTipDesc" xml:space="preserve">
-    <value>You can find me by right clicking on different things. For example, an album. I'll tell you what you can do :). I'm still pretty new, so I won't be everywhere, but I'm growing every day!</value>
+    <value>Voit löytää minut klikkaamalla eri asioita hiiren oikealla painikkeella. Esimerkiksi albumia. Kerron sinulle mitä voit tehdä :). Olen vielä melko uusi, joten en ole kaikkialla, mutta kasvan joka päivä!</value>
   </data>
   <data name="DiscyAboutTipTitle" xml:space="preserve">
-    <value>Hey! I'm Discy.</value>
+    <value>Hei! Olen Discy.</value>
   </data>
   <data name="DiscyOnAlbumDesc" xml:space="preserve">
-    <value>Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.</value>
+    <value>Käytä komentopalkkia järjestääksesi albumit eri tyyppeihin. Klikkaa albumia nähdäksesi mitä on varastossa. Voit lisätä koko albumin soittolistaan, sekoittaa kappaleet tai jakaa ystäviesi kanssa.</value>
   </data>
   <data name="DiscyOnAlbumH" xml:space="preserve">
-    <value>Managing and organising your albums</value>
+    <value>Albumien hallinta ja järjestäminen</value>
   </data>
   <data name="DiscyOnArtistDesc" xml:space="preserve">
-    <value>Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.</value>
+    <value>Soita artistin koko diskografia kerralla. Katso tietoa esittäjästä, heidän albumeistaan (laitteellesi tallennetut) sekä kappaleista klikkaamalla haluamaasi artistia. Jaa suosikkiartistisi ystäviesi kanssa tai lisää artistin kaikki musiikki soittolistalle.</value>
   </data>
   <data name="DiscyOnPlaylistDesc" xml:space="preserve">
-    <value>Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!</value>
+    <value>Laita lempikappaleesi, erikoiskappaleet ja omat kappaleesi yhdessä soittolistalle. Anna sille kuvaus ja otsikko. Lisää sitten lisää musiikkia ja poista kappaleita joista et ole aivan varma. Hauskoja kuunteluhetkiä!</value>
   </data>
   <data name="DiscyOnPlaylistH" xml:space="preserve">
-    <value>Group with playlists</value>
+    <value>Ryhmittele soittolistoilla</value>
   </data>
   <data name="DiscyOnSongDesc" xml:space="preserve">
-    <value>Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!</value>
+    <value>Pidä hiirtä kappaleen päällä ja klikkaa Soita -painiketta soittaaksesi kappaleen tai kaksoisklikkaa. Ohita, mene takaisin ja katso kappaleen tietoja Nyt Soi -palkista (ohjelman alaosassa). Klikkaa 'Tiedot ja ominaisuudet' muokataksesi kappaleen metatietoja ja tiedoston tietoja. Voit aina jakaa muille tai lisätä myös soittolistaan!</value>
   </data>
   <data name="DiscyOnSongH" xml:space="preserve">
-    <value>Taking action on songs</value>
+    <value>Toiminnan ottaminen kappaleisiin</value>
   </data>
   <data name="DiscyOnVideoDesc" xml:space="preserve">
-    <value>Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.</value>
+    <value>Klikkaa videota toistaaksesi sen. Nimeä uudelleen ja lajittele niitä. Videot täyttävät koko sovellusikkunan ja voit hangata, asettaa videon tauolle, ohittaa ja paljon muuta.</value>
   </data>
   <data name="DiscyOnVideoH" xml:space="preserve">
-    <value>Playing videos</value>
+    <value>Videoiden toistaminen</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>The basics</value>
+    <value>Perusasiat</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>What features are you prioritising?</value>
+    <value>Mitkä ominaisuudet ovat tärkeimpiä?</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
-    <value>If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922</value>
+    <value>Jos haluat osallistua tai kääntää, liity Discord-palvelimellemme! Tässä osoite: https://disboard.org/server/872910570003791922</value>
   </data>
   <data name="HowTransH.Text" xml:space="preserve">
-    <value>How can I become a contributor or a translator?</value>
+    <value>Miten minusta voi tulla avustaja tai kääntäjä?</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
     <value>When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the MSIX package for the new build. Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds. Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry!</value>
@@ -223,8 +223,8 @@ Good luck testing!</value>
   <data name="JoinH.Text" xml:space="preserve">
     <value>How do I join the Insider Program?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Playing media and now playing</value>
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
+    <value>Median toisto ja nyt soiva kappale</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
     <value>• Song, Album, Artist and Genre Indexing
@@ -256,7 +256,7 @@ In terms of other versions, we have no exact dates to give you all, but this is 
 
 • Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
     <value>Sorting and managing your library</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">

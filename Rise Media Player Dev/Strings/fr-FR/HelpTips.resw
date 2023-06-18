@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Ajoutez vos musiques et vidéos personnelles</value>
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
+    <value>Adding your personal music and videos</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• Ces versions seront publiées depuis le Microsoft StoreStore
@@ -223,8 +223,8 @@ Bonne chance pour les tests !</value>
   <data name="JoinH.Text" xml:space="preserve">
     <value>Comment rejoindre le programme beta ?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Lecture des médias et lecture en cours</value>
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
+    <value>Playing media and now playing</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
     <value>• Indexation des chansons, des albums, des artistes et des genres
@@ -256,8 +256,8 @@ En ce qui concerne les autres versions, nous n'avons pas de dates exactes à vou
 
 - Bêta - Avril (Cette version sera disponible pour tous les utilisateurs sur le Microsoft Store. Il n'est pas nécessaire de faire partie du programme Insider, mais certaines fonctionnalités ne seront pas disponibles.)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Trier et gérer votre bibliothèque</value>
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
+    <value>Sorting and managing your library</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
     <value>Vous verrez ;)</value>
