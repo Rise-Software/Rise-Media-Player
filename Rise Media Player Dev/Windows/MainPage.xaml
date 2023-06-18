@@ -335,37 +335,30 @@
         </Grid.Background>
 
         <Grid Canvas.ZIndex="1">
-            <skuc:ExtendedTitleBar
+            <skuc:TitleBar
                 x:Name="AppTitleBar"
                 Height="40"
+                Padding="0,8,0,0"
                 VerticalAlignment="Top"
                 Canvas.ZIndex="1">
-                <Grid
-                    x:Name="AppData"
-                    Margin="0,8,0,0"
-                    ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                <skuc:TitleBar.Icon>
+                    <IconSourceElement
+                        Width="16"
+                        Height="16"
+                        IconSource="{StaticResource TitleBarAppIconSource}" />
+                </skuc:TitleBar.Icon>
 
-                    <Image Height="16" Source="ms-appx:///Assets/App/Square44x44Logo.targetsize-256.png" />
-                    <RichTextBlock
-                        x:Name="AppTitle"
-                        Grid.Column="1"
-                        FontSize="12"
-                        IsTextSelectionEnabled="False"
-                        Visibility="Collapsed">
-                        <Paragraph x:Name="DefaultTitleParagraph">
-                            <Run
-                                x:Name="RiseSpan"
-                                FontWeight="SemiBold"
-                                Text="Rise" />
-                            <Span>Media Player</Span>
-                        </Paragraph>
-                    </RichTextBlock>
-                </Grid>
-            </skuc:ExtendedTitleBar>
+                <RichTextBlock
+                    x:Name="AppTitle"
+                    FontSize="12"
+                    IsTextSelectionEnabled="False"
+                    Visibility="Collapsed">
+                    <Paragraph x:Name="DefaultTitleParagraph">
+                        <Run x:Name="RiseSpan" FontWeight="SemiBold">Rise</Run>
+                        <Span>Media Player</Span>
+                    </Paragraph>
+                </RichTextBlock>
+            </skuc:TitleBar>
 
             <Grid
                 x:Name="ControlsPanel"
