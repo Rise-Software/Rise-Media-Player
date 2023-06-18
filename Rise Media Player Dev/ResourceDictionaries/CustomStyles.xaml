@@ -31,6 +31,13 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <!--  Title bar resources  -->
+    <Thickness x:Key="TitleBarIconMargin">0,0,0,0</Thickness>
+    <BitmapIconSource
+        x:Key="TitleBarAppIconSource"
+        ShowAsMonochrome="False"
+        UriSource="ms-appx:///Assets/App/TitleBar.png" />
+
     <Style
         x:Key="AppBarCompactButtonStyle"
         BasedOn="{StaticResource DefaultAppBarButtonStyle}"
