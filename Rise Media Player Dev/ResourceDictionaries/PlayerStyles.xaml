@@ -279,6 +279,7 @@
                                     Command="{TemplateBinding OverlayCommand}"
                                     IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
                                     Label="{markup:ResourceHelper Name=EnterMiniView}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=EnterMiniView}"
                                     Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
                                     <AppBarButton.Icon>
                                         <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93B;" />
