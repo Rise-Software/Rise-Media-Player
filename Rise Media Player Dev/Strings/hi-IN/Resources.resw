@@ -946,4 +946,7 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
 </root>
