@@ -815,8 +815,6 @@
                                 IsFullWindowButtonVisible="True"
                                 IsFullWindowEnabled="True"
                                 IsNextTrackButtonVisible="True"
-                                IsOverlayButtonVisible="True"
-                                IsOverlayEnabled="True"
                                 IsPlaybackRateButtonVisible="True"
                                 IsPlaybackRateEnabled="True"
                                 IsPreviousTrackButtonVisible="True"
