@@ -5,35 +5,33 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     mc:Ignorable="d">
 
     <Grid>
-        <skuc:ExtendedTitleBar
+        <skuc:TitleBar
             x:Name="TitleBar"
-            Height="40"
-            Margin="16,0,0,0"
+            Height="48"
+            Padding="8,0,0,0"
             VerticalAlignment="Top"
             Canvas.ZIndex="1">
-            <Grid Margin="0,8,0,0" ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="16" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <skuc:TitleBar.Icon>
+                <IconSourceElement
+                    Width="16"
+                    Height="16"
+                    IconSource="{StaticResource TitleBarAppIconSource}" />
+            </skuc:TitleBar.Icon>
 
-                <Image Height="16" Source="ms-appx:///Assets/App/Square44x44Logo.targetsize-256.png" />
-                <RichTextBlock
-                    Grid.Column="1"
-                    FontSize="12"
-                    IsTextSelectionEnabled="False">
-                    <Paragraph x:Name="DefaultTitleParagraph">
-                        <Span FontWeight="SemiBold">Rise</Span>
-                        <Span>Media Player</Span>
-                    </Paragraph>
-                </RichTextBlock>
-            </Grid>
-        </skuc:ExtendedTitleBar>
+            <RichTextBlock
+                Grid.Column="1"
+                FontSize="12"
+                IsTextSelectionEnabled="False">
+                <Paragraph x:Name="DefaultTitleParagraph">
+                    <Span FontWeight="SemiBold">Rise</Span>
+                    <Span>Media Player</Span>
+                </Paragraph>
+            </RichTextBlock>
+        </skuc:TitleBar>
 
         <StackPanel
             Width="400"

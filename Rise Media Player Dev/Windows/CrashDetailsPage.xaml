@@ -13,44 +13,42 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
-            <RowDefinition />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
 
-        <skuc:ExtendedTitleBar
+        <skuc:TitleBar
             x:Name="TitleBar"
-            Height="40"
-            Margin="16,0,0,0"
-            VerticalAlignment="Top"
-            Canvas.ZIndex="1">
-            <Grid Margin="0,8,0,0" ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="16" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            Padding="8,0,0,0"
+            VerticalAlignment="Stretch">
+            <skuc:TitleBar.Icon>
+                <IconSourceElement
+                    Width="16"
+                    Height="16"
+                    IconSource="{StaticResource TitleBarAppIconSource}" />
+            </skuc:TitleBar.Icon>
 
-                <Image Height="16" Source="ms-appx:///Assets/App/Square44x44Logo.targetsize-256.png" />
-                <RichTextBlock
-                    Grid.Column="1"
-                    FontSize="12"
-                    IsTextSelectionEnabled="False">
-                    <Paragraph x:Name="DefaultTitleParagraph">
-                        <Span FontWeight="SemiBold">Rise</Span>
-                        <Span>Media Player</Span>
-                    </Paragraph>
-                </RichTextBlock>
-            </Grid>
-        </skuc:ExtendedTitleBar>
+            <RichTextBlock
+                Grid.Column="1"
+                FontSize="12"
+                IsTextSelectionEnabled="False">
+                <Paragraph x:Name="DefaultTitleParagraph">
+                    <Span FontWeight="SemiBold">Rise</Span>
+                    <Span>Media Player</Span>
+                </Paragraph>
+            </RichTextBlock>
+        </skuc:TitleBar>
 
         <ScrollViewer
             Grid.Row="1"
-            Padding="20"
+            Padding="20,0"
             VerticalScrollBarVisibility="Auto">
-            <Grid>
+            <Grid RowSpacing="12">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80" />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
+
                 <StackPanel>
                     <TextBlock
                         Style="{ThemeResource TitleTextBlockStyle}"
@@ -65,7 +63,7 @@
 
                 <TextBlock
                     Grid.Row="1"
-                    Margin="0,12,0,0"
+                    Margin="0,0,0,12"
                     IsTextSelectionEnabled="True"
                     Text="{x:Bind Text}"
                     TextWrapping="Wrap" />

@@ -374,7 +374,7 @@ namespace Rise.App.Views
         private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
         {
             // Ensure the custom title bar does not overlap window caption controls
-            Thickness currMargin = AppTitleBar.Margin;
+            var currMargin = AppTitleBar.Margin;
             AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
 
             currMargin = ControlsPanel.Margin;
@@ -386,17 +386,17 @@ namespace Rise.App.Views
         /// </summary>
         private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
         {
-            Thickness currMargin = AppTitleBar.Margin;
+            var currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
             if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
             {
-                AppTitleBar.Margin = new Thickness(104, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(140, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(88, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(136, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
             else
             {
-                AppTitleBar.Margin = new Thickness(48, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(40, currMargin.Top, currMargin.Right, currMargin.Bottom);
                 ControlsPanel.Margin = new Thickness(260, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
         }

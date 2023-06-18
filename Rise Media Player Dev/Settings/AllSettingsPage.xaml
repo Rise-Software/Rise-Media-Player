@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -20,6 +21,15 @@
         <Grid.Background>
             <SolidColorBrush Color="{x:Bind app:App.SViewModel.GlazeColors, Mode=OneWay}" />
         </Grid.Background>
+
+        <skuc:TitleBar
+            x:Name="TitleBar"
+            Title="{markup:ResourceHelper Name=/Settings/Title}"
+            Height="32"
+            Padding="36,0,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Icon="{ui:FontIcon Glyph=&#xE713;}" />
 
         <Button
             x:Name="BackButton"
@@ -46,26 +56,6 @@
                 </muxc:AnimatedIcon.FallbackIconSource>
             </muxc:AnimatedIcon>
         </Button>
-
-        <skuc:ExtendedTitleBar
-            x:Name="TitleBar"
-            Height="32"
-            Margin="48,0,0,0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top">
-            <Grid x:Name="AppData" ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <FontIcon FontSize="16" Glyph="&#xE713;" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{markup:ResourceHelper Name=/Settings/Title}" />
-            </Grid>
-        </skuc:ExtendedTitleBar>
 
         <Grid Padding="0,32,0,12" Canvas.ZIndex="0">
             <Grid.ColumnDefinitions>
@@ -329,8 +319,8 @@
 
                     <StackPanel
                         x:Name="HeaderArea"
-                        Padding="48,0"
                         MaxWidth="1300"
+                        Padding="48,0"
                         Orientation="Horizontal">
                         <Button
                             x:Name="GoBackPage"

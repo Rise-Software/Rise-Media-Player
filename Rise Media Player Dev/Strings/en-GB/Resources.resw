@@ -151,7 +151,7 @@
     <value>Genres</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
+    <value>Home</value>
   </data>
   <data name="InsiderHub" xml:space="preserve">
     <value>Insider Hub</value>
@@ -166,7 +166,7 @@
     <value>Light</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
+    <value>Your library</value>
   </data>
   <data name="MatchResolution" xml:space="preserve">
     <value>Always match resolution</value>
@@ -949,6 +949,12 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
   </data>
   <data name="AspectRatio" xml:space="preserve">
     <value>Aspect Ratio</value>

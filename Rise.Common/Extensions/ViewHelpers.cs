@@ -3,7 +3,6 @@ using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,13 +37,13 @@ namespace Rise.Common.Extensions
         /// that navigates to <typeparamref name="TPage"/> with the provided
         /// parameter.
         /// </summary>
-        public static async Task<ApplicationView> CreateViewAsync<TPage>(object parameter = null)
+        public static Task<ApplicationView> CreateViewAsync<TPage>(object parameter = null)
             where TPage : Page
         {
             var window = CoreApplication.CreateNewView();
-            ApplicationView newView = null;
+            var tcs = new TaskCompletionSource<ApplicationView>();
 
-            await window.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            _ = window.DispatcherQueue.TryEnqueue(() =>
             {
                 var frame = new Frame();
                 _ = frame.Navigate(typeof(TPage), parameter);
@@ -53,10 +52,10 @@ namespace Rise.Common.Extensions
                 curr.Content = frame;
                 curr.Activate();
 
-                newView = ApplicationView.GetForCurrentView();
+                tcs.SetResult(ApplicationView.GetForCurrentView());
             });
 
-            return newView;
+            return tcs.Task;
         }
     }
 }

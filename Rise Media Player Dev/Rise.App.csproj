@@ -467,7 +467,7 @@
     <Content Include="Assets\App\StoreLogo.scale-150.png" />
     <Content Include="Assets\App\StoreLogo.scale-200.png" />
     <Content Include="Assets\App\StoreLogo.scale-400.png" />
-    <Content Include="Assets\App\Titlebar.png" />
+    <Content Include="Assets\App\TitleBar.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-150.png" />

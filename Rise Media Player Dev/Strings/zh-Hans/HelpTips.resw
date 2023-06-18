@@ -117,152 +117,152 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
     <value>添加您的个人音乐和视频</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
-    <value>• These versions will be pushed from the Microsoft Store
-• Playlists
-• Devices support
-• Disc Burning
-• Multi-language support for 12 languages at start (not complete)
-• Some online services in background - Discord Rich Presence &amp; Last.fm Scrobbling
-• Views and sorting for music added
-• Video indexing and playback
-• Improved Now Playing experience and queue
-• Overhauled Settings UI brought to all builds
-• Local recommendations and recently played
-• Discy in the majority of the app</value>
+    <value>• 这些版本将从 Microsoft Store 推送
+ • 播放列表
+ • 设备支持
+ • 光盘刻录
+ • 开始时支持 12 种语言的多语言（未完成）
+ • 一些后台在线服务 - Discord Rich Presence 和 Last.fm Scrobbling
+ • 添加了音乐的视图和排序
+ • 视频索引和播放
+ • 改进了“正在播放”体验和队列
+ • 为所有构建带来的大修设置 UI
+ • 本地推荐和最近播放
+ • 大部分应用程序不和谐</value>
   </data>
   <data name="AlphaH.Text" xml:space="preserve">
-    <value>Late Pre-Alpha - Alpha</value>
+    <value>晚期 Pre-Alpha - Alpha</value>
   </data>
   <data name="Benefits.Text" xml:space="preserve">
-    <value>First, the app early.
+    <value>首先，应用处于早期阶段。
 
-Insiders in the Bloom Channel get access to the earliest builds possible. This really gives you a chance to see what we are working on, and to give feedback as we actively work on parts of the app, meaning your feedback means a whole lot! Of course, it isn't without it's disadvantages. Bloom Channel insiders also face more bugs and issues than other users. Bloom Insiders also get access to features tagged 'Experimental', meaning we have put very little work into them at that point, or they are very unstable, but interesting to try out nonetheless. These features are never enabled by default.
+ Bloom 频道的内部人员可以访问最早的版本。 这真的让您有机会看到我们正在做什么，并在我们积极处理应用程序的某些部分时提供反馈，这意味着您的反馈意义重大！当然，它并非没有缺点。Bloom 频道内部人员也比其他用户面临更多的错误和问题。Bloom 预览者还可以访问标记为“实验性”的功能，这意味着我们在这一点上投入的工作很少，或者它们非常不稳定，但仍然很有趣。 默认情况下永远不会启用这些功能。
 
-Early Access Insiders (previously Seeding Insiders) get access to the app earlier, although with much more stability. Experimental features will not be available to Insiders in this channel.*
+ 抢先体验预览（以前称为Seeding Insider）可以更早地访问该应用程序，但稳定性要高得多。此频道中的预览体验成员将无法使用实验性功能。*
 
-*Features tagged as Experimental in the Settings interface</value>
+ *在设置界面中标记为实验性的功能</value>
   </data>
   <data name="BenefitsH.Text" xml:space="preserve">
-    <value>What benefits do I get from joining the Insider Program?</value>
+    <value>加入预览体验计划有什么好处？</value>
   </data>
   <data name="Beta.Text" xml:space="preserve">
-    <value>• Streaming services and reccommendations in some form
-• Equaliser
-• Visualiser
-• Find album info
-• Disc ripping
-• Networks support
-• More stuff</value>
+    <value>• 某种形式的流媒体服务和推荐
+ • 均衡器
+ • 展示台
+ • 查找专辑信息
+ • 光盘翻录
+ • 网络支持
+ • 更多</value>
   </data>
   <data name="BetaH.Text" xml:space="preserve">
-    <value>Beta</value>
+    <value>测试版</value>
   </data>
   <data name="DiscyAboutTipDesc" xml:space="preserve">
-    <value>You can find me by right clicking on different things. For example, an album. I'll tell you what you can do :). I'm still pretty new, so I won't be everywhere, but I'm growing every day!</value>
+    <value>你可以通过右键单击不同的东西找到我。 例如，专辑。 我会告诉你你能做什么 :)。 我还很新，所以我不会无处不在，但我每天都在成长！</value>
   </data>
   <data name="DiscyAboutTipTitle" xml:space="preserve">
-    <value>Hey! I'm Discy.</value>
+    <value>嘿！我是 Discy。</value>
   </data>
   <data name="DiscyOnAlbumDesc" xml:space="preserve">
-    <value>Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends.</value>
+    <value>使用命令栏将您的相册分类为不同的类型。 单击相册以查看存储的内容。 您可以将整张专辑添加到播放列表、随机播放或与朋友分享。</value>
   </data>
   <data name="DiscyOnAlbumH" xml:space="preserve">
-    <value>Managing and organising your albums</value>
+    <value>管理和组织您的相册</value>
   </data>
   <data name="DiscyOnArtistDesc" xml:space="preserve">
-    <value>Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.</value>
+    <value>一次播放整个艺术家的唱片。 通过单击所需的艺术家查看有关艺术家、他们的专辑（存储在您的设备上）和歌曲的信息。 与您的朋友分享您最喜爱的艺术家或将整个艺术家的音乐添加到播放列表。</value>
   </data>
   <data name="DiscyOnPlaylistDesc" xml:space="preserve">
-    <value>Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!</value>
+    <value>将您最喜欢的歌曲、特别的歌曲、您的歌曲放在一个播放列表中。 给它一个描述和一个标题。 然后添加额外的音乐并删除您不太确定的曲目。 快乐聆听！</value>
   </data>
   <data name="DiscyOnPlaylistH" xml:space="preserve">
-    <value>Group with playlists</value>
+    <value>与播放列表分组</value>
   </data>
   <data name="DiscyOnSongDesc" xml:space="preserve">
-    <value>Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!</value>
+    <value>将鼠标悬停在歌曲上并单击播放按钮播放歌曲，或双击。 跳过，返回并从正在播放的栏（在您的应用程序窗口的底部）查看歌曲信息。 单击“信息和属性”以编辑歌曲元数据和文件信息。 您也可以随时与他人分享或添加到播放列表！</value>
   </data>
   <data name="DiscyOnSongH" xml:space="preserve">
-    <value>Taking action on songs</value>
+    <value>对歌曲采取行动</value>
   </data>
   <data name="DiscyOnVideoDesc" xml:space="preserve">
-    <value>Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.</value>
+    <value>单击视频进行播放。 重命名并排序它们。 视频将占据整个应用程序窗口，您可以执行拖拽、暂停、跳过等操作。</value>
   </data>
   <data name="DiscyOnVideoH" xml:space="preserve">
-    <value>Playing videos</value>
+    <value>播放视频</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>The basics</value>
+    <value>基础</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>What features are you prioritising?</value>
+    <value>您优先考虑哪些功能？</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
-    <value>If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922</value>
+    <value>如果您想贡献或翻译，请加入我们的 Discord 服务器！ 这里：https://disboard.org/server/872910570003791922</value>
   </data>
   <data name="HowTransH.Text" xml:space="preserve">
-    <value>How can I become a contributor or a translator?</value>
+    <value>我怎样才能成为贡献者或翻译者？</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
-    <value>When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the MSIX package for the new build. Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds. Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry!</value>
+    <value>当您提交表单时。 没有什么你需要做的，只是等待。 发布下一个版本时，您将收到一封发送至我们的预览体验门户的电子邮件，您可以在其中下载新版本的 MSIX 程序包。 注意：Alpha 版本和更高版本将使用 Microsoft Store 进行分发，但我们选择使用 MSIX 进行 Pre-Alpha，因为会有很多版本。 几周后，来自两个渠道的预览体验成员可能会收到相同的版本。 这很正常，不用担心！</value>
   </data>
   <data name="InsiderH.Text" xml:space="preserve">
-    <value>Hey, I'm an Insider. How do I get builds?</value>
+    <value>嘿，我是预览体验成员。 我如何获得构建？</value>
   </data>
   <data name="InsiderProgram.Title" xml:space="preserve">
-    <value>Insider Program, Translations &amp; Contribution</value>
+    <value>预览体验计划、翻译和贡献</value>
   </data>
   <data name="Join.Text" xml:space="preserve">
-    <value>Simply go to the form below and answer the questions. Choose your channel, enter your email and a few other things. https://bit.ly/rise-insider
+    <value>只需转到下面的表格并回答问题。 选择您的频道，输入您的电子邮件和其他一些内容。  https://bit.ly/rise-insider
 
-Good luck testing!</value>
+ 祝测试顺利！</value>
   </data>
   <data name="JoinH.Text" xml:space="preserve">
-    <value>How do I join the Insider Program?</value>
+    <value>如何加入预览体验计划？</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Playing media and now playing</value>
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
+    <value>播放媒体和正在播放</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
-    <value>• Song, Album, Artist and Genre Indexing
-• Album, Artist, Genre and Songs Views (static for now)
-• Media Playback
-• Command Bar (BASIC)
-• User Controlled Media Locations
-• UI Manipulation through Settings
-• Basic Metadata control for Music
-• Basic Now Playing UI
-• Basic Properties Window
-• FAQ Help Section
-• Discy in small areas</value>
+    <value>• 歌曲、专辑、艺术家和流派索引
+• 专辑、艺术家、流派和歌曲视图（目前静态）
+• 媒体播放
+• 命令栏（基本）
+• 用户控制的媒体位置
+• 通过设置进行 UI 操作
+• 音乐的基本元数据控制
+• 基本的正在播放用户界面
+• 基本属性窗口
+• 常见问题解答帮助部分
+• 小范围内的 Discy</value>
   </data>
   <data name="PreAlphaH.Text" xml:space="preserve">
-    <value>Pre Alpha (there will be many pre-alpha versions)</value>
+    <value>Pre Alpha（会有很多pre-alpha版本）</value>
   </data>
   <data name="ReleaseDate.Title" xml:space="preserve">
-    <value>When will Rise Media Player be released?</value>
+    <value>Rise Media Player 什么时候发布？</value>
   </data>
   <data name="ReleaseInfo.Text" xml:space="preserve">
-    <value>There is no official release date. Pre-Alpha 1 is being released October 21 (alongside Rise Notes) and we're so happy to finally have users testing! :)
+    <value>没有正式发布日期。  Pre-Alpha 1 将于 10 月 21 日发布（与 Rise Notes 一起发布），我们很高兴终于有用户测试了！  :)
 
-In terms of other versions, we have no exact dates to give you all, but this is what we are aiming for (versions may be released earlier or later depending on features:
+ 至于其他版本，我们没有确切的日期给大家，但这是我们的目标（版本可能会提前或延迟发布，具体取决于功能：
 
-• Pre Alpha Process - October to December 2021 (Pre-Alpha 1 is the first version)
+ • Pre-Alpha 流程 - 2021 年 10 ~ 12 月（Pre-Alpha 1 是第一个版本）
 
-• Alpha Builds - New Year (2022) up to March 2022. Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.
+ • Alpha 构建 - 新年（2022 年）~ 2022 年 3 月。注意：在 Alpha 过程中，应用程序的演示版本将公开提供以用于 UI 测试。
 
-• Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
+ • Beta - 4 月 - 待定（此版本将对 Microsoft Store 的所有公共用户可用。您无需成为预览体验计划的一部分，尽管您会错过一些功能）</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Sorting and managing your library</value>
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
+    <value>整理并管理您的库</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
-    <value>You'll have to see ;)</value>
+    <value>你得看看 ;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
-    <value>What's Discy?</value>
+    <value>谁是 Discy？</value>
   </data>
 </root>

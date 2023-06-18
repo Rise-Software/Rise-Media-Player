@@ -9,7 +9,7 @@ namespace Rise.Data.Navigation
             {
                 Id = "HomePage",
                 Group = "GeneralGroup",
-                DefaultIcon = "\uECA5",
+                DefaultIcon = "\uE10F",
                 Label = "Home",
                 AccessKey = "H",
                 FlyoutId = "DefaultItemFlyout"
@@ -23,7 +23,10 @@ namespace Rise.Data.Navigation
                 AccessKey = "P",
                 FlyoutId = "DefaultItemFlyout"
             },
-
+            new NavigationItemSeparator()
+            {
+                Id = "MusicSectionSeparator"
+            },
             new NavigationItemHeader()
             {
                 Id = "MusicGroup",
@@ -34,18 +37,9 @@ namespace Rise.Data.Navigation
             {
                 Id = "SongsPage",
                 Group = "MusicGroup",
-                DefaultIcon = "\uEC4F",
+                DefaultIcon = "\uE8D6",
                 Label = "Songs",
                 AccessKey = "N",
-                FlyoutId = "DefaultItemFlyout"
-            },
-            new NavigationItemDestination()
-            {
-                Id = "ArtistsPage",
-                Group = "MusicGroup",
-                DefaultIcon = "\uE125",
-                Label = "Artists",
-                AccessKey = "T",
                 FlyoutId = "DefaultItemFlyout"
             },
             new NavigationItemDestination()
@@ -57,7 +51,19 @@ namespace Rise.Data.Navigation
                 AccessKey = "A",
                 FlyoutId = "DefaultItemFlyout"
             },
-
+            new NavigationItemDestination()
+            {
+                Id = "ArtistsPage",
+                Group = "MusicGroup",
+                DefaultIcon = "\uE125",
+                Label = "Artists",
+                AccessKey = "T",
+                FlyoutId = "DefaultItemFlyout"
+            },
+            new NavigationItemSeparator()
+            {
+                Id = "VideosSectionSeparator"
+            },
             new NavigationItemHeader()
             {
                 Id = "VideosGroup",
@@ -68,20 +74,9 @@ namespace Rise.Data.Navigation
             {
                 Id = "LocalVideosPage",
                 Group = "VideosGroup",
-                DefaultIcon = "\uE8B2",
+                DefaultIcon = "\uE1D3",
                 Label = "LocalVideos",
-                AccessKey = "V",
-                FlyoutId = "RemoveItemFlyout"
-            },
-
-            new NavigationItemDestination()
-            {
-                Id = "DiscyPage",
-                Group = "GeneralGroup",
-                IsFooter = true,
-                DefaultIcon = "\uE9CE",
-                Label = "Discy",
-                AccessKey = "C",
+                AccessKey = "L",
                 FlyoutId = "RemoveItemFlyout"
             },
             new NavigationItemDestination()
