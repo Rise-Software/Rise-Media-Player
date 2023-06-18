@@ -142,26 +142,6 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether a user
-        /// can open the now playing page.
-        /// </summary>
-        public bool IsOverlayEnabled
-        {
-            get => (bool)GetValue(IsOverlayEnabledProperty);
-            set => SetValue(IsOverlayEnabledProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the overlay
-        /// button is shown.
-        /// </summary>
-        public bool IsOverlayButtonVisible
-        {
-            get => (bool)GetValue(IsOverlayButtonVisibleProperty);
-            set => SetValue(IsOverlayButtonVisibleProperty, value);
-        }
-
-        /// <summary>
         /// Gets or sets a value that indicates whether the
         /// properties button is enabled.
         /// </summary>
@@ -341,14 +321,6 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty AddToPlaylistCommandProperty =
             DependencyProperty.Register(nameof(AddToPlaylistCommand), typeof(ICommand),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
-        public readonly static DependencyProperty IsOverlayEnabledProperty =
-            DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
-
-        public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsOverlayButtonVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsAddToMenuVisibleProperty =
             DependencyProperty.Register(nameof(IsAddToMenuVisible), typeof(bool),

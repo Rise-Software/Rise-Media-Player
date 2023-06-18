@@ -275,13 +275,13 @@
                                 DefaultLabelPosition="Collapsed"
                                 OverflowButtonVisibility="Visible">
                                 <AppBarButton
-                                    x:Name="OverlayButton"
+                                    x:Name="MiniViewButton"
                                     Command="{TemplateBinding OverlayCommand}"
-                                    IsEnabled="{TemplateBinding IsOverlayEnabled}"
-                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=NowPlaying}"
-                                    Visibility="{Binding IsOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                    IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
+                                    Label="{markup:ResourceHelper Name=EnterMiniView}"
+                                    Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
                                     <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE17C;" />
+                                        <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93B;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
@@ -379,17 +379,6 @@
                                     <AppBarButton x:Name="CastToButton" Label="{markup:ResourceHelper Name=CastToDevice}">
                                         <AppBarButton.Icon>
                                             <FontIcon Glyph="&#xEC15;" />
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
-
-                                    <AppBarButton
-                                        x:Name="MiniViewButton"
-                                        Command="{TemplateBinding OverlayCommand}"
-                                        IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
-                                        Label="{markup:ResourceHelper Name=EnterMiniView}"
-                                        Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
-                                        <AppBarButton.Icon>
-                                            <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93B;" />
                                         </AppBarButton.Icon>
                                     </AppBarButton>
 
