@@ -97,19 +97,22 @@
                                    Glyph=&#xE93D;}" />
 
             <Button
-                Margin="3"
-                Click="OnExitButtonClick"
-                CornerRadius="3"
-                Style="{StaticResource TransparentButtonStyle}"
-                ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
+            x:Name="BackButton"
+            Width="40"
+            Height="28"
+            Margin="2,2,0,0"
+            VerticalAlignment="Top"
+            Click="OnExitButtonClick"
+            CornerRadius="5"
+            Style="{StaticResource TransparentButtonStyle}"
+            ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
                 <muxc:AnimatedIcon
-                    x:Name="BackAnimatedIcon"
-                    Width="16"
-                    Height="16">
+                x:Name="BackAnimatedIcon"
+                Width="16"
+                Height="16">
                     <muxc:AnimatedIcon.Source>
                         <animatedvisuals:AnimatedBackVisualSource />
                     </muxc:AnimatedIcon.Source>
-
                     <muxc:AnimatedIcon.FallbackIconSource>
                         <muxc:SymbolIconSource Symbol="Back" />
                     </muxc:AnimatedIcon.FallbackIconSource>
