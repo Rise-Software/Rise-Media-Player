@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
+  <img src="https://github.com/Rise-Software/Rise-Media-Player/assets/74561130/67a1ea8f-1d0f-4c1d-9688-1912ec20f779" />
   <div class="row" align="center">
 <a href='https://www.microsoft.com/store/r/9PCSZTMTT55Z'><img src='https://github.com/Rise-Software/Rise-Media-Player/assets/74561130/60deb402-0c8e-4579-80e6-69cb7b19cd43'alt='Get it from Microsoft' />
   <a href='https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.171.0/Rise.App_0.0.171.0_x86_x64_arm.msixbundle'><img src='https://github.com/Rise-Software/Rise-Media-Player/assets/74561130/3d7edcaf-26d8-4453-a751-29b851721abd'alt='Get it from GitHub' /></a>
@@ -8,7 +8,7 @@
   <a href='https://crowdin.com/project/rise-media-player'><img src='https://badges.crowdin.net/rise-media-player/localized.svg'alt='Localisation status' />
   </div>
 </p>
-
+    
 **Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)**
 
 ### Download the installer from the download link below or [see building instructions](./BUILD.md)
