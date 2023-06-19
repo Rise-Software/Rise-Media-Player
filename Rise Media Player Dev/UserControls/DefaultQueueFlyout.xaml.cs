@@ -1,4 +1,5 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Data.ViewModels;
 using System;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
@@ -29,6 +30,11 @@ namespace Rise.App.UserControls
         public DefaultQueueFlyout()
         {
             InitializeComponent();
+        }
+
+        private async void GetProperties_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 

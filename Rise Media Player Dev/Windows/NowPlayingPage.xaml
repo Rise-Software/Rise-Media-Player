@@ -97,10 +97,9 @@
                                    Glyph=&#xE93D;}" />
 
             <Button
-                Height="32"
-                Margin="2"
-                Canvas.ZIndex="1"
+                Margin="3"
                 Click="OnExitButtonClick"
+                CornerRadius="3"
                 Style="{StaticResource TransparentButtonStyle}"
                 ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
                 <muxc:AnimatedIcon
