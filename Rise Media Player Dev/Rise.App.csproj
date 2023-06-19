@@ -310,12 +310,6 @@
     <Compile Include="Web\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Web\SupportProject.xaml.cs">
-      <DependentUpon>SupportProject.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Web\WhatsNew.xaml.cs">
-      <DependentUpon>WhatsNew.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
@@ -419,6 +413,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\App\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\App\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\App\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\App\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\App\BadgeLogo.scale-400.png" />
     <Content Include="Assets\App\LargeTile.scale-100.png" />
     <Content Include="Assets\App\LargeTile.scale-125.png" />
     <Content Include="Assets\App\LargeTile.scale-150.png" />
@@ -872,14 +871,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Web\FeedbackPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Web\SupportProject.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Web\WhatsNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,10 +20,7 @@
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
 
-            <Border
-                Margin="0,12,0,0"
-                Padding="12,0,12,0"
-                Style="{StaticResource BorderCardStyle}">
+            <Border Margin="0,12,0,0" Padding="0,0,0,0">
                 <uc:AdaptiveItemPane Margin="0,12,0,0" VerticalAlignment="Center">
                     <uc:AdaptiveItemPane.LeftPane>
                         <Image
@@ -43,11 +40,12 @@
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xE946;" />
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                        <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=Version}" />
                                         <TextBlock
                                             FontSize="12"
+                                            FontWeight="Normal"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Text="{x:Bind constants:AppVersion.VersionName}" />
+                                            Text="{markup:ResourceHelper Name=Version}" />
+                                        <TextBlock FontWeight="SemiBold" Text="Alpha 3" />
                                     </StackPanel>
                                 </StackPanel>
                             </Button>
@@ -60,11 +58,11 @@
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xECA7;" />
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                        <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=InsiderHub}" />
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Text="{markup:ResourceHelper Name=WallpapersAndExtras}" />
+                                            Text="{markup:ResourceHelper Name=InsiderHub}" />
+                                        <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=WallpapersAndExtras}" />
                                     </StackPanel>
                                 </StackPanel>
                             </Button>
@@ -74,10 +72,13 @@
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xEC7A;" />
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                        <TextBlock FontWeight="SemiBold" Text="GitHub" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Opacity="0.6"
+                                            Text="GitHub" />
                                         <TextBlock>
                                             <Hyperlink
-                                                FontSize="12"
+                                                FontWeight="SemiBold"
                                                 NavigateUri="{x:Bind constants:URLs.GitHub}"
                                                 UnderlineStyle="None">
                                                 <Run Text="{markup:ResourceHelper Name=Contribute}" />
@@ -104,22 +105,6 @@
                         Padding="8"
                         Content="Discord"
                         NavigateUri="{x:Bind constants:URLs.Discord}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="•" />
-                    <HyperlinkButton
-                        Padding="8"
-                        Content="Reddit"
-                        NavigateUri="{x:Bind constants:URLs.Reddit}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="•" />
-                    <HyperlinkButton
-                        Padding="8"
-                        Content="Twitter"
-                        NavigateUri="{x:Bind constants:URLs.Twitter}" />
                 </StackPanel>
             </labs:SettingsCard>
 

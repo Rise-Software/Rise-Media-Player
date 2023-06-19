@@ -106,7 +106,6 @@
                 HeaderIcon="{ui:FontIcon Glyph=&#xE822;}"
                 IsClickEnabled="True" />
             <labs:SettingsCard
-                Click="WhatsNew_Click"
                 Description="{markup:ResourceHelper Name=WhatsNewDesc}"
                 Header="{markup:ResourceHelper Name=WhatsNewTitle}"
                 HeaderIcon="{ui:FontIcon Glyph=&#xF4A5;}"

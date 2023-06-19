@@ -23,21 +23,9 @@
             SelectedItem="{x:Bind Window}">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
-                    x:Name="Overview"
-                    Content="{markup:ResourceHelper Name=/Settings/AppearanceOverview}"
-                    Tag="Overview" />
-                <muxc:NavigationViewItem
                     x:Name="Window"
                     Content="{markup:ResourceHelper Name=/Settings/AppearanceAppWindow}"
                     Tag="Window" />
-                <muxc:NavigationViewItem
-                    x:Name="IconsFonts"
-                    Content="{markup:ResourceHelper Name=/Settings/AppearanceIconsAndFonts}"
-                    Tag="IconsFonts" />
-                <muxc:NavigationViewItem
-                    x:Name="Layout"
-                    Content="{markup:ResourceHelper Name=/Settings/AppearanceAppLayout}"
-                    Tag="Layout" />
             </muxc:NavigationView.MenuItems>
 
             <ScrollViewer

@@ -10,6 +10,7 @@
     <Button
         x:Name="LastFMStatus"
         Padding="24"
+        Margin="0,13,0,0"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Top"
         HorizontalContentAlignment="Left"
