@@ -100,7 +100,7 @@ namespace Rise.App.Views
                 string genre = await GetGenreFromArtistAsync(name);
                 SongAlbums.Text += $" • {genre}";
 
-                //TopTracks.ItemsSource = await GetTopTracksAsync(name); - Will be used in next release.
+                TopTracks.ItemsSource = await GetTopTracksAsync(name);
                 NoListeners.Text = await GetMonthlyListenersAsync(name);
 
                 ShortBio = await GetArtistBioAsync(name, true);

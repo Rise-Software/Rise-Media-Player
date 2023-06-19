@@ -109,7 +109,7 @@
             </ListView.ContextFlyout>
 
             <ListView.Header>
-                <Grid RowSpacing="12" Margin="0,0,0,-12">
+                <Grid RowSpacing="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="230" />
                         <RowDefinition Height="Auto" />
@@ -215,6 +215,99 @@
                             </CommandBar>
                         </StackPanel>
                     </Grid>
+
+                    <Grid
+                        x:Name="LastFMHeaderCards"
+                        Grid.Row="1"
+                        Margin="0,0,0,12"
+                        ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid
+                            x:Name="TopTracksCard"
+                            Height="200"
+                            RowSpacing="12"
+                            Style="{StaticResource GridCardStyle}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE734;" />
+                                <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=TopTracks}" />
+                            </StackPanel>
+
+                            <Rectangle Grid.Row="1" Style="{StaticResource ExpanderDividerStyle}" />
+                            <ListView
+                                x:Name="TopTracks"
+                                Grid.Row="2"
+                                Margin="-16,-12"
+                                Padding="16,12">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Track">
+                                        <Grid VerticalAlignment="Center" ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="32" />
+                                                <ColumnDefinition Width="1*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border
+                                                Width="32"
+                                                Height="32"
+                                                CornerRadius="8">
+                                                <Image>
+                                                    <Image.Source>
+                                                        <BitmapImage
+                                                            DecodePixelHeight="32"
+                                                            DecodePixelWidth="32"
+                                                            UriSource="ms-appx:///Assets/Default.png" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </Border>
+
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Name}" />
+                                                <TextBlock FontWeight="SemiBold" Text="{x:Bind Artist.Name}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+
+                        <Grid
+                            x:Name="MusicVideosCard"
+                            Grid.Column="1"
+                            Height="200"
+                            RowSpacing="12"
+                            Style="{StaticResource GridCardStyle}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE786;" />
+                                <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=MusicVideos}" />
+                            </StackPanel>
+
+                            <Rectangle Grid.Row="1" Style="{StaticResource ExpanderDividerStyle}" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="{markup:ResourceHelper Name=ComingSoon}" />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </ListView.Header>
 
@@ -249,7 +342,6 @@
                     <Grid
                         x:Name="AboutArtistCard"
                         RowSpacing="12"
-                        CornerRadius="8"
                         Style="{StaticResource GridCardStyle}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

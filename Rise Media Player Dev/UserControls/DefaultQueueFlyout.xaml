@@ -7,14 +7,11 @@
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:playback="using:Windows.Media.Playback"
-    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <UserControl.Resources>
         <conv:TimeSpanToString x:Key="TimeToStr" />
         <conv:ResourceFallback x:Key="ResFallback" />
-        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
-        <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
     </UserControl.Resources>
 
     <Grid RowSpacing="4">
@@ -23,37 +20,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock
+        <TextBlock
             Padding="12,4"
             Style="{StaticResource SubtitleTextBlockStyle}"
             Text="{markup:ResourceHelper Name=Queue}" />
-
-            <muxc:NavigationView
-            x:Name="QueueNav"
-            Grid.Column="1"
-            Margin="-4,-8,0,4"
-            IsBackButtonVisible="Collapsed"
-            IsSettingsVisible="False"
-            PaneDisplayMode="Top"
-            SelectedItem="{x:Bind UpNextItem}">
-                <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem
-                    x:Name="UpNextItem"
-                    Content="Up next">
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
-                    x:Name="RecentItem"
-                    Content="Recently played">
-                    </muxc:NavigationViewItem>
-                </muxc:NavigationView.MenuItems>
-            </muxc:NavigationView>
-        </Grid>
 
         <ListView
             x:Name="MainList"
@@ -88,20 +58,6 @@
                             <FontIcon Glyph="&#xE011;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-                    <MenuFlyoutSeparator />
-                    <MenuFlyoutSubItem x:Name="MoreOptions" Text="More options">
-                        <MenuFlyoutSubItem.Icon>
-                            <FontIcon Glyph="&#xE712;" />
-                        </MenuFlyoutSubItem.Icon>
-                        <MenuFlyoutItem
-                            x:Name="GetProperties"
-                            Click="GetProperties_Click"
-                            Text="Song properties">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE104;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyoutSubItem>
                 </MenuFlyout>
             </ListView.ContextFlyout>
 
