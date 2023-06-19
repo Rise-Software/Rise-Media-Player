@@ -1,4 +1,5 @@
-﻿using Rise.Common.Constants;
+﻿using Rise.App.Web;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -34,7 +35,7 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class CrashDetailsPage
     {
-        private void SubmitIssueButton_Click(object sender, RoutedEventArgs e)
-            => _ = URLs.Feedback.LaunchAsync();
+        private async void SubmitIssueButton_Click(object sender, RoutedEventArgs e)
+            => _ = await FeedbackPage.TryShowAsync();
     }
 }

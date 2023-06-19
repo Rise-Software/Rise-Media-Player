@@ -5,9 +5,6 @@
         public const string UserAgent =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36";
 
-        public const string Feedback =
-            "https://github.com/Rise-Software/Rise-Media-Player/issues/new";
-
         public const string Readme =
             "https://github.com/Rise-Software/Rise-Media-Player/#readme";
 
@@ -38,8 +35,11 @@
         public const string TranslationReports =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMkpWUVJCVkNEMFMxWkRJMFoyWkpLQVhGSC4u";
 
-        public const string NewIssue =
-            "https://github.com/Rise-Software/Rise-Media-Player/issues/new/choose";
+        public const string NewIssueBug =
+            "https://github.com/Rise-Software/Rise-Media-Player/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml";
+
+        public const string NewIssueSuggestion =
+            "https://github.com/Rise-Software/Rise-Media-Player/issues/new?assignees=&labels=feature+request&projects=&template=feature_request.yml";
 
         public const string LastFM = "http://ws.audioscrobbler.com/2.0/?method=";
 
