@@ -112,6 +112,46 @@
                             Visibility="Collapsed">
                             <Button.Flyout>
                                 <MenuFlyout x:Name="MoreFlyout">
+                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=/Settings/SettingsMenus}">
+                                        <MenuFlyoutSubItem.Icon>
+                                            <FontIcon Glyph="&#xE145;" />
+                                        </MenuFlyoutSubItem.Icon>
+                                        <muxc:RadioMenuFlyoutItem
+                                            IsChecked="True"
+                                            IsEnabled="False"
+                                            Text="Left" />
+                                        <muxc:RadioMenuFlyoutItem
+                                            IsChecked="False"
+                                            IsEnabled="False"
+                                            Text="Top" />
+                                    </MenuFlyoutSubItem>
+
+                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Header}">
+                                        <MenuFlyoutSubItem.Icon>
+                                            <FontIcon Glyph="&#xE185;" />
+                                        </MenuFlyoutSubItem.Icon>
+
+                                        <muxc:RadioMenuFlyoutItem
+                                            IsChecked="True"
+                                            IsEnabled="False"
+                                            Text="Left" />
+                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Center}" />
+                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Right}" />
+                                    </MenuFlyoutSubItem>
+
+                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Icons}">
+                                        <MenuFlyoutSubItem.Icon>
+                                            <FontIcon Glyph="&#xE91B;" />
+                                        </MenuFlyoutSubItem.Icon>
+
+                                        <muxc:RadioMenuFlyoutItem
+                                            IsChecked="True"
+                                            IsEnabled="False"
+                                            Text="{markup:ResourceHelper Name=/Settings/SettingsHighContrast}" />
+                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=/Settings/SettingsFluentColor}" />
+                                    </MenuFlyoutSubItem>
+
+                                    <MenuFlyoutSeparator />
 
                                     <MenuFlyoutItem
                                         x:Name="LanguageItem"
@@ -132,6 +172,15 @@
                                     </MenuFlyoutItem>
 
                                     <MenuFlyoutSeparator />
+
+                                    <MenuFlyoutItem
+                                        x:Name="ClassicDialog"
+                                        Click="ClassicDialog_Click"
+                                        Text="{markup:ResourceHelper Name=/Settings/OpenClassicDialog}">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE17C;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
 
                                     <MenuFlyoutItem
                                         x:Name="RestoreDefaultSettings"
@@ -171,6 +220,13 @@
                         IsTitleBarAutoPaddingEnabled="False"
                         ItemInvoked="SettingsSidebar_ItemInvoked"
                         SelectedItem="{x:Bind Appearance}">
+                        <muxc:NavigationView.AutoSuggestBox>
+                            <AutoSuggestBox
+                                Margin="-12,0"
+                                AutomationProperties.Name="Search"
+                                PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
+                                QueryIcon="Find" />
+                        </muxc:NavigationView.AutoSuggestBox>
 
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem
@@ -208,6 +264,14 @@
                                     <FontIcon Glyph="" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem
+                                x:Name="Sync"
+                                Content="{markup:ResourceHelper Name=Syncing}"
+                                Tag="Sync">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph="" />
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
                         </muxc:NavigationView.MenuItems>
 
                         <muxc:NavigationView.FooterMenuItems>
@@ -217,6 +281,14 @@
                                 Tag="Behaviour">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="&#xEC7A;" />
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem
+                                x:Name="Components"
+                                Content="{markup:ResourceHelper Name=ManageComponents}"
+                                Tag="Components">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph="" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem

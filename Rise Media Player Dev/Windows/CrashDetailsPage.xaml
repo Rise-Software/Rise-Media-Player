@@ -55,8 +55,8 @@
                         Text="{markup:ResourceHelper Name=RanIntoProblem}"
                         TextWrapping="WrapWholeWords" />
                     <TextBlock
-                        FontSize="14"
-                        FontWeight="SemiBold"
+                        FontSize="16"
+                        FontWeight="Normal"
                         Text="{markup:ResourceHelper Name=CrashDetails}"
                         TextWrapping="WrapWholeWords" />
                 </StackPanel>
@@ -64,10 +64,7 @@
                 <TextBlock
                     Grid.Row="1"
                     Margin="0,0,0,12"
-                    FontSize="18"
                     IsTextSelectionEnabled="True"
-                    Opacity="0.6"
-                    Style="{StaticResource TitleTextBlockStyle}"
                     Text="{x:Bind Text}"
                     TextWrapping="Wrap" />
             </Grid>
@@ -75,11 +72,10 @@
 
         <Grid Grid.Row="2" Background="{ThemeResource LayerFillColorDefaultBrush}">
             <StackPanel
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 Orientation="Horizontal"
                 Spacing="7">
                 <Button
-                    Margin="14,0,0,0"
                     Padding="50,10"
                     Click="SubmitIssueButton_Click"
                     Content="{markup:ResourceHelper Name=ReportAnIssue}" />

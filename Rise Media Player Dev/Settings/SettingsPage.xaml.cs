@@ -1,7 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
-using Rise.App.Web;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
@@ -132,7 +131,7 @@ namespace Rise.App.Settings
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => _ = await FeedbackPage.TryShowAsync();
+            => _ = await URLs.Feedback.LaunchAsync();
 
         private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {

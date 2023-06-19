@@ -28,6 +28,11 @@ namespace Rise.App.Views
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
             => await URLs.Support.LaunchAsync();
 
+        private async void WhatsNew_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await WhatsNew.TryShowAsync();
+        }
+
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new()

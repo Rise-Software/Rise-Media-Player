@@ -9,7 +9,7 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d">
-    <ScrollViewer Padding="48,13,48,0" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
             <StackPanel.ChildrenTransitions>
                 <TransitionCollection>
