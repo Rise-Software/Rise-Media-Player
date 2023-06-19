@@ -235,7 +235,7 @@
     <value>Remove from sidebar</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
-    <value>Search all media on this device</value>
+    <value>Search</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Search</value>

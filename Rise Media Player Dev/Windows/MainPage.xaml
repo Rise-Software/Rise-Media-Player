@@ -528,6 +528,7 @@
                 <AutoSuggestBox
                     x:Name="Search"
                     Height="32"
+                    Margin="-4,4,-4,0"
                     MaxWidth="530"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
