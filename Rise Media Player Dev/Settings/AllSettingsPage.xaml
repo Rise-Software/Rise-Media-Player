@@ -85,106 +85,43 @@
                             x:Name="SmallSettingsButton"
                             Margin="6,0,0,0"
                             Padding="6"
+                            Content="{ui:FontIcon FontSize=24,
+                                                  Glyph=&#xE713;}"
                             Flyout="{x:Bind MoreFlyout}"
                             Style="{StaticResource TransparentButtonStyle}"
-                            Visibility="Collapsed">
-                            <Button.Content>
-                                <FontIcon
-                                    HorizontalAlignment="Center"
-                                    FontSize="24"
-                                    Glyph="" />
-                            </Button.Content>
-                        </Button>
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
+                            Visibility="Collapsed" />
 
                         <TextBlock
                             x:Name="SettingsTitle"
                             Margin="6,0"
                             Style="{StaticResource TitleTextBlockStyle}"
-                            Text="Settings"
+                            Text="{markup:ResourceHelper Name=Settings}"
                             Visibility="Collapsed" />
 
                         <Button
                             x:Name="MoreButton"
                             Height="36"
                             Margin="40,0,0,0"
+                            Content="{ui:FontIcon Glyph=&#xE712;}"
                             Style="{StaticResource TransparentButtonStyle}"
-                            ToolTipService.ToolTip="More"
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
                             Visibility="Collapsed">
                             <Button.Flyout>
                                 <MenuFlyout x:Name="MoreFlyout">
-                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=/Settings/SettingsMenus}">
-                                        <MenuFlyoutSubItem.Icon>
-                                            <FontIcon Glyph="&#xE145;" />
-                                        </MenuFlyoutSubItem.Icon>
-                                        <muxc:RadioMenuFlyoutItem
-                                            IsChecked="True"
-                                            IsEnabled="False"
-                                            Text="Left" />
-                                        <muxc:RadioMenuFlyoutItem
-                                            IsChecked="False"
-                                            IsEnabled="False"
-                                            Text="Top" />
-                                    </MenuFlyoutSubItem>
-
-                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Header}">
-                                        <MenuFlyoutSubItem.Icon>
-                                            <FontIcon Glyph="&#xE185;" />
-                                        </MenuFlyoutSubItem.Icon>
-
-                                        <muxc:RadioMenuFlyoutItem
-                                            IsChecked="True"
-                                            IsEnabled="False"
-                                            Text="Left" />
-                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Center}" />
-                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Right}" />
-                                    </MenuFlyoutSubItem>
-
-                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Icons}">
-                                        <MenuFlyoutSubItem.Icon>
-                                            <FontIcon Glyph="&#xE91B;" />
-                                        </MenuFlyoutSubItem.Icon>
-
-                                        <muxc:RadioMenuFlyoutItem
-                                            IsChecked="True"
-                                            IsEnabled="False"
-                                            Text="{markup:ResourceHelper Name=/Settings/SettingsHighContrast}" />
-                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=/Settings/SettingsFluentColor}" />
-                                    </MenuFlyoutSubItem>
-
-                                    <MenuFlyoutSeparator />
-
                                     <MenuFlyoutItem
                                         x:Name="LanguageItem"
                                         Click="Language_Click"
-                                        Text="{markup:ResourceHelper Name=Language}">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
+                                        Icon="{ui:FontIcon Glyph=&#xE774;}"
+                                        Text="{markup:ResourceHelper Name=Language}" />
 
                                     <MenuFlyoutItem
                                         x:Name="Insider"
                                         Click="Insider_Click"
-                                        Text="{markup:ResourceHelper Name=/Settings/InsiderHub}">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xF1AD;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-
-                                    <MenuFlyoutSeparator />
-
-                                    <MenuFlyoutItem
-                                        x:Name="RestoreDefaultSettings"
-                                        IsEnabled="False"
-                                        Text="{markup:ResourceHelper Name=/Settings/RestoreDefaults}">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons" Glyph="&#xE359;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
+                                        Icon="{ui:FontIcon Glyph=&#xF1AD;}"
+                                        Text="{markup:ResourceHelper Name=/Settings/InsiderHub}" />
                                 </MenuFlyout>
                             </Button.Flyout>
-
-                            <FontIcon FontSize="16" Glyph="" />
                         </Button>
 
                         <Button
@@ -192,11 +129,10 @@
                             Height="36"
                             HorizontalAlignment="Right"
                             Click="FeedbackSettings_Click"
+                            Content="{ui:FontIcon Glyph=&#xED15;}"
                             Style="{StaticResource TransparentButtonStyle}"
-                            ToolTipService.ToolTip="Feedback"
-                            Visibility="Collapsed">
-                            <FontIcon FontSize="16" Glyph="" />
-                        </Button>
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=Feedback}"
+                            Visibility="Collapsed" />
                     </StackPanel>
 
                     <!--  Sidebar  -->
@@ -211,85 +147,47 @@
                         IsTitleBarAutoPaddingEnabled="False"
                         ItemInvoked="SettingsSidebar_ItemInvoked"
                         SelectedItem="{x:Bind Appearance}">
-                        <muxc:NavigationView.AutoSuggestBox>
-                            <AutoSuggestBox
-                                Margin="-12,0"
-                                AutomationProperties.Name="Search"
-                                PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
-                                QueryIcon="Find" />
-                        </muxc:NavigationView.AutoSuggestBox>
-
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem
                                 x:Name="Appearance"
                                 Content="{markup:ResourceHelper Name=Appearance}"
+                                Icon="{ui:FontIcon Glyph=&#xE771;}"
                                 Tag="Appearance"
-                                ToolTipService.ToolTip="Customise app colours, themes, icons, layouts and motion.">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                ToolTipService.ToolTip="Customise app colours, themes, icons, layouts and motion." />
+
                             <muxc:NavigationViewItem
                                 x:Name="MediaLibrary"
                                 Content="{markup:ResourceHelper Name=MediaLibrary}"
+                                Icon="{ui:FontIcon Glyph=&#xEA69;}"
                                 Tag="MediaLibrary"
-                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/MediaLibraryItemDesc}">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/MediaLibraryItemDesc}" />
+
                             <muxc:NavigationViewItem
                                 x:Name="Navigation"
                                 Content="{markup:ResourceHelper Name=Navigation}"
+                                Icon="{ui:FontIcon Glyph=&#xE8B0;}"
                                 Tag="Navigation"
-                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/NavigationItemDesc}">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/NavigationItemDesc}" />
+
                             <muxc:NavigationViewItem
                                 x:Name="Playback"
                                 Content="{markup:ResourceHelper Name=PlaybackAndSound}"
-                                Tag="Playback">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="Sync"
-                                Content="{markup:ResourceHelper Name=Syncing}"
-                                Tag="Sync">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                Icon="{ui:FontIcon Glyph=&#xF4C3;}"
+                                Tag="Playback" />
                         </muxc:NavigationView.MenuItems>
 
                         <muxc:NavigationView.FooterMenuItems>
                             <muxc:NavigationViewItem
                                 x:Name="Behaviour"
                                 Content="{markup:ResourceHelper Name=SystemBehaviors}"
-                                Tag="Behaviour">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="&#xEC7A;" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="Components"
-                                Content="{markup:ResourceHelper Name=ManageComponents}"
-                                Tag="Components">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                Icon="{ui:FontIcon Glyph=&#xEC7A;}"
+                                Tag="Behaviour" />
+
                             <muxc:NavigationViewItem
                                 x:Name="About"
                                 Content="{markup:ResourceHelper Name=About}"
-                                Tag="About">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                Icon="{ui:FontIcon Glyph=&#xE946;}"
+                                Tag="About" />
                         </muxc:NavigationView.FooterMenuItems>
                     </muxc:NavigationView>
                 </Grid>

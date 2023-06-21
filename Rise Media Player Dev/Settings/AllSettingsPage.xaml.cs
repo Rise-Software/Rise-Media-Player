@@ -59,9 +59,7 @@ namespace Rise.App.Settings
                     "MediaLibrary" => typeof(MediaLibraryBasePage),
                     "Navigation" => typeof(NavigationPage),
                     "Playback" => typeof(PlaybackPage),
-                    "Sync" => typeof(ComingSoonPage),
                     "Behaviour" => typeof(WindowsBehavioursPage),
-                    "Components" => typeof(ComingSoonPage),
                     "About" => typeof(AboutPage),
                     _ => typeof(MediaSourcesPage),
                 };
