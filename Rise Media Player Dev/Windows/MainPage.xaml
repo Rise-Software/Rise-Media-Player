@@ -346,12 +346,13 @@
             <SolidColorBrush Color="{x:Bind SViewModel.GlazeColors, Mode=OneWay}" />
         </Grid.Background>
 
-        <Grid Canvas.ZIndex="1">
+        <Grid
+            Height="48"
+            VerticalAlignment="Top"
+            Canvas.ZIndex="1">
             <skuc:TitleBar
                 x:Name="AppTitleBar"
-                Height="40"
-                Padding="0,8,0,0"
-                VerticalAlignment="Top"
+                VerticalAlignment="Stretch"
                 Canvas.ZIndex="1">
                 <skuc:TitleBar.Icon>
                     <IconSourceElement
@@ -374,128 +375,22 @@
 
             <Grid
                 x:Name="ControlsPanel"
-                Height="40"
-                Padding="0,8,0,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                Canvas.ZIndex="2"
-                ColumnSpacing="8">
+                Padding="0,8"
+                HorizontalAlignment="Right"
+                Canvas.ZIndex="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <AutoSuggestBox
-                    x:Name="Search"
-                    Height="32"
-                    MaxWidth="530"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="Search"
-                    PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
-                    QueryIcon="Find"
-                    QuerySubmitted="OnSearchQuerySubmitted"
-                    SuggestionChosen="OnSearchSuggestionChosen"
-                    TextChanged="OnSearchTextChanged">
-                    <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
-                            <Grid Padding="2,10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <Border
-                                    Width="40"
-                                    Height="40"
-                                    CornerRadius="3">
-                                    <Image>
-                                        <Image.Source>
-                                            <BitmapImage
-                                                DecodePixelHeight="40"
-                                                DecodePixelWidth="40"
-                                                UriSource="{x:Bind Thumbnail}" />
-                                        </Image.Source>
-                                    </Image>
-                                </Border>
-
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{x:Bind Title}" />
-                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.IsStringEmpty(Subtitle)}" />
-                                    <TextBlock
-                                        Margin="0,3,0,0"
-                                        FontSize="13"
-                                        Text="{x:Bind ItemType}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </AutoSuggestBox.ItemTemplate>
-                </AutoSuggestBox>
-
-                <Button
-                    x:Name="SyncCentre"
-                    Grid.Column="1"
-                    Height="32"
-                    Margin="0,0,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    IsEnabled="False"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    ToolTipService.ToolTip="{markup:ResourceHelper Name=SyncCenter}">
-                    <Button.Content>
-                        <Grid>
-                            <FontIcon
-                                x:Name="SyncCentreIcon"
-                                Height="24"
-                                Glyph="&#xE117;" />
-
-                            <muxc:ProgressRing
-                                x:Name="ScanningRing"
-                                Width="20"
-                                Height="20"
-                                IsActive="False" />
-                        </Grid>
-                    </Button.Content>
-
-                    <Button.Flyout>
-                        <Flyout>
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        Margin="0,2,0,12"
-                                        Style="{ThemeResource BaseTextBlockStyle}"
-                                        Text="{markup:ResourceHelper Name=SyncCenter}" />
-                                    <Button
-                                        Height="32"
-                                        Margin="70,-9,-2,0"
-                                        Content="{markup:ResourceHelper Name=SyncAll}"
-                                        FontSize="12"
-                                        FontStretch="Normal" />
-                                </StackPanel>
-
-                                <StackPanel Padding="25" Orientation="Vertical">
-                                    <FontIcon Height="32" Glyph="" />
-                                    <TextBlock
-                                        FontSize="14"
-                                        FontWeight="Normal"
-                                        Text="{markup:ResourceHelper Name=ComingSoon}"
-                                        TextAlignment="Center" />
-                                </StackPanel>
-                            </StackPanel>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
-
                 <Button
                     x:Name="MoreButton"
-                    Grid.Column="1"
-                    Height="32"
-                    Margin="46,0,0,0"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Stretch"
                     Style="{StaticResource TransparentButtonStyle}"
                     ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}">
                     <Button.Content>
-                        <FontIcon Height="24" Glyph="&#xE13D;" />
+                        <FontIcon Glyph="&#xE712;" />
                     </Button.Content>
 
                     <Button.Flyout>
@@ -546,15 +441,28 @@
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-
-                            <MenuFlyoutItem Click="OpenSettings_Click" Text="{markup:ResourceHelper Name=AppSettings}">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE115;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
+
+                <Button
+                    Grid.Column="1"
+                    VerticalAlignment="Stretch"
+                    Click="OpenSettings_Click"
+                    Style="{StaticResource TransparentButtonStyle}"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Settings}">
+                    <Button.Content>
+                        <FontIcon Glyph="&#xE713;" />
+                    </Button.Content>
+                </Button>
+
+                <Grid
+                    x:Name="IndexingProgressArea"
+                    Grid.Column="2"
+                    VerticalAlignment="Stretch">
+                    <FontIcon x:Name="IndexingProgressIcon" Glyph="&#xEA69;" />
+                    <muxc:ProgressRing x:Name="IndexingProgressRing" IsActive="False" />
+                </Grid>
             </Grid>
         </Grid>
 
@@ -574,6 +482,50 @@
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.AllItems.MenuItems}"
             OpenPaneLength="260">
+            <muxc:NavigationView.AutoSuggestBox>
+                <AutoSuggestBox
+                    x:Name="Search"
+                    AutomationProperties.Name="Search"
+                    PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
+                    QueryIcon="Find"
+                    QuerySubmitted="OnSearchQuerySubmitted"
+                    SuggestionChosen="OnSearchSuggestionChosen"
+                    TextChanged="OnSearchTextChanged">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
+                            <Grid Padding="2,10" ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Height="40" CornerRadius="3">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage
+                                                    DecodePixelHeight="40"
+                                                    DecodePixelWidth="40"
+                                                    UriSource="{x:Bind Thumbnail}" />
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{x:Bind Title}" />
+                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.IsStringEmpty(Subtitle)}" />
+                                    <TextBlock
+                                        Margin="0,3,0,0"
+                                        FontSize="13"
+                                        Text="{x:Bind ItemType}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+            </muxc:NavigationView.AutoSuggestBox>
+
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
@@ -906,8 +858,6 @@
 
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
-
-                        <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
@@ -1102,25 +1052,28 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="ScanningStates">
-                <VisualState x:Name="NotScanningState" />
+                <VisualState x:Name="NotScanningState">
+                    <VisualState.Setters>
+                        <Setter Target="IndexingProgressArea.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+
                 <VisualState x:Name="ScanningState">
                     <VisualState.Setters>
                         <Setter Target="IndexingTip.Visibility" Value="Visible" />
-                        <Setter Target="ScanningRing.IsActive" Value="True" />
-                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
+                        <Setter Target="IndexingProgressRing.IsActive" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="FetchingMetadataState">
                     <VisualState.Setters>
                         <Setter Target="FetchingMetadataTip.Visibility" Value="Visible" />
-                        <Setter Target="ScanningRing.IsActive" Value="True" />
-                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
+                        <Setter Target="IndexingProgressRing.IsActive" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="ScanningDoneState">
                     <VisualState.Setters>
                         <Setter Target="SuccessTip.Visibility" Value="Visible" />
-                        <Setter Target="SyncCentreIcon.Glyph" Value="&#xE001;" />
+                        <Setter Target="IndexingProgressIcon.Glyph" Value="&#xE73E;" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

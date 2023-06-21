@@ -496,11 +496,8 @@
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\HomePage\Colorful.png" />
-    <Content Include="Assets\NavigationView\DiscyPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\GenresPage\Colorful.png" />
     <Content Include="Assets\NavigationView\LocalVideosPage\Colorful.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\SettingsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\SongsPage\Colorful.png" />
     <Content Include="Assets\Settings\Library.png" />
     <Content Include="Assets\Settings\About.png" />

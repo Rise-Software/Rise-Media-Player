@@ -74,9 +74,7 @@ namespace Rise.App.Views
             { "SongsPage", typeof(SongsPage) },
             { "ArtistsPage", typeof(ArtistsPage) },
             { "AlbumsPage", typeof(AlbumsPage) },
-            { "GenresPage", typeof(GenresPage) },
-            { "LocalVideosPage", typeof(LocalVideosPage) },
-            { "DiscyPage", typeof(DiscyPage) }
+            { "LocalVideosPage", typeof(LocalVideosPage) }
         };
 
         private readonly Dictionary<string, Type> UnlistedDestinations = new()
@@ -448,11 +446,7 @@ namespace Rise.App.Views
             if (invoked is NavigationItemBase item)
             {
                 string id = item.Id;
-                if (id == "SettingsPage")
-                {
-                    Frame.Navigate(typeof(AllSettingsPage));
-                }
-                else if (ContentFrame.SourcePageType != Destinations[id])
+                if (ContentFrame.SourcePageType != Destinations[id])
                 {
                     ContentFrame.Navigate(Destinations[id],
                         null, args.RecommendedNavigationTransitionInfo);
@@ -477,13 +471,8 @@ namespace Rise.App.Views
             if (elm?.Tag is NavigationItemBase item)
             {
                 string id = item.Id;
-                if (id == "SettingsPage")
-                {
-                    Frame.Navigate(typeof(AllSettingsPage));
-                    return;
-                }
-
                 var pageType = Destinations[id];
+
                 if (ContentFrame.SourcePageType != pageType)
                     ContentFrame.Navigate(pageType);
             }
