@@ -373,53 +373,6 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <AutoSuggestBox
-                    x:Name="Search"
-                    Height="32"
-                    MaxWidth="530"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="Search"
-                    PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
-                    QueryIcon="Find"
-                    QuerySubmitted="OnSearchQuerySubmitted"
-                    SuggestionChosen="OnSearchSuggestionChosen"
-                    TextChanged="OnSearchTextChanged">
-                    <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
-                            <Grid Padding="2,10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <Border
-                                    Width="40"
-                                    Height="40"
-                                    CornerRadius="3">
-                                    <Image>
-                                        <Image.Source>
-                                            <BitmapImage
-                                                DecodePixelHeight="40"
-                                                DecodePixelWidth="40"
-                                                UriSource="{x:Bind Thumbnail}" />
-                                        </Image.Source>
-                                    </Image>
-                                </Border>
-
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{x:Bind Title}" />
-                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.IsStringEmpty(Subtitle)}" />
-                                    <TextBlock
-                                        Margin="0,3,0,0"
-                                        FontSize="13"
-                                        Text="{x:Bind ItemType}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </AutoSuggestBox.ItemTemplate>
-                </AutoSuggestBox>
-
                 <Button
                     x:Name="SyncCentre"
                     Grid.Column="1"
@@ -562,6 +515,50 @@
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.AllItems.MenuItems}"
             OpenPaneLength="260">
+            <muxc:NavigationView.AutoSuggestBox>
+                <AutoSuggestBox
+                    x:Name="Search"
+                    AutomationProperties.Name="Search"
+                    PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
+                    QueryIcon="Find"
+                    QuerySubmitted="OnSearchQuerySubmitted"
+                    SuggestionChosen="OnSearchSuggestionChosen"
+                    TextChanged="OnSearchTextChanged">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
+                            <Grid Padding="2,10" ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Height="40" CornerRadius="3">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage
+                                                    DecodePixelHeight="40"
+                                                    DecodePixelWidth="40"
+                                                    UriSource="{x:Bind Thumbnail}" />
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{x:Bind Title}" />
+                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.IsStringEmpty(Subtitle)}" />
+                                    <TextBlock
+                                        Margin="0,3,0,0"
+                                        FontSize="13"
+                                        Text="{x:Bind ItemType}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+            </muxc:NavigationView.AutoSuggestBox>
+
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
@@ -905,8 +902,6 @@
 
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
-
-                        <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
