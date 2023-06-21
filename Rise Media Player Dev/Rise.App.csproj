@@ -307,12 +307,6 @@
     <Compile Include="Web\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Web\SupportProject.xaml.cs">
-      <DependentUpon>SupportProject.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Web\WhatsNew.xaml.cs">
-      <DependentUpon>WhatsNew.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
@@ -859,14 +853,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Web\FeedbackPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Web\SupportProject.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Web\WhatsNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
