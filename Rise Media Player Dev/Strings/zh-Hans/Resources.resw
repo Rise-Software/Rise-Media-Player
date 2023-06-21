@@ -948,6 +948,6 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
     <value>保存</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Save changes</value>
+    <value>保存更改</value>
   </data>
 </root>
