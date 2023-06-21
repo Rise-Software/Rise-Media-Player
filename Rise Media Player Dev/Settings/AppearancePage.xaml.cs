@@ -112,11 +112,6 @@ namespace Rise.App.Settings
                 _glazeColors.Add(new(name, color));
             }
         }
-
-        private void ExpanderControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
     // Event handlers
