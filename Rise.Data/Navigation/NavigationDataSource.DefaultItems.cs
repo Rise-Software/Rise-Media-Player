@@ -23,10 +23,6 @@ namespace Rise.Data.Navigation
                 AccessKey = "P",
                 FlyoutId = "DefaultItemFlyout"
             },
-            new NavigationItemSeparator()
-            {
-                Id = "MusicSectionSeparator"
-            },
             new NavigationItemHeader()
             {
                 Id = "MusicGroup",
@@ -60,10 +56,6 @@ namespace Rise.Data.Navigation
                 AccessKey = "T",
                 FlyoutId = "DefaultItemFlyout"
             },
-            new NavigationItemSeparator()
-            {
-                Id = "VideosSectionSeparator"
-            },
             new NavigationItemHeader()
             {
                 Id = "VideosGroup",
@@ -78,15 +70,6 @@ namespace Rise.Data.Navigation
                 Label = "LocalVideos",
                 AccessKey = "L",
                 FlyoutId = "RemoveItemFlyout"
-            },
-            new NavigationItemDestination()
-            {
-                Id = "SettingsPage",
-                Group = "NoGroup",
-                DefaultIcon = "\uE115",
-                Label = "Settings",
-                AccessKey = "S",
-                IsFooter = true
             }
         };
     }
