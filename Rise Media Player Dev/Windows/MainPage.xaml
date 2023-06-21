@@ -366,9 +366,9 @@
                 Padding="0,8"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Canvas.ZIndex="2"
-                ColumnSpacing="6">
+                Canvas.ZIndex="2">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -430,19 +430,24 @@
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-
-                            <MenuFlyoutItem Click="OpenSettings_Click" Text="{markup:ResourceHelper Name=AppSettings}">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE115;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
 
+                <Button
+                    Grid.Column="1"
+                    VerticalAlignment="Stretch"
+                    Click="OpenSettings_Click"
+                    Style="{StaticResource TransparentButtonStyle}"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Settings}">
+                    <Button.Content>
+                        <FontIcon Glyph="&#xE713;" />
+                    </Button.Content>
+                </Button>
+
                 <Grid
                     x:Name="IndexingProgressArea"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     VerticalAlignment="Stretch">
                     <FontIcon x:Name="IndexingProgressIcon" Glyph="&#xEA69;" />
                     <muxc:ProgressRing x:Name="IndexingProgressRing" IsActive="False" />
