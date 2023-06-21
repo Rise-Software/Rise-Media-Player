@@ -174,15 +174,6 @@
                                     <MenuFlyoutSeparator />
 
                                     <MenuFlyoutItem
-                                        x:Name="ClassicDialog"
-                                        Click="ClassicDialog_Click"
-                                        Text="{markup:ResourceHelper Name=/Settings/OpenClassicDialog}">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xE17C;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-
-                                    <MenuFlyoutItem
                                         x:Name="RestoreDefaultSettings"
                                         IsEnabled="False"
                                         Text="{markup:ResourceHelper Name=/Settings/RestoreDefaults}">

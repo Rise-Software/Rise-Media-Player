@@ -20,7 +20,6 @@ namespace Rise.App.Settings
         private void ExpanderControl_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InsiderWallpapers));
-            SettingsDialogContainer.Breadcrumbs.Add(ResourceHelper.GetString("Wallpapers"));
         }
     }
 }

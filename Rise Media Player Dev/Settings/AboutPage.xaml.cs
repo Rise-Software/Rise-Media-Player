@@ -34,7 +34,6 @@ namespace Rise.App.Settings
                     _ = Frame.Navigate(typeof(InsiderPage));
                     AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uF1AD";
                     AllSettingsPage.Current.MainSettingsHeader.Text = ResourceHelper.GetString("InsiderHub");
-                    SettingsDialogContainer.Breadcrumbs.Add(ResourceHelper.GetString("InsiderHub"));
                     break;
 
                 case "Version":
