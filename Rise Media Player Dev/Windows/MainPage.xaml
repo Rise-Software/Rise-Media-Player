@@ -334,12 +334,13 @@
             <SolidColorBrush Color="{x:Bind SViewModel.GlazeColors, Mode=OneWay}" />
         </Grid.Background>
 
-        <Grid Canvas.ZIndex="1">
+        <Grid
+            Height="48"
+            VerticalAlignment="Top"
+            Canvas.ZIndex="1">
             <skuc:TitleBar
                 x:Name="AppTitleBar"
-                Height="40"
-                Padding="0,8,0,0"
-                VerticalAlignment="Top"
+                VerticalAlignment="Stretch"
                 Canvas.ZIndex="1">
                 <skuc:TitleBar.Icon>
                     <IconSourceElement
@@ -362,10 +363,8 @@
 
             <Grid
                 x:Name="ControlsPanel"
-                Height="48"
                 Padding="0,8"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Top"
                 Canvas.ZIndex="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
