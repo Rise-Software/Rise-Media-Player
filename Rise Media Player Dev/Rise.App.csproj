@@ -1052,13 +1052,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
-    <Folder Include="Settings\AboutPages\" />
-    <Folder Include="Settings\AppearancePages\" />
-    <Folder Include="Settings\BehaviourPages\" />
-    <Folder Include="Settings\ComponentsPages\" />
-    <Folder Include="Settings\NavigationPages\" />
-    <Folder Include="Settings\PlaybackSoundPages\" />
-    <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
