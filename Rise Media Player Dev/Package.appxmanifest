@@ -171,5 +171,6 @@
 		<uap:Capability Name="removableStorage" />
 		<uap:Capability Name="musicLibrary" />
 		<uap:Capability Name="enterpriseAuthentication" />
+		<DeviceCapability Name="optical" />
 	</Capabilities>
 </Package>
