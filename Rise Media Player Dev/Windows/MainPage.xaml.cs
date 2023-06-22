@@ -24,6 +24,7 @@ using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Text;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,6 +39,8 @@ namespace Rise.App.Views
     public sealed partial class MainPage : Page
     {
         private static bool _loaded;
+
+        private DeviceManager _deviceManager;
 
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
@@ -84,6 +87,21 @@ namespace Rise.App.Views
         public MainPage()
         {
             InitializeComponent();
+            _deviceManager = new DeviceManager();
+            foreach (var device in MViewModel.Devices)
+            {
+                Microsoft.UI.Xaml.Controls.NavigationViewItem deviceItem = new()
+                {
+                    Content = device.Name,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE88E",
+                    },
+                    Tag = device.FilePath,
+                    SelectsOnInvoked = false
+                };
+                NavView.FooterMenuItems.Add(deviceItem);
+            }
 
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
@@ -430,7 +448,9 @@ namespace Rise.App.Views
                 ContentFrame.Navigate(typeof(PlaylistDetailsPage),
                     playlist.Id, args.RecommendedNavigationTransitionInfo);
             }
+
         }
+
 
         /// <summary>
         /// Invoked when an access key for an element inside a NavView is invoked.
@@ -544,7 +564,10 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-            => await URLs.Support.LaunchAsync();
+        {
+            ContentFrame.Navigate(typeof(Views.Devices.AllDevicesPage));
+        }
+
 
         private async void Account_Click(object sender, RoutedEventArgs e)
         {

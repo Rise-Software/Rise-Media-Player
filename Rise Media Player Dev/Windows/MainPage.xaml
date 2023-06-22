@@ -408,9 +408,9 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem Click="Support_Click" Text="{markup:ResourceHelper Name=SupportProject}">
+                            <MenuFlyoutItem Click="Support_Click" Text="DevicesLink">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE125;" />
+                                    <FontIcon Glyph="&#xED10;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 

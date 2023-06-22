@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="Helpers\AddToPlaylistHelper.cs" />
     <Compile Include="Helpers\CollectionViewDelegates.cs" />
+    <Compile Include="Helpers\DeviceListeningHelper.cs" />
     <Compile Include="Helpers\GroupingLabelComparer.cs" />
     <Compile Include="Helpers\MusixmatchHelper.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
@@ -219,6 +220,9 @@
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Devices\AllDevicesPage.xaml.cs">
+      <DependentUpon>AllDevicesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml.cs">
       <DependentUpon>PlaylistVideosPropertiesPage.xaml</DependentUpon>
     </Compile>
@@ -282,9 +286,6 @@
     </Compile>
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ConnectedDevicesPage.xaml.cs">
-      <DependentUpon>ConnectedDevicesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
@@ -748,6 +749,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Devices\AllDevicesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -833,10 +838,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Artists\ArtistSongsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ConnectedDevicesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

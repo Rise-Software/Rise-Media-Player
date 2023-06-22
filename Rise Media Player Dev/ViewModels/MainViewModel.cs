@@ -11,6 +11,7 @@ using Rise.Models;
 using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -66,6 +67,17 @@ namespace Rise.App.ViewModels
         private JsonBackendController<BasicNotification> _nBackend;
         public JsonBackendController<BasicNotification> NBackend
             => _nBackend ??= JsonBackendController<BasicNotification>.Get("Messages");
+
+        public SafeObservableCollection<DeviceViewModel> Devices;
+        /// <summary>
+        /// Collection of Devices in the list.
+        /// </summary>
+        /// 
+
+        public MainViewModel()
+        {
+            Devices = new();
+        }
 
         private static SafeObservableCollection<TOutput> CreateCollection<TEntity, TOutput>(Converter<TEntity, TOutput> converter)
             where TEntity : DbObject, new()
