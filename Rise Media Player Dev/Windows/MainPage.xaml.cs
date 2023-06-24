@@ -714,8 +714,9 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            AlbumViewModel album = MViewModel.Albums.FirstOrDefault(a => a.Title == MPViewModel.PlayingItemProperties.Album);
-            ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+            var album = MViewModel.Albums.FirstOrDefault(a => a.Model.Title == MPViewModel.PlayingItemProperties.Album);
+            if (album != null)
+                ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
@@ -725,8 +726,9 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            ArtistViewModel artist = MViewModel.Artists.FirstOrDefault(a => a.Name == MPViewModel.PlayingItemProperties.Artist);
-            ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+            var artist = MViewModel.Artists.FirstOrDefault(a => a.Model.Name == MPViewModel.PlayingItemProperties.Artist);
+            if (artist != null)
+                ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
