@@ -150,7 +150,7 @@ namespace Rise.App.Views
                 else
                 {
                     // Only run the neccessary steps for startup - change tracking & artist image fetching.
-                    if (SViewModel.FetchArtistPictures)
+                    if (SViewModel.FetchOnlineData)
                     {
                         await Task.Delay(300);
 

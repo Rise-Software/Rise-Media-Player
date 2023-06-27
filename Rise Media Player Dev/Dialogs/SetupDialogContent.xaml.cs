@@ -37,7 +37,7 @@ namespace Rise.App.Dialogs
             int progress = ViewModel.SetupProgress;
             if (progress == 1)
             {
-                ViewModel.FetchArtistPictures = true;
+                ViewModel.FetchOnlineData = true;
             }
             else if (progress == 5)
             {
@@ -58,7 +58,7 @@ namespace Rise.App.Dialogs
             }
             if (progress == 1)
             {
-                ViewModel.FetchArtistPictures = false;
+                ViewModel.FetchOnlineData = false;
             }
             else if (progress == 5)
             {

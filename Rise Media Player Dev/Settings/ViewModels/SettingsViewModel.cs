@@ -181,15 +181,9 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Media Library
-        public bool FetchArtistPictures
+        public bool FetchOnlineData
         {
             get => Get(true, "MediaLibrary");
-            set => Set(value, "MediaLibrary");
-        }
-
-        public string MusixmatchLyricsToken
-        {
-            get => Get(string.Empty, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 

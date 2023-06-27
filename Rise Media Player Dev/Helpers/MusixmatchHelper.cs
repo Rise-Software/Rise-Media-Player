@@ -1,5 +1,5 @@
-﻿using Rise.Models;
-using System;
+﻿using System;
+using Rise.Models;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 
