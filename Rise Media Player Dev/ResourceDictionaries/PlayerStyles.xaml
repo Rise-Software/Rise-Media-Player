@@ -61,7 +61,7 @@
     <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="co:RiseMediaPlayerElement" />
 
     <x:Double x:Key="MTCPositionSliderMaximumWidth">Infinity</x:Double>
-    <x:Double x:Key="MTCSecondaryControlsColumnWidth">172</x:Double>
+    <x:Double x:Key="MTCSecondaryControlsColumnWidth">168</x:Double>
 
     <FontFamily x:Key="PlayerIconsFontFamily">ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons</FontFamily>
 
@@ -86,6 +86,9 @@
                             <Grid.Resources>
                                 <Style BasedOn="{StaticResource AppBarButtonCompactStyle}" TargetType="AppBarButton" />
                                 <Style BasedOn="{StaticResource AppBarToggleButtonCompactStyle}" TargetType="AppBarToggleButton" />
+
+                                <Thickness x:Key="CommandBarMoreButtonMargin">4</Thickness>
+                                <x:Double x:Key="AppBarExpandButtonThemeWidth">44</x:Double>
                             </Grid.Resources>
 
                             <Grid.RenderTransform>
