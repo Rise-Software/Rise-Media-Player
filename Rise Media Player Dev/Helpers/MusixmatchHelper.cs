@@ -35,7 +35,7 @@ namespace Rise.App.Helpers
                     return userToken;
             }
 
-            return App.SViewModel.MusixmatchLyricsToken;
+            return "2306258e8a658a197b52f987c6f83479b4cce70202a27357e58b68";
         }
 
         public static async Task<MusixmatchLyrics> GetLyricsAsync(string trackName, string artistName, UserToken token = null)
