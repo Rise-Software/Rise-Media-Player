@@ -122,17 +122,17 @@
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• 这些版本将从 Microsoft Store 推送
- • 播放列表
- • 设备支持
- • 光盘刻录
- • 开始时支持 12 种语言的多语言（未完成）
- • 一些后台在线服务 - Discord Rich Presence 和 Last.fm Scrobbling
- • 添加了音乐的视图和排序
- • 视频索引和播放
- • 改进了“正在播放”体验和队列
- • 为所有构建带来的大修设置 UI
- • 本地推荐和最近播放
- • 大部分应用程序不和谐</value>
+• 播放列表
+• 设备支持
+• 光盘刻录
+• 开始时支持 12 种语言的多语言（未完成）
+• 一些后台在线服务 - Discord Rich Presence 和 Last.fm Scrobbling
+• 添加了音乐的视图和排序
+• 视频索引和播放
+• 改进了“正在播放”体验和队列
+• 为所有构建带来的大修设置 UI
+• 本地推荐和最近播放
+• 大多数应用程序中的 Discy</value>
   </data>
   <data name="AlphaH.Text" xml:space="preserve">
     <value>晚期 Pre-Alpha - Alpha</value>
