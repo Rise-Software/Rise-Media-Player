@@ -33,6 +33,7 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
+            <x:Double x:Key="MTCSecondaryControlsColumnWidth">0</x:Double>
 
             <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:ResourceFallback x:Key="ResFallback" />
@@ -41,9 +42,9 @@
 
     <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="TitleBarArea" Height="40" />
+            <RowDefinition x:Name="TitleBarArea" Height="32" />
             <RowDefinition x:Name="MediaDisplayArea" Height="1*" />
-            <RowDefinition x:Name="TransportControlsArea" Height="92" />
+            <RowDefinition x:Name="TransportControlsArea" Height="56" />
         </Grid.RowDefinitions>
 
         <!--  Background area  -->
@@ -72,10 +73,12 @@
         <skuc:TitleBar
             x:Name="TitleBar"
             HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             Canvas.ZIndex="1" />
 
         <Button
-            Margin="4"
+            Height="32"
+            Margin="2"
             Canvas.ZIndex="2"
             Click="OnExitButtonClick"
             Style="{StaticResource TransparentButtonStyle}"
@@ -97,18 +100,15 @@
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
-                    Height="92"
+                    Height="56"
                     Margin="2,0"
-                    HorizontalControlsAlignment="Left"
-                    IsCompact="True"
-                    IsFullWindowButtonVisible="False"
+                    HorizontalControlsAlignment="Center"
                     IsNextTrackButtonVisible="True"
-                    IsPlaybackRateButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
-                    IsVolumeButtonVisible="False"
-                    IsZoomButtonVisible="False"
+                    IsSkipBackwardEnabled="True"
+                    IsSkipForwardEnabled="True"
                     ShowAndHideAutomatically="False"
-                    TimelineDisplayMode="Minimal" />
+                    TimelineDisplayMode="Hidden" />
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
@@ -144,7 +144,8 @@
                 HorizontalTextAlignment="Center"
                 MaxLines="2"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource, Mode=OneWay}" />
+                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource, Mode=OneWay}"
+                Visibility="Collapsed" />
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
@@ -157,9 +158,6 @@
 
                     <VisualState.Setters>
                         <Setter Target="InfoGrid.Visibility" Value="Collapsed" />
-
-                        <Setter Target="PlayerControls.IsCompact" Value="True" />
-                        <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -261,6 +259,25 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="SizeStates">
+                <VisualState x:Name="LargeSizeState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="260" MinWindowWidth="260" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.Height" Value="92" />
+                        <Setter Target="TransportControlsArea.Height" Value="92" />
+
+                        <Setter Target="PlayerControls.TimelineDisplayMode" Value="Full" />
+                        <Setter Target="SubtitleText.Visibility" Value="Visible" />
+
+                        <Setter Target="PlayerControls.IsSkipBackwardButtonVisible" Value="True" />
+                        <Setter Target="PlayerControls.IsSkipForwardButtonVisible" Value="True" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
