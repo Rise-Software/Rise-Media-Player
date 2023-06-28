@@ -1,8 +1,7 @@
 ﻿using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
-using System.Globalization;
-using System.Net;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using YoutubeExplode;
@@ -24,42 +23,41 @@ namespace Rise.App.Dialogs
         {
             var deferral = args.GetDeferral();
 
-            var url = StreamingTextBox.Text;
-
-            string title = null, subtitle = null, thumbnailUrl = null;
-
-            if (!Uri.TryCreate(StreamingTextBox.Text, UriKind.RelativeOrAbsolute, out Uri uri))
+            string url = StreamingTextBox.Text;
+            if (!Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri))
             {
                 args.Cancel = true;
                 InvalidUrlText.Visibility = Visibility.Visible;
                 return;
             }
 
-            bool isYoutubeLink = url.Contains("youtube.com/watch");
+            MediaPlaybackItem song;
 
+            bool isYoutubeLink = url.Contains("youtube.com/watch");
             if (isYoutubeLink)
             {
                 var youtubeClient = new YoutubeClient();
-                var youtubeSong = await youtubeClient.Videos.GetAsync(url.Replace("music.youtube.com", "www.youtube.com"));
+                var youtubeVideo = await youtubeClient.Videos.GetAsync(url.Replace("music.youtube.com", "www.youtube.com"));
 
-                title = youtubeSong.Title;
-                subtitle = youtubeSong.Author.ChannelTitle;
-                thumbnailUrl = youtubeSong.Thumbnails.GetWithHighestResolution().Url;
+                string title = youtubeVideo.Title;
+                string subtitle = youtubeVideo.Author.ChannelTitle;
+                string thumbnailUrl = youtubeVideo.Thumbnails.GetWithHighestResolution().Url;
 
                 var streams = await youtubeClient.Videos.Streams.GetManifestAsync(url);
 
                 uri = new(streams.GetAudioStreams().GetWithHighestBitrate().Url);
+                song = await WebHelpers.GetSongFromUriAsync(uri, title, subtitle, thumbnailUrl);
+            }
+            else
+            {
+                song = await WebHelpers.GetSongFromUriAsync(uri);
             }
 
-            Hide();
+            deferral?.Complete();
 
             await ViewModel.ResetPlaybackAsync();
-
-            var song = await WebHelpers.GetSongFromUriAsync(uri, title, subtitle, thumbnailUrl, !isYoutubeLink);
             ViewModel.AddSingleItemToQueue(song);
             ViewModel.Player.Play();
-
-            deferral?.Complete();
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
-using System.Globalization;
-using System.Linq;
-using System.Net;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using YoutubeExplode;
@@ -26,9 +24,6 @@ namespace Rise.App.Dialogs
             var deferral = args.GetDeferral();
 
             var url = StreamingTextBox.Text;
-
-            string title = null, subtitle = null, thumbnailUrl = null;
-
             if (!Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri))
             {
                 args.Cancel = true;
@@ -36,31 +31,33 @@ namespace Rise.App.Dialogs
                 return;
             }
 
-            bool isYoutubeLink = url.Contains("youtube.com/watch");
+            MediaPlaybackItem video;
 
+            bool isYoutubeLink = url.Contains("youtube.com/watch");
             if (isYoutubeLink)
             {
                 var youtubeClient = new YoutubeClient();
                 var youtubeVideo = await youtubeClient.Videos.GetAsync(url.Replace("music.youtube.com", "www.youtube.com"));
 
-                title = youtubeVideo.Title;
-                subtitle = youtubeVideo.Author.ChannelTitle;
-                thumbnailUrl = youtubeVideo.Thumbnails.GetWithHighestResolution().Url;
+                string title = youtubeVideo.Title;
+                string subtitle = youtubeVideo.Author.ChannelTitle;
+                string thumbnailUrl = youtubeVideo.Thumbnails.GetWithHighestResolution().Url;
 
                 var streams = await youtubeClient.Videos.Streams.GetManifestAsync(url);
 
                 uri = new(streams.GetMuxedStreams().GetWithHighestVideoQuality().Url);
+                video = await WebHelpers.GetVideoFromUriAsync(uri, title, subtitle, thumbnailUrl);
+            }
+            else
+            {
+                video = await WebHelpers.GetVideoFromUriAsync(uri);
             }
 
-            Hide();
+            deferral?.Complete();
 
             await ViewModel.ResetPlaybackAsync();
-
-            var video = await WebHelpers.GetVideoFromUriAsync(uri, title, subtitle, thumbnailUrl, !isYoutubeLink);
             ViewModel.AddSingleItemToQueue(video);
             ViewModel.Player.Play();
-
-            deferral?.Complete();
         }
     }
 }

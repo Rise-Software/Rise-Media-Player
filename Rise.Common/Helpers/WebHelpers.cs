@@ -1,4 +1,5 @@
 ﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using System;
 using System.Threading.Tasks;
 using Windows.Media;
@@ -19,86 +20,117 @@ namespace Rise.Common.Helpers
         public static bool IsInternetAccessAvailable()
         {
             ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
-            return connectionProfile != null 
+            return connectionProfile != null
                 && (connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess
                 || connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.ConstrainedInternetAccess);
         }
 
         /// <summary>
-        /// Gets a <see cref="MediaPlaybackItem"/> from the provided song Uri.
+        /// Creates a playback item which sources from the provided song URI.
         /// </summary>
-        public static async Task<MediaPlaybackItem> GetSongFromUriAsync(Uri uri, string title = null, string subtitle = null, string thumbnail = null, bool fetchInfo = false)
+        public static async Task<MediaPlaybackItem> GetSongFromUriAsync(Uri uri)
         {
             var source = MediaSource.CreateFromUri(uri);
-
-            if (fetchInfo)
-                await source.OpenAsync();
-            else
-            {
-                source.CustomProperties["Title"] = title ?? "Online song";
-                source.CustomProperties["Artists"] = "UnknownArtistResource";
-                source.CustomProperties["Year"] = 0u;
-            }
-
-            source.CustomProperties["Length"] = source.Duration;
+            await source.OpenAsync();
 
             var media = new MediaPlaybackItem(source);
             var props = media.GetDisplayProperties();
 
-            if (fetchInfo)
-            {
-                source.CustomProperties["Title"] = title ?? props.MusicProperties.Title;
-                source.CustomProperties["Artists"] = subtitle ?? props.MusicProperties.Artist;
-                source.CustomProperties["Year"] = 0u;
-            }
-            else
-            {
-                props.Type = MediaPlaybackType.Music;
-                props.MusicProperties.Title = title ?? "Online song";
-                props.MusicProperties.Artist = subtitle ?? "UnknownArtistResource";
-            }
+            props.Type = MediaPlaybackType.Music;
+            props.MusicProperties.Title = props.MusicProperties.Title.ReplaceIfNullOrWhiteSpace("Online song");
+            props.MusicProperties.Artist = props.MusicProperties.Artist.ReplaceIfNullOrWhiteSpace("UnknownArtistResource");
 
-            props.Thumbnail ??= RandomAccessStreamReference.CreateFromUri(new(thumbnail ?? URIs.MusicThumb));
+            source.CustomProperties["Title"] = props.MusicProperties.Title;
+            source.CustomProperties["Artists"] = props.MusicProperties.Artist;
+            source.CustomProperties["Length"] = source.Duration;
+
+            props.Thumbnail ??= RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
+
             media.ApplyDisplayProperties(props);
-
             return media;
         }
 
         /// <summary>
-        /// Gets a <see cref="MediaPlaybackItem"/> from the provided video Uri.
+        /// Creates a playback item which sources from the provided song URI,
+        /// and uses the provided metadata for display properties.
         /// </summary>
-        public static async Task<MediaPlaybackItem> GetVideoFromUriAsync(Uri uri, string title = null, string subtitle = null, string thumbnail = null, bool fetchInfo = false)
+        public static Task<MediaPlaybackItem> GetSongFromUriAsync(Uri uri, string title = null, string subtitle = null, string thumbnail = null)
+        {
+            string actualTitle = title.ReplaceIfNullOrWhiteSpace("Online song");
+            string actualSubtitle = subtitle.ReplaceIfNullOrWhiteSpace("UnknownArtistResource");
+
+            var media = GetMediaFromUri(uri, actualTitle, actualSubtitle);
+            var props = media.GetDisplayProperties();
+
+            props.Type = MediaPlaybackType.Music;
+            props.MusicProperties.Title = actualTitle;
+            props.MusicProperties.Artist = actualSubtitle;
+
+            Uri thumb = new(thumbnail.ReplaceIfNullOrWhiteSpace(URIs.MusicThumb));
+            props.Thumbnail ??= RandomAccessStreamReference.CreateFromUri(thumb);
+
+            media.ApplyDisplayProperties(props);
+            return Task.FromResult(media);
+        }
+
+        /// <summary>
+        /// Creates a playback item which sources from the provided video URI.
+        /// </summary>
+        public static async Task<MediaPlaybackItem> GetVideoFromUriAsync(Uri uri)
         {
             var source = MediaSource.CreateFromUri(uri);
-
-            if (fetchInfo)
-                await source.OpenAsync();
-            else
-            {
-                source.CustomProperties["Title"] = title ?? "Online video";
-                source.CustomProperties["Artists"] = "UnknownArtistResource";
-                source.CustomProperties["Year"] = 0u;
-            }
-
-            source.CustomProperties["Length"] = source.Duration;
+            await source.OpenAsync();
 
             var media = new MediaPlaybackItem(source);
             var props = media.GetDisplayProperties();
 
-            if (fetchInfo)
-            {
-                source.CustomProperties["Title"] = title ?? props.VideoProperties.Title;
-                source.CustomProperties["Artists"] = subtitle ?? props.VideoProperties.Subtitle;
-            } else
-            {
-                props.Type = MediaPlaybackType.Video;
-                props.VideoProperties.Title = title ?? "Online video";
-                props.VideoProperties.Subtitle = subtitle ?? "UnknownArtistResource";
-            }
+            props.Type = MediaPlaybackType.Video;
+            props.VideoProperties.Title = props.VideoProperties.Title.ReplaceIfNullOrWhiteSpace("Online video");
+            props.VideoProperties.Subtitle = props.VideoProperties.Subtitle.ReplaceIfNullOrWhiteSpace("UnknownArtistResource");
 
-            props.Thumbnail ??= RandomAccessStreamReference.CreateFromUri(new(thumbnail ?? URIs.VideoThumb));
+            source.CustomProperties["Title"] = props.VideoProperties.Title;
+            source.CustomProperties["Artists"] = props.VideoProperties.Subtitle;
+            source.CustomProperties["Length"] = source.Duration;
+
+            props.Thumbnail ??= RandomAccessStreamReference.CreateFromUri(new(URIs.VideoThumb));
+
             media.ApplyDisplayProperties(props);
+            return media;
+        }
 
+        /// <summary>
+        /// Creates a playback item which sources from the provided video URI,
+        /// and uses the provided metadata for display properties.
+        /// </summary>
+        public static Task<MediaPlaybackItem> GetVideoFromUriAsync(Uri uri, string title = null, string subtitle = null, string thumbnail = null)
+        {
+            string actualTitle = title.ReplaceIfNullOrWhiteSpace("Online video");
+            string actualSubtitle = subtitle.ReplaceIfNullOrWhiteSpace("UnknownArtistResource");
+
+            var media = GetMediaFromUri(uri, actualTitle, actualSubtitle);
+            var props = media.GetDisplayProperties();
+
+            props.Type = MediaPlaybackType.Video;
+            props.VideoProperties.Title = actualTitle;
+            props.VideoProperties.Subtitle = actualSubtitle;
+
+            Uri thumb = new(thumbnail.ReplaceIfNullOrWhiteSpace(URIs.VideoThumb));
+            props.Thumbnail ??= RandomAccessStreamReference.CreateFromUri(thumb);
+
+            media.ApplyDisplayProperties(props);
+            return Task.FromResult(media);
+        }
+
+        private static MediaPlaybackItem GetMediaFromUri(Uri uri, string title, string subtitle)
+        {
+            var source = MediaSource.CreateFromUri(uri);
+
+            source.CustomProperties["Title"] = title;
+            source.CustomProperties["Artists"] = subtitle;
+            source.CustomProperties["Length"] = source.Duration;
+            source.CustomProperties["Year"] = 0u;
+
+            var media = new MediaPlaybackItem(source);
             return media;
         }
     }

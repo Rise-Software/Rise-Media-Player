@@ -8,9 +8,7 @@ using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Playback;
@@ -398,7 +396,7 @@ namespace Rise.App.ViewModels
                 return await file.GetSongAsync();
             }
 
-            return await WebHelpers.GetSongFromUriAsync(uri, Title, Artist, Thumbnail, !uri.IsFile);
+            return await WebHelpers.GetSongFromUriAsync(uri, Title, Artist, Thumbnail);
         }
         #endregion
     }
