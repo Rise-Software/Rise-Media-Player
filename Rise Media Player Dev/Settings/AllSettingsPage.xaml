@@ -153,7 +153,7 @@
                                 Content="{markup:ResourceHelper Name=Appearance}"
                                 Icon="{ui:FontIcon Glyph=&#xE771;}"
                                 Tag="Appearance"
-                                ToolTipService.ToolTip="Customise app colours, themes, icons, layouts and motion." />
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/AppearanceItemDesc}" />
 
                             <muxc:NavigationViewItem
                                 x:Name="MediaLibrary"
