@@ -65,10 +65,10 @@
         </labs:SettingsExpander>
 
         <labs:SettingsExpander
-            VerticalAlignment="Center"
             Description="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanDesc}"
             Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanTitle}"
-            HeaderIcon="{ui:FontIcon Glyph=&#xF78D;}">
+            HeaderIcon="{ui:FontIcon Glyph=&#xF78D;}"
+            IsExpanded="True">
             <labs:SettingsExpander.Items>
                 <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanOpen}">
                     <ToggleSwitch IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
