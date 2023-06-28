@@ -2,7 +2,7 @@ name: Crowdin Action
 
 on:
   push:
-    branches: [ release_vnext ]
+    branches: [ main-(insider_bloom) ]
 
 jobs:
   synchronize-with-crowdin:
