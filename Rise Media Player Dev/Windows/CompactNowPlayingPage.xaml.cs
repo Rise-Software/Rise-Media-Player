@@ -30,6 +30,11 @@ namespace Rise.App.Views
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
         }
 
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
+        {
+            MainPlayer.SetMediaPlayer(null);
+        }
+
         public static async Task NavigateAsync(Frame frame)
         {
             _ = await ApplicationView.GetForCurrentView().

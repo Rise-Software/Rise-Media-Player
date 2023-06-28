@@ -117,6 +117,8 @@ namespace Rise.App.Views
             PlayerControlsQueueWatcher?.Dispose();
 
             Bindings.StopTracking();
+
+            MainPlayer.SetMediaPlayer(null);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

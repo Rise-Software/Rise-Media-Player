@@ -16,6 +16,7 @@
     PointerCanceled="OnPointerExited"
     PointerEntered="OnPointerEntered"
     PointerExited="OnPointerExited"
+    Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
 
     <Page.Resources>
