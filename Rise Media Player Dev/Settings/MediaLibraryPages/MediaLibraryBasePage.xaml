@@ -24,17 +24,9 @@
             SelectedItem="{x:Bind Local}">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
-                    x:Name="Overview"
-                    Content="{markup:ResourceHelper Name=/Settings/AppearanceOverview}"
-                    Tag="Overview" />
-                <muxc:NavigationViewItem
                     x:Name="Local"
                     Content="{markup:ResourceHelper Name=/Settings/MediaLibraryFilesAndFolders}"
                     Tag="Local" />
-                <muxc:NavigationViewItem
-                    x:Name="Data"
-                    Content="{markup:ResourceHelper Name=/Settings/MediaLibraryMetadata}"
-                    Tag="Data" />
                 <muxc:NavigationViewItem
                     x:Name="Services"
                     Content="{markup:ResourceHelper Name=OnlineServices}"

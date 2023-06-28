@@ -34,7 +34,6 @@ namespace Rise.App.Settings
                     _ = Frame.Navigate(typeof(InsiderPage));
                     AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uF1AD";
                     AllSettingsPage.Current.MainSettingsHeader.Text = ResourceHelper.GetString("InsiderHub");
-                    SettingsDialogContainer.Breadcrumbs.Add(ResourceHelper.GetString("InsiderHub"));
                     break;
 
                 case "Version":
@@ -48,10 +47,5 @@ namespace Rise.App.Settings
 
         private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
             => await URLs.Releases.LaunchAsync();
-
-        private void ExpanderControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

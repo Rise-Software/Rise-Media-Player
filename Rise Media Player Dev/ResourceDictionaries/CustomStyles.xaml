@@ -25,6 +25,8 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <FontFamily x:Key="SettingsIconsFontFamily">ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons</FontFamily>
+
     <!--  Title bar resources  -->
     <Thickness x:Key="TitleBarIconMargin">0,0,0,0</Thickness>
     <BitmapIconSource

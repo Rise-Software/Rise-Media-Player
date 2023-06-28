@@ -1,7 +1,5 @@
-﻿using Rise.App.Dialogs;
-using Rise.App.Views;
+﻿using Rise.App.Views;
 using Rise.App.Web;
-using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using System;
@@ -44,16 +42,6 @@ namespace Rise.App.Settings
             FinishNavigation();
         }
 
-        private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
-        {
-            GoToMainPage();
-
-            var diag = new SettingsDialogContainer();
-            diag.Content = new SettingsPage();
-
-            _ = await diag.ShowAsync();
-        }
-
         private void Language_Click(object sender, RoutedEventArgs e)
         {
             _ = SettingsMainFrame.Navigate(typeof(LanguagePage));
@@ -71,9 +59,7 @@ namespace Rise.App.Settings
                     "MediaLibrary" => typeof(MediaLibraryBasePage),
                     "Navigation" => typeof(NavigationPage),
                     "Playback" => typeof(PlaybackPage),
-                    "Sync" => typeof(ComingSoonPage),
                     "Behaviour" => typeof(WindowsBehavioursPage),
-                    "Components" => typeof(ComingSoonPage),
                     "About" => typeof(AboutPage),
                     _ => typeof(MediaSourcesPage),
                 };
@@ -144,11 +130,6 @@ namespace Rise.App.Settings
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            GoToMainPage();
-        }
-
-        private void GoToMainPage()
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();

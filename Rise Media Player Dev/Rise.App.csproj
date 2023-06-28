@@ -146,9 +146,6 @@
     <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
       <DependentUpon>EqualizerDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
-      <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\SetupDialogContent.xaml.cs">
       <DependentUpon>SetupDialogContent.xaml</DependentUpon>
     </Compile>
@@ -156,9 +153,6 @@
     <Compile Include="Helpers\CollectionViewDelegates.cs" />
     <Compile Include="Helpers\GroupingLabelComparer.cs" />
     <Compile Include="Helpers\MusixmatchHelper.cs" />
-    <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
-      <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
@@ -206,9 +200,6 @@
     </Compile>
     <Compile Include="Dialogs\MusicStreamingDialog.xaml.cs">
       <DependentUpon>MusicStreamingDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
-      <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
@@ -310,12 +301,6 @@
     <Compile Include="Web\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Web\SupportProject.xaml.cs">
-      <DependentUpon>SupportProject.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Web\WhatsNew.xaml.cs">
-      <DependentUpon>WhatsNew.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\CompactNowPlayingPage.xaml.cs">
       <DependentUpon>CompactNowPlayingPage.xaml</DependentUpon>
     </Compile>
@@ -382,9 +367,6 @@
     </Compile>
     <Compile Include="Views\LocalVideosPage.xaml.cs">
       <DependentUpon>LocalVideosPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Settings\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SetupPage.xaml.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
@@ -489,20 +471,12 @@
     <Content Include="Assets\NavigationView\BrowsePage\Colorful.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\likedplaylist.png" />
-    <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\HomePage\Colorful.png" />
     <Content Include="Assets\NavigationView\LocalVideosPage\Colorful.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\SongsPage\Colorful.png" />
-    <Content Include="Assets\Settings\Library.png" />
-    <Content Include="Assets\Settings\About.png" />
-    <Content Include="Assets\Settings\Language.png" />
-    <Content Include="Assets\Settings\LibraryCustomise\widgettoptrackpreview.png" />
-    <Content Include="Assets\Settings\Playback.png" />
-    <Content Include="Assets\Settings\Appearance.png" />
-    <Content Include="Assets\Settings\Sidebar.png" />
     <Content Include="Assets\Setup\Appearance.png" />
     <Content Include="Assets\Setup\Connect.png" />
     <Content Include="Assets\Setup\Done.png" />
@@ -684,10 +658,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\LibraryPageEditDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\MessagesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -701,10 +671,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\MusicStreamingDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\SettingsDialogContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -792,10 +758,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Settings\MediaLibraryPages\MediaLibraryBasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -876,14 +838,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Web\SupportProject.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Web\WhatsNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\CompactNowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -961,10 +915,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LocalVideosPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1070,13 +1020,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
-    <Folder Include="Settings\AboutPages\" />
-    <Folder Include="Settings\AppearancePages\" />
-    <Folder Include="Settings\BehaviourPages\" />
-    <Folder Include="Settings\ComponentsPages\" />
-    <Folder Include="Settings\NavigationPages\" />
-    <Folder Include="Settings\PlaybackSoundPages\" />
-    <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
