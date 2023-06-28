@@ -88,10 +88,14 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (MediaViewModel.Items.Any())
+            if (MediaViewModel.Items.Any() && VideosViewModel.Items.Any())
+                PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds) + TimeSpan.FromSeconds(VideosViewModel.Items.Cast<VideoViewModel>().Select(v => v.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            else if (!MediaViewModel.Items.Any() && VideosViewModel.Items.Any())
+                PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(VideosViewModel.Items.Cast<VideoViewModel>().Select(v => v.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
+            else if (MediaViewModel.Items.Any() && !VideosViewModel.Items.Any())
                 PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
             else
-                PlaylistDuration.Text = TimeSpanToString.GetShortFormat(TimeSpan.Zero);
+                PlaylistDuration.Text = TimeSpan.Zero.ToString();
         }
     }
 
@@ -153,7 +157,7 @@ namespace Rise.App.Views
             {
                 await MPViewModel.PlaySingleItemAsync(video);
                 if (Window.Current.Content is Frame rootFrame)
-                    rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    rootFrame.Navigate(typeof(NowPlayingPage));
             }
         }
 
@@ -161,7 +165,39 @@ namespace Rise.App.Views
         {
             await MPViewModel.PlaySingleItemAsync(SelectedVideo);
             if (Window.Current.Content is Frame rootFrame)
-                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                _ = rootFrame.Navigate(typeof(NowPlayingPage));
+        }
+
+        private void RemoveSong_Click(object sender, RoutedEventArgs e)
+        {
+            SongViewModel song = (sender as Button).Tag as SongViewModel;
+            SelectedPlaylist.Songs.Remove(song);
+        }
+
+        private void MoveBottom_Click(object sender, RoutedEventArgs e)
+        {
+            SongViewModel song = (sender as Button).Tag as SongViewModel;
+
+            if ((SelectedPlaylist.Songs.IndexOf(song) + 1) < SelectedPlaylist.Songs.Count)
+            {
+                var index = SelectedPlaylist.Songs.IndexOf(song);
+
+                SelectedPlaylist.Songs.Remove(song);
+                SelectedPlaylist.Songs.Insert(index + 1, song);
+            }
+        }
+
+        private void MoveUp_Click(object sender, RoutedEventArgs e)
+        {
+            SongViewModel song = (sender as Button).Tag as SongViewModel;
+
+            if ((SelectedPlaylist.Songs.IndexOf(song) - 1) >= 0)
+            {
+                var index = SelectedPlaylist.Songs.IndexOf(song);
+
+                SelectedPlaylist.Songs.Remove(song);
+                SelectedPlaylist.Songs.Insert(index - 1, song);
+            }
         }
 
         private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)

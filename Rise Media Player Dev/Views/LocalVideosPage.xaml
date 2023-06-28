@@ -56,7 +56,7 @@
                 Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Play"
-                Style="{StaticResource AppBarCompactButtonStyle}"
+                Style="{StaticResource AppBarButtonCompactStyle}"
                 ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}" />
 
             <AppBarSeparator />
@@ -65,11 +65,11 @@
                 Icon="Delete"
                 IsEnabled="False"
                 Label="{markup:ResourceHelper Name=RemoveThing}"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarButtonCompactStyle}" />
             <AppBarButton
                 Icon="Rename"
                 IsEnabled="False"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarButtonCompactStyle}" />
 
             <AppBarSeparator />
 
@@ -163,9 +163,15 @@
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
+                        <MenuFlyoutItem Command="{x:Bind AddSelectedItemToQueueCommand}" Text="{markup:ResourceHelper Name=Queue}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+
                         <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyoutSubItem>

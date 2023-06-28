@@ -63,6 +63,18 @@
             <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
 
             <Flyout
+                x:Name="QueueFlyout"
+                Closed="QueueFlyout_Closed"
+                ShouldConstrainToRootBounds="False">
+                <uc:DefaultQueueFlyout Width="300" Height="300" />
+            </Flyout>
+
+            <ImageBrush
+                x:Name="CurrentItemThumbnailBrush"
+                ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
+                Stretch="Uniform" />
+
+            <Flyout
                 x:Name="PlayingItemMusicFlyout"
                 x:DefaultBindMode="OneWay"
                 Placement="TopEdgeAlignedLeft">
@@ -87,7 +99,7 @@
                         Grid.RowSpan="4"
                         CornerRadius="8"
                         ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
-                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                        <Image Source="{x:Bind CurrentItemThumbnailBrush.ImageSource, Mode=OneWay}" />
                     </Border>
 
                     <TextBlock
@@ -189,7 +201,7 @@
                         Grid.RowSpan="3"
                         CornerRadius="8"
                         ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
-                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                        <Image Source="{x:Bind CurrentItemThumbnailBrush.ImageSource, Mode=OneWay}" />
                     </Border>
 
                     <TextBlock
@@ -755,8 +767,6 @@
                                 IsFullWindowButtonVisible="True"
                                 IsFullWindowEnabled="True"
                                 IsNextTrackButtonVisible="True"
-                                IsOverlayButtonVisible="True"
-                                IsOverlayEnabled="True"
                                 IsPlaybackRateButtonVisible="True"
                                 IsPlaybackRateEnabled="True"
                                 IsPreviousTrackButtonVisible="True"
@@ -775,12 +785,6 @@
                                 IsZoomEnabled="False"
                                 OverlayCommand="{x:Bind GoToNowPlayingCommand}"
                                 ShowAndHideAutomatically="False">
-                                <uc:RiseMediaTransportControls.QueueFlyout>
-                                    <Flyout>
-                                        <uc:DefaultQueueFlyout Width="300" Height="300" />
-                                    </Flyout>
-                                </uc:RiseMediaTransportControls.QueueFlyout>
-
                                 <uc:RiseMediaTransportControls.DisplayItem>
                                     <Button
                                         Margin="4"
@@ -802,11 +806,8 @@
                                                 x:Name="ImageBorder"
                                                 Width="80"
                                                 HorizontalAlignment="Left"
+                                                Background="{StaticResource CurrentItemThumbnailBrush}"
                                                 CornerRadius="4">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
-                                                </Border.Background>
-
                                                 <Border.RenderTransform>
                                                     <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
                                                 </Border.RenderTransform>

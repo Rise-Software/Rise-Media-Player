@@ -72,9 +72,15 @@
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
+                        <MenuFlyoutItem Command="{x:Bind AddSelectedItemToQueueCommand}" Text="{markup:ResourceHelper Name=Queue}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+
                         <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyoutSubItem>
@@ -245,7 +251,7 @@
 
                                 <MenuFlyoutItem Command="{x:Bind AddVideoToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                     <MenuFlyoutItem.Icon>
-                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                        <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyoutSubItem>
@@ -315,11 +321,54 @@
                         EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
                         GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
                         GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
-                        GoToGenreCommand="{Binding GoToGenreCommand, ElementName=PageRoot}"
                         PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                         ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
                         ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"
-                        Song="{x:Bind}" />
+                        Song="{x:Bind}">
+                        <uc:SongData.SideControlContent>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <Button
+                                    x:Name="MoveUp"
+                                    Width="36"
+                                    Height="36"
+                                    Padding="0"
+                                    Click="MoveUp_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    Tag="{x:Bind}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoveUp}">
+                                    <FontIcon FontSize="16" Glyph="&#xE010;" />
+                                </Button>
+
+                                <Button
+                                    x:Name="MoveDown"
+                                    Width="36"
+                                    Height="36"
+                                    Padding="0"
+                                    Click="MoveBottom_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    Tag="{x:Bind}"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoveDown}">
+                                    <FontIcon FontSize="16" Glyph="&#xE011;" />
+                                </Button>
+
+                                <Rectangle
+                                    Width="1"
+                                    Margin="4,8,4,8"
+                                    Fill="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+
+                                <Button
+                                    x:Name="RemoveFromPlaylist"
+                                    Width="36"
+                                    Height="36"
+                                    Padding="0"
+                                    Click="RemoveSong_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    Tag="{x:Bind}">
+                                    <FontIcon FontSize="16" Glyph="&#xECC9;" />
+                                </Button>
+                            </StackPanel>
+                        </uc:SongData.SideControlContent>
+                    </uc:SongData>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
