@@ -56,7 +56,7 @@ namespace Rise.App.Views
             {
                 await MPViewModel.PlaySingleItemAsync(video);
                 if (Window.Current.Content is Frame rootFrame)
-                    rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    rootFrame.Navigate(typeof(NowPlayingPage));
             }
         }
 

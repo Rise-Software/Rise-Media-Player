@@ -33,12 +33,20 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="36" />
             <ColumnDefinition Width="1.6*" />
+            <ColumnDefinition
+                x:Name="ArtistColumn"
+                Width="0"
+                d:Width="*" />
+            <ColumnDefinition
+                x:Name="AlbumColumn"
+                Width="0"
+                d:Width="*" />
+            <ColumnDefinition
+                x:Name="GenreColumn"
+                Width="0"
+                d:Width="*" />
 
-            <ColumnDefinition x:Name="ArtistColumn" Width="0" />
-            <ColumnDefinition x:Name="AlbumColumn" Width="0" />
-            <ColumnDefinition x:Name="GenreColumn" Width="0" />
-
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition x:Name="SideControlsColumn" Width="*" />
         </Grid.ColumnDefinitions>
 
         <TextBlock
@@ -137,6 +145,8 @@
             HorizontalAlignment="Right"
             Orientation="Horizontal"
             Spacing="4">
+            <ContentPresenter x:Name="SideControlContentPresenter" Content="{x:Bind SideControlContent, Mode=OneWay}" />
+
             <Button
                 x:Name="EditButton"
                 Width="36"
@@ -212,6 +222,19 @@
 
                     <VisualState.Setters>
                         <Setter Target="GenreColumn.Width" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="SideControlContentStates">
+                <VisualState x:Name="NoContent" />
+                <VisualState x:Name="WithContent">
+                    <VisualState.StateTriggers>
+                        <ui:IsNotEqualStateTrigger Value="{x:Bind SideControlContent}" To="{x:Null}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SideControlsColumn.Width" Value="Auto" />
+                        <Setter Target="SideControlContentPresenter.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
