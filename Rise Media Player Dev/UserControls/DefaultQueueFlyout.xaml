@@ -14,13 +14,16 @@
         <conv:ResourceFallback x:Key="ResFallback" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid RowSpacing="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Padding="0,0,0,12" Text="{markup:ResourceHelper Name=Queue}" />
+        <TextBlock
+            Padding="12,4"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{markup:ResourceHelper Name=Queue}" />
 
         <ListView
             x:Name="MainList"

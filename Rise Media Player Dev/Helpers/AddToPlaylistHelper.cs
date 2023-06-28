@@ -6,7 +6,9 @@ using Rise.Data.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.Helpers
 {
@@ -66,7 +68,7 @@ namespace Rise.App.Helpers
                 Icon = new FontIcon
                 {
                     Glyph = "\uE93F",
-                    FontFamily = new("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    FontFamily = (FontFamily)Application.Current.Resources["PlayerIconsFontFamily"]
                 },
                 Command = addCommand,
                 CommandParameter = playlist

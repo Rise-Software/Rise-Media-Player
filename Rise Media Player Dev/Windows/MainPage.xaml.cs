@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.App.Web;
 using Rise.Common.Constants;
@@ -10,6 +12,7 @@ using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Common.Threading;
 using Rise.Data.Json;
 using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
@@ -28,6 +31,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -80,6 +84,8 @@ namespace Rise.App.Views
             { "AlbumsPage", typeof(AlbumSongsPage) },
             { "GenresPage", typeof(GenreSongsPage) }
         };
+
+        private DependencyPropertyWatcher<bool> QueueCheckedWatcher;
 
         public MainPage()
         {
@@ -172,11 +178,18 @@ namespace Rise.App.Views
 
             MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
             MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
+            MViewModel.MetadataFetchingStarted -= MViewModel_MetadataFetchingStarted;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
+            QueueCheckedWatcher?.Dispose();
+
+            enterFullScreenCommand = null;
+            addToPlaylistCommand = null;
             goToNowPlayingCommand = null;
+
+            Bindings.StopTracking();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -185,7 +198,7 @@ namespace Rise.App.Views
                 ContentFrame.SetNavigationState(_navState);
 
             if (MPViewModel.PlayerCreated)
-                MainPlayer.SetMediaPlayer(MPViewModel.Player);
+                InitializePlayerElement(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
 
@@ -226,11 +239,30 @@ namespace Rise.App.Views
 
         private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                MainPlayer.SetMediaPlayer(e);
-            });
+            await Dispatcher;
+            InitializePlayerElement(e);
         }
+
+        private void InitializePlayerElement(MediaPlayer player)
+        {
+            MainPlayer.SetMediaPlayer(player);
+
+            QueueCheckedWatcher = new(PlayerControls, RiseMediaTransportControls.IsQueueButtonCheckedProperty);
+            QueueCheckedWatcher.PropertyChanged += OnQueueCheckedChanged;
+        }
+
+        private void OnQueueCheckedChanged(DependencyPropertyWatcher<bool> sender, bool newValue)
+        {
+            if (newValue)
+            {
+                var queueButton = MainPlayer.FindDescendant<AppBarToggleButton>(a => a.Name == "QueueButton");
+                if (queueButton != null)
+                    QueueFlyout.ShowAt(queueButton);
+            }
+        }
+
+        private void QueueFlyout_Closed(object sender, object e)
+            => PlayerControls.IsQueueButtonChecked = false;
 
         [RelayCommand]
         private void EnterFullScreen()
@@ -239,12 +271,7 @@ namespace Rise.App.Views
 
             var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode || view.TryEnterFullScreenMode())
-            {
-                if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                    Frame.Navigate(typeof(VideoPlaybackPage), true);
-                else
-                    Frame.Navigate(typeof(NowPlayingPage), true);
-            }
+                Frame.Navigate(typeof(NowPlayingPage), true);
         }
 
         [RelayCommand]
@@ -279,17 +306,17 @@ namespace Rise.App.Views
         }
 
         [RelayCommand]
-        private async Task GoToNowPlayingAsync(ApplicationViewMode newMode)
+        private Task GoToNowPlayingAsync(ApplicationViewMode newMode)
         {
-            if (MPViewModel.PlayingItem == null) return;
-            if (newMode == ApplicationViewMode.CompactOverlay)
-                await ApplicationView.GetForCurrentView().
-                    TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+            if (MPViewModel.PlayingItem != null)
+            {
+                if (newMode == ApplicationViewMode.CompactOverlay)
+                    return CompactNowPlayingPage.NavigateAsync(Frame);
+                else
+                    _ = Frame.Navigate(typeof(NowPlayingPage), null, new DrillInNavigationTransitionInfo());
+            }
 
-            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                Frame.Navigate(typeof(VideoPlaybackPage));
-            else
-                Frame.Navigate(typeof(NowPlayingPage));
+            return Task.CompletedTask;
         }
 
         private async void OnDisplayItemClick(object sender, RoutedEventArgs e)
@@ -687,8 +714,9 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            AlbumViewModel album = MViewModel.Albums.FirstOrDefault(a => a.Title == MPViewModel.PlayingItemProperties.Album);
-            ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+            var album = MViewModel.Albums.FirstOrDefault(a => a.Model.Title == MPViewModel.PlayingItemProperties.Album);
+            if (album != null)
+                ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
@@ -698,14 +726,16 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            ArtistViewModel artist = MViewModel.Artists.FirstOrDefault(a => a.Name == MPViewModel.PlayingItemProperties.Artist);
-            ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+            var artist = MViewModel.Artists.FirstOrDefault(a => a.Model.Name == MPViewModel.PlayingItemProperties.Artist);
+            if (artist != null)
+                ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
 
         private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(AllSettingsPage));
+
 
         private void DismissButton_Click(object sender, RoutedEventArgs e)
             => _ = VisualStateManager.GoToState(this, "NotScanningState", false);

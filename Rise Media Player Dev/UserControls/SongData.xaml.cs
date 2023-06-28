@@ -164,6 +164,19 @@ namespace Rise.App.UserControls
             = DependencyProperty.Register(nameof(ShowGenre), typeof(bool),
                 typeof(SongData), new PropertyMetadata(true));
 
+        /// <summary>
+        /// Gets or sets a the control's side content.
+        /// </summary>
+        public object SideControlContent
+        {
+            get => GetValue(SideControlContentProperty);
+            set => SetValue(SideControlContentProperty, value);
+        }
+
+        public static readonly DependencyProperty SideControlContentProperty
+            = DependencyProperty.Register(nameof(SideControlContent), typeof(object),
+                typeof(SongData), new PropertyMetadata(null));
+
         public static readonly DependencyProperty PlayCommandProperty
             = DependencyProperty.Register(nameof(PlayCommand), typeof(ICommand),
                 typeof(SongData), new PropertyMetadata(null));

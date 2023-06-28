@@ -215,7 +215,7 @@ namespace Rise.App.ViewModels
                 return await file.GetVideoAsync();
             }
 
-            return WebHelpers.GetVideoFromUri(uri, Title, Directors, Thumbnail);
+            return await WebHelpers.GetVideoFromUriAsync(uri, Title, Directors, Thumbnail);
         }
         #endregion
     }
