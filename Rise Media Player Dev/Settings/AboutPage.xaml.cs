@@ -1,11 +1,10 @@
 ﻿using Rise.App.Dialogs;
-using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -16,10 +15,11 @@ namespace Rise.App.Settings
         public AboutPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            vTip.Subtitle = string.Format(ResourceHelper.GetString("VersionTemplate"), AppVersion.VersionName, AppVersion.Version);
 
             VersionData.RequestedOperation = DataPackageOperation.Copy;
-            VersionData.SetText("Alpha Preview 2 - 0.0.170.0");
+            VersionData.SetText($"{AppVersion.VersionName} - {AppVersion.Version}");
         }
 
         private async void ExpanderControl_Click(object sender, RoutedEventArgs e)
@@ -32,23 +32,13 @@ namespace Rise.App.Settings
             {
                 case "Insider":
                     _ = Frame.Navigate(typeof(InsiderPage));
-                    try
-                    {
-                        AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uF1AD";
-                        AllSettingsPage.Current.MainSettingsHeader.Text = "Insider Hub";
-                    }
-                    catch
-                    {
-
-                    }
-                    SettingsDialogContainer.Breadcrumbs.Add
-                        (ResourceLoaders.SidebarLoader.GetString("Ins"));
+                    AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uF1AD";
+                    AllSettingsPage.Current.MainSettingsHeader.Text = ResourceHelper.GetString("InsiderHub");
                     break;
 
                 case "Version":
                     vTip.IsOpen = true;
                     break;
-
             }
         }
 

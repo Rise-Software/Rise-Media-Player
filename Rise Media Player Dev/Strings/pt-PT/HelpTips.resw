@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>A Adicionar a tua música e vídeos pessoais</value>
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
+    <value>Adding your personal music and videos</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• Estas versões irão ser retiradas da Microsoft Store
@@ -161,11 +161,44 @@ Early Access Insiders (anteriormente Seeding Insiders) obtêm acesso à aplicaç
   <data name="BetaH.Text" xml:space="preserve">
     <value>Beta</value>
   </data>
+  <data name="DiscyAboutTipDesc" xml:space="preserve">
+    <value>Você pode me encontrar clicando com o botão direito em diferentes coisas. Por exemplo, um álbum. Eu vou te dizer o que você pode fazer :). Ainda sou bem novo, então não estarei em todo lugar, mas eu vou crescer todos os dias!</value>
+  </data>
+  <data name="DiscyAboutTipTitle" xml:space="preserve">
+    <value>Olá! Sou o Discy.</value>
+  </data>
+  <data name="DiscyOnAlbumDesc" xml:space="preserve">
+    <value>Utilize a barra de comandos para classificar os seus álbuns em diferentes tipos. Clique em um álbum para ver o que está armazenado. Você pode adicionar um álbum inteiro a uma lista de reprodução, aleatorizar ou partilhar com amigos.</value>
+  </data>
+  <data name="DiscyOnAlbumH" xml:space="preserve">
+    <value>Gerenciar e organizar os seus álbuns</value>
+  </data>
+  <data name="DiscyOnArtistDesc" xml:space="preserve">
+    <value>Reproduza uma discografia inteira do artista de uma vez. Visualize informações sobre um artista, os seus álbuns (armazenados no seu dispositivo) e músicas clicando no artista que você quiser. Partilhe os seus artistas favoritos com seus amigos ou adicione músicas inteiras a uma lista de reprodução.</value>
+  </data>
+  <data name="DiscyOnPlaylistDesc" xml:space="preserve">
+    <value>Coloque as suas músicas favoritas, músicas especiais, as suas músicas todas juntas numa lista de reprodução. Dê uma descrição e um título. Em seguida, adicione músicas extras e remova faixas que você não tem muita certeza. Boa reprodução!</value>
+  </data>
+  <data name="DiscyOnPlaylistH" xml:space="preserve">
+    <value>Agrupe com listas de reprodução</value>
+  </data>
+  <data name="DiscyOnSongDesc" xml:space="preserve">
+    <value>Passe o rato sobre uma música e clique no botão reproduzir para tocar uma música, ou clique duas vezes. Ignorar, voltar e ver as informações da música (na parte inferior da janela da sua aplicação). Clique em 'Informações e Propriedades' para editar metadados e informações do ficheiro. Você sempre pode partilhar com outros ou também adicionar a uma lista de reprodução!</value>
+  </data>
+  <data name="DiscyOnSongH" xml:space="preserve">
+    <value>Tomar ação nas músicas</value>
+  </data>
+  <data name="DiscyOnVideoDesc" xml:space="preserve">
+    <value>Clique em um vídeo para reproduzir. Mude o nome e ordene. Os vídeos ocuparão toda a janela da aplicação e você poderá pesquisar, pausar, pular e muito mais.</value>
+  </data>
+  <data name="DiscyOnVideoH" xml:space="preserve">
+    <value>Reproduzindo vídeos</value>
+  </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>Os básicos</value>
+    <value>O básico</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>Quais recursos estás a dar mais valor?</value>
+    <value>Quais funcionalidades estás a dar mais valor?</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
     <value>Se gostarias de contribuir ou traduzir, junta-te ao nosso servidor do Discord! Este: https://disboard.org/server/872910570003791922</value>
@@ -180,7 +213,7 @@ Early Access Insiders (anteriormente Seeding Insiders) obtêm acesso à aplicaç
     <value>Olá, eu sou um Insider. O que tenho de fazer para obter novas compilações?</value>
   </data>
   <data name="InsiderProgram.Title" xml:space="preserve">
-    <value>Programa Insider , Traduções e Contribuição</value>
+    <value>Programa Insider, Traduções &amp; Contribuição</value>
   </data>
   <data name="Join.Text" xml:space="preserve">
     <value>Basta visitares o formulário abaixo e responder às perguntas. Escolhe o teu canal, digita o teu e-mail e mais algumas coisas. https://bit.ly/rise-insider
@@ -190,8 +223,8 @@ Boa sorte a testar!</value>
   <data name="JoinH.Text" xml:space="preserve">
     <value>Como é que eu posso entrar no Programa Insider?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>A reproduzir media e Agora a reproduzir</value>
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
+    <value>Playing media and now playing</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
     <value>• Indexação de músicas, álbuns, artistas e géneros
@@ -223,11 +256,11 @@ Em termos de outras versões, não temos datas exatas para fornecer a todos, mas
 
 • Beta - Abril - Ainda por determinar (Esta versão irá estar disponível para todos os utilizadores públicos da Microsoft Store. Não precisarás fazer parte do programa Insider, embora percas alguns recursos)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Ordenar e gerenciar a tua biblioteca</value>
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
+    <value>Sorting and managing your library</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
-    <value>Irás ver ;)</value>
+    <value>Você terá que ver ;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
     <value>O que é o Discy?</value>

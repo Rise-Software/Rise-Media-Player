@@ -12,13 +12,13 @@ namespace Rise.App.Settings
             this.InitializeComponent();
             this._navigationHelper = new NavigationHelper(this);
 
-            this.ContentFrame.Navigate(typeof(MediaSourcesListsPage), "AllMedia");
+            _ = ContentFrame.Navigate(typeof(MediaSourcesListsPage), "AllMedia");
         }
 
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            this.ContentFrame.Navigate(typeof(MediaSourcesListsPage),
-                args.InvokedItem.ToString(),
+            _ = ContentFrame.Navigate(typeof(MediaSourcesListsPage),
+                args.InvokedItemContainer.Tag,
                 args.RecommendedNavigationTransitionInfo);
         }
     }

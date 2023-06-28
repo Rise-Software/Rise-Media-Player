@@ -1,0 +1,27 @@
+name: Crowdin Action
+
+on:
+  push:
+    branches: [ release_vnext ]
+
+jobs:
+  synchronize-with-crowdin:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: test
+      run: ls
+    - name: Run Crowdin action
+      uses: crowdin/github-action@1.4.14
+      with:
+        upload_translations: true
+        download_translations: true
+        crowdin_branch_name: 'i10n_main'
+      env:
+        GITHUB_TOKEN: ${{ secrets.CROWDIN_GITHUB_TOKEN }}
+        CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+        CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}

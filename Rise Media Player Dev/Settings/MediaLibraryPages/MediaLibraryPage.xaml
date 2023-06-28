@@ -3,52 +3,50 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local1="using:Rise.App"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls" xmlns:local1="using:Rise.App"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d">
 
     <StackPanel
         Margin="0,10,0,0"
         Orientation="Vertical"
         Spacing="4">
-        <uc:ExpanderControl
+        <labs:SettingsCard
             x:Name="GotoManage"
-            x:Uid="/MediaLibrary/ManageFolders"
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryManageFoldersTitle}"
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryManageFoldersDesc}"
             Click="GotoManage_Click"
-            ExpanderStyle="Button"
-            Icon="&#xE19C;">
-            <FontIcon Glyph="&#xE00F;" />
-        </uc:ExpanderControl>
+            HeaderIcon="{ui:FontIcon Glyph=&#xE8B7;}"
+            IsClickEnabled="True" />
 
-        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource SubheaderTextBlockStyle}" />
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/MediaLibraryLocalMediaH}" />
 
-        <uc:ExpanderControl
-            x:Uid="/MediaLibrary/Deletion"
-            ExpanderStyle="Disabled"
-            Icon="&#xE74D;">
+        <labs:SettingsCard
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryDeletionTitle}"
+            IsEnabled="False"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE74D;}">
             <ComboBox
                 ItemsSource="{x:Bind Deletion}"
                 PlaceholderText="Delete from device"
                 SelectedIndex="{x:Bind ViewModel.Deletion, Mode=TwoWay}" />
-        </uc:ExpanderControl>
+        </labs:SettingsCard>
 
-        <uc:ExpanderControl
-            x:Uid="/MediaLibrary/Ripping"
-            ExpanderStyle="Disabled"
-            Icon="&#xE958;">
-            <FontIcon
-                VerticalAlignment="Center"
-                FontSize="16"
-                Glyph="&#xE00F;" />
-        </uc:ExpanderControl>
+        <labs:SettingsCard
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryRippingTitle}"
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryRippingDesc}"
+            IsEnabled="False"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE958;}"
+            IsClickEnabled="True" />
 
-        <TextBlock Text="Online data" Style="{StaticResource SubheaderTextBlockStyle}" />
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/MediaLibraryOnlineDataH}" />
 
-        <uc:ExpanderControl
-            ExpanderStyle="Static"
-            Title="Fetch data from the Internet when needed"
-            Icon="&#xE12B;">
+        <labs:SettingsCard
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryFetchOnlineData}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE12B;}">
             <ToggleSwitch IsOn="{x:Bind local1:App.SViewModel.FetchOnlineData, Mode=TwoWay}" />
-        </uc:ExpanderControl>
+        </labs:SettingsCard>
     </StackPanel>
 </Page>

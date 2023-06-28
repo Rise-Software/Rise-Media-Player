@@ -1,17 +1,17 @@
-﻿using Rise.Common.Interfaces;
+﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
+using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Threading.Tasks;
-using Windows.Media;
-using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
-using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public partial class VideoViewModel : ViewModel<Video>, IMediaItem
+    public sealed partial class VideoViewModel : ViewModel<Video>, IMediaItem
     {
 
         #region Constructor
@@ -138,7 +138,19 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public bool IsOnline { get; set; }
+        /// <inheritdoc />
+        public bool IsLocal
+        {
+            get => Model.IsLocal;
+            set
+            {
+                if (value != Model.IsLocal)
+                {
+                    Model.IsLocal = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Backend
@@ -165,12 +177,16 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Deletes item data from the backend.
         /// </summary>
-        public async Task DeleteAsync()
+        public async Task DeleteAsync(bool queue = false)
         {
             if (App.MViewModel.Videos.Contains(this))
             {
                 App.MViewModel.Videos.Remove(this);
-                await NewRepository.Repository.DeleteAsync(Model);
+
+                if (queue)
+                    NewRepository.Repository.QueueRemove(Model);
+                else
+                    await NewRepository.Repository.DeleteAsync(Model);
             }
         }
         #endregion
@@ -192,44 +208,35 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the video.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            MediaSource source;
             var uri = new Uri(Location);
-
             if (uri.IsFile)
             {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-                source = MediaSource.CreateFromStorageFile(file);
-            }
-            else
-            {
-                source = MediaSource.CreateFromUri(uri);
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                return await file.GetVideoAsync();
             }
 
-            MediaPlaybackItem media = new(source);
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-
-            props.Type = MediaPlaybackType.Video;
-            props.VideoProperties.Title = Title;
-            props.VideoProperties.Subtitle = Directors;
-
-            if (Thumbnail != null)
-            {
-                props.Thumbnail = RandomAccessStreamReference.
-                    CreateFromUri(new Uri(Thumbnail));
-            }
-
-            media.ApplyDisplayProperties(props);
-            return media;
+            return await WebHelpers.GetVideoFromUriAsync(uri, Title, Directors, Thumbnail);
         }
         #endregion
     }
 
-    // IMediaItem implementation
-    public partial class VideoViewModel : IMediaItem
+    public static class VideoViewModelExtensions
     {
-        string IMediaItem.Subtitle => Directors;
-        string IMediaItem.ExtraInfo => Year.ToString();
+        public static Task<VideoViewModel> AsVideoAsync(this MediaPlaybackItem item)
+        {
+            var displayProps = item.GetDisplayProperties();
 
-        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
+            var video = new VideoViewModel
+            {
+                Title = displayProps.VideoProperties.Title,
+                Directors = item.Source.CustomProperties["Artists"] as string,
+                Location = item.Source.Uri.ToString(),
+                Year = (uint)item.Source.CustomProperties["Year"],
+                Length = (TimeSpan)item.Source.Duration,
+                Thumbnail = URIs.VideoThumb
+            };
+
+            return Task.FromResult(video);
+        }
     }
 }

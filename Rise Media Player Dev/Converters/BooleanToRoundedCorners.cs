@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class BoolToRoundedCorners : IValueConverter
+    public sealed class BoolToRoundedCorners : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -12,7 +12,7 @@ namespace Rise.App.Converters
             {
                 if (param == "ForAlbum" && ((bool)value))
                 {
-                    return new CornerRadius(4);
+                    return new CornerRadius(8);
                 }
             }
 

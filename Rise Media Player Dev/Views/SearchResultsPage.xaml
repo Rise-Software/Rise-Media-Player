@@ -5,20 +5,20 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Views"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="320"
     d:DesignWidth="500"
-    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
         <conv:ResourceToString x:Key="ResToStr" />
 
         <CollectionViewSource
-            x:Key="MatchingItemsSource"
+            x:Name="MatchingItemsSource"
             IsSourceGrouped="True"
             Source="{x:Bind GroupedItems}" />
 
@@ -113,11 +113,11 @@
                     <TextBlock
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind Songs}" />
+                        Text="{x:Bind LocalizedSongCount}" />
                     <TextBlock
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind Albums}" />
+                        Text="{x:Bind LocalizedAlbumCount}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -139,13 +139,12 @@
             VerticalAlignment="Bottom"
             Orientation="Horizontal"
             Spacing="10">
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Search results" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=SearchResults}" />
             <TextBlock
+                x:Name="ResultsFor"
                 Height="20"
                 Margin="0,0,0,3"
-                VerticalAlignment="Bottom">
-                for <Run FontWeight="SemiBold" Text="{x:Bind SearchText}" />
-            </TextBlock>
+                VerticalAlignment="Bottom" />
         </StackPanel>
 
         <GridView
@@ -156,7 +155,7 @@
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemTemplateSelector="{StaticResource ResultTemplateSelector}"
-            ItemsSource="{Binding Source={StaticResource MatchingItemsSource}}"
+            ItemsSource="{x:Bind MatchingItemsSource.View}"
             SelectionMode="Single">
             <GridView.GroupStyle>
                 <GroupStyle>
@@ -165,7 +164,7 @@
                             <TextBlock
                                 FontSize="16"
                                 Style="{StaticResource SubheaderTextBlockStyle}"
-                                Text="{Binding Key, ConverterParameter=Sidebar, Converter={StaticResource ResToStr}, Mode=OneTime}" />
+                                Text="{Binding Key, Converter={StaticResource ResToStr}, Mode=OneTime}" />
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>

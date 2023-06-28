@@ -2,6 +2,7 @@
 using Rise.App.Web;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using System;
 using Windows.UI.Xaml;
@@ -20,42 +21,33 @@ namespace Rise.App.Views
         public HomePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
         }
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-        => await URLs.Support.LaunchAsync();
-
-        private async void WhatsNew_Click(object sender, RoutedEventArgs e)
-        {
-            _ = await typeof(WhatsNew).
-                ShowInApplicationViewAsync(null, 500, 600, true);
-        }
+            => await URLs.Support.LaunchAsync();
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
-
-            var result = await dialog.ShowAsync();
+            _ = await dialog.ShowAsync();
         }
 
         private async void GlanceManage_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new()
             {
-                CloseButtonText = "Close",
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 DefaultButton = ContentDialogButton.Primary,
                 Content = new WidgetsDialogContent()
             };
-
-            var result = await dialog.ShowAsync();
+            _ = await dialog.ShowAsync();
         }
 
         #region NavigationHelper registration

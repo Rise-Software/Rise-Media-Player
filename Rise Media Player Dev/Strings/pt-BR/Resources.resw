@@ -1,0 +1,953 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Aceitar</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Adicionar uma conta</value>
+  </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Álbuns</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Artistas</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>Decida por mim</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Recusar</value>
+  </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Centro de Ajuda</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Gêneros</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Início</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider Hub</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Biblioteca</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>Todos os vídeos</value>
+  </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Sempre coincidir com a resolução</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Música</value>
+  </data>
+  <data name="NDays" xml:space="preserve">
+    <value>{0} dias</value>
+  </data>
+  <data name="NHours" xml:space="preserve">
+    <value>{0} horas</value>
+  </data>
+  <data name="NMinutes" xml:space="preserve">
+    <value>{0} minutos</value>
+  </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Sem crossfade</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Agora não (Fechar aplicativo)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} segundos</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 dia</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hora</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minuto</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 segundo</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Usar apenas mídias locais</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Usar apenas serviços de streaming</value>
+  </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Personalizar</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Reprodução</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Playlists</value>
+  </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Propriedades e Informações</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Fila de reprodução</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Dimensionar para o tamanho da janela</value>
+  </data>
+  <data name="PinToSidebar" xml:space="preserve">
+    <value>Fixar na barra lateral</value>
+  </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>Remover da barra lateral</value>
+  </data>
+  <data name="SearchMediaPlaceholder" xml:space="preserve">
+    <value>Procurar todas as mídias neste dispositivo</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Músicas</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>Passo {0} de {1}</value>
+  </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Álbum Desconhecido</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Artista Desconhecido</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Gênero Desconhecido</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Usar configurações do sistema</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Vídeos</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Papéis de parede</value>
+  </data>
+  <data name="NAlbums" xml:space="preserve">
+    <value>{0} álbuns</value>
+  </data>
+  <data name="NSongs" xml:space="preserve">
+    <value>{0} músicas</value>
+  </data>
+  <data name="NVideos" xml:space="preserve">
+    <value>{0} vídeos</value>
+  </data>
+  <data name="OneAlbum" xml:space="preserve">
+    <value>1 álbum</value>
+  </data>
+  <data name="OneSong" xml:space="preserve">
+    <value>1 música</value>
+  </data>
+  <data name="OneVideo" xml:space="preserve">
+    <value>1 vídeo</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Em breve</value>
+  </data>
+  <data name="AlbumInfo" xml:space="preserve">
+    <value>Informações do álbum</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Reproduzir</value>
+  </data>
+  <data name="EditPlaylist" xml:space="preserve">
+    <value>Editar playlist</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Informações da música</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colorido</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Não mostrar a barra lateral</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Mostrar apenas ícones</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Mostrar tudo</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Remover apenas do aplicativo</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Remover do dispositivo</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>Abrir o Rise Media Player ao fazer login no seu dispositivo.</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>Iniciar com o Windows</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Criado em</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>Abre com</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Nome do arquivo</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Tipo de arquivo</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>Localização</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>Modificado em</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>Abrir local do arquivo</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Feed de notícias do artista</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Arquivo</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Letras</value>
+  </data>
+  <data name="PropsErrorContent" xml:space="preserve">
+    <value>Não foi possível salvar as propriedades da música. O arquivo pode ter sido movido, alterado ou deletado, ou talvez seja apenas um problema do Windows.</value>
+  </data>
+  <data name="PropsErrorTitle" xml:space="preserve">
+    <value>Ocorreu um erro</value>
+  </data>
+  <data name="PropsSave" xml:space="preserve">
+    <value>Salvar alterações</value>
+  </data>
+  <data name="ShufflePlaylist" xml:space="preserve">
+    <value>Shuffle playlist</value>
+  </data>
+  <data name="Contribute" xml:space="preserve">
+    <value>Contribuir</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versão</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Versão Interna: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Termos e Condições</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="Learn" xml:space="preserve">
+    <value>Saiba mais</value>
+  </data>
+  <data name="Album" xml:space="preserve">
+    <value>Álbum</value>
+  </data>
+  <data name="AlbumArtist" xml:space="preserve">
+    <value>Artista do álbum</value>
+  </data>
+  <data name="ArtistOrArtists" xml:space="preserve">
+    <value>Artista(s)</value>
+  </data>
+  <data name="BecomeTranslator" xml:space="preserve">
+    <value>Seja um tradutor </value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>Bitrate</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="Disc" xml:space="preserve">
+    <value>Disco</value>
+  </data>
+  <data name="EditAlbum" xml:space="preserve">
+    <value>Editar arte do álbum</value>
+  </data>
+  <data name="ExportAlbumArt" xml:space="preserve">
+    <value>Exportar arte do álbum</value>
+  </data>
+  <data name="ExportPlaylistIcon" xml:space="preserve">
+    <value>Exportar ícone da playlist</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Gênero</value>
+  </data>
+  <data name="MediaLocalDesc" xml:space="preserve">
+    <value>Esta música é local, o que significa que ela é armazenada diretamente no armazenamento do dispositivo, ao invés da nuvem ou online. As propriedades alteradas aqui irá alterá-las no próprio arquivo, o que significa que isto irá afetar outros reprodutores de mídia.</value>
+  </data>
+  <data name="MediaLocalTitle" xml:space="preserve">
+    <value>Música Local</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="PlaylistSongsDetailsTipTitle" xml:space="preserve">
+    <value>Mova músicas clicando nos botões para cima e para baixo.</value>
+  </data>
+  <data name="PlaylistTitle" xml:space="preserve">
+    <value>Nome da playlist</value>
+  </data>
+  <data name="PlaylistVideosDetailsTipTitle" xml:space="preserve">
+    <value>Mova vídeos clicando nos botões para cima e para baixo.</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Classificação</value>
+  </data>
+  <data name="ReleaseYear" xml:space="preserve">
+    <value>Ano de lançamento</value>
+  </data>
+  <data name="ReportAnIssue" xml:space="preserve">
+    <value>Relatar um problema</value>
+  </data>
+  <data name="SongTitle" xml:space="preserve">
+    <value>Título da música</value>
+  </data>
+  <data name="StoredAsFile" xml:space="preserve">
+    <value>Esta música é armazenada em um arquivo no seu dispositivo.</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>Idioma do sistema</value>
+  </data>
+  <data name="TrackNumber" xml:space="preserve">
+    <value>Número da faixa</value>
+  </data>
+  <data name="Translations" xml:space="preserve">
+    <value>Traduções</value>
+  </data>
+  <data name="AddRemoveDesc" xml:space="preserve">
+    <value>Deixe-nos encontrar música e vídeos adicionando pastas e arquivos no seu dispositivo.</value>
+  </data>
+  <data name="AddRemoveTitle" xml:space="preserve">
+    <value>Adicionar/remover fontes de mídia</value>
+  </data>
+  <data name="AddTo" xml:space="preserve">
+    <value>Adicionar à</value>
+  </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Configurações do app</value>
+  </data>
+  <data name="Artist" xml:space="preserve">
+    <value>Artista</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ascendente</value>
+  </data>
+  <data name="AskDiscy" xml:space="preserve">
+    <value>Pergunte ao Discy sobre isto</value>
+  </data>
+  <data name="BrowseMediaDesc" xml:space="preserve">
+    <value>Use um gerenciador de arquivos para procurar por todas as suas mídias nas suas pastas.</value>
+  </data>
+  <data name="BrowseMediaTitle" xml:space="preserve">
+    <value>Procurar por mídia</value>
+  </data>
+  <data name="ChangeArtistImage" xml:space="preserve">
+    <value>Alterar imagem do artista</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descendente</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="MessagesAndReports" xml:space="preserve">
+    <value>Mensagens e relatórios</value>
+  </data>
+  <data name="MoreSettings" xml:space="preserve">
+    <value>Mais configurações</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Mover para baixo</value>
+  </data>
+  <data name="MoveToBottom" xml:space="preserve">
+    <value>Mover para o fim</value>
+  </data>
+  <data name="MoveToTop" xml:space="preserve">
+    <value>Mover para o topo</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Mover para cima</value>
+  </data>
+  <data name="NewPlaylist" xml:space="preserve">
+    <value>Nova playlist</value>
+  </data>
+  <data name="PlayAll" xml:space="preserve">
+    <value>Reproduzir tudo</value>
+  </data>
+  <data name="PlayFromUrl" xml:space="preserve">
+    <value>Reproduzir de uma URL</value>
+  </data>
+  <data name="QuickH" xml:space="preserve">
+    <value>Links rápidos</value>
+  </data>
+  <data name="RemoveFromPlaylist" xml:space="preserve">
+    <value>Remover da playlist</value>
+  </data>
+  <data name="RemovePlaylist" xml:space="preserve">
+    <value>Remover playlist</value>
+  </data>
+  <data name="RemoveSection" xml:space="preserve">
+    <value>Remover toda a seção</value>
+  </data>
+  <data name="RemoveThing" xml:space="preserve">
+    <value>Remover...</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Procurar por nova mídia</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Compartilhar</value>
+  </data>
+  <data name="ShowAlbum" xml:space="preserve">
+    <value>Mostrar álbum</value>
+  </data>
+  <data name="ShowArtist" xml:space="preserve">
+    <value>Mostrar artista</value>
+  </data>
+  <data name="ShowInFileExplorer" xml:space="preserve">
+    <value>Mostrar no Gerenciador de Arquivos</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Shuffle</value>
+  </data>
+  <data name="ShuffleAlbum" xml:space="preserve">
+    <value>Shuffle album</value>
+  </data>
+  <data name="ShuffleArtist" xml:space="preserve">
+    <value>Shuffle artist</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Classificar</value>
+  </data>
+  <data name="SupportDevDesc" xml:space="preserve">
+    <value>Torne-se um patrono e desfrute de benefícios exclusivos e mercantis, enquanto ajuda este projeto a avançar.</value>
+  </data>
+  <data name="SupportDevTitle" xml:space="preserve">
+    <value>Apoie o desenvolvimento</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Faixa</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="WhatsNewDesc" xml:space="preserve">
+    <value>Confira os novos recursos no Rise Media Player.</value>
+  </data>
+  <data name="WhatsNewTitle" xml:space="preserve">
+    <value>Novidades</value>
+  </data>
+  <data name="ReleaseYearN" xml:space="preserve">
+    <value>Ano de lançamento: {0}</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Desconhecido</value>
+  </data>
+  <data name="EnterMiniView" xml:space="preserve">
+    <value>Modo picture-in-picture</value>
+  </data>
+  <data name="MoreOptions" xml:space="preserve">
+    <value>Mais opções</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Tocando agora</value>
+  </data>
+  <data name="PlaybackSpeed" xml:space="preserve">
+    <value>Velocidade de reprodução</value>
+  </data>
+  <data name="AlbumArt" xml:space="preserve">
+    <value>Capa do Álbum</value>
+  </data>
+  <data name="AlbumTitle" xml:space="preserve">
+    <value>Título do álbum</value>
+  </data>
+  <data name="CardBackground" xml:space="preserve">
+    <value>Card background</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Recolher</value>
+  </data>
+  <data name="ConfirmRemovalSong" xml:space="preserve">
+    <value>Tem certeza que deseja excluir a música "{0}"?</value>
+  </data>
+  <data name="CrashDetails" xml:space="preserve">
+    <value>RiseMP travou. Aqui estão alguns detalhes.</value>
+  </data>
+  <data name="CrashStackTrace" xml:space="preserve">
+    <value>Infelizmente, Rise Media Player falhou. Clique para ver o stack trace.</value>
+  </data>
+  <data name="DeleteAnyway" xml:space="preserve">
+    <value>Excluir mesmo assim</value>
+  </data>
+  <data name="DeleteSong" xml:space="preserve">
+    <value>Excluir música</value>
+  </data>
+  <data name="Discography" xml:space="preserve">
+    <value>Discografia</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="ErrorOcurred" xml:space="preserve">
+    <value>Ocorreu um erro!</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Expandir</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importar</value>
+  </data>
+  <data name="MusicVideos" xml:space="preserve">
+    <value>Music videos</value>
+  </data>
+  <data name="NListeners" xml:space="preserve">
+    <value>{0} ouvintes</value>
+  </data>
+  <data name="NoArtistInfo" xml:space="preserve">
+    <value>Não há informações do artista.</value>
+  </data>
+  <data name="NoLyricsFound" xml:space="preserve">
+    <value>Nenhuma letra encontrada</value>
+  </data>
+  <data name="PlayMedia" xml:space="preserve">
+    <value>Reproduzir mídia</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Powered by {0}</value>
+  </data>
+  <data name="RanIntoProblem" xml:space="preserve">
+    <value>Encontramos um problema. Desculpe por isso.</value>
+  </data>
+  <data name="ReadLess" xml:space="preserve">
+    <value>Ler menos</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Ler mais</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Renomear</value>
+  </data>
+  <data name="RoundedAlbumArt" xml:space="preserve">
+    <value>Arte do álbum arredondada</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="TilesHorizontal" xml:space="preserve">
+    <value>Quadros (horizontal)</value>
+  </data>
+  <data name="TilesVertical" xml:space="preserve">
+    <value>Quadros (vertical)</value>
+  </data>
+  <data name="TopTracks" xml:space="preserve">
+    <value>Top tracks</value>
+  </data>
+  <data name="TopTracksDesc" xml:space="preserve">
+    <value>Mostre as faixas mais populares do seu artista de todo o mundo.</value>
+  </data>
+  <data name="AddWidgets" xml:space="preserve">
+    <value>Adicionar widgets</value>
+  </data>
+  <data name="ForX" xml:space="preserve">
+    <value>for {0}</value>
+  </data>
+  <data name="HomeAddSomeWidgets" xml:space="preserve">
+    <value>Isso é bem triste, então adicione alguns widgets!</value>
+  </data>
+  <data name="HomeNothingToShow" xml:space="preserve">
+    <value>Não temos nada para mostrar aqui.</value>
+  </data>
+  <data name="HomeThingsYouLove" xml:space="preserve">
+    <value>Personalize sua página inicial com as coisas que você ama.</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Imagem</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Resultados da pesquisa</value>
+  </data>
+  <data name="XofY" xml:space="preserve">
+    <value>{0} de {1}</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Criar</value>
+  </data>
+  <data name="CreatePlaylist" xml:space="preserve">
+    <value>Criar playlist</value>
+  </data>
+  <data name="PlaylistAlreadyExists" xml:space="preserve">
+    <value>A playlist com o nome especificado já existe.</value>
+  </data>
+  <data name="TitleNotEmpty" xml:space="preserve">
+    <value>O título não pode estar em branco.</value>
+  </data>
+  <data name="UseCustomImage" xml:space="preserve">
+    <value>Usar imagem personalizada</value>
+  </data>
+  <data name="MediaOnlineDesc" xml:space="preserve">
+    <value>Esta música está na internet, o que significa que é armazenado na nuvem ou online. As propriedades alteradas aqui serão aplicadas ao arquivo caso for armazenado em um serviço de nuvem, como o OneDrive.</value>
+  </data>
+  <data name="MediaOnlineTitle" xml:space="preserve">
+    <value>Esta música está armazenada na internet.</value>
+  </data>
+  <data name="EditThumbnail" xml:space="preserve">
+    <value>Editar thumbnail</value>
+  </data>
+  <data name="ExportThumbnail" xml:space="preserve">
+    <value>Exportar thumbnail</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Procurar</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>Dispensar</value>
+  </data>
+  <data name="FetchingArtistInfo" xml:space="preserve">
+    <value>Buscando informações do artista...</value>
+  </data>
+  <data name="GoToAlbum" xml:space="preserve">
+    <value>Ir para o álbum</value>
+  </data>
+  <data name="GoToArtist" xml:space="preserve">
+    <value>Ir para o artista</value>
+  </data>
+  <data name="IndexingComplete" xml:space="preserve">
+    <value>Indexação completa!</value>
+  </data>
+  <data name="NotEnoughQ" xml:space="preserve">
+    <value>Não é o suficiente?</value>
+  </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>Abrir no navegador</value>
+  </data>
+  <data name="ScanningSettings" xml:space="preserve">
+    <value>Configurações de escaneamento</value>
+  </data>
+  <data name="SupportProject" xml:space="preserve">
+    <value>Apoie este projeto</value>
+  </data>
+  <data name="SyncAll" xml:space="preserve">
+    <value>Sincronizar tudo</value>
+  </data>
+  <data name="SyncCenter" xml:space="preserve">
+    <value>Sync centre</value>
+  </data>
+  <data name="MoreAlbumsByArtist" xml:space="preserve">
+    <value>Mais álbuns deste artista</value>
+  </data>
+  <data name="Bloom" xml:space="preserve">
+    <value>Bloom</value>
+  </data>
+  <data name="MaybeLater" xml:space="preserve">
+    <value>Talvez depois</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="PageComingSoon" xml:space="preserve">
+    <value>Esta página estará disponível em breve.</value>
+  </data>
+  <data name="RestartChangesEffect" xml:space="preserve">
+    <value>Você precisa reiniciar o aplicativo para que as alterações tenham efeito.</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>Reiniciar agora</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Aparência</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Centro</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Cabeçalho</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>Ícones</value>
+  </data>
+  <data name="ManageComponents" xml:space="preserve">
+    <value>Gerenciar componentes</value>
+  </data>
+  <data name="MediaLibrary" xml:space="preserve">
+    <value>Biblioteca de mídia</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navegação</value>
+  </data>
+  <data name="NoPageSelected" xml:space="preserve">
+    <value>Nenhuma página selecionada</value>
+  </data>
+  <data name="PlaybackAndSound" xml:space="preserve">
+    <value>Reprodução e som</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Direita</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Mostrar tudo</value>
+  </data>
+  <data name="Syncing" xml:space="preserve">
+    <value>Sincronização</value>
+  </data>
+  <data name="SystemBehaviors" xml:space="preserve">
+    <value>Comportamento do sistema</value>
+  </data>
+  <data name="WallpapersAndExtras" xml:space="preserve">
+    <value>Papéis de parede e extras</value>
+  </data>
+  <data name="OnlineServices" xml:space="preserve">
+    <value>Serviços online</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Escaneamento</value>
+  </data>
+  <data name="MediaLocalExpanderTitle" xml:space="preserve">
+    <value>Esta música está armazenada em um arquivo no seu dispositivo.</value>
+  </data>
+  <data name="MediaOnlineExpanderTitle" xml:space="preserve">
+    <value>Esta musica está armazenada na internet.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DirectLinkExamplesM" xml:space="preserve">
+    <value>Exemplos de links diretos incluem:
+
+https://www.example.com/song.mp3
+https://www.example.com/song_playlist.m3u
+https://www.youtube.com/watch?v=dQw4w9Wg</value>
+  </data>
+  <data name="DirectLinkExamplesV" xml:space="preserve">
+    <value>Exemplos de links diretos incluem:
+
+https://www.example.com/video.mp4
+https://youtu.be/JEGjlELJxC8
+https://www.youtube.com/watch?v=p7YXXieghto</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>URL inválida</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="UntitledPlaylist" xml:space="preserve">
+    <value>Playlist Sem Nome</value>
+  </data>
+  <data name="EQPAir" xml:space="preserve">
+    <value>Air</value>
+  </data>
+  <data name="EQPBass" xml:space="preserve">
+    <value>Bass</value>
+  </data>
+  <data name="EQPCustom" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="EQPFlat" xml:space="preserve">
+    <value>Flat</value>
+  </data>
+  <data name="EQPPop" xml:space="preserve">
+    <value>Pop</value>
+  </data>
+  <data name="EQPRock" xml:space="preserve">
+    <value>Rock</value>
+  </data>
+  <data name="EQPVocal" xml:space="preserve">
+    <value>Vocal</value>
+  </data>
+  <data name="GotIt" xml:space="preserve">
+    <value>Entendido</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Saiba mais</value>
+  </data>
+  <data name="FromFile" xml:space="preserve">
+    <value>Do arquivo</value>
+  </data>
+  <data name="FromFolder" xml:space="preserve">
+    <value>Da pasta</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+</root>

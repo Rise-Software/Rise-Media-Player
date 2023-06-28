@@ -1,62 +1,66 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Constants;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Interfaces;
-using System;
+using Rise.Data.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.Helpers
 {
     /// <summary>
     /// A helper class for the Add to Playlist functionality.
     /// </summary>
-    public partial class AddToPlaylistHelper
+    public sealed partial class AddToPlaylistHelper
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
+
         private bool _addSeparator = false;
         private readonly IList<PlaylistViewModel> _items;
 
         /// <summary>
         /// Initializes the helper with the provided collection.
         /// </summary>
-        /// <param name="addToDelegate">A delegate that runs whenever
-        /// saving is requested.</param>
-        public AddToPlaylistHelper(IList<PlaylistViewModel> playlists,
-            Func<PlaylistViewModel, Task> addToDelegate)
+        public AddToPlaylistHelper(IList<PlaylistViewModel> playlists)
         {
             _items = playlists;
             _addSeparator = _items.Count > 0;
-
-            AddToPlaylistCommand = new(addToDelegate);
         }
 
         /// <summary>
-        /// Adds the current playlists to the flyout subitem.
+        /// Adds the current playlists to the flyout subitem, setting
+        /// the children commands to <paramref name="addCommand"/>.
         /// </summary>
-        public void AddPlaylistsToSubItem(MenuFlyoutSubItem subItem)
+        public void AddPlaylistsToSubItem(MenuFlyoutSubItem subItem, ICommand addCommand)
         {
             var itms = subItem.Items;
             if (_addSeparator)
                 itms.Add(new MenuFlyoutSeparator());
 
             foreach (var itm in _items)
-                itms.Add(CreatePlaylistFlyoutItem(itm));
+                itms.Add(CreatePlaylistFlyoutItem(itm, addCommand));
         }
 
         /// <summary>
-        /// Adds the current playlists to the flyout.
+        /// Adds the current playlists to the flyout, setting
+        /// the children commands to <paramref name="addCommand"/>.
         /// </summary>
-        public void AddPlaylistsToFlyout(MenuFlyout flyout)
+        public void AddPlaylistsToFlyout(MenuFlyout flyout, ICommand addCommand)
         {
             var itms = flyout.Items;
             if (_addSeparator)
                 itms.Add(new MenuFlyoutSeparator());
 
             foreach (var itm in _items)
-                itms.Add(CreatePlaylistFlyoutItem(itm));
+                itms.Add(CreatePlaylistFlyoutItem(itm, addCommand));
         }
 
-        private MenuFlyoutItem CreatePlaylistFlyoutItem(PlaylistViewModel playlist)
+        private MenuFlyoutItem CreatePlaylistFlyoutItem(PlaylistViewModel playlist, ICommand addCommand)
         {
             return new MenuFlyoutItem()
             {
@@ -64,9 +68,9 @@ namespace Rise.App.Helpers
                 Icon = new FontIcon
                 {
                     Glyph = "\uE93F",
-                    FontFamily = new("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    FontFamily = (FontFamily)Application.Current.Resources["PlayerIconsFontFamily"]
                 },
-                Command = AddToPlaylistCommand,
+                Command = addCommand,
                 CommandParameter = playlist
             };
         }
@@ -75,11 +79,6 @@ namespace Rise.App.Helpers
     // Commands
     public partial class AddToPlaylistHelper
     {
-        /// <summary>
-        /// A command to add an item to a playlist.
-        /// </summary>
-        public AsyncRelayCommand<PlaylistViewModel> AddToPlaylistCommand { get; private set; }
-
         /// <summary>
         /// Creates a new playlist, adds the specified item to it,
         /// saves the playlist, and adds the flyout items to the
@@ -104,24 +103,19 @@ namespace Rise.App.Helpers
             {
                 playlist = new()
                 {
-                    Title = $"Untitled Playlist #{_items.Count + 1}",
-                    Description = "",
-                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                    Duration = "0"
+                    Title = ResourceHelper.GetString("UntitledPlaylist"),
+                    Description = string.Empty,
+                    Icon = URIs.PlaylistThumb
                 };
 
                 _addSeparator = true;
             }
 
-            foreach (var item in items)
-            {
-                if (item is SongViewModel svm)
-                    playlist.Songs.Add(svm);
-                else
-                    playlist.Videos.Add(item as VideoViewModel);
-            }
+            playlist.AddItems(items);
 
-            await playlist.SaveAsync();
+            PBackend.Items.Add(playlist);
+            await PBackend.SaveAsync();
+
             return playlist;
         }
     }

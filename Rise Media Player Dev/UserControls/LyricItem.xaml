@@ -1,0 +1,65 @@
+﻿<UserControl
+    x:Class="Rise.App.UserControls.LyricItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid>
+        <TextBlock
+            x:Name="LyricTextBlock"
+            Margin="0,4"
+            HorizontalAlignment="Stretch"
+            FontSize="20"
+            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+            Text="{x:Bind Text, Mode=OneWay}"
+            TextWrapping="WrapWholeWords" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SelectionStates">
+                <VisualState x:Name="Selected">
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames
+                                EnableDependentAnimation="True"
+                                Storyboard.TargetName="LyricTextBlock"
+                                Storyboard.TargetProperty="FontSize"
+                                Duration="0:0:0.3">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="24">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <ExponentialEase EasingMode="EaseIn" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                    <VisualState.Setters>
+                        <Setter Target="LyricTextBlock.FontWeight" Value="SemiBold" />
+                        <Setter Target="LyricTextBlock.Foreground" Value="{ThemeResource ApplicationForegroundThemeBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NotSelected">
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames
+                                EnableDependentAnimation="True"
+                                Storyboard.TargetName="LyricTextBlock"
+                                Storyboard.TargetProperty="FontSize"
+                                Duration="0:0:0.3">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="20">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <ExponentialEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</UserControl>

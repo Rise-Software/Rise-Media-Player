@@ -15,7 +15,6 @@ namespace Rise.App.Views
         public SongFilePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -30,20 +29,7 @@ namespace Rise.App.Views
 
         private async void OpenFileLocation_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            string folderlocation = Props.Location;
-            string filename = Props.Filename;
-            string result = folderlocation.Replace(filename, "");
-            Debug.WriteLine(result);
-
-            try
-            {
-                StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(result);
-                await Launcher.LaunchFolderAsync(folder);
-            }
-            catch
-            {
-
-            }
+            _ = await Launcher.LaunchFolderPathAsync(Props.Location.Replace(Props.Filename, string.Empty));
         }
     }
 }

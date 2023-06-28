@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutExtrasH" xml:space="preserve">
+    <value>预览体验附加功能</value>
+  </data>
+  <data name="AboutMoreCopyVersion" xml:space="preserve">
+    <value>复制版本</value>
+  </data>
+  <data name="AboutMoreH" xml:space="preserve">
+    <value>更多</value>
+  </data>
+  <data name="AboutMoreReleases" xml:space="preserve">
+    <value>正式版</value>
+  </data>
+  <data name="AboutMoreTitle" xml:space="preserve">
+    <value>更多版本信息</value>
+  </data>
+  <data name="AboutSave" xml:space="preserve">
+    <value>保存到我的设备</value>
+  </data>
+  <data name="AboutSocialDesc" xml:space="preserve">
+    <value>跟上最新的更新。</value>
+  </data>
+  <data name="AboutSocialTitle" xml:space="preserve">
+    <value>社交媒体</value>
+  </data>
+  <data name="AboutWallsDesc" xml:space="preserve">
+    <value>访问一些独家 RiseMP 品牌壁纸。</value>
+  </data>
+  <data name="AboutWallsTitle" xml:space="preserve">
+    <value>桌面壁纸和主题</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>添加帐户</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>添加文件夹</value>
+  </data>
+  <data name="AddFolders" xml:space="preserve">
+    <value>添加文件夹</value>
+  </data>
+  <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
+    <value>使用专辑封面</value>
+  </data>
+  <data name="AppearanceAppLayout" xml:space="preserve">
+    <value>应用布局</value>
+  </data>
+  <data name="AppearanceAppWindow" xml:space="preserve">
+    <value>应用窗口</value>
+  </data>
+  <data name="AppearanceChooseColor" xml:space="preserve">
+    <value>选择你的窗口覆盖层</value>
+  </data>
+  <data name="AppearanceChooseTheme" xml:space="preserve">
+    <value>选择你的颜色</value>
+  </data>
+  <data name="AppearanceCustomGlazeColor" xml:space="preserve">
+    <value>使用自定义颜色</value>
+  </data>
+  <data name="AppearanceIconsAndFonts" xml:space="preserve">
+    <value>图标和字体</value>
+  </data>
+  <data name="AppearanceItemDesc" xml:space="preserve">
+    <value>自定义应用程序颜色、主题、图标、布局和动作。</value>
+  </data>
+  <data name="AppearanceNoGlaze" xml:space="preserve">
+    <value>无覆盖层</value>
+  </data>
+  <data name="AppearanceNothing" xml:space="preserve">
+    <value>这里没有什么可展示的。 要显示可用颜色，请从下拉列表中选择“使用自定义颜色”。</value>
+  </data>
+  <data name="AppearanceOverview" xml:space="preserve">
+    <value>概述</value>
+  </data>
+  <data name="AppearancePickUp" xml:space="preserve">
+    <value>从你离开的地方继续</value>
+  </data>
+  <data name="AppearanceStartupTitle" xml:space="preserve">
+    <value>启动时</value>
+  </data>
+  <data name="AppearanceSystemGlazeColor" xml:space="preserve">
+    <value>使用系统强调色</value>
+  </data>
+  <data name="AppearanceTip" xml:space="preserve">
+    <value>*紧凑模式更改在设置完成后才会生效。</value>
+  </data>
+  <data name="AppThemeChanged" xml:space="preserve">
+    <value>应用主题已更改</value>
+  </data>
+  <data name="ColorfulIcons" xml:space="preserve">
+    <value>彩色图标</value>
+  </data>
+  <data name="ConnectToLastFmDesc" xml:space="preserve">
+    <value>发现您最近播放过的浏览历史，然后扫描到互联网。</value>
+  </data>
+  <data name="ConnectToLastFmH" xml:space="preserve">
+    <value>连接到 last.fm</value>
+  </data>
+  <data name="CustomizedColors" xml:space="preserve">
+    <value>自定义颜色</value>
+  </data>
+  <data name="HighContrastIcons" xml:space="preserve">
+    <value>高对比度图标</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>预览体验中心</value>
+  </data>
+  <data name="MatchSystemAppLang" xml:space="preserve">
+    <value>匹配系统和应用语言</value>
+  </data>
+  <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
+    <value>当应用程序打开时，每指定时间段扫描一次。</value>
+  </data>
+  <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
+    <value>定期扫描</value>
+  </data>
+  <data name="MediaLibraryDeletionTitle" xml:space="preserve">
+    <value>移除本地媒体时</value>
+  </data>
+  <data name="MediaLibraryDone" xml:space="preserve">
+    <value>全部清除</value>
+  </data>
+  <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
+    <value>事件发生后扫描新媒体。</value>
+  </data>
+  <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
+    <value>当移动设备或驱动器连接时扫描</value>
+  </data>
+  <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
+    <value>将文件添加到媒体源时扫描</value>
+  </data>
+  <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
+    <value>当您添加新媒体位置时扫描</value>
+  </data>
+  <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
+    <value>当应用程序打开时扫描</value>
+  </data>
+  <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
+    <value>智能事件扫描</value>
+  </data>
+  <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
+    <value>需要时从互联网获取数据</value>
+  </data>
+  <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
+    <value>文件和文件夹</value>
+  </data>
+  <data name="MediaLibraryItemDesc" xml:space="preserve">
+    <value>管理媒体源、您的在线服务和扫描设置。</value>
+  </data>
+  <data name="MediaLibraryLocalMediaH" xml:space="preserve">
+    <value>本地媒体和设备</value>
+  </data>
+  <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
+    <value>视频、音乐及更多</value>
+  </data>
+  <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
+    <value>管理本地媒体文件夹</value>
+  </data>
+  <data name="MediaLibraryManualScanDesc" xml:space="preserve">
+    <value>扫描您已经添加的用于音乐和视频的文件夹以添加到您的库中。</value>
+  </data>
+  <data name="MediaLibraryManualScanTitle" xml:space="preserve">
+    <value>手动扫描</value>
+  </data>
+  <data name="MediaLibraryMetadata" xml:space="preserve">
+    <value>元数据</value>
+  </data>
+  <data name="MediaLibraryOnlineDataH" xml:space="preserve">
+    <value>联机数据</value>
+  </data>
+  <data name="MediaLibraryRemoveFolder" xml:space="preserve">
+    <value>移除文件夹</value>
+  </data>
+  <data name="MediaLibraryRippingDesc" xml:space="preserve">
+    <value>选择您希望在翻录光盘时发生的情况。</value>
+  </data>
+  <data name="MediaLibraryRippingTitle" xml:space="preserve">
+    <value>光盘翻录选项</value>
+  </data>
+  <data name="MediaSourcesContainsMusic" xml:space="preserve">
+    <value>包含音乐</value>
+  </data>
+  <data name="MediaSourcesContainsVideos" xml:space="preserve">
+    <value>包含视频</value>
+  </data>
+  <data name="MediaSourcesInfo" xml:space="preserve">
+    <value>我们已经在默认媒体位置（音乐和视频）中查找您的媒体。 如果您只在此处存储媒体，则无需添加文件夹。 如果没有，请选择“添加文件夹”以添加所有媒体文件夹。</value>
+  </data>
+  <data name="NavigationAddRemoveH" xml:space="preserve">
+    <value>添加/移除侧边栏项目</value>
+  </data>
+  <data name="NavigationAppearanceH" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="NavigationGeneralItems" xml:space="preserve">
+    <value>一般项目</value>
+  </data>
+  <data name="NavigationHamburgerTitle" xml:space="preserve">
+    <value>显示汉堡按钮</value>
+  </data>
+  <data name="NavigationIconStyle" xml:space="preserve">
+    <value>图标样式</value>
+  </data>
+  <data name="NavigationItemDesc" xml:space="preserve">
+    <value>更改单击操作、启动选项。</value>
+  </data>
+  <data name="NavigationResize" xml:space="preserve">
+    <value>窗口调整大小更改</value>
+  </data>
+  <data name="NavigationShowHeader" xml:space="preserve">
+    <value>显示标题</value>
+  </data>
+  <data name="OpenClassicDialog" xml:space="preserve">
+    <value>打开经典对话框</value>
+  </data>
+  <data name="PlaybackCrossfadeDesc" xml:space="preserve">
+    <value>混合音乐曲目的结尾和开头。</value>
+  </data>
+  <data name="PlaybackCrossfadeTitle" xml:space="preserve">
+    <value>交叉淡入淡出</value>
+  </data>
+  <data name="PlaybackEQDesc" xml:space="preserve">
+    <value>根据您的媒体类型选择不同的声音配置文件。</value>
+  </data>
+  <data name="PlaybackEQTitle" xml:space="preserve">
+    <value>均衡器</value>
+  </data>
+  <data name="PlaybackGaplessDesc" xml:space="preserve">
+    <value>我们将立即移至您的下一首曲目，无需等待。</value>
+  </data>
+  <data name="PlaybackGaplessTitle" xml:space="preserve">
+    <value>无缝播放</value>
+  </data>
+  <data name="PlaybackGeneralH" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="PlaybackMusicH" xml:space="preserve">
+    <value>音乐</value>
+  </data>
+  <data name="PlaybackScalingDesc" xml:space="preserve">
+    <value>根据窗口大小调整您的视频尺寸。</value>
+  </data>
+  <data name="PlaybackScalingTitle" xml:space="preserve">
+    <value>缩放比例</value>
+  </data>
+  <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
+    <value>更改视频分辨率和音乐比特率。</value>
+  </data>
+  <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
+    <value>管理串流质量</value>
+  </data>
+  <data name="PlaybackVideoH" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="PlaybackVisualizerTitle" xml:space="preserve">
+    <value>可视化</value>
+  </data>
+  <data name="RecentColors" xml:space="preserve">
+    <value>最近的颜色</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>恢复默认</value>
+  </data>
+  <data name="RunEvery" xml:space="preserve">
+    <value>运行间隔：</value>
+  </data>
+  <data name="ScanNow" xml:space="preserve">
+    <value>立即扫描</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>选择语言</value>
+  </data>
+  <data name="SelectLanguageDesc" xml:space="preserve">
+    <value>从列表中手动选择您的语言。</value>
+  </data>
+  <data name="SettingsFluentColor" xml:space="preserve">
+    <value>流畅颜色</value>
+  </data>
+  <data name="SettingsHighContrast" xml:space="preserve">
+    <value>高对比度</value>
+  </data>
+  <data name="SettingsMenuBar" xml:space="preserve">
+    <value>菜单栏</value>
+  </data>
+  <data name="SettingsMenus" xml:space="preserve">
+    <value>设置菜单</value>
+  </data>
+  <data name="SettingsSidebar" xml:space="preserve">
+    <value>侧边栏（经典）</value>
+  </data>
+  <data name="SettingsStyle" xml:space="preserve">
+    <value>设置样式</value>
+  </data>
+  <data name="StartupSettings" xml:space="preserve">
+    <value>启动设置</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
+    <value>由于管理员当前的政策，此功能已被禁用。如果有必要，请联系您的系统管理员。</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
+    <value>由于您当前的启动设置，此功能被禁用。单击下面的链接修改这些设置，然后重新启动应用程序。</value>
+  </data>
+  <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
+    <value>此功能已启用，但根据您管理员的当前政策无法修改。 如果有必要，请联系您的系统管理员。</value>
+  </data>
+  <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
+    <value>某些设置可能不可用，因为您在泄漏的版本上运行 Rise Media Player。</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
+    <value>某些设置可能不可用。 要使用它们，请将您的 PC 升级到 Windows 11。</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
+    <value>您正在运行 Windows 10</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
+    <value>所有设置均可用。</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
+    <value>您正在运行 Windows 11</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>应用设置</value>
+  </data>
+  <data name="ViewColors" xml:space="preserve">
+    <value>查看颜色</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>查看文件</value>
+  </data>
+  <data name="WindowsColors" xml:space="preserve">
+    <value>Windows 颜色</value>
+  </data>
+</root>

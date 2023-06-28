@@ -5,7 +5,6 @@ using Windows.Globalization;
 using Windows.System.UserProfile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -16,7 +15,6 @@ namespace Rise.App.Settings
         public LanguagePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             string topUserLanguage = GlobalizationPreferences.Languages[0];
             Language sys = new Language(topUserLanguage);

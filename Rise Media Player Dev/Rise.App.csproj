@@ -9,9 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rise.App</RootNamespace>
     <AssemblyName>Rise Media Player</AssemblyName>
-    <DefaultLanguage>en-gb</DefaultLanguage>
+    <DefaultLanguage>en-GB</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -26,10 +26,9 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>
-    </PackageCertificateThumbprint>
+    <EnableTypeInfoReflection>false</EnableTypeInfoReflection>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
@@ -137,25 +136,39 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AnimatedVisuals\EulaLottie.cs" />
-    <Compile Include="AnimatedVisuals\LocalaccountLottie.cs" />
-    <Compile Include="AnimatedVisuals\PrivacysettingsLottie.cs" />
-    <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
-    <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
-    <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Converters\IntToBoolean.cs" />
+    <Compile Include="Converters\IntToVisibility.cs" />
+    <Compile Include="Converters\NavigationItemIconConverter.cs" />
+    <Compile Include="Converters\ResourceFallback.cs" />
+    <Compile Include="Converters\StreamToBitmap.cs" />
+    <Compile Include="Converters\EmptyStringFallback.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
-    <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
-      <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
+    <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
+      <DependentUpon>EqualizerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SetupDialogContent.xaml.cs">
+      <DependentUpon>SetupDialogContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AddToPlaylistHelper.cs" />
-    <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
-      <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\CollectionViewDelegates.cs" />
+    <Compile Include="Helpers\GroupingLabelComparer.cs" />
+    <Compile Include="Helpers\MusixmatchHelper.cs" />
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Setup\SetupPageContent.xaml.cs">
+      <DependentUpon>SetupPageContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateSelectors\NavigationItemTemplateSelector.cs" />
+    <Compile Include="TemplateSelectors\TemplateSelectorBase.cs" />
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DefaultQueueFlyout.xaml.cs">
+      <DependentUpon>DefaultQueueFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LyricItem.xaml.cs">
+      <DependentUpon>LyricItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MediaPageBase.cs" />
     <Compile Include="UserControls\RiseMediaPlayerElement.cs" />
@@ -171,15 +184,8 @@
     <Compile Include="Converters\MathConverters.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
-    <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
-    <Compile Include="DbControllers\BaseBackendController.cs" />
-    <Compile Include="DbControllers\NotificationsBackendController.cs" />
-    <Compile Include="DbControllers\PlaylistsBackendController.cs" />
-    <Compile Include="Dialogs\AboutArtist.xaml.cs">
-      <DependentUpon>AboutArtist.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
       <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
     </Compile>
@@ -195,23 +201,26 @@
     <Compile Include="Dialogs\MusicStreamingDialog.xaml.cs">
       <DependentUpon>MusicStreamingDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
-      <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml.cs">
+      <DependentUpon>AlbumPropsSongsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml.cs">
+      <DependentUpon>PlaylistVideosPropertiesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Songs\Properties\SongLyricsPage.xaml.cs">
+      <DependentUpon>SongLyricsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visualizers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Songs\Properties\SongFilePage.xaml.cs">
       <DependentUpon>SongFilePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
-      <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
@@ -251,9 +260,7 @@
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
-    <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\SearchItemViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
@@ -261,8 +268,8 @@
     <Compile Include="Views\Albums\Properties\AlbumPropertiesPage.xaml.cs">
       <DependentUpon>AlbumPropertiesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml.cs">
-      <DependentUpon>AlbumPropsDetailsPagexaml.xaml</DependentUpon>
+    <Compile Include="Views\Albums\Properties\AlbumPropsDetailsPage.xaml.cs">
+      <DependentUpon>AlbumPropsDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
@@ -291,17 +298,11 @@
     <Compile Include="Views\SearchResultsPage.xaml.cs">
       <DependentUpon>SearchResultsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Visualizers\LineVisualizer.xaml.cs">
-      <DependentUpon>LineVisualizer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Web\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Web\SupportProject.xaml.cs">
-      <DependentUpon>SupportProject.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Web\WhatsNew.xaml.cs">
-      <DependentUpon>WhatsNew.xaml</DependentUpon>
+    <Compile Include="Windows\CompactNowPlayingPage.xaml.cs">
+      <DependentUpon>CompactNowPlayingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
@@ -311,9 +312,6 @@
     </Compile>
     <Compile Include="Windows\SongPropertiesPage.xaml.cs">
       <DependentUpon>SongPropertiesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SetupDialog.xaml.cs">
-      <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Songs\Properties\SongDetailsPage.xaml.cs">
       <DependentUpon>SongDetailsPage.xaml</DependentUpon>
@@ -348,9 +346,6 @@
     <Compile Include="Views\Genres\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ExpanderControl.xaml.cs">
-      <DependentUpon>ExpanderControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\BooleanToVisibility.cs" />
     <Compile Include="Views\Albums\AlbumsPage.xaml.cs">
       <DependentUpon>AlbumsPage.xaml</DependentUpon>
@@ -372,9 +367,6 @@
     </Compile>
     <Compile Include="Views\LocalVideosPage.xaml.cs">
       <DependentUpon>LocalVideosPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Settings\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SetupPage.xaml.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
@@ -402,9 +394,6 @@
     <Compile Include="Windows\CrashDetailsPage.xaml.cs">
       <DependentUpon>CrashDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\VideoPlaybackPage.xaml.cs">
-      <DependentUpon>VideoPlaybackPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -412,12 +401,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\addednewmedia.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-100.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-125.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-150.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-200.png" />
-    <Content Include="Assets\App\BadgeLogo.scale-400.png" />
     <Content Include="Assets\App\LargeTile.scale-100.png" />
     <Content Include="Assets\App\LargeTile.scale-125.png" />
     <Content Include="Assets\App\LargeTile.scale-150.png" />
@@ -463,7 +446,7 @@
     <Content Include="Assets\App\StoreLogo.scale-150.png" />
     <Content Include="Assets\App\StoreLogo.scale-200.png" />
     <Content Include="Assets\App\StoreLogo.scale-400.png" />
-    <Content Include="Assets\App\Titlebar.png" />
+    <Content Include="Assets\App\TitleBar.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-150.png" />
@@ -473,49 +456,27 @@
     <Content Include="Assets\AtAGlance\WhatsNew\Discy.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\NPBar.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\playlists.png" />
-    <Content Include="Assets\AtAGlance\widgets.png" />
+    <Content Include="Assets\AtAGlance\Widgets.png" />
     <Content Include="Assets\AtAGlance\WidgetsComingSoon.png" />
     <Content Include="Assets\AtAGlance\WidgetsComingSoonDark.png" />
+    <Content Include="Assets\BlankVideo.png" />
     <Content Include="Assets\BlankAlbum.png" />
     <Content Include="Assets\BlankArtist.png" />
     <Content Include="Assets\BlankGenre.png" />
     <Content Include="Assets\Branding\AlphaBanner.png" />
-    <Content Include="Assets\Branding\discygraphic.png" />
-    <Content Include="Assets\Branding\settingsbanner.png" />
+    <Content Include="Assets\Branding\DiscyBanner.png" />
+    <Content Include="Assets\Branding\SettingsBanner.png" />
     <Content Include="Assets\Default.png" />
-    <Content Include="Assets\DefaultPlaylistIcon.png" />
     <Content Include="Assets\Discy.png" />
-    <Content Include="Assets\Discy.svg" />
-    <Content Include="Assets\FileIcons\MUFILE.png" />
-    <Content Include="Assets\FileIcons\VIDFILE.png" />
-    <Content Include="Assets\gradientfill.png" />
-    <Content Include="Assets\HelpCentre.png" />
-    <Content Include="Assets\likedplaylist.png" />
-    <Content Include="Assets\lookingformedia.png" />
-    <Content Include="Assets\missingperson.png" />
     <Content Include="Assets\NavigationView\BrowsePage\Colorful.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\likedplaylist.png" />
-    <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\HomePage\Colorful.png" />
-    <Content Include="Assets\NavigationView\Devices.png" />
-    <Content Include="Assets\NavigationView\DiscyPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\GenresPage\Colorful.png" />
     <Content Include="Assets\NavigationView\LocalVideosPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\NowPlayingPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\Online Videos.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\Colorful.png" />
-    <Content Include="Assets\NavigationView\SettingsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\SongsPage\Colorful.png" />
-    <Content Include="Assets\Settings\Library.png" />
-    <Content Include="Assets\Settings\About.png" />
-    <Content Include="Assets\Settings\Language.png" />
-    <Content Include="Assets\Settings\LibraryCustomise\widgettoptrackpreview.png" />
-    <Content Include="Assets\Settings\Playback.png" />
-    <Content Include="Assets\Settings\Appearance.png" />
-    <Content Include="Assets\Settings\Sidebar.png" />
     <Content Include="Assets\Setup\Appearance.png" />
     <Content Include="Assets\Setup\Connect.png" />
     <Content Include="Assets\Setup\Done.png" />
@@ -527,50 +488,181 @@
     <Content Include="Assets\Tiles\BG4.png" />
     <Content Include="Assets\Tiles\BG5.png" />
     <Content Include="Assets\Tiles\BG6.png" />
-    <Content Include="Assets\Unavailable\BG %28Dark%29.bmp" />
-    <Content Include="Assets\Unavailable\BG %28Light%29.bmp" />
-    <Content Include="Assets\Unavailable\MissingAccPic.png" />
-    <Content Include="Assets\Unavailable\Netflix.png" />
-    <Content Include="Assets\Unavailable\Playlists.png" />
-    <Content Include="Assets\Unavailable\Prime.png" />
-    <Content Include="Assets\Unavailable\Videos.png" />
-    <Content Include="Assets\Unavailable\YouTube.png" />
     <Content Include="Assets\Tiles\BG1.png" />
+    <Content Include="Assets\Unavailable\MissingAccPic.png" />
     <Content Include="Assets\Wallpapers\DarkBlue.png" />
     <Content Include="Assets\Wallpapers\DarkPink.png" />
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <Content Include="Assets\SettingsIcons.ttf" />
+    <LottieAnimation Include="Assets\Lottie\ConnectLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\EulaLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\PatchLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\PrivacyLottie.json" />
+    <LottieAnimation Include="Assets\Lottie\SettingsLottie.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
-    <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
-    <PRIResource Include="Strings\en-GB\Widgets.resw" />
+    <PRIResource Include="Strings\no-NO\Setup.resw" />
+    <PRIResource Include="Strings\no-NO\Settings.resw" />
+    <PRIResource Include="Strings\no-NO\Resources.resw" />
+    <PRIResource Include="Strings\no-NO\HelpTips.resw" />
+    <PRIResource Include="Strings\nl-NL\Setup.resw" />
+    <PRIResource Include="Strings\nl-NL\Settings.resw" />
+    <PRIResource Include="Strings\nl-NL\Resources.resw" />
+    <PRIResource Include="Strings\nl-NL\HelpTips.resw" />
+    <PRIResource Include="Strings\ko-KR\Setup.resw" />
+    <PRIResource Include="Strings\ko-KR\Settings.resw" />
+    <PRIResource Include="Strings\ko-KR\Resources.resw" />
+    <PRIResource Include="Strings\ko-KR\HelpTips.resw" />
+    <PRIResource Include="Strings\ja-JP\Setup.resw" />
+    <PRIResource Include="Strings\ja-JP\Settings.resw" />
+    <PRIResource Include="Strings\ja-JP\Resources.resw" />
+    <PRIResource Include="Strings\ja-JP\HelpTips.resw" />
+    <PRIResource Include="Strings\it-IT\Setup.resw" />
+    <PRIResource Include="Strings\it-IT\Settings.resw" />
+    <PRIResource Include="Strings\it-IT\Resources.resw" />
+    <PRIResource Include="Strings\it-IT\HelpTips.resw" />
+    <PRIResource Include="Strings\hu-HU\Setup.resw" />
+    <PRIResource Include="Strings\hu-HU\Settings.resw" />
+    <PRIResource Include="Strings\hu-HU\Resources.resw" />
+    <PRIResource Include="Strings\hu-HU\HelpTips.resw" />
+    <PRIResource Include="Strings\hi-IN\Setup.resw" />
+    <PRIResource Include="Strings\hi-IN\Settings.resw" />
+    <PRIResource Include="Strings\hi-IN\Resources.resw" />
+    <PRIResource Include="Strings\hi-IN\HelpTips.resw" />
+    <PRIResource Include="Strings\he-IL\Setup.resw" />
+    <PRIResource Include="Strings\he-IL\Settings.resw" />
+    <PRIResource Include="Strings\he-IL\Resources.resw" />
+    <PRIResource Include="Strings\he-IL\HelpTips.resw" />
+    <PRIResource Include="Strings\fr-FR\Setup.resw" />
+    <PRIResource Include="Strings\fr-FR\Settings.resw" />
+    <PRIResource Include="Strings\fr-FR\Resources.resw" />
+    <PRIResource Include="Strings\fr-FR\HelpTips.resw" />
+    <PRIResource Include="Strings\fi-FI\Setup.resw" />
+    <PRIResource Include="Strings\fi-FI\Settings.resw" />
+    <PRIResource Include="Strings\fi-FI\Resources.resw" />
+    <PRIResource Include="Strings\fi-FI\HelpTips.resw" />
+    <PRIResource Include="Strings\es-ES\Setup.resw" />
+    <PRIResource Include="Strings\es-ES\Settings.resw" />
+    <PRIResource Include="Strings\es-ES\Resources.resw" />
+    <PRIResource Include="Strings\es-ES\HelpTips.resw" />
+    <PRIResource Include="Strings\en-US\Setup.resw" />
+    <PRIResource Include="Strings\en-US\Settings.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\en-US\HelpTips.resw" />
+    <PRIResource Include="Strings\en-GB\Setup.resw" />
+    <PRIResource Include="Strings\en-GB\Settings.resw" />
+    <PRIResource Include="Strings\en-GB\Resources.resw" />
     <PRIResource Include="Strings\en-GB\HelpTips.resw" />
+    <PRIResource Include="Strings\el\Setup.resw" />
+    <PRIResource Include="Strings\el\Settings.resw" />
+    <PRIResource Include="Strings\el\Resources.resw" />
+    <PRIResource Include="Strings\el\HelpTips.resw" />
+    <PRIResource Include="Strings\de-DE\Setup.resw" />
+    <PRIResource Include="Strings\de-DE\Settings.resw" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
+    <PRIResource Include="Strings\de-DE\HelpTips.resw" />
+    <PRIResource Include="Strings\da\Setup.resw" />
+    <PRIResource Include="Strings\da\Settings.resw" />
+    <PRIResource Include="Strings\da\Resources.resw" />
+    <PRIResource Include="Strings\da\HelpTips.resw" />
+    <PRIResource Include="Strings\cs-CZ\Setup.resw" />
+    <PRIResource Include="Strings\cs-CZ\Settings.resw" />
+    <PRIResource Include="Strings\cs-CZ\Resources.resw" />
+    <PRIResource Include="Strings\cs-CZ\HelpTips.resw" />
+    <PRIResource Include="Strings\ca\Setup.resw" />
+    <PRIResource Include="Strings\ca\Settings.resw" />
+    <PRIResource Include="Strings\ca\Resources.resw" />
+    <PRIResource Include="Strings\ca\HelpTips.resw" />
+    <PRIResource Include="Strings\ar-EG\Setup.resw" />
+    <PRIResource Include="Strings\ar-EG\Settings.resw" />
+    <PRIResource Include="Strings\ar-EG\Resources.resw" />
+    <PRIResource Include="Strings\ar-EG\HelpTips.resw" />
+    <PRIResource Include="Strings\ar\Setup.resw" />
+    <PRIResource Include="Strings\ar\Settings.resw" />
+    <PRIResource Include="Strings\ar\Resources.resw" />
+    <PRIResource Include="Strings\ar\HelpTips.resw" />
+    <PRIResource Include="Strings\af\Setup.resw" />
+    <PRIResource Include="Strings\af\Settings.resw" />
+    <PRIResource Include="Strings\af\Resources.resw" />
+    <PRIResource Include="Strings\af\HelpTips.resw" />
+    <PRIResource Include="Strings\zh-Hant\Setup.resw" />
+    <PRIResource Include="Strings\zh-Hant\Settings.resw" />
+    <PRIResource Include="Strings\zh-Hant\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hant\HelpTips.resw" />
+    <PRIResource Include="Strings\zh-Hans\Setup.resw" />
+    <PRIResource Include="Strings\zh-Hans\Settings.resw" />
+    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hans\HelpTips.resw" />
+    <PRIResource Include="Strings\zh-HK\Setup.resw" />
+    <PRIResource Include="Strings\zh-HK\Settings.resw" />
+    <PRIResource Include="Strings\zh-HK\Resources.resw" />
+    <PRIResource Include="Strings\zh-HK\HelpTips.resw" />
+    <PRIResource Include="Strings\vi\Setup.resw" />
+    <PRIResource Include="Strings\vi\Settings.resw" />
+    <PRIResource Include="Strings\vi\Resources.resw" />
+    <PRIResource Include="Strings\vi\HelpTips.resw" />
+    <PRIResource Include="Strings\uk-UA\Setup.resw" />
+    <PRIResource Include="Strings\uk-UA\Settings.resw" />
+    <PRIResource Include="Strings\uk-UA\Resources.resw" />
+    <PRIResource Include="Strings\uk-UA\HelpTips.resw" />
+    <PRIResource Include="Strings\tr-TR\Setup.resw" />
+    <PRIResource Include="Strings\tr-TR\Settings.resw" />
+    <PRIResource Include="Strings\tr-TR\Resources.resw" />
+    <PRIResource Include="Strings\tr-TR\HelpTips.resw" />
+    <PRIResource Include="Strings\sv-SE\Setup.resw" />
+    <PRIResource Include="Strings\sv-SE\Settings.resw" />
+    <PRIResource Include="Strings\sv-SE\Resources.resw" />
+    <PRIResource Include="Strings\sv-SE\HelpTips.resw" />
+    <PRIResource Include="Strings\sr-SP\Setup.resw" />
+    <PRIResource Include="Strings\sr-SP\Settings.resw" />
+    <PRIResource Include="Strings\sr-SP\Resources.resw" />
+    <PRIResource Include="Strings\sr-SP\HelpTips.resw" />
+    <PRIResource Include="Strings\ru-RU\Setup.resw" />
+    <PRIResource Include="Strings\ru-RU\Settings.resw" />
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
+    <PRIResource Include="Strings\ru-RU\HelpTips.resw" />
+    <PRIResource Include="Strings\ro-RO\Setup.resw" />
+    <PRIResource Include="Strings\ro-RO\Settings.resw" />
+    <PRIResource Include="Strings\ro-RO\Resources.resw" />
+    <PRIResource Include="Strings\ro-RO\HelpTips.resw" />
+    <PRIResource Include="Strings\pt-PT\Setup.resw" />
+    <PRIResource Include="Strings\pt-PT\Settings.resw" />
+    <PRIResource Include="Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Strings\pt-PT\HelpTips.resw" />
+    <PRIResource Include="Strings\pt-BR\Setup.resw" />
+    <PRIResource Include="Strings\pt-BR\Settings.resw" />
+    <PRIResource Include="Strings\pt-BR\Resources.resw" />
+    <PRIResource Include="Strings\pt-BR\HelpTips.resw" />
+    <PRIResource Include="Strings\pl-PL\Setup.resw" />
+    <PRIResource Include="Strings\pl-PL\Settings.resw" />
+    <PRIResource Include="Strings\pl-PL\Resources.resw" />
+    <PRIResource Include="Strings\pl-PL\HelpTips.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\AboutArtist.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\CreatePlaylistDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EqualizerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\FeatureDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\LibraryPageEditDialog.xaml">
+    <Page Include="Dialogs\MessagesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\MessagesDialog.xaml">
+    <Page Include="Dialogs\SetupDialogContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -582,11 +674,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\SettingsDialogContainer.xaml">
+    <Page Include="Dialogs\WidgetsDialogContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\WidgetsDialogContent.xaml">
+    <Page Include="ResourceDictionaries\CardStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -594,7 +686,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ResourceDictionaries\PlayerStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\SetupPageContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\AlbumData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DefaultQueueFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LyricItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -602,7 +710,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BrowsePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Songs\Properties\SongLyricsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -614,17 +734,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\UnavailableDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResourceDictionaries\CustomStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\Expanders.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Settings\AllSettingsPage.xaml">
       <SubType>Designer</SubType>
@@ -643,10 +755,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\InsiderWallpapers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -686,7 +794,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml">
+    <Page Include="Views\Albums\Properties\AlbumPropsDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -726,19 +834,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Visualizers\LineVisualizer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Web\FeedbackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Web\SupportProject.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Web\WhatsNew.xaml">
+    <Page Include="Windows\CompactNowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -751,10 +851,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SongPropertiesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\SetupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -798,14 +894,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceDictionaries\RightAlignedToggleSwitch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ExpanderControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Albums\AlbumsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -827,10 +915,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LocalVideosPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -866,203 +950,83 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\VideoPlaybackPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AsyncEnumerator">
-      <Version>4.0.2</Version>
+    <PackageReference Include="CommunityToolkit.Labs.Uwp.SettingsControls">
+      <Version>0.0.18</Version>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm">
+      <Version>8.2.0</Version>
     </PackageReference>
     <PackageReference Include="ksemenenko.ColorThief">
       <Version>1.1.1.4</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
+    <PackageReference Include="LottieGen.MsBuild">
+      <Version>7.1.1</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Mvvm">
-      <Version>7.1.2</Version>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>7.1.2</Version>
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>7.1.2</Version>
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>7.1.2</Version>
+      <Version>7.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Behaviors">
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>7.1.2</Version>
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
-      <Version>7.1.2</Version>
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.0-prerelease.220118001</Version>
+      <Version>2.8.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Opportunity.LrcParser">
+      <Version>1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="PolySharp">
+      <Version>1.13.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="SimpleKit.WindowsRuntime.UI.Controls">
-      <Version>1.1.0</Version>
+      <Version>1.6.0</Version>
     </PackageReference>
-    <PackageReference Include="UWPAudioVisualizer">
-      <Version>1.0.38</Version>
+    <PackageReference Include="System.Text.Encoding.CodePages">
+      <Version>7.0.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Language.resw" />
-    <PRIResource Include="Strings\en-GB\About.resw" />
-    <PRIResource Include="Strings\en-GB\Playback.resw" />
-    <PRIResource Include="Strings\en-GB\Navigation.resw" />
-    <PRIResource Include="Strings\en-GB\Appearance.resw" />
-    <PRIResource Include="Strings\en-GB\MediaLibrary.resw" />
-    <PRIResource Include="Strings\en-GB\Information.resw" />
-    <PRIResource Include="Strings\en-GB\Sidebar.resw" />
+    <PackageReference Include="TagLibSharp">
+      <Version>2.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="YoutubeExplode">
+      <Version>6.2.15</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
-    <Folder Include="Settings\AboutPages\" />
-    <Folder Include="Settings\AppearancePages\" />
-    <Folder Include="Settings\BehaviourPages\" />
-    <Folder Include="Settings\ComponentsPages\" />
-    <Folder Include="Settings\NavigationPages\" />
-    <Folder Include="Settings\PlaybackSoundPages\" />
-    <Folder Include="Settings\SyncingPages\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Setup.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Terms.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Connect.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\ItemData.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Properties\LottieGen.targets" />
     <None Include="Rise.App_TemporaryKey.pfx" />
-    <PRIResource Include="Strings\pt-PT\Terms.resw" />
-    <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
-    <PRIResource Include="Strings\pt-PT\Setup.resw" />
-    <PRIResource Include="Strings\pt-PT\Props.resw" />
-    <PRIResource Include="Strings\pt-PT\Privacy.resw" />
-    <PRIResource Include="Strings\pt-PT\Playback.resw" />
-    <PRIResource Include="Strings\pt-PT\NowPlaying.resw" />
-    <PRIResource Include="Strings\pt-PT\Navigation.resw" />
-    <PRIResource Include="Strings\pt-PT\MediaLibrary.resw" />
-    <PRIResource Include="Strings\pt-PT\MediaData.resw" />
-    <PRIResource Include="Strings\pt-PT\Local.resw" />
-    <PRIResource Include="Strings\pt-PT\Language.resw" />
-    <PRIResource Include="Strings\pt-PT\Information.resw" />
-    <PRIResource Include="Strings\pt-PT\HelpTips.resw" />
-    <PRIResource Include="Strings\pt-PT\Finish.resw" />
-    <PRIResource Include="Strings\pt-PT\File.resw" />
-    <PRIResource Include="Strings\pt-PT\Details.resw" />
-    <PRIResource Include="Strings\pt-PT\Connect.resw" />
-    <PRIResource Include="Strings\pt-PT\Appearance.resw" />
-    <PRIResource Include="Strings\pt-PT\About.resw" />
-    <PRIResource Include="Strings\it-IT\Terms.resw" />
-    <PRIResource Include="Strings\it-IT\Sidebar.resw" />
-    <PRIResource Include="Strings\it-IT\Setup.resw" />
-    <PRIResource Include="Strings\it-IT\Props.resw" />
-    <PRIResource Include="Strings\it-IT\Privacy.resw" />
-    <PRIResource Include="Strings\it-IT\Playback.resw" />
-    <PRIResource Include="Strings\it-IT\NowPlaying.resw" />
-    <PRIResource Include="Strings\it-IT\Navigation.resw" />
-    <PRIResource Include="Strings\it-IT\MediaLibrary.resw" />
-    <PRIResource Include="Strings\it-IT\MediaData.resw" />
-    <PRIResource Include="Strings\it-IT\Local.resw" />
-    <PRIResource Include="Strings\it-IT\Language.resw" />
-    <PRIResource Include="Strings\it-IT\Information.resw" />
-    <PRIResource Include="Strings\it-IT\HelpTips.resw" />
-    <PRIResource Include="Strings\it-IT\Finish.resw" />
-    <PRIResource Include="Strings\it-IT\File.resw" />
-    <PRIResource Include="Strings\it-IT\Details.resw" />
-    <PRIResource Include="Strings\it-IT\Connect.resw" />
-    <PRIResource Include="Strings\it-IT\Appearance.resw" />
-    <PRIResource Include="Strings\it-IT\About.resw" />
-    <PRIResource Include="Strings\ro-RO\Terms.resw" />
-    <PRIResource Include="Strings\ro-RO\Sidebar.resw" />
-    <PRIResource Include="Strings\ro-RO\Setup.resw" />
-    <PRIResource Include="Strings\ro-RO\Props.resw" />
-    <PRIResource Include="Strings\ro-RO\Privacy.resw" />
-    <PRIResource Include="Strings\ro-RO\Playback.resw" />
-    <PRIResource Include="Strings\ro-RO\NowPlaying.resw" />
-    <PRIResource Include="Strings\ro-RO\Navigation.resw" />
-    <PRIResource Include="Strings\ro-RO\MediaLibrary.resw" />
-    <PRIResource Include="Strings\ro-RO\MediaData.resw" />
-    <PRIResource Include="Strings\ro-RO\Local.resw" />
-    <PRIResource Include="Strings\ro-RO\Language.resw" />
-    <PRIResource Include="Strings\ro-RO\Information.resw" />
-    <PRIResource Include="Strings\ro-RO\HelpTips.resw" />
-    <PRIResource Include="Strings\ro-RO\Finish.resw" />
-    <PRIResource Include="Strings\ro-RO\File.resw" />
-    <PRIResource Include="Strings\ro-RO\Details.resw" />
-    <PRIResource Include="Strings\ro-RO\Connect.resw" />
-    <PRIResource Include="Strings\ro-RO\Appearance.resw" />
-    <PRIResource Include="Strings\ro-RO\About.resw" />
-    <PRIResource Include="Strings\tr-TR\Terms.resw" />
-    <PRIResource Include="Strings\tr-TR\Sidebar.resw" />
-    <PRIResource Include="Strings\tr-TR\Setup.resw" />
-    <PRIResource Include="Strings\tr-TR\Props.resw" />
-    <PRIResource Include="Strings\tr-TR\Privacy.resw" />
-    <PRIResource Include="Strings\tr-TR\Playback.resw" />
-    <PRIResource Include="Strings\tr-TR\NowPlaying.resw" />
-    <PRIResource Include="Strings\tr-TR\Navigation.resw" />
-    <PRIResource Include="Strings\tr-TR\MediaLibrary.resw" />
-    <PRIResource Include="Strings\tr-TR\MediaData.resw" />
-    <PRIResource Include="Strings\tr-TR\Local.resw" />
-    <PRIResource Include="Strings\tr-TR\Language.resw" />
-    <PRIResource Include="Strings\tr-TR\Information.resw" />
-    <PRIResource Include="Strings\tr-TR\HelpTips.resw" />
-    <PRIResource Include="Strings\tr-TR\Finish.resw" />
-    <PRIResource Include="Strings\tr-TR\File.resw" />
-    <PRIResource Include="Strings\tr-TR\Details.resw" />
-    <PRIResource Include="Strings\tr-TR\Connect.resw" />
-    <PRIResource Include="Strings\tr-TR\Appearance.resw" />
-    <PRIResource Include="Strings\tr-TR\About.resw" />
-    <PRIResource Include="Strings\hi-IN\Terms.resw" />
-    <PRIResource Include="Strings\hi-IN\Sidebar.resw" />
-    <PRIResource Include="Strings\hi-IN\Setup.resw" />
-    <PRIResource Include="Strings\hi-IN\Props.resw" />
-    <PRIResource Include="Strings\hi-IN\Privacy.resw" />
-    <PRIResource Include="Strings\hi-IN\Playback.resw" />
-    <PRIResource Include="Strings\hi-IN\NowPlaying.resw" />
-    <PRIResource Include="Strings\hi-IN\Navigation.resw" />
-    <PRIResource Include="Strings\hi-IN\MediaLibrary.resw" />
-    <PRIResource Include="Strings\hi-IN\MediaData.resw" />
-    <PRIResource Include="Strings\hi-IN\Local.resw" />
-    <PRIResource Include="Strings\hi-IN\Language.resw" />
-    <PRIResource Include="Strings\hi-IN\Information.resw" />
-    <PRIResource Include="Strings\hi-IN\HelpTips.resw" />
-    <PRIResource Include="Strings\hi-IN\Finish.resw" />
-    <PRIResource Include="Strings\hi-IN\File.resw" />
-    <PRIResource Include="Strings\hi-IN\Details.resw" />
-    <PRIResource Include="Strings\hi-IN\Connect.resw" />
-    <PRIResource Include="Strings\hi-IN\Appearance.resw" />
-    <PRIResource Include="Strings\hi-IN\About.resw" />
-    <PRIResource Include="Strings\en-GB\MediaData.resw" />
-    <PRIResource Include="Strings\en-GB\NowPlaying.resw" />
-    <PRIResource Include="Strings\en-GB\File.resw" />
-    <PRIResource Include="Strings\en-GB\Details.resw" />
-    <PRIResource Include="Strings\en-GB\Props.resw" />
-    <PRIResource Include="Strings\en-GB\Finish.resw" />
-    <PRIResource Include="Strings\en-GB\Privacy.resw" />
-    <PRIResource Include="Strings\en-GB\Local.resw" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
@@ -1073,6 +1037,10 @@
       <Project>{5185BB21-8B6A-4C08-8C50-4E1B8F57B2D5}</Project>
       <Name>Rise.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rise.Effects\Rise.Effects.csproj">
+      <Project>{5de7e2f1-4095-45a1-914d-98047cd29736}</Project>
+      <Name>Rise.Effects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
       <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
       <Name>Rise.Models</Name>
@@ -1082,15 +1050,14 @@
       <Name>Rise.Repository</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.22000.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="Properties\LottieGen.targets" />
 </Project>

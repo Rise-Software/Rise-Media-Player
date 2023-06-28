@@ -1,16 +1,17 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
+  <img src="https://github.com/Rise-Software/Rise-Media-Player/assets/74561130/67a1ea8f-1d0f-4c1d-9688-1912ec20f779" />
   <div class="row" align="center">
-<a href='https://www.microsoft.com/store/r/9PCSZTMTT55Z'><img src='https://user-images.githubusercontent.com/74561130/160254559-a457ff95-09a9-4910-9776-5517e2b1ea2f.png'alt='Get it from Microsoft' />
-  <a href='https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.171.0/Rise.App_0.0.171.0_x86_x64_arm.msixbundle'><img src='https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png'alt='Get it from GitHub' /></a>
+<a href='https://www.microsoft.com/store/r/9PCSZTMTT55Z'><img src='https://github.com/Rise-Software/Rise-Media-Player/assets/74561130/60deb402-0c8e-4579-80e6-69cb7b19cd43'alt='Get it from Microsoft' />
+  <a href='https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.171.0/Rise.App_0.0.171.0_x86_x64_arm.msixbundle'><img src='https://github.com/Rise-Software/Rise-Media-Player/assets/74561130/3d7edcaf-26d8-4453-a751-29b851721abd'alt='Get it from GitHub' /></a>
 </div>
+  <div class="row" align="center">
+  <a href='https://crowdin.com/project/rise-media-player'><img src='https://badges.crowdin.net/rise-media-player/localized.svg'alt='Localisation status' />
+  </div>
 </p>
-
-
+    
 **Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)**
 
-### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 2 is out now!**!
-
+### Download the installer from the download link below or [see building instructions](./BUILD.md)
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
@@ -73,22 +74,10 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 [![Download](https://user-images.githubusercontent.com/74561130/137598555-649c77c7-1719-4aa3-8017-8b41283de730.png)](https://github.com/Rise-Software/Rise-Media-Player/releases)    ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png)    [![JoinInsider](https://user-images.githubusercontent.com/74561130/137585885-7f98b4de-5067-41ee-bdb4-2a04fea4b90a.png)](http://www.bit.ly/risesoftinsider)    
 ## Credits
 
-**Creators**
+**Creators and Development**
 
 * [**Joseph Beattie (@josephbeattie)**](https://github.com/josephbeattie): **Rise Team Leader and Founder - Design, Occasional Programming, Development. Languages and Translations: English Language & Spanish**.
-* [**Omar Salas (@YourOrdinaryCat)**](https://github.com/yourordinarycat): **Programming & Development.**
+* [**Omar Salas (@YourOrdinaryCat)**](https://github.com/yourordinarycat): **Programming & Development**
+* [**SimpleBear (@itsWindows11)**](https://github.com/itswindows11): **Programming & Development**
 
-### Notes
-*1 Any Windows device running Windows 10 1903 or later. Windows Mobile/Windows Phone is not supported.*
-
-### MSIX Install Instructions 
-**If Windows prompts about Rise Media Player being an untrusted app:**
-* Simply right click the MSIX and click Properties
-* Go to Digital signatures Tab
-* Select Rise Software and click Details
-* In next popup select View Certificate
-* In next popup select Install Certificate
-* In next step select Local machine (If a user account prompt appear click yes)
-* Select Place all certificates in Following store and click browse select Trusted People and click OK and Next
-* Click Finish
-* Try installing the MSIX bundle file.
+Without this great development team we wouldn't be able to ship new releases so go help them out however you can!

@@ -3,7 +3,7 @@
     /// <summary>
     /// App resource URIs.
     /// </summary>
-    public class URIs
+    public static class URIs
     {
         /// <summary>
         /// Default thumbnail for songs that don't
@@ -32,5 +32,18 @@
         /// </summary>
         public const string GenreThumb =
             "ms-appx:///Assets/BlankGenre.png";
+
+        /// <summary>
+        /// Default thumbnail for playlists.
+        /// </summary>
+        public const string PlaylistThumb =
+            "ms-appx:///Assets/NavigationView/PlaylistsPage/BlankPlaylist.png";
+
+        /// <summary>
+        /// Default thumbnail for videos that don't
+        /// contain one already.
+        /// </summary>
+        public const string VideoThumb =
+            "ms-appx:///Assets/BlankVideo.png";
     }
 }

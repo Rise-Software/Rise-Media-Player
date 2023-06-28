@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>आपके निजी गाने और विडियो को जोड़ा जा रहा है</value>
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
+    <value>आपके निजी गाने और विडियों को जोड़ा जा रहा है</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• यह रूपांतरण माइक्रोसॉफ्ट स्टोर से पुश होंगे
@@ -159,13 +159,46 @@ Early Access Insiders (previously Seeding Insiders) get access to the app earlie
 • कुछ और चीज़ें</value>
   </data>
   <data name="BetaH.Text" xml:space="preserve">
-    <value>बीटा </value>
+    <value>बीटा</value>
+  </data>
+  <data name="DiscyAboutTipDesc" xml:space="preserve">
+    <value>आप मुझे कहीं पर भी दांए क्लिक करके खोज सकते हैं।जैसे की, एक एल्बम। मैं आपको बताउँगा आप क्या कर सकते हैं :)। मैं अभी भी बहुत नया हूँ, इसलिए मैं सभी जगह नहीं हूँ, पर मैं प्रतिदिन बढ़ रहा हूँ!</value>
+  </data>
+  <data name="DiscyAboutTipTitle" xml:space="preserve">
+    <value>नमस्ते! मैं डिस्की हूं।</value>
+  </data>
+  <data name="DiscyOnAlbumDesc" xml:space="preserve">
+    <value>एल्बमों को कमान बार द्वारा अलग प्रकारों में छांटें। अंदर देखने के लिए एक एल्बम पर क्लिक करें। आप एक पूरे एल्बम को प्लेलिस्ट में जोड़ सकते हैं, शफ़ल या दोस्तों के साथ साझा कर सकतें हैं।</value>
+  </data>
+  <data name="DiscyOnAlbumH" xml:space="preserve">
+    <value>एल्बम प्रबंधन एवं आयोजन</value>
+  </data>
+  <data name="DiscyOnArtistDesc" xml:space="preserve">
+    <value>किसी रचनाकार की पूरी डिस्कोग्राफी एक बार में चलाएं। किसी रचनाकार की जानकारी, उनके एल्बम (आपके उपकरण पर संग्रहित किए हुए) एवं गानों को अपने इच्छित रचनाकार पर क्लिक करके देखें। अपने पसंदीदा रचनाकारों को दोस्तों के साथ साझा करें या किसी रचनाकार के संगीत को प्लेलिस्ट में जोड़ें।</value>
+  </data>
+  <data name="DiscyOnPlaylistDesc" xml:space="preserve">
+    <value>अपने पसंदीदा गानों, ख़ास गानों, अपने गानों को एक प्लेलिस्ट में सहेजें। इसे एक विवरण एवं शीर्षक दें। फ़िर अतिरिक्त संगीत जोड़ें एवं उन ट्रैक्स को हटा दें जिनके बारे में आप निश्चित नहीं हैं। शुभ सुनावत!</value>
+  </data>
+  <data name="DiscyOnPlaylistH" xml:space="preserve">
+    <value>प्लेलिस्ट्स के साथ समूहित करें</value>
+  </data>
+  <data name="DiscyOnSongDesc" xml:space="preserve">
+    <value>किसी गाने को चलाने के लिए उसपर मंडराएं और क्लिक करें, या डबल क्लिक करें। नाउ प्लेइंग बार (जो कि आपके एप विंडो के निचले हिस्से पर है) से गाने को स्किप करें, पीछे करें एवं गाने की जानकारी देखें। गाने की मेटाडाटा एवं फ़ाइल की जानकारी को संपादित करने के लिए 'जानकारी एवं गुण' पर क्लिक करें। आप कभी भी औरों को साझा कर सकते हैं या प्लेलिस्ट में भी जोड़ सकते हैं!</value>
+  </data>
+  <data name="DiscyOnSongH" xml:space="preserve">
+    <value>गानों पर कार्यवाई करें</value>
+  </data>
+  <data name="DiscyOnVideoDesc" xml:space="preserve">
+    <value>किसी विडियो को चलाने के लिए उसपर क्लिक करें। उन्हें पुन: नामकरणित एवं छँटित करें। विडियो पूरे ऐप विंडो की जगह लेंगे और आप इन्हें स्क्रब, रोक, स्किप एवं बहुत कुछ कर सकते हैं।</value>
+  </data>
+  <data name="DiscyOnVideoH" xml:space="preserve">
+    <value>वीडियो चलाएं</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
     <value>मूल बातें</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>आप कौनसे फीचर्स को प्राथमिकता दे रहे हैं?</value>
+    <value>आप किन फीचर्स को प्राथमिकता दे रहे हैं?</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
     <value>अगर आप योगदान या अनुवाद करना चाहते हैं, हमारा डिस्कॉर्ड सर्वर ज्वॉइन करें! यहां से:
@@ -191,7 +224,7 @@ https://disboard.org/server/872910570003791922</value>
   <data name="JoinH.Text" xml:space="preserve">
     <value>मैं इनसाइडर प्रोग्राम कैसे ज्वॉइन करूँ?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
     <value>मीडिया प्ले करना और नाउ प्लेइंग</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
@@ -224,7 +257,7 @@ https://disboard.org/server/872910570003791922</value>
 
 • बीटा - अप्रैल - निर्धारित किए जाने हेतु ( यह रूपांतरण सभी सार्वजनिक यूजरों के लिए माइक्रोसॉफ्ट स्टोर से उपलब्ध होगा। आपको इनसाइडर प्रोग्राम का हिस्सा होने की ज़रूरत नहीं होगी, हालांकि आप फीचरों पर चूक जाएंगे/ जाएंगीं।)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
     <value>आपके लाइब्रेरी की छँटाई और प्रबंधन</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">

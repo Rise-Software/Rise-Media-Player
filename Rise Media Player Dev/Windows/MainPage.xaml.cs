@@ -1,12 +1,22 @@
-﻿using Rise.App.Dialogs;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.Settings;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.App.Web;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
-using Rise.Data.Sources;
+using Rise.Common.Interfaces;
+using Rise.Common.Threading;
+using Rise.Data.Json;
+using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
+using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +24,15 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
-using Windows.Storage.Streams;
+using Windows.Media.Playback;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
 namespace Rise.App.Views
 {
@@ -31,15 +41,26 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private static bool _loaded;
+
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private LastFMViewModel LMViewModel => App.LMViewModel;
 
-        private NavViewDataSource NavDataSource => App.NavDataSource;
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
+        private NavigationDataSource NavDataSource => App.NavDataSource;
 
-        private NavigationViewItem RightClickedItem { get; set; }
+        private static readonly DependencyProperty RightClickedItemProperty
+            = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavigationItemBase),
+                typeof(MainPage), null);
+        private NavigationItemBase RightClickedItem
+        {
+            get => (NavigationItemBase)GetValue(RightClickedItemProperty);
+            set => SetValue(RightClickedItemProperty, value);
+        }
 
         // This is static to allow it to persist during an
         // individual session. When the user exits the app,
@@ -53,9 +74,7 @@ namespace Rise.App.Views
             { "SongsPage", typeof(SongsPage) },
             { "ArtistsPage", typeof(ArtistsPage) },
             { "AlbumsPage", typeof(AlbumsPage) },
-            { "GenresPage", typeof(GenresPage) },
-            { "LocalVideosPage", typeof(LocalVideosPage) },
-            { "DiscyPage", typeof(DiscyPage) }
+            { "LocalVideosPage", typeof(LocalVideosPage) }
         };
 
         private readonly Dictionary<string, Type> UnlistedDestinations = new()
@@ -66,17 +85,17 @@ namespace Rise.App.Views
             { "GenresPage", typeof(GenreSongsPage) }
         };
 
+        private DependencyPropertyWatcher<bool> QueueCheckedWatcher;
+
         public MainPage()
         {
             InitializeComponent();
-
-            Loaded += MainPage_Loaded;
-            Unloaded += MainPage_Unloaded;
 
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
             MViewModel.IndexingStarted += MViewModel_IndexingStarted;
             MViewModel.IndexingFinished += MViewModel_IndexingFinished;
+            MViewModel.MetadataFetchingStarted += MViewModel_MetadataFetchingStarted;
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
 
@@ -86,15 +105,89 @@ namespace Rise.App.Views
             UpdateTitleBarLayout(coreTitleBar);
 
             coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
+
+            var date = DateTime.Now;
+            if (date != null && date.Month == 4 && date.Day == 1)
+                RiseSpan.Text = "Rice";
+
+            SetupNavigation();
         }
 
-        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        private void SetupNavigation()
         {
+            NavDataSource.PopulateGroups();
+
+            var playlists = (NavigationItemDestination)NavDataSource.GetItem("PlaylistsPage");
+            playlists.Children = PBackend.Items;
+        }
+
+        private async void OnPageLoaded(object sender, RoutedEventArgs args)
+        {
+            IndexingTip.Visibility = Visibility.Collapsed;
+            UpdateTitleBarItems(NavView);
+
+            if (!_loaded)
+            {
+                _loaded = true;
+
+                // Startup setting
+                if (ContentFrame.Content == null)
+                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
+
+                // Change tracking
+                await App.InitializeChangeTrackingAsync();
+
+                if (SViewModel.IndexingAtStartupEnabled || SViewModel.IsFirstLaunch)
+                {
+                    SViewModel.IsFirstLaunch = false;
+
+                    await Task.Delay(300);
+                    _ = VisualStateManager.GoToState(this, "ScanningState", false);
+
+                    await Task.Run(MViewModel.StartFullCrawlAsync);
+                    return;
+                }
+                else
+                {
+                    // Only run the neccessary steps for startup - change tracking & artist image fetching.
+                    if (SViewModel.FetchOnlineData)
+                    {
+                        await Task.Delay(300);
+
+                        _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
+                        await MViewModel.FetchArtistsArtAsync();
+                    }
+
+                    await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Both, true);
+
+                    await Repository.UpsertQueuedAsync();
+                    await Repository.DeleteQueuedAsync();
+
+                    MViewModel_IndexingFinished(null, null);
+                }
+            }
+
+            if (MViewModel.IsScanning)
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
+        }
+
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.LayoutMetricsChanged -= CoreTitleBar_LayoutMetricsChanged;
+
             MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
             MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
+            MViewModel.MetadataFetchingStarted -= MViewModel_MetadataFetchingStarted;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
+
+            QueueCheckedWatcher?.Dispose();
+
+            enterFullScreenCommand = null;
+            addToPlaylistCommand = null;
+            goToNowPlayingCommand = null;
 
             Bindings.StopTracking();
         }
@@ -105,7 +198,7 @@ namespace Rise.App.Views
                 ContentFrame.SetNavigationState(_navState);
 
             if (MPViewModel.PlayerCreated)
-                MainPlayer.SetMediaPlayer(MPViewModel.Player);
+                InitializePlayerElement(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
 
@@ -117,17 +210,15 @@ namespace Rise.App.Views
             _navState = ContentFrame.GetNavigationState();
         }
 
-        private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
+        private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 await HandleViewModelColorSettingAsync();
             });
 
-            if (e?.ItemType == MediaPlaybackType.Music)
-            {
-                await LMViewModel.TryScrobbleItemAsync(e);
-            }
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                _ = await LMViewModel.TryScrobbleItemAsync(e);
         }
 
         private void OnContentFrameSizeChanged(object sender, SizeChangedEventArgs e)
@@ -146,79 +237,114 @@ namespace Rise.App.Views
             }
         }
 
-        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                MainPlayer.SetMediaPlayer(e);
-            });
+            await Dispatcher;
+            InitializePlayerElement(e);
         }
 
-        private void PlayerControls_ShufflingChanged(object sender, bool e)
-            => MPViewModel.ShuffleEnabled = e;
+        private void InitializePlayerElement(MediaPlayer player)
+        {
+            MainPlayer.SetMediaPlayer(player);
 
-        private void OnDisplayItemClick(object sender, RoutedEventArgs e)
-            => GoToNowPlaying();
+            QueueCheckedWatcher = new(PlayerControls, RiseMediaTransportControls.IsQueueButtonCheckedProperty);
+            QueueCheckedWatcher.PropertyChanged += OnQueueCheckedChanged;
+        }
+
+        private void OnQueueCheckedChanged(DependencyPropertyWatcher<bool> sender, bool newValue)
+        {
+            if (newValue)
+            {
+                var queueButton = MainPlayer.FindDescendant<AppBarToggleButton>(a => a.Name == "QueueButton");
+                if (queueButton != null)
+                    QueueFlyout.ShowAt(queueButton);
+            }
+        }
+
+        private void QueueFlyout_Closed(object sender, object e)
+            => PlayerControls.IsQueueButtonChecked = false;
+
+        [RelayCommand]
+        private void EnterFullScreen()
+        {
+            if (MPViewModel.PlayingItem == null) return;
+
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode || view.TryEnterFullScreenMode())
+                Frame.Navigate(typeof(NowPlayingPage), true);
+        }
+
+        [RelayCommand]
+        private async Task AddToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            var playlistHelper = new AddToPlaylistHelper(App.MViewModel.Playlists);
+
+            IMediaItem mediaItem = null;
+
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                mediaItem = MViewModel.Songs.FirstOrDefault(s => s.Location == MPViewModel.PlayingItemProperties.Location);
+            else if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                mediaItem = MViewModel.Videos.FirstOrDefault(v => v.Location == MPViewModel.PlayingItemProperties.Location);
+
+            if (mediaItem == null)
+            {
+                if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                    mediaItem = await MPViewModel.PlayingItem.AsSongAsync();
+                else if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                    mediaItem = await MPViewModel.PlayingItem.AsVideoAsync();
+            }
+
+            if (playlist == null)
+            {
+                await playlistHelper.CreateNewPlaylistAsync(mediaItem);
+            }
+            else
+            {
+                playlist.AddItem(mediaItem);
+                await PBackend.SaveAsync();
+            }
+        }
+
+        [RelayCommand]
+        private Task GoToNowPlayingAsync(ApplicationViewMode newMode)
+        {
+            if (MPViewModel.PlayingItem != null)
+            {
+                if (newMode == ApplicationViewMode.CompactOverlay)
+                    return CompactNowPlayingPage.NavigateAsync(Frame);
+                else
+                    _ = Frame.Navigate(typeof(NowPlayingPage), null, new DrillInNavigationTransitionInfo());
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private async void OnDisplayItemClick(object sender, RoutedEventArgs e)
+            => await GoToNowPlayingAsync(ApplicationViewMode.Default);
 
         private void OnDisplayItemRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if (MPViewModel.PlayingItem == null) return;
-            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
                 PlayingItemVideoFlyout.ShowAt(MainPlayer);
             else
                 PlayingItemMusicFlyout.ShowAt(MainPlayer);
         }
 
-        private async void OnCompactOverlayButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (MPViewModel.PlayingItem == null) return;
-
-            await ApplicationView.GetForCurrentView().
-                TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
-            GoToNowPlaying();
-        }
-
-        private void OnOverlayButtonClick(object sender, RoutedEventArgs e)
-            => GoToNowPlaying();
-
-        private void GoToNowPlaying()
-        {
-            if (MPViewModel.PlayingItem == null) return;
-            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
-                Frame.Navigate(typeof(VideoPlaybackPage));
-            else
-                Frame.Navigate(typeof(NowPlayingPage));
-        }
-
-        private async void MainPage_Loaded(object sender, RoutedEventArgs args)
-        {
-            if (!App.MainPageLoaded)
-            {
-                // Sidebar icons
-                await NavDataSource.PopulateGroupsAsync();
-
-                // Startup setting
-                if (ContentFrame.Content == null)
-                {
-                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
-                }
-
-                if (SViewModel.AutoIndexingEnabled)
-                {
-                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-                }
-
-                UpdateTitleBarItems(NavView);
-                App.MainPageLoaded = true;
-            }
-        }
-
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                await Task.Delay(60);
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
+            });
+        }
+
+        private async void MViewModel_MetadataFetchingStarted(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                AddedTip.IsOpen = false;
-                CheckTip.IsOpen = true;
+                _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
             });
         }
 
@@ -226,11 +352,11 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                CheckTip.IsOpen = false;
-                AddedTip.IsOpen = true;
+                _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
 
-                await Task.Delay(3000);
-                AddedTip.IsOpen = false;
+                await Task.Delay(2500);
+
+                _ = VisualStateManager.GoToState(this, "NotScanningState", false);
             });
         }
 
@@ -246,7 +372,7 @@ namespace Rise.App.Views
         private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
         {
             // Ensure the custom title bar does not overlap window caption controls
-            Thickness currMargin = AppTitleBar.Margin;
+            var currMargin = AppTitleBar.Margin;
             AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
 
             currMargin = ControlsPanel.Margin;
@@ -258,27 +384,18 @@ namespace Rise.App.Views
         /// </summary>
         private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
         {
-            const int expandedIndent = 48;
-            int minimalIndent = 104;
-
-            // If the back button is not visible, reduce the TitleBar content indent.
-            if (navView.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
-            {
-                minimalIndent = 48;
-            }
-
-            Thickness currMargin = AppTitleBar.Margin;
+            var currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
             if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
             {
-                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(88, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(136, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
             else
             {
-                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(40, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(260, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
         }
 
@@ -290,18 +407,21 @@ namespace Rise.App.Views
         /// <param name="e">Details about the navigation.</param>
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            var type = this.ContentFrame.CurrentSourcePageType;
-            bool hasKey = this.Destinations.TryGetKey(type, out var key);
+            if (e.NavigationMode == NavigationMode.New)
+                return;
+
+            var type = ContentFrame.CurrentSourcePageType;
+            bool hasKey = Destinations.TryGetKey(type, out string key);
 
             // We need to handle unlisted destinations
             if (!hasKey)
-                hasKey = this.UnlistedDestinations.TryGetKey(type, out key);
+                hasKey = UnlistedDestinations.TryGetKey(type, out key);
 
             if (hasKey)
             {
-                bool hasItem = this.NavDataSource.TryGetItem(key, out var item);
-                if (hasItem)
-                    this.NavView.SelectedItem = item;
+                var item = NavDataSource.GetItem(key);
+                if (item != null)
+                    NavView.SelectedItem = item;
             }
         }
 
@@ -322,21 +442,20 @@ namespace Rise.App.Views
         /// <param name="args">Details about the item invocation.</param>
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            string tag = args?.InvokedItemContainer?.Tag?.ToString();
-
-            if (tag != null)
+            var invoked = args.InvokedItemContainer?.Tag;
+            if (invoked is NavigationItemBase item)
             {
-                if (tag == "SettingsPage")
+                string id = item.Id;
+                if (ContentFrame.SourcePageType != Destinations[id])
                 {
-                    this.Frame.Navigate(typeof(AllSettingsPage));
-                    return;
-                }
-
-                if (this.ContentFrame.SourcePageType != Destinations[tag])
-                {
-                    this.ContentFrame.Navigate(Destinations[tag],
+                    ContentFrame.Navigate(Destinations[id],
                         null, args.RecommendedNavigationTransitionInfo);
                 }
+            }
+            else if (invoked is PlaylistViewModel playlist)
+            {
+                ContentFrame.Navigate(typeof(PlaylistDetailsPage),
+                    playlist.Id, args.RecommendedNavigationTransitionInfo);
             }
         }
 
@@ -348,20 +467,14 @@ namespace Rise.App.Views
         /// <param name="args">Details about the key invocation.</param>
         private void NavigationViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
         {
-            string tag = ((FrameworkElement)sender).Tag.ToString();
-
-            if (tag != null)
+            var elm = sender as FrameworkElement;
+            if (elm?.Tag is NavigationItemBase item)
             {
-                if (tag == "SettingsPage")
-                {
-                    this.Frame.Navigate(typeof(AllSettingsPage));
-                    return;
-                }
+                string id = item.Id;
+                var pageType = Destinations[id];
 
-                if (this.ContentFrame.SourcePageType != Destinations[tag])
-                {
-                    this.ContentFrame.Navigate(Destinations[tag]);
-                }
+                if (ContentFrame.SourcePageType != pageType)
+                    ContentFrame.Navigate(pageType);
             }
         }
 
@@ -372,7 +485,7 @@ namespace Rise.App.Views
         /// <param name="args">Details about the button click.</param>
         private void NavigationView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
         {
-            this.ContentFrame.GoBack();
+            ContentFrame.GoBack();
         }
         #endregion
 
@@ -382,10 +495,8 @@ namespace Rise.App.Views
             {
                 if (MPViewModel.PlayingItem != null)
                 {
-                    var thumbUri = new Uri(MPViewModel.PlayingItem.Thumbnail);
-                    var thumbStrm = RandomAccessStreamReference.CreateFromUri(thumbUri);
-
-                    using var stream = await thumbStrm.OpenReadAsync();
+                    using var stream = await MPViewModel.
+                        PlayingItemProperties.Thumbnail.OpenReadAsync();
 
                     var decoder = await BitmapDecoder.CreateAsync(stream);
                     var colorThief = new ColorThiefDotNet.ColorThief();
@@ -402,18 +513,13 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(Web.FeedbackPage).
-                ShowInApplicationViewAsync(null, 375, 600, true);
+            _ = await FeedbackPage.TryShowAsync();
         }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             ProfileMenu.Hide();
-            OpenSync.Visibility = Visibility.Collapsed;
-            IsScanning.Visibility = Visibility.Visible;
-            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-            IsScanning.Visibility = Visibility.Collapsed;
-            OpenSync.Visibility = Visibility.Visible;
+            await Task.Run(App.MViewModel.StartFullCrawlAsync);
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
@@ -421,63 +527,42 @@ namespace Rise.App.Views
             Frame.Navigate(typeof(AllSettingsPage));
         }
 
-        private void HideItem_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
-
-        private void HideSection_Click(object sender, RoutedEventArgs e)
+        private void NavigationViewItem_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
         {
-            _ = NavDataSource.TryGetItem(RightClickedItem.Tag.ToString(), out var item);
-            NavDataSource.HideGroup(item.HeaderGroup);
-        }
+            var elm = sender as FrameworkElement;
+            var item = elm?.Tag as NavigationItemDestination;
 
-        private void MoveUp_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveUp(RightClickedItem.Tag.ToString());
-
-        private void MoveDown_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveDown(RightClickedItem.Tag.ToString());
-
-        private void ToTop_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToTop(RightClickedItem.Tag.ToString());
-
-        private void ToBottom_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToBottom(RightClickedItem.Tag.ToString());
-
-        private void NavigationView_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            DependencyObject source = e.OriginalSource as DependencyObject;
-
-            if (source.FindVisualParent<NavigationViewItem>()
-                is NavigationViewItem item && !item.Tag.ToString().Equals("SettingsPage"))
+            string flyoutId = item?.FlyoutId;
+            if (!string.IsNullOrEmpty(flyoutId))
             {
                 RightClickedItem = item;
-                string tag = item.Tag.ToString();
-
-                if (tag.Equals("LocalVideosPage") || tag.Equals("DiscyPage"))
+                if (flyoutId == "DefaultItemFlyout")
                 {
-                    NavViewLightItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
-                }
-                else
-                {
-                    bool up = NavDataSource.CanMoveUp(tag);
-                    bool down = NavDataSource.CanMoveDown(tag);
+                    bool up = NavDataSource.CanMoveUp(item);
+                    bool down = NavDataSource.CanMoveDown(item);
 
                     TopOption.IsEnabled = up;
                     UpOption.IsEnabled = up;
-
                     DownOption.IsEnabled = down;
                     BottomOption.IsEnabled = down;
-
-                    NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
                 }
+
+                var flyout = Resources[flyoutId] as MenuFlyout;
+                if (args.TryGetPosition(sender, out var point))
+                    flyout.ShowAt(sender, point);
+                else
+                    flyout.ShowAt(elm);
             }
+
+            args.Handled = true;
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new()
             {
-                Title = "Messages & reports",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("MessagesAndReports"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 DefaultButton = ContentDialogButton.Primary,
                 Content = new MessagesDialog()
             };
@@ -486,9 +571,27 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-        => await URLs.Support.LaunchAsync();
+            => await URLs.Support.LaunchAsync();
 
-        private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        private async void Account_Click(object sender, RoutedEventArgs e)
+        {
+            if (LMViewModel.Authenticated)
+            {
+                string url = "https://www.last.fm/user/" + LMViewModel.Username;
+                _ = await url.LaunchAsync();
+            }
+            else
+            {
+                Frame.Navigate(typeof(AllSettingsPage));
+            }
+        }
+
+        private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
+        }
+
+        private async void OnSearchSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             SearchItemViewModel searchItem = args.SelectedItem as SearchItemViewModel;
             sender.Text = searchItem.Title;
@@ -513,7 +616,7 @@ namespace Rise.App.Views
             }
         }
 
-        private void BigSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void OnSearchTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
@@ -589,34 +692,6 @@ namespace Rise.App.Views
             }
         }
 
-        private async void Account_Click(object sender, RoutedEventArgs e)
-        {
-            if (Acc.Text != "Add an account")
-            {
-                string url = "https://www.last.fm/user/" + Acc.Text;
-                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
-            }
-            else
-            {
-                Frame.Navigate(typeof(AllSettingsPage));
-            }
-        }
-
-        private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
-        }
-
-        private void BigSearch_GotFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = true;
-        }
-
-        private void BigSearch_LostFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = false;
-        }
-
         public static Visibility IsStringEmpty(string str)
         {
             if (string.IsNullOrWhiteSpace(str))
@@ -636,72 +711,33 @@ namespace Rise.App.Views
 
         private void OnAlbumButtonClick(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+            if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            AlbumViewModel album = MViewModel.Albums.AsParallel().
-                FirstOrDefault(a => a.Title == MPViewModel.PlayingItem.ExtraInfo);
-            ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+            var album = MViewModel.Albums.FirstOrDefault(a => a.Model.Title == MPViewModel.PlayingItemProperties.Album);
+            if (album != null)
+                ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
 
         private void OnArtistButtonClick(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+            if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
-            ArtistViewModel artist = MViewModel.Artists.AsParallel().
-                FirstOrDefault(a => a.Name == MPViewModel.PlayingItem.Subtitle);
-            ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+            var artist = MViewModel.Artists.FirstOrDefault(a => a.Model.Name == MPViewModel.PlayingItemProperties.Artist);
+            if (artist != null)
+                ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
-    }
 
-    public class NavViewItemTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate GlyphIconTemplate { get; set; }
-        public DataTemplate AssetIconTemplate { get; set; }
-        public DataTemplate HeaderTemplate { get; set; }
-        public DataTemplate SeparatorTemplate { get; set; }
+        private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
+            => _ = Frame.Navigate(typeof(AllSettingsPage));
 
-        protected override DataTemplate SelectTemplateCore(object item)
-        {
-            var itm = (NavViewItemViewModel)item;
-            return GetTemplate(itm);
-        }
 
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
-        {
-            var itm = (NavViewItemViewModel)item;
-            return GetTemplate(itm);
-        }
-
-        /// <summary>
-        /// Gets the desired DataTemplate based on the item type.
-        /// </summary>
-        private DataTemplate GetTemplate(NavViewItemViewModel item)
-        {
-            switch (item.ItemType)
-            {
-                case NavViewItemType.Header:
-                    return HeaderTemplate;
-
-                case NavViewItemType.Item:
-                    if (item.Icon.IsValidUri(UriKind.Absolute))
-                    {
-                        return AssetIconTemplate;
-                    }
-
-                    return GlyphIconTemplate;
-
-                case NavViewItemType.Separator:
-                    return SeparatorTemplate;
-
-                default:
-                    return null;
-            }
-        }
+        private void DismissButton_Click(object sender, RoutedEventArgs e)
+            => _ = VisualStateManager.GoToState(this, "NotScanningState", false);
     }
 }

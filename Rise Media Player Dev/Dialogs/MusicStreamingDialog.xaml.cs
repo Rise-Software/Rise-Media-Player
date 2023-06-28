@@ -1,17 +1,19 @@
-﻿using System;
-using System.Globalization;
-using System.Net;
-using Rise.App.ViewModels;
-using Rise.Common.Constants;
+﻿using Rise.Common.Helpers;
+using Rise.Data.ViewModels;
+using System;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using YoutubeExplode;
+using YoutubeExplode.Common;
+using YoutubeExplode.Videos.Streams;
 
 namespace Rise.App.Dialogs
 {
     public sealed partial class MusicStreamingDialog : ContentDialog
     {
+        private MediaPlaybackViewModel ViewModel => App.MPViewModel;
+
         public MusicStreamingDialog()
         {
             InitializeComponent();
@@ -19,54 +21,43 @@ namespace Rise.App.Dialogs
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            bool isValidSong;
+            var deferral = args.GetDeferral();
 
-            try
+            string url = StreamingTextBox.Text;
+            if (!Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri))
             {
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(StreamingTextBox.Text);
-                req.Method = "HEAD";
-                using var resp = req.GetResponse();
-                isValidSong = resp.ContentType.ToLower(CultureInfo.InvariantCulture)
-                           .StartsWith("audio/", StringComparison.OrdinalIgnoreCase);
-            }
-            catch (Exception)
-            {
-                isValidSong = false;
-            }
-
-            if (!(Uri.IsWellFormedUriString(StreamingTextBox.Text, UriKind.Absolute) && isValidSong))
-            {
-                // Not a well formed URL, show error and don't continue.
-                if (InvalidUrlText.Visibility == Visibility.Collapsed)
-                {
-                    InvalidUrlText.Visibility = Visibility.Visible;
-                }
+                args.Cancel = true;
+                InvalidUrlText.Visibility = Visibility.Visible;
                 return;
             }
 
-            // Well formed URL (if it isn't then we already stopped calling this function at this point)
-            // TODO: create a song view model based on the information found in the file and play it
-            if (InvalidUrlText.Visibility == Visibility.Visible)
+            MediaPlaybackItem song;
+
+            bool isYoutubeLink = url.Contains("youtube.com/watch");
+            if (isYoutubeLink)
             {
-                InvalidUrlText.Visibility = Visibility.Collapsed;
+                var youtubeClient = new YoutubeClient();
+                var youtubeVideo = await youtubeClient.Videos.GetAsync(url.Replace("music.youtube.com", "www.youtube.com"));
+
+                string title = youtubeVideo.Title;
+                string subtitle = youtubeVideo.Author.ChannelTitle;
+                string thumbnailUrl = youtubeVideo.Thumbnails.GetWithHighestResolution().Url;
+
+                var streams = await youtubeClient.Videos.Streams.GetManifestAsync(url);
+
+                uri = new(streams.GetAudioStreams().GetWithHighestBitrate().Url);
+                song = await WebHelpers.GetSongFromUriAsync(uri, title, subtitle, thumbnailUrl);
+            }
+            else
+            {
+                song = await WebHelpers.GetSongFromUriAsync(uri);
             }
 
-            Hide();
+            deferral?.Complete();
 
-            SongViewModel song = new()
-            {
-                Title = "title",
-                Track = 0,
-                Disc = 0,
-                Album = "UnknownAlbumResource",
-                Artist = "UnknownArtistResource",
-                AlbumArtist = "UnknownArtistResource",
-                Location = StreamingTextBox.Text,
-                Thumbnail = URIs.MusicThumb,
-                IsOnline = true
-            };
-
-            await App.MPViewModel.PlaySingleItemAsync(song);
+            await ViewModel.ResetPlaybackAsync();
+            ViewModel.AddSingleItemToQueue(song);
+            ViewModel.Player.Play();
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using System;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -14,8 +13,8 @@ namespace Rise.App.Views
 {
     public sealed partial class SongsPage : MediaPageBase
     {
+        private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         public SongViewModel SelectedItem
         {
@@ -23,55 +22,30 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly string Label = "Songs";
-        private double? _offset = null;
-
         public SongsPage()
-            : base("Title", App.MViewModel.Songs)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
-            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddSelectedItemToPlaylistCommand);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
+            var (del, direction, alphabetical) = GetSavedSortPreferences("Songs");
+            if (!string.IsNullOrEmpty(del))
+                CreateViewModel(del, direction, alphabetical, App.MViewModel.Songs);
+            else
+                CreateViewModel("GSongTitle|SongTitle", SortDirection.Ascending, true, App.MViewModel.Songs);
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            var scr = MainList.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
-        }
-    }
-
-    // Playlists
-    public sealed partial class SongsPage
-    {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(SelectedItem);
-            else
-                return playlist.AddSongAsync(SelectedItem);
+            SaveSortingPreferences("Songs");
         }
     }
 
@@ -109,8 +83,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();
@@ -121,16 +95,16 @@ namespace Rise.App.Views
             var svm = SelectedItem;
             ContentDialog dialog = new()
             {
-                Title = "Delete song",
-                Content = $"Are you sure that you want to remove the song \"{svm.Title}\"?",
+                Title = ResourceHelper.GetString("DeleteSong"),
+                Content = string.Format(ResourceHelper.GetString("ConfirmRemovalSong"), svm.Title),
                 PrimaryButtonStyle = Resources["AccentButtonStyle"] as Style,
-                PrimaryButtonText = "Delete anyway",
-                SecondaryButtonText = "Cancel"
+                PrimaryButtonText = ResourceHelper.GetString("DeleteAnyway"),
+                SecondaryButtonText = ResourceHelper.GetString("Close")
             };
 
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
-                await svm.DeleteAsync();
+                await MViewModel.RemoveSongAsync(svm, false);
             else
                 dialog.Hide();
         }

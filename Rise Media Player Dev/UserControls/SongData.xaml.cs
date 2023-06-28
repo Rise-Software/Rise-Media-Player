@@ -40,6 +40,20 @@ namespace Rise.App.UserControls
             set => SetValue(GoToArtistCommandProperty, value);
         }
 
+        public static readonly DependencyProperty GoToGenreCommandProperty
+            = DependencyProperty.Register(nameof(GoToGenreCommand), typeof(ICommand),
+                typeof(SongData), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the command to execute when a song's
+        /// genre is clicked.
+        /// </summary>
+        public ICommand GoToGenreCommand
+        {
+            get => (ICommand)GetValue(GoToGenreCommandProperty);
+            set => SetValue(GoToGenreCommandProperty, value);
+        }
+
         public static readonly DependencyProperty SongProperty
             = DependencyProperty.Register(nameof(Song), typeof(SongViewModel),
                 typeof(SongData), new PropertyMetadata(null));
@@ -136,6 +150,33 @@ namespace Rise.App.UserControls
             set => SetValue(ShowLengthProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the song's
+        /// genre should be shown.
+        /// </summary>
+        public bool ShowGenre
+        {
+            get => (bool)GetValue(ShowGenreProperty);
+            set => SetValue(ShowGenreProperty, value);
+        }
+
+        public static readonly DependencyProperty ShowGenreProperty
+            = DependencyProperty.Register(nameof(ShowGenre), typeof(bool),
+                typeof(SongData), new PropertyMetadata(true));
+
+        /// <summary>
+        /// Gets or sets a the control's side content.
+        /// </summary>
+        public object SideControlContent
+        {
+            get => GetValue(SideControlContentProperty);
+            set => SetValue(SideControlContentProperty, value);
+        }
+
+        public static readonly DependencyProperty SideControlContentProperty
+            = DependencyProperty.Register(nameof(SideControlContent), typeof(object),
+                typeof(SongData), new PropertyMetadata(null));
+
         public static readonly DependencyProperty PlayCommandProperty
             = DependencyProperty.Register(nameof(PlayCommand), typeof(ICommand),
                 typeof(SongData), new PropertyMetadata(null));
@@ -175,12 +216,12 @@ namespace Rise.App.UserControls
     {
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Hovered", true);
+            VisualStateManager.GoToState(this, "PointerOver", true);
         }
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Default", true);
+            VisualStateManager.GoToState(this, "Normal", true);
         }
     }
 }

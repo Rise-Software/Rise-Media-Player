@@ -1,7 +1,11 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:co="using:Rise.App.UserControls">
+    xmlns:atch="using:Rise.Common.Attached"
+    xmlns:co="using:Rise.App.UserControls"
+    xmlns:conv="using:Rise.App.Converters"
+    xmlns:nouac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,14)"
+    xmlns:uac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,14)">
 
     <Style
         x:Key="StretchedListViewItemStyle"
@@ -10,27 +14,121 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     </Style>
 
-    <Style
-        x:Key="SongListViewItemStyle"
-        BasedOn="{StaticResource StretchedListViewItemStyle}"
-        TargetType="ListViewItem">
-        <Setter Property="Padding" Value="0,1" />
-    </Style>
-
     <Style TargetType="ListView">
         <Setter Property="ItemContainerStyle" Value="{StaticResource StretchedListViewItemStyle}" />
     </Style>
 
-    <Style x:Key="SongListViewStyle" TargetType="ListView">
-        <Setter Property="ItemContainerStyle" Value="{StaticResource SongListViewItemStyle}" />
+    <nouac14:CornerRadius x:Key="SongListViewItemCornerRadius">0</nouac14:CornerRadius>
+    <uac14:CornerRadius x:Key="SongListViewItemCornerRadius">8</uac14:CornerRadius>
+
+    <Style
+        x:Key="SongListViewItemStyle"
+        BasedOn="{StaticResource StretchedListViewItemStyle}"
+        TargetType="ListViewItem">
+        <Setter Property="Padding" Value="0" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <ListViewItemPresenter
+                        x:Name="Root"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        uac14:CheckBoxBorderBrush="{ThemeResource ListViewItemCheckBoxBorderBrush}"
+                        uac14:CheckBoxCornerRadius="{ThemeResource ListViewItemCheckBoxCornerRadius}"
+                        uac14:CheckBoxDisabledBorderBrush="{ThemeResource ListViewItemCheckBoxDisabledBorderBrush}"
+                        uac14:CheckBoxDisabledBrush="{ThemeResource ListViewItemCheckBoxDisabledBrush}"
+                        uac14:CheckBoxPointerOverBorderBrush="{ThemeResource ListViewItemCheckBoxPointerOverBorderBrush}"
+                        uac14:CheckBoxPointerOverBrush="{ThemeResource ListViewItemCheckBoxPointerOverBrush}"
+                        uac14:CheckBoxPressedBorderBrush="{ThemeResource ListViewItemCheckBoxPressedBorderBrush}"
+                        uac14:CheckBoxPressedBrush="{ThemeResource ListViewItemCheckBoxPressedBrush}"
+                        uac14:CheckBoxSelectedBrush="{ThemeResource ListViewItemCheckBoxSelectedBrush}"
+                        uac14:CheckBoxSelectedDisabledBrush="{ThemeResource ListViewItemCheckBoxSelectedDisabledBrush}"
+                        uac14:CheckBoxSelectedPointerOverBrush="{ThemeResource ListViewItemCheckBoxSelectedPointerOverBrush}"
+                        uac14:CheckBoxSelectedPressedBrush="{ThemeResource ListViewItemCheckBoxSelectedPressedBrush}"
+                        uac14:CheckDisabledBrush="{ThemeResource ListViewItemCheckDisabledBrush}"
+                        uac14:CheckPressedBrush="{ThemeResource ListViewItemCheckPressedBrush}"
+                        uac14:SelectedDisabledBackground="{ThemeResource ListViewItemBackgroundSelectedDisabled}"
+                        uac14:SelectionIndicatorBrush="{ThemeResource ListViewItemSelectionIndicatorBrush}"
+                        uac14:SelectionIndicatorCornerRadius="{ThemeResource ListViewItemSelectionIndicatorCornerRadius}"
+                        uac14:SelectionIndicatorDisabledBrush="{ThemeResource ListViewItemSelectionIndicatorDisabledBrush}"
+                        uac14:SelectionIndicatorPointerOverBrush="{ThemeResource ListViewItemSelectionIndicatorPointerOverBrush}"
+                        uac14:SelectionIndicatorPressedBrush="{ThemeResource ListViewItemSelectionIndicatorPressedBrush}"
+                        uac14:SelectionIndicatorVisualEnabled="{ThemeResource ListViewItemSelectionIndicatorVisualEnabled}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CheckBoxBrush="{ThemeResource ListViewItemCheckBoxBrush}"
+                        CheckBrush="{ThemeResource ListViewItemCheckBrush}"
+                        CheckMode="{ThemeResource ListViewItemCheckMode}"
+                        ContentMargin="{TemplateBinding Padding}"
+                        ContentTransitions="{TemplateBinding ContentTransitions}"
+                        Control.IsTemplateFocusTarget="True"
+                        CornerRadius="{StaticResource SongListViewItemCornerRadius}"
+                        DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                        DragBackground="{ThemeResource ListViewItemDragBackground}"
+                        DragForeground="{ThemeResource ListViewItemDragForeground}"
+                        DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                        FocusBorderBrush="{ThemeResource ListViewItemFocusBorderBrush}"
+                        FocusSecondaryBorderBrush="{ThemeResource ListViewItemFocusSecondaryBorderBrush}"
+                        FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
+                        FocusVisualPrimaryBrush="{TemplateBinding FocusVisualPrimaryBrush}"
+                        FocusVisualPrimaryThickness="{TemplateBinding FocusVisualPrimaryThickness}"
+                        FocusVisualSecondaryBrush="{TemplateBinding FocusVisualSecondaryBrush}"
+                        FocusVisualSecondaryThickness="{TemplateBinding FocusVisualSecondaryThickness}"
+                        PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackground}"
+                        PointerOverBackground="{ThemeResource ListViewItemBackgroundPointerOver}"
+                        PointerOverForeground="{ThemeResource ListViewItemForegroundPointerOver}"
+                        PressedBackground="{ThemeResource ListViewItemBackgroundPressed}"
+                        ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                        SelectedBackground="{ThemeResource ListViewItemBackgroundSelected}"
+                        SelectedForeground="{ThemeResource ListViewItemForegroundSelected}"
+                        SelectedPointerOverBackground="{ThemeResource ListViewItemBackgroundSelectedPointerOver}"
+                        SelectedPressedBackground="{ThemeResource ListViewItemBackgroundSelectedPressed}"
+                        SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="DefaultSongDataStyle" TargetType="co:SongData">
-        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="{StaticResource SongListViewItemCornerRadius}" />
+        <Setter Property="Padding" Value="14,9" />
     </Style>
     <Style BasedOn="{StaticResource DefaultSongDataStyle}" TargetType="co:SongData" />
+
+    <!--  Grouping styles  -->
+    <SolidColorBrush x:Key="ListViewHeaderItemDividerStroke" Color="Transparent" />
+    <SolidColorBrush x:Key="GridViewHeaderItemDividerStroke" Color="Transparent" />
+
+    <conv:EmptyStringFallback x:Key="InternalEmptyStrFallback" />
+    <conv:IntToBoolean x:Key="InternalIntToBool" />
+
+    <DataTemplate x:Key="DefaultGroupStyleHeaderTemplate">
+        <TextBlock
+            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{Binding Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="GroupOverviewItemTemplate">
+        <TextBlock
+            Width="134"
+            Margin="6,0"
+            VerticalAlignment="Bottom"
+            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+            HorizontalTextAlignment="Center"
+            MaxLines="2"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{Binding Group, Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}"
+            ToolTipService.ToolTip="{Binding Group, Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="GroupOverviewLetterItemTemplate">
+        <TextBlock
+            atch:FrameworkElementExtensions.IsParentEnabled="{Binding GroupItems.Count, Converter={StaticResource InternalIntToBool}}"
+            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            Text="{Binding Group, Converter={StaticResource InternalEmptyStrFallback}, ConverterParameter=…}" />
+    </DataTemplate>
 </ResourceDictionary>

@@ -46,7 +46,9 @@ namespace Rise.Common.Helpers
             {
                 // Cancel the previous session and wait for its termination
                 previousCts.Cancel();
-                try { await this._pendingTask; } catch { }
+
+                if (_pendingTask != null)
+                    try { await this._pendingTask; } catch { }
             }
 
             // We need to check if we've been canceled
@@ -64,10 +66,10 @@ namespace Rise.Common.Helpers
         /// <remarks>For the helper to be effective, first call
         /// <see cref="CompletePendingAsync(CancellationToken)"/>, and pass
         /// <see cref="Token"/> to your task for the cancellation token.</remarks>
-        public async Task RunAsync(Task task)
+        public Task RunAsync(Task task)
         {
             this._pendingTask = task;
-            await task;
+            return task;
         }
 
         /// <summary>
@@ -82,10 +84,10 @@ namespace Rise.Common.Helpers
         /// <remarks>For the helper to be effective, first call
         /// <see cref="CompletePendingAsync(CancellationToken)"/>, and pass
         /// <see cref="Token"/> to your task for the cancellation token.</remarks>
-        public async Task<T> RunAsync<T>(Task<T> task)
+        public Task<T> RunAsync<T>(Task<T> task)
         {
             this._pendingTask = task;
-            return await task;
+            return task;
         }
     }
 }

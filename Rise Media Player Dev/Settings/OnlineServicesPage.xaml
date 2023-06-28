@@ -3,43 +3,40 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-    <StackPanel
-        Margin="0,10,0,0"
-        Orientation="Vertical"
-        Spacing="4">
+    <Button
+        x:Name="LastFMStatus"
+        Padding="24"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Top"
+        HorizontalContentAlignment="Left"
+        Click="LastFmFlyoutItem_Click"
+        IsEnabled="{x:Bind ViewModel.Authenticated.Equals(x:False), Mode=OneWay}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Button
-            x:Name="LastFMStatus"
-            Height="140"
-            Padding="0,-30,0,-30"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Left"
-            Click="LastFmFlyoutItem_Click"
-            IsEnabled="{x:Bind ViewModel.Authenticated.Equals(x:False), Mode=OneWay}">
-            <StackPanel
-                Padding="16,0,16,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Orientation="Vertical">
-                <Image
-                    Height="32"
-                    HorizontalAlignment="Left"
-                    Source="/Assets/web/lastfm.png" />
-                <StackPanel Padding="0,8,0,0">
-                    <TextBlock
-                        FontSize="24"
-                        FontWeight="SemiBold"
-                        Text="Connect to last.fm" />
-                    <TextBlock FontSize="16" Text="Discover your recently played, listening history and scrobble to the internet." />
-                </StackPanel>
+            <Image HorizontalAlignment="Left" Source="ms-appx:///Assets/Web/LastFM.png" />
 
-            </StackPanel>
-        </Button>
-    </StackPanel>
+            <TextBlock
+                Grid.Row="1"
+                Margin="0,8,0,0"
+                FontSize="24"
+                FontWeight="SemiBold"
+                Text="{markup:ResourceHelper Name=/Settings/ConnectToLastFmH}" />
+            <TextBlock
+                Grid.Row="2"
+                FontSize="16"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{markup:ResourceHelper Name=/Settings/ConnectToLastFmDesc}" />
+        </Grid>
+    </Button>
 </Page>
 
 

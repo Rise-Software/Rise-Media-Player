@@ -3,29 +3,26 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Dialogs"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Play video from URL"
-    CloseButtonText="Cancel"
+    Title="{markup:ResourceHelper Name=PlayFromUrl}"
+    CloseButtonText="{markup:ResourceHelper Name=Cancel}"
+    DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
-    PrimaryButtonText="Play video"
+    PrimaryButtonText="{markup:ResourceHelper Name=PlayMedia}"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
     <StackPanel Width="300" Spacing="6">
-        <TextBox x:Name="StreamingTextBox" Header="URL to stream" />
+        <TextBox x:Name="StreamingTextBox" Header="{markup:ResourceHelper Name=Url}" />
         <TextBlock
             FontSize="13"
-            Text="Note: not a YouTube video URL (which leads to a webpage) for example, but a direct link to a video file."
+            Text="{markup:ResourceHelper Name=DirectLinkExamplesV}"
             TextWrapping="Wrap" />
-        <TextBlock FontSize="13" TextWrapping="Wrap">
-            Examples of direct links include:<LineBreak />
-            https://www.example.com/video.mp4</TextBlock>
         <TextBlock
             x:Name="InvalidUrlText"
             FontSize="13"
-            Text="Invalid URL."
+            Text="{markup:ResourceHelper Name=InvalidUrl}"
             TextWrapping="Wrap"
             Visibility="Collapsed" />
     </StackPanel>

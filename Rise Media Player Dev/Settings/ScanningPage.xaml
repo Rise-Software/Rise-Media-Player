@@ -2,194 +2,87 @@
     x:Class="Rise.App.Settings.ScanningPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local1="using:Rise.App"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:system="using:System"
     xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <StackPanel
-        Margin="0,10,0,0"
+        Margin="0,12,0,0"
         Orientation="Vertical"
         Spacing="4">
-        <Grid>
-            <StackPanel>
-                <uc:ExpanderControl
-                    x:Uid="/MediaLibrary/ManualScan"
-                    ExpanderStyle="Static"
-                    Icon="&#xE773;">
-                    <Button
-                        x:Name="ManualScanButton"
-                        MaxWidth="150"
-                        Click="ManualScanButton_Click"
-                        Content="Scan now" />
-                </uc:ExpanderControl>
+        <StackPanel.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </TransitionCollection>
+        </StackPanel.ChildrenTransitions>
 
-                <StackPanel x:Name="ScanningStuff">
-                    <Border
-                        x:Name="PeriodicBorder"
-                        Height="120"
-                        Margin="0,4,0,0"
-                        Padding="0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="3"
-                        Style="{StaticResource SettingsCard}">
-                        <StackPanel Padding="15,8,15,8" Orientation="Vertical">
+        <labs:SettingsCard
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanDesc}"
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryManualScanTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE773;}">
+            <Button
+                x:Name="ManualScanButton"
+                MaxWidth="150"
+                Click="ManualScanButton_Click"
+                Content="{markup:ResourceHelper Name=/Settings/ScanNow}" />
+        </labs:SettingsCard>
 
-                            <StackPanel>
-                                <uc:ExpanderControl
-                                    x:Uid="/MediaLibrary/AutoScanMedia"
-                                    VerticalAlignment="Center"
-                                    ExpanderStyle="Transparent"
-                                    Icon="&#xE121;">
-                                    <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
-                                </uc:ExpanderControl>
-                            </StackPanel>
+        <labs:SettingsExpander
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryAutoScanDesc}"
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryAutoScanTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE121;}"
+            IsExpanded="True">
+            <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind ViewModel.IndexingTimerEnabled, Mode=TwoWay}" />
 
-                            <StackPanel x:Name="PeriodicContent" Visibility="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,8,-16,0"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard x:Name="PeriodicContent" IsEnabled="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
+                    <labs:SettingsCard.Header>
+                        <controls:WrapPanel>
+                            <TextBlock
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                FontWeight="Normal"
+                                Style="{StaticResource SubheaderTextBlockStyle}"
+                                Text="{markup:ResourceHelper Name=/Settings/RunEvery}" />
+                            <muxc:RadioButtons
+                                x:Name="PeriodicScan"
+                                Margin="16,-4,0,0"
+                                ItemsSource="{x:Bind Intervals}"
+                                MaxColumns="7"
+                                SelectedIndex="{x:Bind system:Array.IndexOf(MinuteIntervals, ViewModel.IndexingTimerInterval)}"
+                                SelectionChanged="PeriodicScan_SelectionChanged" />
+                        </controls:WrapPanel>
+                    </labs:SettingsCard.Header>
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
 
-                                <StackPanel Margin="28,0,15,0" Orientation="Horizontal">
-                                    <TextBlock
-                                        FontWeight="Normal"
-                                        Style="{StaticResource SubheaderTextBlockStyle}"
-                                        Text="Run every:" />
-                                    <muxc:RadioButtons
-                                        x:Name="PeriodicScan"
-                                        Margin="16,3,0,0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}"
-                                        MaxColumns="7"
-                                        SelectedIndex="{x:Bind local1:App.SViewModel.IndexingMode}"
-                                        SelectionChanged="PeriodicScan_SelectionChanged">
-                                        <x:String>1 minute</x:String>
-                                        <x:String>5 minutes</x:String>
-                                        <x:String>10 minutes</x:String>
-                                        <x:String>30 minutes</x:String>
-                                        <x:String>1 hour</x:String>
-                                    </muxc:RadioButtons>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border
-                        x:Name="EventsBorder"
-                        Height="254"
-                        Margin="0,4,0,0"
-                        Padding="0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="3"
-                        Style="{StaticResource SettingsCard}">
-                        <StackPanel Padding="15,8,15,8" Orientation="Vertical">
-                            <StackPanel>
-                                <uc:ExpanderControl
-                                    x:Uid="/MediaLibrary/EventsScan"
-                                    VerticalAlignment="Center"
-                                    ExpanderStyle="Transparent"
-                                    Icon="&#xF78D;"
-                                    IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                    <ToggleSwitch
-                                        x:Name="EventsSwitch"
-                                        IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}"
-                                        Toggled="PeriodicSwitch_Toggled" />
-                                </uc:ExpanderControl>
-                            </StackPanel>
-
-                            <StackPanel x:Name="EventsContent" Visibility="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,8,-16,0"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/Open"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                        <ToggleSwitch x:Name="OpenSwitch" />
-                                    </uc:ExpanderControl>
-
-                                </StackPanel>
-
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,0,-16,00"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/DeviceConnect"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                        <ToggleSwitch x:Name="DeviceSwitch" />
-                                    </uc:ExpanderControl>
-
-                                </StackPanel>
-
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,0,-16,00"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/AddLocation"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                        <ToggleSwitch x:Name="LocationSwitch" />
-                                    </uc:ExpanderControl>
-
-                                </StackPanel>
-
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,0,-16,00"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/FilesAdd"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                        <ToggleSwitch x:Name="FilesAddSwitch" />
-                                    </uc:ExpanderControl>
-
-                                </StackPanel>
-
-                            </StackPanel>
-
-                        </StackPanel>
-
-
-                    </Border>
-                </StackPanel>
-
-
-            </StackPanel>
-        </Grid>
-
+        <labs:SettingsExpander
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanDesc}"
+            Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanTitle}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xF78D;}"
+            IsExpanded="True">
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanOpen}">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
+                </labs:SettingsCard>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanDeviceConnect}" IsEnabled="False">
+                    <ToggleSwitch />
+                </labs:SettingsCard>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanLocation}" IsEnabled="False">
+                    <ToggleSwitch />
+                </labs:SettingsCard>
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/MediaLibraryEventsScanFilesAdd}">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled, Mode=TwoWay}" />
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
     </StackPanel>
-
 </Page>

@@ -1,7 +1,8 @@
 ﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace Rise.App.Views
     public sealed partial class SearchResultsPage : MediaPageBase
     {
         private IEnumerable<IGrouping<string, object>> GroupedItems;
-        private string SearchText;
 
         private readonly Dictionary<Type, string> ResourceNames = new()
         {
@@ -22,27 +22,21 @@ namespace Rise.App.Views
             { typeof(SongViewModel), "Songs" },
         };
 
-        private double? _offset = null;
-
         public SearchResultsPage()
-            : base("Title", App.MViewModel.Songs)
+            : base("SongTitle", SortDirection.Ascending, false, App.MViewModel.Songs)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            SearchText = e.NavigationParameter as string;
-            string[] splitText = SearchText.ToLower().Split(" ");
+            string search = e.NavigationParameter as string;
+            string[] splitText = search.ToLower().Split(" ");
+
+            string forFormat = ResourceHelper.GetString("ForX");
+            ResultsFor.Text = string.Format(forFormat, search);
 
             var suitableItems = new List<object>();
             foreach (ArtistViewModel artist in App.MViewModel.Artists)
@@ -74,19 +68,6 @@ namespace Rise.App.Views
             }
 
             GroupedItems = suitableItems.GroupBy(e => ResourceNames[e.GetType()]);
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 

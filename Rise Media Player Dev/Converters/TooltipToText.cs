@@ -4,15 +4,14 @@ using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class TooltipToText : IValueConverter
+    public sealed class TooltipToText : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is ToolTip tooltip)
-            {
                 return tooltip.Content;
-            }
-            return "";
+
+            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

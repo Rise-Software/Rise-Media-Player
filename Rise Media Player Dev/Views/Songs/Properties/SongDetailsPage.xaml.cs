@@ -1,12 +1,11 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Extensions;
+using Rise.Models;
 using System;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -18,7 +17,6 @@ namespace Rise.App.Views
         public SongDetailsPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -27,6 +25,11 @@ namespace Rise.App.Views
             {
                 Props = props;
             }
+
+            if (Props.Model.Model.IsLocal)
+                LocalExpander.Visibility = Visibility.Visible;
+            else
+                OnlineExpander.Visibility = Visibility.Visible;
 
             base.OnNavigatedTo(e);
         }
@@ -38,49 +41,44 @@ namespace Rise.App.Views
 
         private async void EditArtButton_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
         {
-            var picker = new FileOpenPicker
+            FileOpenPicker picker = new()
             {
                 ViewMode = PickerViewMode.Thumbnail,
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
+
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            StorageFile file = await picker.PickSingleFileAsync();
-
+            var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                // Get file thumbnail and make a PNG out of it.
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await thumbnail.SaveToFileAsync($@"modified-artist-{file.Name}.png");
-
-                var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
-
-                thumbnail?.Dispose();
-                Props.Thumbnail = uri.ToString();
-                //Update the source in the XAML view
-                imgAlbum.Source = new BitmapImage(uri);
+                var (saved, path) = await Song.TrySaveThumbnailAsync(file, Props.Album.AsValidFileName());
+                if (saved)
+                    Props.Thumbnail = path;
             }
         }
 
-        private async void exportAlbumArt_Click(object sender, RoutedEventArgs e)
+        private async void ExportAlbumArt_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile =
-                await StorageFile.GetFileFromApplicationUriAsync
-                (new Uri(Props.Thumbnail));
-
-            FolderPicker folderPicker = new FolderPicker
+            var picFile = await StorageFile.GetFileFromApplicationUriAsync(new(Props.Thumbnail));
+            FileSavePicker savePicker = new()
             {
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
-            folderPicker.FileTypeFilter.Add("*");
 
-            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null)
-            {
-                await picFile.CopyAsync(folder);
-            }
+            savePicker.FileTypeChoices.Add("PNG Image", new string[] { ".png" });
+            savePicker.FileTypeChoices.Add("JPEG Image", new string[] { ".jpg" });
+
+            var file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+                await picFile.CopyAndReplaceAsync(file);
+        }
+
+        private void OnlineButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnlineTip.IsOpen = true;
         }
     }
 }

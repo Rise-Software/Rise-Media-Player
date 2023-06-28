@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Adăugăm fișierele tale personale</value>
+  <data name="AddPersonalMusicAndVideosTitle" xml:space="preserve">
+    <value>Adding your personal music and videos</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• Aceste versiuni vor fi inițiate prin Microsoft Store
@@ -160,6 +160,39 @@ Insideri Early Access (în trecut Insideri Seeding) beneficiază de acces la apl
   <data name="BetaH.Text" xml:space="preserve">
     <value>Beta</value>
   </data>
+  <data name="DiscyAboutTipDesc" xml:space="preserve">
+    <value>Mă puteți găsi făcând clic dreapta pe diferite lucruri. De exemplu, un album. Vă voi spune ce puteţi face :). Sunt încă destul de nou, deci nu voi fi peste tot, dar cresc în fiecare zi!</value>
+  </data>
+  <data name="DiscyAboutTipTitle" xml:space="preserve">
+    <value>Salut! Sunt Discy.</value>
+  </data>
+  <data name="DiscyOnAlbumDesc" xml:space="preserve">
+    <value>Utilizați bara de comandă pentru a sorta albumele în diferite tipuri. Faceți clic pe un album pentru a vedea ce este în magazin. Poți adăuga un întreg album la o listă de redare, să amesteci sau să distribui cu prietenii.</value>
+  </data>
+  <data name="DiscyOnAlbumH" xml:space="preserve">
+    <value>Gestionarea și organizarea albumelor tale</value>
+  </data>
+  <data name="DiscyOnArtistDesc" xml:space="preserve">
+    <value>Redă simultan descoperirea unui întreg artist Vezi informații despre un artist, albumele lor (stocate pe dispozitivul tău) și melodiile dând click pe artistul pe care îl dorești. Distribuie artiștii tăi favoriți prietenilor tăi sau adaugă muzica unui întreg artist la o listă de redare.</value>
+  </data>
+  <data name="DiscyOnPlaylistDesc" xml:space="preserve">
+    <value>Pune cântecele tale preferate, melodiile speciale, melodiile tale, împreună într-o listă de redare. Dă-i o descriere și un titlu. Apoi adaugă muzică în plus și elimină piesele de la care nu ești prea sigur. Ascultare fericită!</value>
+  </data>
+  <data name="DiscyOnPlaylistH" xml:space="preserve">
+    <value>Grup cu liste de redare</value>
+  </data>
+  <data name="DiscyOnSongDesc" xml:space="preserve">
+    <value>Treci peste o melodie și apasă butonul de redare pentru a reda o melodie sau fă dublu click. Omite, întoarce-te și vezi informațiile melodiei din bara de redare actuală (în partea de jos a ferestrei aplicației). Faceți clic pe 'Informații și Proprietăți' pentru a edita metadatele melodiilor și informațiile fișierului. Puteți întotdeauna să le partajați și altora sau să adăugați la lista de redare!</value>
+  </data>
+  <data name="DiscyOnSongH" xml:space="preserve">
+    <value>Efectuarea de acțiuni asupra melodiilor</value>
+  </data>
+  <data name="DiscyOnVideoDesc" xml:space="preserve">
+    <value>Faceți clic pe un videoclip pentru a-l reda. Redenumiți și sortați-le. Videoclipurile vor ocupa întreaga fereastră a aplicației și puteți scruba, pauza, sări și multe altele.</value>
+  </data>
+  <data name="DiscyOnVideoH" xml:space="preserve">
+    <value>Redare videoclipuri</value>
+  </data>
   <data name="FAQH.Text" xml:space="preserve">
     <value>Întrebări clasice</value>
   </data>
@@ -189,21 +222,21 @@ Insideri Early Access (în trecut Insideri Seeding) beneficiază de acces la apl
   <data name="JoinH.Text" xml:space="preserve">
     <value>Cum intru în Programul Insider?</value>
   </data>
-  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+  <data name="PlayingMediaNowPlayingTitle" xml:space="preserve">
     <value>Playing media and now playing</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
-    <value>• Song, Album, Artist and Genre Indexing
-• Album, Artist, Genre and Songs Views (static for now)
-• Media Playback
-• Command Bar (BASIC)
-• User Controlled Media Locations
-• UI Manipulation through Settings
-• Basic Metadata control for Music
-• Basic Now Playing UI
-• Basic Properties Window
-• FAQ Help Section
-• Discy in small areas</value>
+    <value>• Indexarea pieselor, albumului, artistului și genului
+• Album, Artist, Vizualizări de genuri și melodii (statice pentru acum)
+• Redare Media
+• Bară de comandă (BASIC)
+• Locații media controlate de utilizatori
+• Manipulare UI prin Setări
+• Control metadate de bază pentru muzică
+• Interfață redare de bază acum
+• Fereastră proprietăți de bază
+• Secțiunea de ajutor FAQ
+• Discy în zonele mici</value>
   </data>
   <data name="PreAlphaH.Text" xml:space="preserve">
     <value>Pre-Alpha (vor fi multe versiuni așa)</value>
@@ -220,15 +253,15 @@ Insideri Early Access (în trecut Insideri Seeding) beneficiază de acces la apl
 
 • Alpha - Anul Nou (2022)-martie 2022. Notiță: Durând procesul Alpha, versiuni demo ale aplicației vor fi disponibile public pentru testarea IU.
 
-• Beta - aprilie-TBD (Pre-Alpha 4 va fi disponibil pentru instalare pe Microsoft Store, iar nu vei avea nevoie de Programul Insider, deși vei pierde niscaiva funcții) </value>
+• Beta - aprilie-TBD (Pre-Alpha 4 va fi disponibil pentru instalare pe Microsoft Store, iar nu vei avea nevoie de Programul Insider, deși vei pierde niscaiva funcții)</value>
   </data>
-  <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Sortăm și ținem grijă de librăria ta</value>
+  <data name="SortingManagingLibraryTitle" xml:space="preserve">
+    <value>Sorting and managing your library</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
     <value>Va trebui să descoperi ;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
-    <value>Ce-i chestia aia Discy?</value>
+    <value>Ce este Discy?</value>
   </data>
 </root>

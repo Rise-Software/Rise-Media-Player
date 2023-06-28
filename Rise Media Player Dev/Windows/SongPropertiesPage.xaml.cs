@@ -1,5 +1,7 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
+using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,6 +18,9 @@ namespace Rise.App.Views
             InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
         }
+
+        public static Task<bool> TryShowAsync(SongPropertiesViewModel props)
+            => ViewHelpers.OpenViewAsync<SongPropertiesPage>(props, new(380, 500));
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -51,6 +56,10 @@ namespace Rise.App.Views
                 {
                     case "DetailsItem":
                         _ = PropsFrame.Navigate(typeof(SongDetailsPage), Props);
+                        break;
+
+                    case "LyricsItem":
+                        _ = PropsFrame.Navigate(typeof(SongLyricsPage), Props);
                         break;
 
                     case "FileItem":

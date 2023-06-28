@@ -1,0 +1,953 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Tietoja</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Hyväksy</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Lisää tili</value>
+  </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Albumit</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Esittäjät</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Tumma</value>
+  </data>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>Päätä puolestani</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Kieltäydy</value>
+  </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Ohjekeskus</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Lajityypit</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>At a glance</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Sisäpiirin Hub</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Kieli</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Kirjasto</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Vaalea</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>All Videos</value>
+  </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Täsmää tarkkuus aina</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Musiikki</value>
+  </data>
+  <data name="NDays" xml:space="preserve">
+    <value>{0} päivää</value>
+  </data>
+  <data name="NHours" xml:space="preserve">
+    <value>{0} tuntia</value>
+  </data>
+  <data name="NMinutes" xml:space="preserve">
+    <value>{0} minuuttia</value>
+  </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Ei ristihäivytystä</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Ei nyt (poistu sovelluksesta)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} sekuntia</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 päivä</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 tunti</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minuutti</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 sekunti</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Käytä vain paikallisia mediatiedostoja</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Käytä ainoastaan suoratoistopalveluja</value>
+  </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Personoi</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Toisto</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Soittolistat</value>
+  </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Ominaisuudet ja tiedot</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Jono</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Skaalaa ikkunan kokoon</value>
+  </data>
+  <data name="PinToSidebar" xml:space="preserve">
+    <value>Kiinnitä sivupalkkiin</value>
+  </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>Poista sivupalkista</value>
+  </data>
+  <data name="SearchMediaPlaceholder" xml:space="preserve">
+    <value>Etsi kaikki mediat tästä laitteesta</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Etsi</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Kappaleet</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>Vaihe {0} / {1}</value>
+  </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Tuntematon albumi</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Tuntematon esittäjä</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Tuntematon lajityyppi</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Käytä järjestelmän asetuksia</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videot</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Taustakuvat</value>
+  </data>
+  <data name="NAlbums" xml:space="preserve">
+    <value>{0} albumia</value>
+  </data>
+  <data name="NSongs" xml:space="preserve">
+    <value>{0} kappaletta</value>
+  </data>
+  <data name="NVideos" xml:space="preserve">
+    <value>{0} videota</value>
+  </data>
+  <data name="OneAlbum" xml:space="preserve">
+    <value>1 albumi</value>
+  </data>
+  <data name="OneSong" xml:space="preserve">
+    <value>1 kappale</value>
+  </data>
+  <data name="OneVideo" xml:space="preserve">
+    <value>1 video</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Tulossa pian</value>
+  </data>
+  <data name="AlbumInfo" xml:space="preserve">
+    <value>Albumin tiedot</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Toista</value>
+  </data>
+  <data name="EditPlaylist" xml:space="preserve">
+    <value>Muokkaa soittolistaa</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Kappaleen tiedot</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Värikäs</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Älä näytä sivupalkkia</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Näytä vain kuvakkeet</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Näytä kaikki</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Poista vain sovelluksesta</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Poista laitteelta</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>Avaa Rise Media Player, kun kirjaudut laitteellesi.</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>Käynnistä Windowsin käynnistyessä</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Luotu</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>Avaa sovelluksella</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Tiedoston nimi</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Tiedoston tyyppi</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>Sijainti</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>Muokattu</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Tiedoston koko</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>Avaa tiedoston sijainti</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Esittäjän uutissyöte</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Tarkemmat tiedot</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Tiedosto</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Sanoitukset</value>
+  </data>
+  <data name="PropsErrorContent" xml:space="preserve">
+    <value>Kappaleen ominaisuuksia ei voitu tallentaa. Tiedosto on ehkä siirretty, sitä on muutettu tai se on poistettu, tai ehkä tämä on vain Windows-ongelma.</value>
+  </data>
+  <data name="PropsErrorTitle" xml:space="preserve">
+    <value>Jotain meni pieleen</value>
+  </data>
+  <data name="PropsSave" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
+  <data name="ShufflePlaylist" xml:space="preserve">
+    <value>Sekoita soittolista</value>
+  </data>
+  <data name="Contribute" xml:space="preserve">
+    <value>Osallistu</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Sisäinen versio: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Käyttöehdot</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>jostakin</value>
+  </data>
+  <data name="Learn" xml:space="preserve">
+    <value>Lue lisää</value>
+  </data>
+  <data name="Album" xml:space="preserve">
+    <value>Albumi</value>
+  </data>
+  <data name="AlbumArtist" xml:space="preserve">
+    <value>Albumin esittäjä</value>
+  </data>
+  <data name="ArtistOrArtists" xml:space="preserve">
+    <value>Esittäjä(t)</value>
+  </data>
+  <data name="BecomeTranslator" xml:space="preserve">
+    <value>Ryhdy kääntäjäksi </value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>Bittivirran nopeus</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="Disc" xml:space="preserve">
+    <value>Levy</value>
+  </data>
+  <data name="EditAlbum" xml:space="preserve">
+    <value>Käytä albumin kansikuvaa</value>
+  </data>
+  <data name="ExportAlbumArt" xml:space="preserve">
+    <value>Vie albumin kansikuva</value>
+  </data>
+  <data name="ExportPlaylistIcon" xml:space="preserve">
+    <value>Vie soittolistan kuvake</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Lajityyppi</value>
+  </data>
+  <data name="MediaLocalDesc" xml:space="preserve">
+    <value>Tämä kappale on paikallinen, eli se on tallennettu suoraan laitteesi tallennustilaan eikä pilveen tai verkkoon. Ominaisuuksien muuttaminen tässä muuttaa niitä itse tiedostoon, mikä tarkoittaa, että se vaikuttaa myös muihin mediasoittimiin.</value>
+  </data>
+  <data name="MediaLocalTitle" xml:space="preserve">
+    <value>Paikallinen musiikki</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Valinnat</value>
+  </data>
+  <data name="PlaylistSongsDetailsTipTitle" xml:space="preserve">
+    <value>Siirrä kappaleita klikkaamalla ylös ja alas painikkeita.</value>
+  </data>
+  <data name="PlaylistTitle" xml:space="preserve">
+    <value>Soittolistan nimi</value>
+  </data>
+  <data name="PlaylistVideosDetailsTipTitle" xml:space="preserve">
+    <value>Siirrä videoita klikkaamalla ylös ja alas painikkeita.</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Luokitus</value>
+  </data>
+  <data name="ReleaseYear" xml:space="preserve">
+    <value>Julkaisuvuosi</value>
+  </data>
+  <data name="ReportAnIssue" xml:space="preserve">
+    <value>Ilmoita ongelmasta</value>
+  </data>
+  <data name="SongTitle" xml:space="preserve">
+    <value>Kappaleen nimi</value>
+  </data>
+  <data name="StoredAsFile" xml:space="preserve">
+    <value>Tämä kappale on tallennettu laitteellesi tiedostoksi.</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>Järjestelmän kieli</value>
+  </data>
+  <data name="TrackNumber" xml:space="preserve">
+    <value>Kappaleen numero</value>
+  </data>
+  <data name="Translations" xml:space="preserve">
+    <value>Käännökset</value>
+  </data>
+  <data name="AddRemoveDesc" xml:space="preserve">
+    <value>Salli meidän löytää musiikkia ja videoita lisäämällä laitteesi tiedostoja ja kansioita.</value>
+  </data>
+  <data name="AddRemoveTitle" xml:space="preserve">
+    <value>Lisää tai poista medialähteitä</value>
+  </data>
+  <data name="AddTo" xml:space="preserve">
+    <value>Lisää kohteeseen</value>
+  </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Sovelluksen asetukset</value>
+  </data>
+  <data name="Artist" xml:space="preserve">
+    <value>Esittäjä</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Nousevasti</value>
+  </data>
+  <data name="AskDiscy" xml:space="preserve">
+    <value>Kysy Discylta tästä</value>
+  </data>
+  <data name="BrowseMediaDesc" xml:space="preserve">
+    <value>Käytä tiedostoselainta käydäksesi läpi kaikki kansioissasi oleva media.</value>
+  </data>
+  <data name="BrowseMediaTitle" xml:space="preserve">
+    <value>Selaa mediaa</value>
+  </data>
+  <data name="ChangeArtistImage" xml:space="preserve">
+    <value>Vaihda esittäjän kuva</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Laskevasti</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Palaute</value>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Kesto</value>
+  </data>
+  <data name="MessagesAndReports" xml:space="preserve">
+    <value>Viestit ja raportit</value>
+  </data>
+  <data name="MoreSettings" xml:space="preserve">
+    <value>Lisää asetuksia</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Siirrä alaspäin</value>
+  </data>
+  <data name="MoveToBottom" xml:space="preserve">
+    <value>Siirrä alimmaiseksi</value>
+  </data>
+  <data name="MoveToTop" xml:space="preserve">
+    <value>Siirrä ylimmäiseksi</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Siirrä ylöspäin</value>
+  </data>
+  <data name="NewPlaylist" xml:space="preserve">
+    <value>Uusi soittolista</value>
+  </data>
+  <data name="PlayAll" xml:space="preserve">
+    <value>Toista kaikki</value>
+  </data>
+  <data name="PlayFromUrl" xml:space="preserve">
+    <value>Toista URL-osoitteesta</value>
+  </data>
+  <data name="QuickH" xml:space="preserve">
+    <value>Pikalinkit</value>
+  </data>
+  <data name="RemoveFromPlaylist" xml:space="preserve">
+    <value>Poista soittolistalta</value>
+  </data>
+  <data name="RemovePlaylist" xml:space="preserve">
+    <value>Poista soittolista</value>
+  </data>
+  <data name="RemoveSection" xml:space="preserve">
+    <value>Poista koko osio</value>
+  </data>
+  <data name="RemoveThing" xml:space="preserve">
+    <value>Poista...</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Skannaa uutta mediaa</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Jaa</value>
+  </data>
+  <data name="ShowAlbum" xml:space="preserve">
+    <value>Näytä albumi</value>
+  </data>
+  <data name="ShowArtist" xml:space="preserve">
+    <value>Näytä esittäjä</value>
+  </data>
+  <data name="ShowInFileExplorer" xml:space="preserve">
+    <value>Avaa resurssienhallinnassa</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Sekoita</value>
+  </data>
+  <data name="ShuffleAlbum" xml:space="preserve">
+    <value>Sekoita albumi</value>
+  </data>
+  <data name="ShuffleArtist" xml:space="preserve">
+    <value>Sekoita esittäjä</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Järjestä</value>
+  </data>
+  <data name="SupportDevDesc" xml:space="preserve">
+    <value>Ryhdy suojelijaksi ja nauti ainutlaatuisista hyödyistä ja tavaroista, samalla kun autat tätä projektia eteenpäin.</value>
+  </data>
+  <data name="SupportDevTitle" xml:space="preserve">
+    <value>Tue kehitystä</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Kappaleen nimi</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Kappale</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="WhatsNewDesc" xml:space="preserve">
+    <value>Tutustu Rise Media Playerin uusiin ominaisuuksiin.</value>
+  </data>
+  <data name="WhatsNewTitle" xml:space="preserve">
+    <value>Mitä uutta</value>
+  </data>
+  <data name="ReleaseYearN" xml:space="preserve">
+    <value>Julkaisuvuosi: {0}</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Tuntematon</value>
+  </data>
+  <data name="EnterMiniView" xml:space="preserve">
+    <value>Avaa pienoisnäkymä</value>
+  </data>
+  <data name="MoreOptions" xml:space="preserve">
+    <value>Lisää valintoja</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Toistetaan parhaillaan</value>
+  </data>
+  <data name="PlaybackSpeed" xml:space="preserve">
+    <value>Toistonopeus</value>
+  </data>
+  <data name="AlbumArt" xml:space="preserve">
+    <value>Albumin kansikuva</value>
+  </data>
+  <data name="AlbumTitle" xml:space="preserve">
+    <value>Levyn otsikko</value>
+  </data>
+  <data name="CardBackground" xml:space="preserve">
+    <value>Kortin tausta</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Supista</value>
+  </data>
+  <data name="ConfirmRemovalSong" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa kappaleen "{0}"?</value>
+  </data>
+  <data name="CrashDetails" xml:space="preserve">
+    <value>RiseMP on kaatunut. Tässä on joitakin yksityiskohtia.</value>
+  </data>
+  <data name="CrashStackTrace" xml:space="preserve">
+    <value>Valitettavasti Rise Media Player kaatui. Klikkaa nähdäksesi pinon jälkiä.</value>
+  </data>
+  <data name="DeleteAnyway" xml:space="preserve">
+    <value>Poista joka tapauksessa</value>
+  </data>
+  <data name="DeleteSong" xml:space="preserve">
+    <value>Poista kappale</value>
+  </data>
+  <data name="Discography" xml:space="preserve">
+    <value>Diskografia</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Kesto</value>
+  </data>
+  <data name="ErrorOcurred" xml:space="preserve">
+    <value>Tapahtui virhe!</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Laajenna</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Vienti</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Tuonti</value>
+  </data>
+  <data name="MusicVideos" xml:space="preserve">
+    <value>Musiikkivideot</value>
+  </data>
+  <data name="NListeners" xml:space="preserve">
+    <value>{0} kuuntelijaa</value>
+  </data>
+  <data name="NoArtistInfo" xml:space="preserve">
+    <value>Ei esittäjän tietoja.</value>
+  </data>
+  <data name="NoLyricsFound" xml:space="preserve">
+    <value>Sanoituksia ei löytynyt</value>
+  </data>
+  <data name="PlayMedia" xml:space="preserve">
+    <value>Toista mediaa</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Palvelun tarjoaa {0}</value>
+  </data>
+  <data name="RanIntoProblem" xml:space="preserve">
+    <value>Kohtasimme ongelman. Pahoittelut siitä.</value>
+  </data>
+  <data name="ReadLess" xml:space="preserve">
+    <value>Lue vähemmän</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Lue lisää</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Nimeä uudelleen</value>
+  </data>
+  <data name="RoundedAlbumArt" xml:space="preserve">
+    <value>Pyöristetty albumin kansikuva</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="TilesHorizontal" xml:space="preserve">
+    <value>Laatat (vaakasuunnassa)</value>
+  </data>
+  <data name="TilesVertical" xml:space="preserve">
+    <value>Laatat (pystysuunnassa)</value>
+  </data>
+  <data name="TopTracks" xml:space="preserve">
+    <value>Suosituimmat kappaleet</value>
+  </data>
+  <data name="TopTracksDesc" xml:space="preserve">
+    <value>Näytä trendikkäimmät ja suosituimmat esittäjäsi kappaleet eri puolilta maailmaa.</value>
+  </data>
+  <data name="AddWidgets" xml:space="preserve">
+    <value>Lisää pienoisohjelmia</value>
+  </data>
+  <data name="ForX" xml:space="preserve">
+    <value>{0} ajaksi</value>
+  </data>
+  <data name="HomeAddSomeWidgets" xml:space="preserve">
+    <value>Se on aika surullista, joten lisää pienoisohjelmia!</value>
+  </data>
+  <data name="HomeNothingToShow" xml:space="preserve">
+    <value>Meillä ei ole täällä mitään näytettävää.</value>
+  </data>
+  <data name="HomeThingsYouLove" xml:space="preserve">
+    <value>Personalisoi silmäyksellä-sivusi asioilla joista pidät.</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Kuva</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Hakutulokset</value>
+  </data>
+  <data name="XofY" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="CreatePlaylist" xml:space="preserve">
+    <value>Luo soittolista</value>
+  </data>
+  <data name="PlaylistAlreadyExists" xml:space="preserve">
+    <value>Soittolista määrätyllä nimellä on jo olemassa.</value>
+  </data>
+  <data name="TitleNotEmpty" xml:space="preserve">
+    <value>Otsikko ei saa olla tyhjä.</value>
+  </data>
+  <data name="UseCustomImage" xml:space="preserve">
+    <value>Käytä omaa kuvaa</value>
+  </data>
+  <data name="MediaOnlineDesc" xml:space="preserve">
+    <value>Tämä kappale on Internetissä, joten se on tallennettu pilveen tai se on verkossa. Tässä muutetut ominaisuudet otetaan käyttöön tiedostoon, jos se on tallennettu pilvipalveluun kuten OneDriveen.</value>
+  </data>
+  <data name="MediaOnlineTitle" xml:space="preserve">
+    <value>Tämä kappale on tallennettu Internetiin.</value>
+  </data>
+  <data name="EditThumbnail" xml:space="preserve">
+    <value>Muokkaa pikkukuvaa</value>
+  </data>
+  <data name="ExportThumbnail" xml:space="preserve">
+    <value>Vie pikkukuva</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>Hylkää</value>
+  </data>
+  <data name="FetchingArtistInfo" xml:space="preserve">
+    <value>Haetaan esittäjän tietoja...</value>
+  </data>
+  <data name="GoToAlbum" xml:space="preserve">
+    <value>Siirry albumiin</value>
+  </data>
+  <data name="GoToArtist" xml:space="preserve">
+    <value>Siirry esittäjään</value>
+  </data>
+  <data name="IndexingComplete" xml:space="preserve">
+    <value>Indeksointi valmis!</value>
+  </data>
+  <data name="NotEnoughQ" xml:space="preserve">
+    <value>Ei tarpeeksi?</value>
+  </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>Avaa selaimessa</value>
+  </data>
+  <data name="ScanningSettings" xml:space="preserve">
+    <value>Skannausasetukset</value>
+  </data>
+  <data name="SupportProject" xml:space="preserve">
+    <value>Tue tätä projektia</value>
+  </data>
+  <data name="SyncAll" xml:space="preserve">
+    <value>Synkronoi kaikki</value>
+  </data>
+  <data name="SyncCenter" xml:space="preserve">
+    <value>Synkronoi keskelle</value>
+  </data>
+  <data name="MoreAlbumsByArtist" xml:space="preserve">
+    <value>Lisää tämän esittäjän albumeja</value>
+  </data>
+  <data name="Bloom" xml:space="preserve">
+    <value>Kukinta</value>
+  </data>
+  <data name="MaybeLater" xml:space="preserve">
+    <value>Ehkä myöhemmin</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="PageComingSoon" xml:space="preserve">
+    <value>Tämä sivu on tulossa pian.</value>
+  </data>
+  <data name="RestartChangesEffect" xml:space="preserve">
+    <value>Sinun täytyy käynnistää sovellus uudelleen, jotta muutoksesi tulevat voimaan.</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>Käynnistä uudelleen nyt</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Ulkoasu</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Keskellä</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Otsikkorivi</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>Kuvakkeet</value>
+  </data>
+  <data name="ManageComponents" xml:space="preserve">
+    <value>Komponenttien hallinta</value>
+  </data>
+  <data name="MediaLibrary" xml:space="preserve">
+    <value>Mediakirjasto</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Siirtyminen</value>
+  </data>
+  <data name="NoPageSelected" xml:space="preserve">
+    <value>Sivua ei ole valittu</value>
+  </data>
+  <data name="PlaybackAndSound" xml:space="preserve">
+    <value>Toisto &amp; ääni</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Oikealle</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Näytä kaikki</value>
+  </data>
+  <data name="Syncing" xml:space="preserve">
+    <value>Synkronoidaan</value>
+  </data>
+  <data name="SystemBehaviors" xml:space="preserve">
+    <value>Järjestelmän käyttäytyminen</value>
+  </data>
+  <data name="WallpapersAndExtras" xml:space="preserve">
+    <value>Taustakuvat ja lisäosat</value>
+  </data>
+  <data name="OnlineServices" xml:space="preserve">
+    <value>Verkkopalvelut</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Skannataan</value>
+  </data>
+  <data name="MediaLocalExpanderTitle" xml:space="preserve">
+    <value>Tämä kappale on tallennettu laitteellesi tiedostoksi.</value>
+  </data>
+  <data name="MediaOnlineExpanderTitle" xml:space="preserve">
+    <value>Tämä kappale on tallennettu Internetiin.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Selvä</value>
+  </data>
+  <data name="DirectLinkExamplesM" xml:space="preserve">
+    <value>Esimerkkejä suorista linkeistä ovat:
+
+https://www.example.com/song.mp3
+https://www.example.com/song_playlist.m3u
+https://www.youtube.com/watch?v=dQw4w9Wg</value>
+  </data>
+  <data name="DirectLinkExamplesV" xml:space="preserve">
+    <value>Esimerkkejä suorista linkeistä ovat:
+
+https://www.example.com/video.mp4
+https://youtu.be/JEGjlELJxC8
+https://www.youtube.com/watch?v=p7YXXieghto</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Virheellinen URL-osoite</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>URL-osoite</value>
+  </data>
+  <data name="UntitledPlaylist" xml:space="preserve">
+    <value>Nimetön soittolista</value>
+  </data>
+  <data name="EQPAir" xml:space="preserve">
+    <value>Ilma</value>
+  </data>
+  <data name="EQPBass" xml:space="preserve">
+    <value>Basso</value>
+  </data>
+  <data name="EQPCustom" xml:space="preserve">
+    <value>Mukautettu</value>
+  </data>
+  <data name="EQPFlat" xml:space="preserve">
+    <value>Tasainen</value>
+  </data>
+  <data name="EQPPop" xml:space="preserve">
+    <value>Pop</value>
+  </data>
+  <data name="EQPRock" xml:space="preserve">
+    <value>Rock</value>
+  </data>
+  <data name="EQPVocal" xml:space="preserve">
+    <value>Laulu</value>
+  </data>
+  <data name="GotIt" xml:space="preserve">
+    <value>Selvä</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Lue lisää</value>
+  </data>
+  <data name="FromFile" xml:space="preserve">
+    <value>Tiedostosta</value>
+  </data>
+  <data name="FromFolder" xml:space="preserve">
+    <value>Kansiosta</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varoitus</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+</root>

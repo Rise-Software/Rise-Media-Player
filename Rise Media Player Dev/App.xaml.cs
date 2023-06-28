@@ -1,27 +1,28 @@
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
-using Rise.App.ChangeTrackers;
-using Rise.App.DbControllers;
+using Microsoft.UI.Xaml.Controls;
 using Rise.App.ViewModels;
 using Rise.App.Views;
-using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
-using Rise.Data.Sources;
+using Rise.Data.Messages;
+using Rise.Data.Navigation;
 using Rise.Data.ViewModels;
-using Rise.Models;
+using Rise.Effects;
+using Rise.NewRepository;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using Windows.Storage.AccessCache;
 using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -35,95 +36,29 @@ namespace Rise.App
     /// </summary>
     public sealed partial class App : Application
     {
-        #region Variables
-        public static bool IsLoaded;
+        private static Timer IndexingTimer;
 
-        public static bool MainPageLoaded;
+        // No lazy init (used very early on, so lazy init is not needed)
+        public static MainViewModel MViewModel { get; } = new();
+        public static SettingsViewModel SViewModel { get; } = new();
+        public static NavigationDataSource NavDataSource { get; } = new();
 
-        private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
+        // Lazy init
+        private readonly static Lazy<MediaPlaybackViewModel> _mpViewModel
+            = new(OnMPViewModelRequested);
+        public static MediaPlaybackViewModel MPViewModel => _mpViewModel.Value;
 
-        public static TimeSpan IndexingInterval
-        {
-            get
-            {
-                return _indexingInterval;
-            }
-            set
-            {
-                if (value != _indexingInterval)
-                {
-                    _indexingInterval = value;
-                }
-                IndexingTimer = new(value.TotalMilliseconds)
-                {
-                    AutoReset = true
-                };
-            }
-        }
+        private readonly static Lazy<LastFMViewModel> _lmViewModel
+            = new(OnLFMRequested);
+        public static LastFMViewModel LMViewModel => _lmViewModel.Value;
 
-        public static Timer IndexingTimer = new(IndexingInterval.TotalMilliseconds)
-        {
-            AutoReset = true
-        };
+        private readonly static Lazy<StorageLibrary> _musicLibrary
+            = new(OnStorageLibraryRequested(KnownLibraryId.Music));
+        public static StorageLibrary MusicLibrary => _musicLibrary.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
-        /// </summary>
-        public static PlaylistsBackendController PBackendController { get; private set; }
-
-        /// <summary>
-        /// Gets the app-wide <see cref="NotificationsBackendController"/> singleton instance.
-        /// </summary>
-        public static NotificationsBackendController NBackendController { get; private set; }
-
-        /// <summary>
-        /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
-        /// </summary>
-        public static MainViewModel MViewModel { get; private set; }
-
-        /// <summary>
-        /// Gets the app-wide <see cref="MediaPlaybackViewModel"/> singleton instance.
-        /// </summary>
-        public static MediaPlaybackViewModel MPViewModel { get; private set; }
-
-        /// <summary>
-        /// Gets the app-wide <see cref="SettingsViewModel"/> singleton instance.
-        /// </summary>
-        public static SettingsViewModel SViewModel { get; private set; }
-
-        /// <summary>
-        /// Gets the app-wide <see cref="NavViewDataSource"/> singleton instance.
-        /// </summary>
-        public static NavViewDataSource NavDataSource { get; private set; }
-
-        /// <summary>
-        /// Gets the app-wide <see cref="LastFMViewModel"/> singleton instance.
-        /// </summary>
-        public static LastFMViewModel LMViewModel { get; private set; }
-
-        /// <summary>
-        /// Gets the music library.
-        /// </summary>
-        public static StorageLibrary MusicLibrary { get; private set; }
-
-        /// <summary>
-        /// Gets all the folders in the music library.
-        /// </summary>
-        public static List<StorageFolder> MusicFolders { get; private set; }
-
-        /// <summary>
-        /// Gets the video library.
-        /// </summary>
-        public static StorageLibrary VideoLibrary { get; private set; }
-
-        /// <summary>
-        /// Gets all the folders in the videos library.
-        /// </summary>
-        public static List<StorageFolder> VideoFolders { get; private set; }
-
-        private static List<StorageLibraryChange> Changes { get; set; }
-            = new List<StorageLibraryChange>();
-        #endregion
+        private readonly static Lazy<StorageLibrary> _videoLibrary
+            = new(OnStorageLibraryRequested(KnownLibraryId.Videos));
+        public static StorageLibrary VideoLibrary => _videoLibrary.Value;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -131,10 +66,10 @@ namespace Rise.App
         /// </summary>
         public App()
         {
-            SViewModel ??= new();
-            if (SViewModel.Theme == 0)
+            int theme = SViewModel.Theme;
+            if (theme == 0)
                 RequestedTheme = ApplicationTheme.Light;
-            else if (SViewModel.Theme == 1)
+            else if (theme == 1)
                 RequestedTheme = ApplicationTheme.Dark;
 
             // Reset the glaze color before startup if necessary
@@ -147,13 +82,341 @@ namespace Rise.App
             UnhandledException += OnUnhandledException;
 
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            CoreApplication.UnhandledErrorDetected += OnUnhandledErrorDetected;
+            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         }
 
-        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            e.Exception.WriteToOutput();
-            ShowExceptionToast(e.Exception);
+            await ActivateAsync(e.PreviousExecutionState, e.PrelaunchActivated);
+        }
+
+        protected override async void OnActivated(IActivatedEventArgs e)
+        {
+            switch (e.Kind)
+            {
+                case ActivationKind.StartupTask:
+                    {
+                        await ActivateAsync(e.PreviousExecutionState, false);
+                        break;
+                    }
+
+                case ActivationKind.ToastNotification:
+                    {
+                        if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
+                        {
+                            await ActivateAsync(e.PreviousExecutionState, false);
+                            var args = QueryString.Parse(toastActivationArgs.Argument);
+
+                            // If the exception name equals to null,
+                            // then the toast likely isn't popping up
+                            // as a result of an app crash.
+                            if (args["exceptionName"] != null)
+                            {
+                                string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
+                                _ = await CrashDetailsPage.TryShowAsync(text);
+                            }
+                        }
+                        break;
+                    }
+            }
+        }
+
+        protected override async void OnFileActivated(FileActivatedEventArgs args)
+        {
+            await ActivateAsync(args.PreviousExecutionState, false);
+
+            var files = args.Files.OfType<StorageFile>();
+            await MPViewModel.PlayFilesAsync(files);
+        }
+
+        private async void OnDrop(object sender, DragEventArgs e)
+        {
+            if (!e.DataView.Contains(StandardDataFormats.StorageItems))
+                return;
+
+            var files = (await e.DataView.GetStorageItemsAsync()).OfType<StorageFile>();
+            await MPViewModel.PlayFilesAsync(files);
+        }
+
+        private void OnDragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Link;
+
+            var dragOverride = e.DragUIOverride;
+            if (dragOverride != null)
+            {
+                dragOverride.Caption = ResourceHelper.GetString("PlayMedia");
+                dragOverride.IsContentVisible = true;
+            }
+        }
+
+        /// <summary>
+        /// Activates the app's window and puts content in there
+        /// if necessary.
+        /// </summary>
+        /// <param name="previousState">Previous app execution state.</param>
+        /// <param name="prelaunched">Whether the app was prelaunched.</param>
+        private async Task ActivateAsync(ApplicationExecutionState previousState, bool prelaunched)
+        {
+            var window = Window.Current;
+            if (window.Content is not Frame rootFrame)
+            {
+                rootFrame = new Frame();
+                window.Content = rootFrame;
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.AllowDrop = true;
+                rootFrame.DragOver += OnDragOver;
+                rootFrame.Drop += OnDrop;
+
+                // The backdrop can be applied to the frame directly
+                // https://learn.microsoft.com/en-us/windows/apps/design/style/mica#use-mica-with-winui-2-for-uwp
+                BackdropMaterial.SetApplyToRootOrPageBackground(rootFrame, true);
+                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
+
+                // Restore the saved session state only when appropriate
+                if ((previousState == ApplicationExecutionState.Terminated) ||
+                    (previousState == ApplicationExecutionState.ClosedByUser &&
+                    SViewModel.PickUp))
+                {
+                    try
+                    {
+                        await SuspensionManager.RestoreAsync();
+                    }
+                    catch (Exception e)
+                    {
+                        e.WriteToOutput();
+                    }
+                }
+
+                await Repository.InitializeDatabaseAsync();
+            }
+
+            if (!prelaunched)
+            {
+                CoreApplication.EnablePrelaunch(true);
+                if (rootFrame.Content == null)
+                {
+                    _ = !SViewModel.SetupCompleted
+                        ? rootFrame.Navigate(typeof(SetupPage))
+                        : rootFrame.Navigate(typeof(MainPage));
+                }
+
+                window.Activate();
+            }
+        }
+
+        /// <summary>
+        /// Invoked when application execution is being suspended.  Application state is saved
+        /// without knowing whether the application will be terminated or resumed with the contents
+        /// of memory still intact.
+        /// </summary>
+        /// <param name="sender">The source of the suspend request.</param>
+        /// <param name="e">Details about the suspend request.</param>
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            var deferral = e.SuspendingOperation.GetDeferral();
+            try
+            {
+                await SuspensionManager.SaveAsync();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteToOutput();
+            }
+            finally
+            {
+                deferral.Complete();
+            }
+        }
+    }
+
+    // Data source/ViewModel initialization
+    public sealed partial class App
+    {
+        private static LastFMViewModel OnLFMRequested()
+        {
+            var lfm = new LastFMViewModel(LastFM.Key, LastFM.Secret);
+            lfm.TryLoadCredentials(LastFM.VaultResource);
+            return lfm;
+        }
+
+        private static MediaPlaybackViewModel OnMPViewModelRequested()
+        {
+            var mpvm = new MediaPlaybackViewModel();
+
+            if (!EqualizerEffect.Initialized)
+            {
+                var eq = EqualizerEffect.Current;
+                eq.InitializeBands(SViewModel.EqualizerGain);
+                eq.IsEnabled = SViewModel.EqualizerEnabled;
+            }
+
+            mpvm.AddEffect(new(typeof(EqualizerEffect), false, true, null));
+            return mpvm;
+        }
+
+        private static StorageLibrary OnStorageLibraryRequested(KnownLibraryId id)
+        {
+            var library = StorageLibrary.GetLibraryAsync(id).Get();
+            library.ChangeTracker.Enable();
+            return library;
+        }
+    }
+
+    // Indexing
+    public sealed partial class App
+    {
+        // Change tracking
+        public static async Task InitializeChangeTrackingAsync()
+        {
+            if (SViewModel.IndexingFileTrackingEnabled)
+            {
+                _ = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
+                var result = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
+
+                // If the trackers were registered successfully, we also have to
+                // track definition changes
+                if (result == BackgroundTaskRegistrationStatus.Successful ||
+                    result == BackgroundTaskRegistrationStatus.AlreadyExists)
+                {
+                    MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+                    VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+                    return;
+                }
+            }
+
+            // If file tracking is off, or the background tasks can't be
+            // registered, use the indexing timer
+            RestartIndexingTimer();
+        }
+
+        private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
+        {
+            await MViewModel.StartFullCrawlAsync();
+        }
+
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            var instance = args.TaskInstance;
+            var deferral = instance.GetDeferral();
+
+            await Repository.InitializeDatabaseAsync();
+
+            // Check whether the task was triggered for the music or the video library
+            string name = instance.Task.Name;
+            if (name.Contains(nameof(MusicLibrary)))
+            {
+                await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Music);
+            }
+            else if (name.Contains(nameof(VideoLibrary)))
+            {
+                await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Videos);
+            }
+
+            deferral?.Complete();
+        }
+
+        // Indexing timer
+        public static void RestartIndexingTimer()
+        {
+            if (IndexingTimer != null && IndexingTimer.Enabled)
+                IndexingTimer.Stop();
+
+            if (!SViewModel.IndexingTimerEnabled)
+                return;
+
+            var span = TimeSpan.FromMinutes(SViewModel.IndexingTimerInterval);
+            IndexingTimer = new(span.TotalMilliseconds)
+            {
+                AutoReset = true
+            };
+
+            IndexingTimer.Elapsed += IndexingTimer_Elapsed;
+            IndexingTimer.Start();
+        }
+
+        private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            await MViewModel.HandleLibraryChangesAsync(ChangedLibraryType.Both, true);
+
+            await Repository.UpsertQueuedAsync();
+            await Repository.DeleteQueuedAsync();
+        }
+    }
+
+    // Error handling
+    public sealed partial class App
+    {
+        /// <summary>
+        /// Shows a toast with the provided exception data.
+        /// </summary>
+        private void ShowExceptionToast(Exception e)
+        {
+            string notifTitle = ResourceHelper.GetString("ErrorOcurred");
+            ToastContent content = new ToastContentBuilder()
+                .AddToastActivationInfo(new QueryString()
+                {
+                     { "stackTrace", e.StackTrace },
+                     { "message", e.Message },
+                     { "exceptionName", e.GetType().ToString() },
+                     { "source", e.Source },
+                     { "hresult", $"{e.HResult}" }
+                }.ToString(), ToastActivationType.Foreground)
+                .AddText(notifTitle)
+                .AddText(ResourceHelper.GetString("CrashStackTrace"))
+                .GetToastContent();
+
+            ToastNotification notification = new(content.GetXml());
+            ToastNotificationManager.CreateToastNotifier().Show(notification);
+
+            var builder = new StringBuilder();
+
+            builder.Append(ResourceHelper.GetString("CrashDetails"));
+            builder.Append("\n\n");
+            builder.AppendLine("-----");
+            builder.Append("Exception type: ");
+            builder.AppendLine(e.GetType().ToString());
+
+            builder.Append("HRESULT: ");
+            builder.AppendLine(e.HResult.ToString());
+            builder.Append("Source: ");
+            builder.AppendLine(e.Source);
+
+            builder.AppendLine();
+
+            builder.AppendLine("Message:");
+            builder.AppendLine(e.Message);
+            builder.AppendLine();
+            builder.AppendLine("Stack trace:");
+            builder.AppendLine(e.StackTrace);
+            builder.AppendLine("-----");
+
+            var notif = new BasicNotification(notifTitle, builder.ToString(), "\uE8BB");
+
+            MViewModel.NBackend.Items.Add(notif);
+            MViewModel.NBackend.Save();
+        }
+
+        private void OnUnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
+        {
+            // We can't recover in this case, so logging and throwing is
+            // all we can do
+            if (!e.UnhandledError.Handled)
+            {
+                try
+                {
+                    e.UnhandledError.Propagate();
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteToOutput();
+                    ShowExceptionToast(ex);
+
+                    throw;
+                }
+            }
         }
 
         private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -168,319 +431,20 @@ namespace Rise.App
             ShowExceptionToast(e.ExceptionObject as Exception);
         }
 
-        protected override async void OnActivated(IActivatedEventArgs e)
+        private void OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            switch (e.Kind)
-            {
-                case ActivationKind.StartupTask:
-                    {
-                        Frame rootFrame = await
-                            InitializeWindowAsync(e.PreviousExecutionState);
-
-                        if (rootFrame.Content == null)
-                        {
-                            _ = !SViewModel.SetupCompleted
-                                ? rootFrame.Navigate(typeof(SetupPage))
-                                : rootFrame.Navigate(typeof(MainPage));
-                        }
-
-                        Window.Current.Activate();
-                        break;
-                    }
-
-                case ActivationKind.ToastNotification:
-                    {
-                        if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
-                        {
-                            QueryString args = QueryString.Parse(toastActivationArgs.Argument);
-
-                            // If the exception name equals to null,
-                            // then the toast likely isn't popping up
-                            // as a result of an app crash.
-                            if (args["exceptionName"] != null)
-                            {
-                                string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
-
-                                _ = typeof(CrashDetailsPage).
-                                    ShowInApplicationViewAsync(text, 600, 600);
-                            }
-                        }
-                        break;
-                    }
-            }
+            e.Exception.WriteToOutput();
+            ShowExceptionToast(e.Exception);
         }
 
         /// <summary>
-        /// Initializes the app's ViewModels.
+        /// Invoked when Navigation to a certain page fails.
         /// </summary>
-        private async Task InitDataSourcesAsync()
-        {
-            await NewRepository.Repository.InitializeDatabaseAsync();
-
-            MusicLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
-            VideoLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
-
-            PBackendController ??= new PlaylistsBackendController();
-            NBackendController ??= new NotificationsBackendController();
-
-            MViewModel ??= new MainViewModel();
-            LMViewModel ??= new LastFMViewModel(LastFM.Key, LastFM.Secret);
-            MPViewModel ??= new MediaPlaybackViewModel();
-            NavDataSource ??= new NavViewDataSource();
-
-            MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
-            VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
-
-            LMViewModel.TryLoadCredentials(LastFM.VaultResource);
-        }
-
-        /// <summary>
-        /// Shows a toast when an exception is thrown.
-        /// </summary>
-        private void ShowExceptionToast(Exception e)
-        {
-            ToastContent content = new ToastContentBuilder()
-                .AddToastActivationInfo(new QueryString()
-                {
-                     { "stackTrace", e.StackTrace },
-                     { "message", e.Message },
-                     { "exceptionName", e.GetType().ToString() },
-                     { "source", e.Source },
-                     { "hresult", $"{e.HResult}" }
-                }.ToString(), ToastActivationType.Foreground)
-                .AddText("An error occured!")
-                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
-                .GetToastContent();
-
-            //string text = $"The exception {e.GetType()} happened last time the app was launched.\n\nStack trace:\n{e.Message}\n{e.StackTrace}\nSource: {e.Source}\nHResult: {e.HResult}";
-
-            //await NBackendController.AddNotificationAsync("Rise Media Player unexpectedly crashed.", "Here is some information on what happened:\n\n" + text + "\n\nYou could go to https://github.com/Rise-Software/Rise-Media-Player/issues to report this issue.", "");
-
-            ToastNotification notification = new(content.GetXml());
-            ToastNotificationManager.CreateToastNotifier().Show(notification);
-        }
-
-        private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
-        {
-            // Prevent duplicate calls.
-            if (IsLoaded)
-            {
-                Debug.WriteLine("Definition changes!");
-                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
-            }
-        }
-
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
-        {
-            Frame rootFrame = await InitializeWindowAsync(e.PreviousExecutionState);
-            if (!e.PrelaunchActivated)
-            {
-                CoreApplication.EnablePrelaunch(true);
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    _ = !SViewModel.SetupCompleted
-                        ? rootFrame.Navigate(typeof(SetupPage), e.Arguments)
-                        : rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-
-                // Ensure the current window is active
-                Window.Current.Activate();
-            }
-        }
-
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
+        /// <param name="sender">The Frame which failed navigation.</param>
+        /// <param name="e">Details about the navigation failure.</param>
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
-
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
-        private async void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            SuspendingDeferral deferral = null;
-            try
-            {
-                deferral = e?.SuspendingOperation?.GetDeferral();
-
-                if (NavDataSource != null)
-                {
-                    await NavDataSource.SerializeGroupsAsync();
-                }
-
-                await SuspensionManager.SaveAsync();
-            }
-            catch (SuspensionManagerException ex)
-            {
-                ex.WriteToOutput();
-            }
-            finally
-            {
-                deferral?.Complete();
-            }
-        }
-
-        protected override async void OnFileActivated(FileActivatedEventArgs args)
-        {
-            Frame rootFrame = await InitializeWindowAsync(args.PreviousExecutionState);
-            if (rootFrame.Content == null)
-            {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                _ = !SViewModel.SetupCompleted
-                    ? rootFrame.Navigate(typeof(SetupPage))
-                    : rootFrame.Navigate(typeof(MainPage));
-            }
-
-            // Ensure the current window is active
-            Window.Current.Activate();
-
-            _ = await typeof(NowPlayingPage).
-                ShowInApplicationViewAsync(null, 320, 300);
-
-            StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
-            try
-            {
-                var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
-                await MPViewModel.PlaySingleItemAsync(new SongViewModel(song));
-            }
-            catch (Exception ex)
-            {
-                ex.WriteToOutput();
-            }
-            StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
-        }
-
-        /// <summary>
-        /// Initializes the main app window.
-        /// </summary>
-        /// <param name="previousState">Previous app execution state.</param>
-        /// <returns>The app window's root frame.</returns>
-        private async Task<Frame> InitializeWindowAsync(ApplicationExecutionState previousState)
-        {
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (Window.Current.Content is not Frame rootFrame)
-            {
-                await InitDataSourcesAsync();
-                await MViewModel.GetListsAsync();
-
-                StartIndexingTimer();
-
-                // LeavingBackground += async (s, e) => await MViewModel.StartFullCrawlAsync();
-
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-                rootFrame.CacheSize = 1;
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                // Associate the frame with a SuspensionManager key.
-                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
-
-                if ((previousState == ApplicationExecutionState.Terminated) ||
-                    (previousState == ApplicationExecutionState.ClosedByUser &&
-                    SViewModel.PickUp))
-                {
-                    // Restore the saved session state only when appropriate.
-                    try
-                    {
-                        await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
-                        // Something went wrong restoring state.
-                        // Assume there is no state and continue.
-                    }
-                }
-
-                if (SViewModel.AutoIndexingEnabled)
-                {
-                    _ = await KnownFolders.MusicLibrary.
-                        TrackForegroundAsync(QueryPresets.SongQueryOptions,
-                        SongsTracker.MusicQueryResultChanged);
-
-                    _ = await KnownFolders.VideosLibrary.
-                        TrackForegroundAsync(QueryPresets.VideoQueryOptions,
-                        VideosTracker.VideosLibrary_ContentsChanged);
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
-            IsLoaded = true;
-
-            return rootFrame;
-        }
-
-        public static void StartIndexingTimer()
-        {
-            if (SViewModel.AutoIndexingEnabled)
-            {
-                if (!IndexingTimer.Enabled)
-                {
-                    switch (SViewModel.IndexingMode)
-                    {
-                        case -1:
-                            return;
-                        case 0:
-                            IndexingInterval = TimeSpan.FromMinutes(1);
-                            break;
-                        case 1:
-                            IndexingInterval = TimeSpan.FromMinutes(5);
-                            break;
-                        case 2:
-                            IndexingInterval = TimeSpan.FromMinutes(10);
-                            break;
-                        case 3:
-                            IndexingInterval = TimeSpan.FromMinutes(30);
-                            break;
-                        case 4:
-                            IndexingInterval = TimeSpan.FromHours(1);
-                            break;
-                    }
-
-                    IndexingTimer.Start();
-                    IndexingTimer.Elapsed += IndexingTimer_Elapsed;
-                }
-                else
-                {
-                    IndexingTimer.Elapsed -= IndexingTimer_Elapsed;
-                    IndexingTimer.Stop();
-
-                    StartIndexingTimer();
-                }
-            }
-        }
-
-        private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            try
-            {
-                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("An error occured while indexing.");
-            }
         }
     }
 }

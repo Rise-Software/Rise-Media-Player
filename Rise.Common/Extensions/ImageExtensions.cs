@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
@@ -10,62 +9,12 @@ using Buffer = Windows.Storage.Streams.Buffer;
 
 namespace Rise.Common.Extensions
 {
-    public static class ImageExtensions
+    /// <summary>
+    /// Contains methods that aid in the creation and
+    /// management of bitmaps.
+    /// </summary>
+    public static partial class ImageExtensions
     {
-        /// <summary>
-        /// Creates a <see cref="WriteableBitmap"/> from a
-        /// <see cref="StorageFile"/> with the specified dimensions.
-        /// </summary>
-        public static async Task<WriteableBitmap> GetBitmapAsync
-            (this StorageFile file, int width, int height)
-        {
-            using (var fileStream = await file.OpenReadAsync())
-            {
-                return await fileStream.GetBitmapAsync(width, height);
-            }
-        }
-
-        /// <summary>
-        /// Creates a <see cref="WriteableBitmap"/> from a
-        /// <see cref="IRandomAccessStream"/> with the specified dimensions.
-        /// </summary>
-        public static async Task<WriteableBitmap> GetBitmapAsync
-            (this IRandomAccessStream stream, int width, int height)
-        {
-            using (var memoryStream = new InMemoryRandomAccessStream())
-            {
-                var decoder = await BitmapDecoder.CreateAsync(stream);
-                var transform = new BitmapTransform
-                {
-                    ScaledWidth = (uint)width,
-                    ScaledHeight = (uint)height,
-                    InterpolationMode = BitmapInterpolationMode.Cubic
-                };
-
-                var pixelData = await decoder.GetPixelDataAsync(
-                    BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, transform,
-                    ExifOrientationMode.RespectExifOrientation,
-                    ColorManagementMode.ColorManageToSRgb);
-
-                var pixels = pixelData.DetachPixelData();
-
-                var encoder = await BitmapEncoder.CreateAsync(
-                    BitmapEncoder.PngEncoderId, memoryStream);
-
-                encoder.SetPixelData(
-                    BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight,
-                    (uint)width, (uint)height, 96, 96, pixels);
-
-                await encoder.FlushAsync();
-                memoryStream.Seek(0);
-
-                var bitmap = new WriteableBitmap(width, height);
-                await bitmap.SetSourceAsync(memoryStream);
-
-                return bitmap;
-            }
-        }
-
         /// <summary>
         /// Creates a bitmap source from a <see cref="SoftwareBitmap"/>.
         /// </summary>
@@ -87,7 +36,7 @@ namespace Rise.Common.Extensions
         /// <summary>
         /// Creates a bitmap source from a <see cref="WriteableBitmap"/>.
         /// </summary>
-        public static async Task<SoftwareBitmapSource> GetSourceAsync(this WriteableBitmap bitmap)
+        public static Task<SoftwareBitmapSource> GetSourceAsync(this WriteableBitmap bitmap)
         {
             var bmp = SoftwareBitmap.CreateCopyFromBuffer(
                 bitmap.PixelBuffer,
@@ -99,9 +48,88 @@ namespace Rise.Common.Extensions
             bmp = SoftwareBitmap.Convert(bmp, BitmapPixelFormat.Bgra8,
                 BitmapAlphaMode.Premultiplied);
 
-            return await bmp.GetSourceAsync();
+            return bmp.GetSourceAsync();
+        }
+    }
+
+    // Getting from files/streams
+    public static partial class ImageExtensions
+    {
+        /// <summary>
+        /// Creates a <see cref="SoftwareBitmap"/> from a <see cref="StorageFile"/>.
+        /// </summary>
+        public static async Task<SoftwareBitmap> GetBitmapAsync
+            (this StorageFile file)
+        {
+            using var fileStream = await file.OpenReadAsync();
+            return await fileStream.GetBitmapAsync();
         }
 
+        /// <summary>
+        /// Creates a <see cref="WriteableBitmap"/> from a
+        /// <see cref="StorageFile"/> with the specified dimensions.
+        /// </summary>
+        public static async Task<WriteableBitmap> GetBitmapAsync
+            (this StorageFile file, int width, int height)
+        {
+            using var fileStream = await file.OpenReadAsync();
+            return await fileStream.GetBitmapAsync(width, height);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="SoftwareBitmap"/> from a <see cref="IRandomAccessStream"/>.
+        /// </summary>
+        public static async Task<SoftwareBitmap> GetBitmapAsync
+            (this IRandomAccessStream stream)
+        {
+            var decoder = await BitmapDecoder.CreateAsync(stream);
+            return await decoder.GetSoftwareBitmapAsync();
+        }
+
+        /// <summary>
+        /// Creates a <see cref="WriteableBitmap"/> from a
+        /// <see cref="IRandomAccessStream"/> with the specified dimensions.
+        /// </summary>
+        public static async Task<WriteableBitmap> GetBitmapAsync
+            (this IRandomAccessStream stream, int width, int height)
+        {
+            using var memoryStream = new InMemoryRandomAccessStream();
+
+            var decoder = await BitmapDecoder.CreateAsync(stream);
+            var transform = new BitmapTransform
+            {
+                ScaledWidth = (uint)width,
+                ScaledHeight = (uint)height,
+                InterpolationMode = BitmapInterpolationMode.Cubic
+            };
+
+            var pixelData = await decoder.GetPixelDataAsync(
+                BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, transform,
+                ExifOrientationMode.RespectExifOrientation,
+                ColorManagementMode.ColorManageToSRgb);
+
+            var pixels = pixelData.DetachPixelData();
+
+            var encoder = await BitmapEncoder.CreateAsync(
+                BitmapEncoder.PngEncoderId, memoryStream);
+
+            encoder.SetPixelData(
+                BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight,
+                (uint)width, (uint)height, 96, 96, pixels);
+
+            await encoder.FlushAsync();
+            memoryStream.Seek(0);
+
+            var bitmap = new WriteableBitmap(width, height);
+            await bitmap.SetSourceAsync(memoryStream);
+
+            return bitmap;
+        }
+    }
+
+    // Saving to files
+    public static partial class ImageExtensions
+    {
         /// <summary>
         /// Saves a <see cref="WriteableBitmap"/> to a <see cref="StorageFile"/>.
         /// </summary>
@@ -109,14 +137,14 @@ namespace Rise.Common.Extensions
         /// <param name="outputFile"><see cref="StorageFile"/> where the <see cref="SoftwareBitmap"/>
         /// should be stored.</param>
         /// <returns>Whether or not the operation was successful.</returns>
-        public static async Task<bool> SaveToFileAsync(this WriteableBitmap bitmap, StorageFile outputFile)
+        public static Task<bool> SaveToFileAsync(this WriteableBitmap bitmap, StorageFile outputFile)
         {
             var bmp = SoftwareBitmap.CreateCopyFromBuffer(bitmap.PixelBuffer,
                 BitmapPixelFormat.Bgra8,
                 bitmap.PixelWidth,
                 bitmap.PixelHeight);
 
-            return await bmp.SaveToFileAsync(outputFile);
+            return bmp.SaveToFileAsync(outputFile);
         }
 
         /// <summary>
@@ -172,24 +200,29 @@ namespace Rise.Common.Extensions
         /// <returns>true if the thumbnail could be saved, false otherwise.</returns>
         public static async Task<bool> SaveToFileAsync(this StorageItemThumbnail thumbnail,
             string filename,
+            StorageFolder destination,
             CreationCollisionOption collisionOption = CreationCollisionOption.ReplaceExisting)
         {
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
-                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync(filename, collisionOption);
-
-                Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
-                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
-                    buffer.Capacity, InputStreamOptions.None);
-
-                using (IRandomAccessStream strm = await
-                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                try
                 {
-                    _ = await strm.WriteAsync(iBuf);
-                }
+                    var destinationFile = await destination.CreateFileAsync(filename, collisionOption);
 
-                return true;
+                    Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
+                    IBuffer iBuf = await thumbnail.ReadAsync(buffer,
+                        buffer.Capacity, InputStreamOptions.None);
+
+                    using IRandomAccessStream strm = await destinationFile.OpenAsync(FileAccessMode.ReadWrite);
+
+                    _ = await strm.WriteAsync(iBuf);
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    e.WriteToOutput();
+                }
             }
 
             return false;

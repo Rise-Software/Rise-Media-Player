@@ -1,11 +1,11 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
-using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
+using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,11 +16,10 @@ namespace Rise.App.Views
 {
     public sealed partial class AlbumsPage : MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
-
-        private readonly RelayCommand<AlbumViewMode> UpdateViewModeCommand;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         private AlbumViewModel SelectedItem
         {
@@ -28,51 +27,37 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly string Label = "Albums";
-        private double? _offset = null;
-
         public AlbumsPage()
-            : base("Title", App.MViewModel.Albums)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
-            UpdateViewModeCommand = new(UpdateViewMode);
-
-            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
+            var (del, direction, alphabetical) = GetSavedSortPreferences("Albums");
+            if (!string.IsNullOrEmpty(del))
+                CreateViewModel(del, direction, alphabetical, App.MViewModel.Albums);
+            else
+                CreateViewModel("GAlbumTitle|AlbumTitle", SortDirection.Ascending, true, App.MViewModel.Albums);
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
+            SaveSortingPreferences("Albums");
         }
     }
 
     // Playlists
     public sealed partial class AlbumsPage
     {
+        [RelayCommand]
         private Task AddToPlaylistAsync(PlaylistViewModel playlist)
         {
             var name = SelectedItem.Title;
@@ -83,23 +68,30 @@ namespace Rise.App.Views
                     items.Add(itm);
 
             if (playlist == null)
+            {
                 return PlaylistHelper.CreateNewPlaylistAsync(items);
+            }
             else
-                return playlist.AddSongsAsync(items);
+            {
+                playlist.AddItems(items);
+                return PBackend.SaveAsync();
+            }
         }
     }
 
     // Event handlers
     public sealed partial class AlbumsPage
     {
+        [RelayCommand]
         private void UpdateViewMode(AlbumViewMode viewMode)
-            => SViewModel.AlbumViewMode = viewMode;
+        {
+            SViewModel.AlbumViewMode = viewMode;
+        }
 
         private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem is AlbumViewModel album && !KeyboardHelpers.IsCtrlPressed())
             {
-                Frame.SetListDataItemForNextConnectedAnimation(album);
                 _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
@@ -124,8 +116,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();

@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutExtrasH" xml:space="preserve">
+    <value>Insider Extras</value>
+  </data>
+  <data name="AboutMoreCopyVersion" xml:space="preserve">
+    <value>Copiar versão</value>
+  </data>
+  <data name="AboutMoreH" xml:space="preserve">
+    <value>Mais</value>
+  </data>
+  <data name="AboutMoreReleases" xml:space="preserve">
+    <value>Releases</value>
+  </data>
+  <data name="AboutMoreTitle" xml:space="preserve">
+    <value>Mais informações da versão</value>
+  </data>
+  <data name="AboutSave" xml:space="preserve">
+    <value>Salvar no meu dispositivo</value>
+  </data>
+  <data name="AboutSocialDesc" xml:space="preserve">
+    <value>Fique por dentro das últimas atualizações.</value>
+  </data>
+  <data name="AboutSocialTitle" xml:space="preserve">
+    <value>Rede social</value>
+  </data>
+  <data name="AboutWallsDesc" xml:space="preserve">
+    <value>Acesse alguns planos de fundo exclusivos da marca RiseMP.</value>
+  </data>
+  <data name="AboutWallsTitle" xml:space="preserve">
+    <value>Papéis de parede e temas</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Adicionar uma conta</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Adicionar pasta</value>
+  </data>
+  <data name="AddFolders" xml:space="preserve">
+    <value>Adicionar pastas</value>
+  </data>
+  <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
+    <value>Usar a capa do álbum</value>
+  </data>
+  <data name="AppearanceAppLayout" xml:space="preserve">
+    <value>Layout do app</value>
+  </data>
+  <data name="AppearanceAppWindow" xml:space="preserve">
+    <value>Layout da janela</value>
+  </data>
+  <data name="AppearanceChooseColor" xml:space="preserve">
+    <value>Escolha o desfoque da janela</value>
+  </data>
+  <data name="AppearanceChooseTheme" xml:space="preserve">
+    <value>Escolha sua cor</value>
+  </data>
+  <data name="AppearanceCustomGlazeColor" xml:space="preserve">
+    <value>Usar cor personalizada</value>
+  </data>
+  <data name="AppearanceIconsAndFonts" xml:space="preserve">
+    <value>Ícones e fontes</value>
+  </data>
+  <data name="AppearanceItemDesc" xml:space="preserve">
+    <value>Personalizar cores do aplicativo, temas, ícones, layouts e movimento.</value>
+  </data>
+  <data name="AppearanceNoGlaze" xml:space="preserve">
+    <value>Sem desfoque</value>
+  </data>
+  <data name="AppearanceNothing" xml:space="preserve">
+    <value>Não há nada para mostrar aqui. Para mostrar cores disponíveis, selecione 'usar cor personalizada' na caixa de seleção.</value>
+  </data>
+  <data name="AppearanceOverview" xml:space="preserve">
+    <value>Visão geral</value>
+  </data>
+  <data name="AppearancePickUp" xml:space="preserve">
+    <value>Continuar onde você parou</value>
+  </data>
+  <data name="AppearanceStartupTitle" xml:space="preserve">
+    <value>Na inicialização</value>
+  </data>
+  <data name="AppearanceSystemGlazeColor" xml:space="preserve">
+    <value>Usar cor de destaque do sistema</value>
+  </data>
+  <data name="AppearanceTip" xml:space="preserve">
+    <value>*As mudanças no modo compacto não terão efeito até que a configuração seja concluída.</value>
+  </data>
+  <data name="AppThemeChanged" xml:space="preserve">
+    <value>Tema do aplicativo alterado</value>
+  </data>
+  <data name="ColorfulIcons" xml:space="preserve">
+    <value>Ícones Coloridos</value>
+  </data>
+  <data name="ConnectToLastFmDesc" xml:space="preserve">
+    <value>Discover your recently played, listening history and scrobble to the internet.</value>
+  </data>
+  <data name="ConnectToLastFmH" xml:space="preserve">
+    <value>Conectar ao last.fm</value>
+  </data>
+  <data name="CustomizedColors" xml:space="preserve">
+    <value>Cores personalizadas</value>
+  </data>
+  <data name="HighContrastIcons" xml:space="preserve">
+    <value>Ícones de alto contraste</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider Hub</value>
+  </data>
+  <data name="MatchSystemAppLang" xml:space="preserve">
+    <value>Coincidir idiomas do sistema e do aplicativo</value>
+  </data>
+  <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
+    <value>Procurar por um período de tempo especificado quando o aplicativo estiver aberto.</value>
+  </data>
+  <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
+    <value>Escaneamento periódico</value>
+  </data>
+  <data name="MediaLibraryDeletionTitle" xml:space="preserve">
+    <value>Ao remover mídia local</value>
+  </data>
+  <data name="MediaLibraryDone" xml:space="preserve">
+    <value>Limpar tudo</value>
+  </data>
+  <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
+    <value>Procurar por mídia nova após um evento.</value>
+  </data>
+  <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
+    <value>Procurar quando um dispositivo ou unidade removível estiver conectada</value>
+  </data>
+  <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
+    <value>Escanear ao adicionar arquivos às suas fontes de mídia</value>
+  </data>
+  <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
+    <value>Procurar ao adicionar um novo local de mídia</value>
+  </data>
+  <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
+    <value>Escanear ao abrir o aplicativo</value>
+  </data>
+  <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
+    <value>Escaneamento Inteligente</value>
+  </data>
+  <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
+    <value>Obter dados da Internet quando necessário</value>
+  </data>
+  <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
+    <value>Arquivos e pastas</value>
+  </data>
+  <data name="MediaLibraryItemDesc" xml:space="preserve">
+    <value>Gerenciar fontes de mídia, seus serviços online e configurações de varredura.</value>
+  </data>
+  <data name="MediaLibraryLocalMediaH" xml:space="preserve">
+    <value>Mídia e dispositivos locais</value>
+  </data>
+  <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
+    <value>Vídeos, músicas e muito mais</value>
+  </data>
+  <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
+    <value>Gerenciar pastas de mídias locais</value>
+  </data>
+  <data name="MediaLibraryManualScanDesc" xml:space="preserve">
+    <value>Procura as pastas que você já adicionou para adicionar mais músicas e vídeos à sua biblioteca.</value>
+  </data>
+  <data name="MediaLibraryManualScanTitle" xml:space="preserve">
+    <value>Escaneamento Manual</value>
+  </data>
+  <data name="MediaLibraryMetadata" xml:space="preserve">
+    <value>Metadados</value>
+  </data>
+  <data name="MediaLibraryOnlineDataH" xml:space="preserve">
+    <value>Dados online</value>
+  </data>
+  <data name="MediaLibraryRemoveFolder" xml:space="preserve">
+    <value>Remover pasta</value>
+  </data>
+  <data name="MediaLibraryRippingDesc" xml:space="preserve">
+    <value>Escolha o que você quer que aconteça quando você extrair um disco.</value>
+  </data>
+  <data name="MediaLibraryRippingTitle" xml:space="preserve">
+    <value>Opções da extração de disco</value>
+  </data>
+  <data name="MediaSourcesContainsMusic" xml:space="preserve">
+    <value>Contém música</value>
+  </data>
+  <data name="MediaSourcesContainsVideos" xml:space="preserve">
+    <value>Contém vídeos</value>
+  </data>
+  <data name="MediaSourcesInfo" xml:space="preserve">
+    <value>Já procuramos por sua mídia nos locais de mídia padrão (Música e Vídeos). Se você apenas armazenar sua mídia aqui, não há necessidade de adicionar uma pasta. Se não, selecione 'Adicionar pasta' para adicionar todas as suas pastas de mídia.</value>
+  </data>
+  <data name="NavigationAddRemoveH" xml:space="preserve">
+    <value>Adicionar/remover itens da barra lateral</value>
+  </data>
+  <data name="NavigationAppearanceH" xml:space="preserve">
+    <value>Aparência</value>
+  </data>
+  <data name="NavigationGeneralItems" xml:space="preserve">
+    <value>Itens gerais</value>
+  </data>
+  <data name="NavigationHamburgerTitle" xml:space="preserve">
+    <value>Show the hamburger button</value>
+  </data>
+  <data name="NavigationIconStyle" xml:space="preserve">
+    <value>Estilo do ícone</value>
+  </data>
+  <data name="NavigationItemDesc" xml:space="preserve">
+    <value>Alterar ações do clique, opções de inicialização.</value>
+  </data>
+  <data name="NavigationResize" xml:space="preserve">
+    <value>Mudanças no tamanho da janela</value>
+  </data>
+  <data name="NavigationShowHeader" xml:space="preserve">
+    <value>Mostrar cabeçalho</value>
+  </data>
+  <data name="OpenClassicDialog" xml:space="preserve">
+    <value>Abrir diálogo clássico</value>
+  </data>
+  <data name="PlaybackCrossfadeDesc" xml:space="preserve">
+    <value>Misture o fim e o começo das suas músicas.</value>
+  </data>
+  <data name="PlaybackCrossfadeTitle" xml:space="preserve">
+    <value>Crossfade</value>
+  </data>
+  <data name="PlaybackEQDesc" xml:space="preserve">
+    <value>Escolha diferentes perfis de som dependendo do seu tipo de mídia.</value>
+  </data>
+  <data name="PlaybackEQTitle" xml:space="preserve">
+    <value>Equalizador</value>
+  </data>
+  <data name="PlaybackGaplessDesc" xml:space="preserve">
+    <value>Vamos avançar para a sua próxima faixa instantaneamente sem esperar.</value>
+  </data>
+  <data name="PlaybackGaplessTitle" xml:space="preserve">
+    <value>Reprodução contínua</value>
+  </data>
+  <data name="PlaybackGeneralH" xml:space="preserve">
+    <value>Geral</value>
+  </data>
+  <data name="PlaybackMusicH" xml:space="preserve">
+    <value>Música</value>
+  </data>
+  <data name="PlaybackScalingDesc" xml:space="preserve">
+    <value>Ajuste o tamanho do seu vídeo dependendo do tamanho da janela.</value>
+  </data>
+  <data name="PlaybackScalingTitle" xml:space="preserve">
+    <value>Dimensionamento</value>
+  </data>
+  <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
+    <value>Alterar resolução dos vídeos e bitrate das músicas.</value>
+  </data>
+  <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
+    <value>Gerenciar qualidade de streaming</value>
+  </data>
+  <data name="PlaybackVideoH" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="PlaybackVisualizerTitle" xml:space="preserve">
+    <value>Visualizador</value>
+  </data>
+  <data name="RecentColors" xml:space="preserve">
+    <value>Cores recentes</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Restaurar padrões</value>
+  </data>
+  <data name="RunEvery" xml:space="preserve">
+    <value>Executar cada:</value>
+  </data>
+  <data name="ScanNow" xml:space="preserve">
+    <value>Escanear agora</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Selecionar idioma</value>
+  </data>
+  <data name="SelectLanguageDesc" xml:space="preserve">
+    <value>Escolha o seu idioma manualmente a partir da lista.</value>
+  </data>
+  <data name="SettingsFluentColor" xml:space="preserve">
+    <value>Fluent Colour</value>
+  </data>
+  <data name="SettingsHighContrast" xml:space="preserve">
+    <value>Alto Contraste</value>
+  </data>
+  <data name="SettingsMenuBar" xml:space="preserve">
+    <value>Barra de menu</value>
+  </data>
+  <data name="SettingsMenus" xml:space="preserve">
+    <value>Settings menus</value>
+  </data>
+  <data name="SettingsSidebar" xml:space="preserve">
+    <value>Barra lateral (Clássica)</value>
+  </data>
+  <data name="SettingsStyle" xml:space="preserve">
+    <value>Estilo das configurações</value>
+  </data>
+  <data name="StartupSettings" xml:space="preserve">
+    <value>Configurações de inicialização</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
+    <value>Esse recurso está desabilitado, mas não pode ser modificado devido às políticas atuais do seu administrador. Se isso for necessário, entre em contato com o administrador do sistema.</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
+    <value>Esta função está desabilitada devido às suas configurações atuais de inicialização. Clique no link abaixo para modificar essas configurações e depois reinicie o aplicativo.</value>
+  </data>
+  <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
+    <value>Esse recurso está habilitado, mas não pode ser modificado devido às políticas atuais do seu administrador. Se isso for necessário, entre em contato com o administrador do sistema.</value>
+  </data>
+  <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
+    <value>Algumas configurações podem estar indisponíveis porque você está executando o Rise Media Player em uma compilação vazada.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
+    <value>Algumas configurações podem estar indisponíveis. Para usá-las, atualize seu computador para o Windows 11.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
+    <value>Você está executando o Windows 10</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
+    <value>Todas as configurações devem estar disponíveis.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
+    <value>Você está executando o Windows 11</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Configurações do app</value>
+  </data>
+  <data name="ViewColors" xml:space="preserve">
+    <value>Ver cores</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Ver arquivos</value>
+  </data>
+  <data name="WindowsColors" xml:space="preserve">
+    <value>Cores do Windows</value>
+  </data>
+</root>

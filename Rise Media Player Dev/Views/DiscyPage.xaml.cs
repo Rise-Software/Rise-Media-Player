@@ -18,7 +18,6 @@ namespace Rise.App.Views
         public DiscyPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
         }
@@ -46,7 +45,7 @@ namespace Rise.App.Views
         }
 
         private async void LearnMoreButton_Click(object sender, RoutedEventArgs e)
-            => await URLs.Readme.LaunchAsync();
+            => _ = await URLs.Readme.LaunchAsync();
 
         private void AppSettingsHyperlink_Click(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args)
         {

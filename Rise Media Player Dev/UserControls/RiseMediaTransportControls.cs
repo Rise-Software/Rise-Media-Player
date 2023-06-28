@@ -1,10 +1,21 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
+using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
-using Rise.Common.Extensions;
+using Rise.Data.ViewModels;
+using System;
+using System.Linq;
+using System.Windows.Input;
+using Windows.Foundation;
+using Windows.Media;
+using Windows.Media.Casting;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,10 +27,8 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        private ToggleButton _shuffleButton;
-        private AppBarButton _compactOverlayButton;
-        private AppBarButton _overlayButton;
-        private AppBarButton _propertiesButton;
+        private MainViewModel MViewModel => App.MViewModel;
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
         /// <summary>
         /// Gets or sets a value that indicates the horizontal
@@ -72,28 +81,69 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether a user
-        /// can open the now playing page.
+        /// Gets or sets a command that runs whenever the full
+        /// window button is clicked.
         /// </summary>
-        public bool IsOverlayEnabled
+        public ICommand FullWindowCommand
         {
-            get => (bool)GetValue(IsOverlayEnabledProperty);
-            set => SetValue(IsOverlayEnabledProperty, value);
+            get => (ICommand)GetValue(FullWindowCommandProperty);
+            set => SetValue(FullWindowCommandProperty, value);
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the overlay
+        /// Gets or sets a command that runs whenever one of the
+        /// overlay buttons is clicked, with the desired view mode
+        /// as a parameter.
+        /// </summary>
+        public ICommand OverlayCommand
+        {
+            get => (ICommand)GetValue(OverlayCommandProperty);
+            set => SetValue(OverlayCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a command that runs whenever one of the
+        /// playlists in the "Add to menu" is clicked.
+        /// </summary>
+        public ICommand AddToPlaylistCommand
+        {
+            get => (ICommand)GetValue(AddToPlaylistCommandProperty);
+            set => SetValue(AddToPlaylistCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the user
+        /// can see the lyrics of the current song.
+        /// </summary>
+        public bool IsLyricsEnabled
+        {
+            get => (bool)GetValue(IsLyricsEnabledProperty);
+            set => SetValue(IsLyricsEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the lyrics
         /// button is shown.
         /// </summary>
-        public bool IsOverlayButtonVisible
+        public bool IsLyricsButtonVisible
         {
-            get => (bool)GetValue(IsOverlayButtonVisibleProperty);
-            set => SetValue(IsOverlayButtonVisibleProperty, value);
+            get => (bool)GetValue(IsLyricsButtonVisibleProperty);
+            set => SetValue(IsLyricsButtonVisibleProperty, value);
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the properties
-        /// button is enabled.
+        /// Gets or sets a value that indicates whether the lyrics
+        /// button is checked.
+        /// </summary>
+        public bool IsLyricsButtonChecked
+        {
+            get => (bool)GetValue(IsLyricsButtonCheckedProperty);
+            set => SetValue(IsLyricsButtonCheckedProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the
+        /// properties button is enabled.
         /// </summary>
         public bool IsPropertiesEnabled
         {
@@ -102,13 +152,73 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the properties
-        /// button is shown.
+        /// Gets or sets a value that indicates whether the
+        /// properties button is shown.
         /// </summary>
         public bool IsPropertiesButtonVisible
         {
             get => (bool)GetValue(IsPropertiesButtonVisibleProperty);
             set => SetValue(IsPropertiesButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the
+        /// equalizer button is enabled.
+        /// </summary>
+        public bool IsEqualizerButtonEnabled
+        {
+            get => (bool)GetValue(IsEqualizerButtonEnabledProperty);
+            set => SetValue(IsEqualizerButtonEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the
+        /// equalizer button is shown.
+        /// </summary>
+        public bool IsEqualizerButtonVisible
+        {
+            get => (bool)GetValue(IsEqualizerButtonVisibleProperty);
+            set => SetValue(IsEqualizerButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the queue
+        /// button is enabled.
+        /// </summary>
+        public bool IsQueueButtonEnabled
+        {
+            get => (bool)GetValue(IsQueueButtonEnabledProperty);
+            set => SetValue(IsQueueButtonEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the queue
+        /// button is shown.
+        /// </summary>
+        public bool IsQueueButtonVisible
+        {
+            get => (bool)GetValue(IsQueueButtonVisibleProperty);
+            set => SetValue(IsQueueButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the queue
+        /// button is checked.
+        /// </summary>
+        public bool IsQueueButtonChecked
+        {
+            get => (bool)GetValue(IsQueueButtonCheckedProperty);
+            set => SetValue(IsQueueButtonCheckedProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the add to
+        /// playlist button is shown.
+        /// </summary>
+        public bool IsAddToMenuVisible
+        {
+            get => (bool)GetValue(IsAddToMenuVisibleProperty);
+            set => SetValue(IsAddToMenuVisibleProperty, value);
         }
 
         /// <summary>
@@ -158,7 +268,7 @@ namespace Rise.App.UserControls
 
         public readonly static DependencyProperty TimelineDisplayModeProperty =
             DependencyProperty.Register(nameof(TimelineDisplayMode), typeof(SliderDisplayModes),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(SliderDisplayModes.Full, TimelineDisplayModeChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(SliderDisplayModes.Full, OnTimelineDisplayModeChanged));
 
         public readonly static DependencyProperty DisplayItemProperty =
             DependencyProperty.Register(nameof(DisplayItem), typeof(object),
@@ -188,13 +298,33 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsShuffleButtonChecked), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
-        public readonly static DependencyProperty IsOverlayEnabledProperty =
-            DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
+        public readonly static DependencyProperty IsLyricsEnabledProperty =
+            DependencyProperty.Register(nameof(IsLyricsEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
-        public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsOverlayButtonVisible), typeof(bool),
+        public readonly static DependencyProperty IsLyricsButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsLyricsButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsLyricsButtonCheckedProperty =
+            DependencyProperty.Register(nameof(IsLyricsButtonChecked), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty FullWindowCommandProperty =
+            DependencyProperty.Register(nameof(FullWindowCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
+        public readonly static DependencyProperty OverlayCommandProperty =
+            DependencyProperty.Register(nameof(OverlayCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
+        public readonly static DependencyProperty AddToPlaylistCommandProperty =
+            DependencyProperty.Register(nameof(AddToPlaylistCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
+        public readonly static DependencyProperty IsAddToMenuVisibleProperty =
+            DependencyProperty.Register(nameof(IsAddToMenuVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
 
         public readonly static DependencyProperty IsPropertiesEnabledProperty =
             DependencyProperty.Register(nameof(IsPropertiesEnabled), typeof(bool),
@@ -202,6 +332,26 @@ namespace Rise.App.UserControls
 
         public readonly static DependencyProperty IsPropertiesButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsPropertiesButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsQueueButtonEnabledProperty =
+            DependencyProperty.Register(nameof(IsQueueButtonEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsQueueButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsQueueButtonCheckedProperty =
+            DependencyProperty.Register(nameof(IsQueueButtonChecked), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsEqualizerButtonEnabledProperty =
+            DependencyProperty.Register(nameof(IsEqualizerButtonEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsEqualizerButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsEqualizerButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
     }
 
@@ -211,110 +361,143 @@ namespace Rise.App.UserControls
         public RiseMediaTransportControls()
         {
             DefaultStyleKey = typeof(RiseMediaTransportControls);
-
-            Unloaded += OnUnloaded;
         }
 
         protected override void OnApplyTemplate()
         {
-            _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
-            _shuffleButton.Checked += OnShuffleChecked;
-            _shuffleButton.Unchecked += OnShuffleUnchecked;
-
-            _compactOverlayButton = GetTemplateChild("MiniViewButton") as AppBarButton;
-            _compactOverlayButton.Click += CompactOverlayButtonClick;
-
-            _overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
-            _overlayButton.Click += OverlayButtonClick;
-
-            _propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
-            _propertiesButton.Click += PropertiesButtonClick;
-
             base.OnApplyTemplate();
-        }
 
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            _shuffleButton.Checked -= OnShuffleChecked;
-            _shuffleButton.Unchecked -= OnShuffleUnchecked;
+            if (GetTemplateChild("OverlayButton") is ButtonBase overlayButton)
+                overlayButton.CommandParameter = ApplicationViewMode.Default;
 
-            _compactOverlayButton.Click -= CompactOverlayButtonClick;
-            _overlayButton.Click -= OverlayButtonClick;
-            _propertiesButton.Click -= PropertiesButtonClick;
+            if (GetTemplateChild("MiniViewButton") is ButtonBase miniButton)
+                miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
+
+            if (GetTemplateChild("InfoPropertiesButton") is ButtonBase propertiesButton)
+                propertiesButton.Click += PropertiesButtonClick;
+
+            if (GetTemplateChild("EqualizerButton") is ButtonBase equalizerButton)
+                equalizerButton.Click += EqualizerButtonClick;
+
+            if (GetTemplateChild("CastToButton") is ButtonBase castButton)
+                castButton.Click += CastButtonClick;
+
+            if (GetTemplateChild("PlaybackSpeedFlyout") is MenuFlyout speedFlyout)
+            {
+                for (double i = 0.25; i <= 2; i += 0.25)
+                {
+                    var itm = new RadioMenuFlyoutItem
+                    {
+                        Text = $"{i}x",
+                        Command = UpdatePlaybackSpeedCommand,
+                        CommandParameter = i
+                    };
+
+                    speedFlyout.Items.Add(itm);
+                }
+            }
+
+            if (GetTemplateChild("AddToPlaylistFlyout") is MenuFlyout addToPlaylistFlyout)
+            {
+                var helper = new AddToPlaylistHelper(App.MViewModel.Playlists);
+                helper.AddPlaylistsToFlyout(addToPlaylistFlyout, AddToPlaylistCommand);
+            }
+
+            UpdateTimelineDisplayMode(this, TimelineDisplayMode);
         }
     }
 
     // Event handlers
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        /// <summary>
-        /// Invoked when the shuffle button is clicked. Event arg
-        /// corresponds to the IsChecked value of the ToggleButton.
-        /// </summary>
-        public event EventHandler<bool> ShufflingChanged;
+        private static void OnTimelineDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            => UpdateTimelineDisplayMode((RiseMediaTransportControls)d, (SliderDisplayModes)e.NewValue);
 
-        /// <summary>
-        /// Invoked when the compact overlay button is clicked.
-        /// </summary>
-        public event RoutedEventHandler CompactOverlayButtonClick;
-
-        /// <summary>
-        /// Invoked when the overlay button is clicked.
-        /// </summary>
-        public event RoutedEventHandler OverlayButtonClick;
-
-        private static async void TimelineDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void UpdateTimelineDisplayMode(RiseMediaTransportControls transportControls, SliderDisplayModes displayMode)
         {
-            if (d is RiseMediaTransportControls rmtc)
-                await rmtc.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    switch ((SliderDisplayModes)e.NewValue)
-                    {
-                        case SliderDisplayModes.Hidden:
-                            VisualStateManager.GoToState(rmtc, "HiddenTimelineState", true);
-                            break;
-                        case SliderDisplayModes.Minimal:
-                            VisualStateManager.GoToState(rmtc, "MinimalTimelineState", true);
-                            break;
-                        case SliderDisplayModes.SliderOnly:
-                            VisualStateManager.GoToState(rmtc, "SliderOnlyTimelineState", true);
-                            break;
-                        case SliderDisplayModes.Full:
-                            VisualStateManager.GoToState(rmtc, "FullTimelineState", true);
-                            break;
-                    }
-                });
+            string state = displayMode switch
+            {
+                SliderDisplayModes.Hidden => "HiddenTimelineState",
+                SliderDisplayModes.Minimal => "MinimalTimelineState",
+                SliderDisplayModes.SliderOnly => "SliderOnlyTimelineState",
+                _ => "FullTimelineState"
+            };
+
+            _ = VisualStateManager.GoToState(transportControls, state, true);
         }
-
-        private void OnShuffleChecked(object sender, RoutedEventArgs e)
-            => ShufflingChanged?.Invoke(sender, true);
-
-        private void OnShuffleUnchecked(object sender, RoutedEventArgs e)
-            => ShufflingChanged?.Invoke(sender, false);
 
         private async void PropertiesButtonClick(object sender, RoutedEventArgs e)
         {
-            if (App.MPViewModel.PlayingItem is SongViewModel song && !App.MPViewModel.PlayingItem.IsOnline)
+            var currProps = MPViewModel.PlayingItemProperties;
+            if (currProps == null || currProps.ItemType != MediaPlaybackType.Music)
+                return;
+
+            string loc = currProps.Location;
+            try
             {
-                try
+                var song = MViewModel.Songs.FirstOrDefault(s => s.Location == loc);
+                if (song != null)
                 {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(song.Location);
-                    if (file != null)
+                    var file = await StorageFile.GetFileFromPathAsync(loc);
+                    var props = new SongPropertiesViewModel(song, file.DateCreated)
                     {
-                        SongPropertiesViewModel props = new(song, file.DateCreated)
-                        {
-                            FileProps = await file.GetBasicPropertiesAsync()
-                        };
+                        FileProps = await file.GetBasicPropertiesAsync()
+                    };
 
-                        _ = await typeof(SongPropertiesPage).
-                            PlaceInApplicationViewAsync(props, 380, 550, true);
-                    }
-                }
-                catch
-                {
-
+                    _ = await SongPropertiesPage.TryShowAsync(props);
                 }
             }
+            catch { }
         }
+
+        private void EqualizerButtonClick(object sender, RoutedEventArgs e)
+            => _ = new EqualizerDialog().ShowAsync();
+
+        private void CastButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayerCreated)
+            {
+                // The picker is created every time to avoid a memory leak
+                // TODO: Create our own flyout to avoid this issue
+                var picker = new CastingDevicePicker();
+                picker.Filter.SupportsAudio = true;
+                picker.Filter.SupportsVideo = MPViewModel.PlayingItemType == MediaPlaybackType.Video;
+
+                picker.CastingDeviceSelected += OnCastingDeviceSelected;
+                picker.CastingDevicePickerDismissed += OnCastingDevicePickerDismissed;
+
+                var btn = sender as ButtonBase;
+
+                // Retrieve the location of the casting button
+                var transform = btn.TransformToVisual(Window.Current.Content);
+                var pt = transform.TransformPoint(new Point(0, 0));
+
+                // Show the picker above the button
+                var area = new Rect(pt.X, pt.Y, btn.ActualWidth, btn.ActualHeight);
+                picker.Show(area, Placement.Above);
+            }
+        }
+
+        private async void OnCastingDeviceSelected(CastingDevicePicker sender, CastingDeviceSelectedEventArgs args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                var connection = args.SelectedCastingDevice.CreateCastingConnection();
+                await connection.RequestStartCastingAsync(MPViewModel.Player.GetAsCastingSource());
+
+                sender.CastingDeviceSelected -= OnCastingDeviceSelected;
+                sender.CastingDevicePickerDismissed -= OnCastingDevicePickerDismissed;
+            });
+        }
+
+        private void OnCastingDevicePickerDismissed(CastingDevicePicker sender, object args)
+        {
+            sender.CastingDeviceSelected -= OnCastingDeviceSelected;
+            sender.CastingDevicePickerDismissed -= OnCastingDevicePickerDismissed;
+        }
+
+        [RelayCommand]
+        private void UpdatePlaybackSpeed(double speed)
+            => MPViewModel.Player.PlaybackSession.PlaybackRate = speed;
     }
 }

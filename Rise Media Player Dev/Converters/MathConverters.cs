@@ -1,22 +1,18 @@
-﻿using System;
+﻿using Rise.Common.Extensions.Markup;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class DecimalPointToPercentageConverter : IValueConverter
+    public sealed class DecimalPointToPercentageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            double actualValue = (double)value;
-            bool isPercentageVisible = false;
-            if (parameter is string param)
-            {
-                if (param == "WithPercentage")
-                {
-                    isPercentageVisible = true;
-                }
-            }
-            return $"{Math.Floor(actualValue * 100)}{(isPercentageVisible ? "%" : "")}";
+            double val = Math.Floor((double)value * 100);
+            if (parameter is string param && param == "WithPercentage")
+                return val + "%";
+
+            return val;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -25,12 +21,12 @@ namespace Rise.App.Converters
         }
     }
 
-    public class UintToStringConverter : IValueConverter
+    public sealed class UintToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             uint actualValue = (uint)value;
-            string str = actualValue == 0 ? "Unknown" : actualValue.ToString();
+            string str = actualValue == 0 ? ResourceHelper.GetString("Unknown") : actualValue.ToString();
             return str;
         }
 
@@ -39,7 +35,7 @@ namespace Rise.App.Converters
             throw new NotImplementedException();
         }
     }
-    public class FormatNumber
+    public sealed class FormatNumber
     {
         public static string Format(long num)
         {

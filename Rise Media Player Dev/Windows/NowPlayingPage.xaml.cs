@@ -1,15 +1,24 @@
-﻿using AudioVisualizer;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Helpers;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Helpers;
+using Rise.Common.Threading;
 using Rise.Data.ViewModels;
+using Rise.Models;
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Windows.Media;
 using Windows.Media.Playback;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
@@ -20,137 +29,250 @@ namespace Rise.App.Views
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
+        private bool FullScreenRequested = false;
 
-        /// <summary>
-        /// Whether the album art should be fully visible.
-        /// </summary>
-        private bool UseImmersiveArt
-        {
-            get => (bool)GetValue(UseImmersiveArtProperty);
-            set => SetValue(UseImmersiveArtProperty, value);
-        }
+        private List<SyncedLyricItem> _lyrics;
+
+        // Used to check when transport controls are hiding or showing
+        private DependencyPropertyWatcher<double> PlayerControlsTransformWatcher;
+
+        // Used to handle the sidebar
+        private DependencyPropertyWatcher<bool> PlayerControlsLyricsWatcher;
+        private DependencyPropertyWatcher<bool> PlayerControlsQueueWatcher;
 
         public NowPlayingPage()
         {
             InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
-
-            Loaded += OnPageLoaded;
-            Unloaded += OnPageUnloaded;
         }
 
-        private async void OnPageLoaded(object sender, RoutedEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            // No need for pointer in events when we're outside compact overlay
-            var mode = ApplicationView.GetForCurrentView().ViewMode;
-            if (mode == ApplicationViewMode.Default)
-            {
-                UseImmersiveArt = false;
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    UpdatePointerStates(true);
-                });
-            }
-            else
-            {
-                Debug.Assert(VisualStateManager.GoToState(this, "CompactOverlayState", true));
+            _ = ApplyVisualizer(SViewModel.VisualizerType);
+        }
 
-                PointerEntered += OnPointerEntered;
-                PointerExited += OnPointerExited;
-                PointerCanceled += OnPointerExited;
+        private void OnMainPlayerLoaded(object sender, RoutedEventArgs e)
+        {
+            MainPlayer.SetMediaPlayer(MPViewModel.Player);
+
+            var controlGrid = MainPlayer.FindDescendant<Grid>((elm) => elm.Name == "ControlPanelGrid");
+            if (controlGrid != null)
+            {
+                var transform = (TranslateTransform)controlGrid.RenderTransform;
+
+                PlayerControlsTransformWatcher = new(transform, TranslateTransform.YProperty);
+                PlayerControlsTransformWatcher.PropertyChanged += OnPlayerControlsTransformChanged;
             }
 
-            LineVis.ShouldVisualize = true;
+            // Update the sidebar whenever the queue or lyrics buttons are checked
+            PlayerControlsLyricsWatcher = new(PlayerControls, RiseMediaTransportControls.IsLyricsButtonCheckedProperty);
+            PlayerControlsQueueWatcher = new(PlayerControls, RiseMediaTransportControls.IsQueueButtonCheckedProperty);
 
-            if (MPViewModel.PlayerCreated)
-                await UpdateSourcesAsync(MPViewModel.Player);
-            else
-                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+            PlayerControlsLyricsWatcher.PropertyChanged += OnPlayerControlsLyricsToggled;
+            PlayerControlsQueueWatcher.PropertyChanged += OnPlayerControlsQueueToggled;
+        }
+
+        private void OnPlayerControlsLyricsToggled(DependencyPropertyWatcher<bool> sender, bool newValue)
+        {
+            if (newValue)
+            {
+                PlayerControls.IsQueueButtonChecked = false;
+                _ = VisualStateManager.GoToState(this, "SidebarLyricsState", true);
+            }
+            else if (!PlayerControls.IsQueueButtonChecked)
+            {
+                _ = VisualStateManager.GoToState(this, "SidebarHiddenState", true);
+            }
+        }
+
+        private void OnPlayerControlsQueueToggled(DependencyPropertyWatcher<bool> sender, bool newValue)
+        {
+            if (newValue)
+            {
+                PlayerControls.IsLyricsButtonChecked = false;
+                _ = VisualStateManager.GoToState(this, "SidebarQueueState", true);
+            }
+            else if (!PlayerControls.IsLyricsButtonChecked)
+            {
+                _ = VisualStateManager.GoToState(this, "SidebarHiddenState", true);
+            }
+        }
+
+        private void OnPlayerControlsTransformChanged(DependencyPropertyWatcher<double> sender, double newValue)
+        {
+            TitleAreaTranslate.Y = -newValue;
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
-            PointerEntered -= OnPointerEntered;
-            PointerExited -= OnPointerExited;
-            PointerCanceled -= OnPointerExited;
+            goToMiniViewCommand = null;
+            toggleFullScreenCommand = null;
 
-            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
+            MPViewModel.Player.SeekCompleted -= Player_SeekCompleted;
+            MPViewModel.Player.PlaybackSession.PositionChanged -= PlaybackSession_PositionChanged;
+            MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
-            if (MPViewModel.PlayerCreated)
-                MPViewModel.Player.RemoveAllEffects();
+            PlayerControlsTransformWatcher?.Dispose();
+            PlayerControlsLyricsWatcher?.Dispose();
+            PlayerControlsQueueWatcher?.Dispose();
 
-            LineVis.ShouldVisualize = false;
+            Bindings.StopTracking();
+
+            MainPlayer.SetMediaPlayer(null);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is bool fs && fs)
+                FullScreenRequested = fs;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            if (FullScreenRequested)
+                ApplicationView.GetForCurrentView().ExitFullScreenMode();
         }
     }
 
     // Event handlers
     public sealed partial class NowPlayingPage
     {
-        // Buttons
-        private async void OnExitButtonClick(object sender, RoutedEventArgs e)
+        [RelayCommand]
+        private Task GoToMiniViewAsync()
         {
-            if (Frame.CanGoBack) Frame.GoBack();
-
-            var curr = ApplicationView.GetForCurrentView();
-            if (curr.ViewMode == ApplicationViewMode.CompactOverlay)
-                _ = await curr.TryEnterViewModeAsync(ApplicationViewMode.Default,
-                    ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
+            return CompactNowPlayingPage.NavigateAsync(Frame);
         }
 
-        // Media playback
-        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
-            => await UpdateSourcesAsync(e);
-
-        private async Task UpdateSourcesAsync(MediaPlayer player)
+        [RelayCommand]
+        private void ToggleFullScreen()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            var view = ApplicationView.GetForCurrentView();
+
+            if (view.IsFullScreenMode)
+                view.ExitFullScreenMode();
+            else
+                _ = view.TryEnterFullScreenMode();
+        }
+
+        private async void OnLyricsListLoaded(object sender, RoutedEventArgs e)
+        {
+            if (!SViewModel.FetchOnlineData)
             {
-                LineVis.ShouldVisualize = true;
-                MainPlayer.SetMediaPlayer(player);
+                _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
+                return;
+            }
 
-                // Source is expensive, only set when necessary
-                if (SViewModel.VisualizerType == 1)
-                {
-                    LineVis.VisualizerSource = MPViewModel.VisualizerPlaybackSource.Source;
-                }
-            });
+            await UpdateCurrentLyricsAsync();
+
+            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+            MPViewModel.Player.SeekCompleted += Player_SeekCompleted;
+            MPViewModel.Player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
         }
 
-        private void OnShufflingChanged(object sender, bool e)
-            => MPViewModel.ShuffleEnabled = e;
-
-        // UI
-        private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
-            => UpdatePointerStates(true);
-
-        private void OnPointerExited(object sender, PointerRoutedEventArgs e)
-            => UpdatePointerStates(false);
-
-        private void UpdatePointerStates(bool pointerIn)
+        private void OnExitButtonClick(object sender, RoutedEventArgs e)
         {
-            UseImmersiveArt = !pointerIn;
-
-            if (SViewModel.VisualizerType != 0)
-                if (pointerIn)
-                    _ = ApplyVisualizer(SViewModel.VisualizerType);
-                else
-                    _ = ApplyVisualizer(0);
+            if (Frame.CanGoBack)
+                Frame.GoBack();
         }
 
-        // Settings
+        private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
+            => PlayerControls.Show();
+
+        private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
+            => await UpdateCurrentLyricsAsync();
+
         private bool ApplyVisualizer(int index) => index switch
         {
-            1 => VisualStateManager.GoToState(this, "LineVisualizerState", false),
-            2 => VisualStateManager.GoToState(this, "BloomVisualizerState", false),
+            1 => VisualStateManager.GoToState(this, "BloomVisualizerState", false),
             _ => VisualStateManager.GoToState(this, "NoVisualizerState", false),
         };
     }
 
-    // Dependency properties
+    // Lyrics
     public sealed partial class NowPlayingPage
     {
-        private readonly static DependencyProperty UseImmersiveArtProperty =
-            DependencyProperty.Register(nameof(UseImmersiveArt), typeof(bool),
-                typeof(NowPlayingPage), new PropertyMetadata(true));
+        private async Task UpdateCurrentLyricsAsync()
+        {
+            await Dispatcher;
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+            {
+                _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
+                return;
+            }
+
+            _ = VisualStateManager.GoToState(this, "LyricsLoadingState", true);
+
+            await ThreadSwitcher.ResumeBackgroundAsync();
+            var lyrics = await FetchLyricsForCurrentItemAsync();
+
+            await Dispatcher;
+            if (lyrics?.Any() ?? false)
+            {
+                _lyrics = lyrics.ToList();
+                LyricsList.ItemsSource = _lyrics;
+
+                _ = VisualStateManager.GoToState(this, "LyricsAvailableState", true);
+            }
+            else
+            {
+                _lyrics = null;
+                _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
+            }
+        }
+
+        private async Task<IEnumerable<SyncedLyricItem>> FetchLyricsForCurrentItemAsync()
+        {
+            try
+            {
+                var props = MPViewModel.PlayingItemProperties;
+                var lyrics = await MusixmatchHelper.GetSyncedLyricsAsync(props.Title, props.Artist);
+
+                var body = lyrics?.Message?.Body;
+                return body?.Subtitle?.Subtitles?.Where(i => !string.IsNullOrWhiteSpace(i.Text));
+            }
+            catch { }
+
+            return Enumerable.Empty<SyncedLyricItem>();
+        }
+
+        private void LyricItem_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var syncedLyricItem = (SyncedLyricItem)((LyricItem)sender).DataContext;
+            MPViewModel.Player.PlaybackSession.Position = syncedLyricItem.TimeSpan + TimeSpan.FromMilliseconds(150);
+        }
+
+        private async void Player_SeekCompleted(MediaPlayer sender, object args)
+        {
+            await Dispatcher;
+            UpdateCurrentLyric(sender.PlaybackSession.Position);
+        }
+
+        private async void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
+        {
+            await Dispatcher;
+            UpdateCurrentLyric(sender.Position);
+        }
+
+        private void UpdateCurrentLyric(TimeSpan playerPosition)
+        {
+            var lyricsItem = _lyrics?.LastOrDefault(item => item.TimeSpan.TotalSeconds < playerPosition.TotalSeconds);
+
+            if (lyricsItem != null && lyricsItem != LyricsList.SelectedItem)
+            {
+                var currentlySelectedLyric = _lyrics.FirstOrDefault(item => item.IsSelected);
+
+                if (currentlySelectedLyric != null)
+                {
+                    var currentlySelectedLyricIndex = _lyrics.IndexOf(currentlySelectedLyric);
+                    _lyrics[currentlySelectedLyricIndex].IsSelected = false;
+                }
+
+                int selectedLyricIndex = _lyrics.IndexOf(lyricsItem);
+                _lyrics[selectedLyricIndex].IsSelected = true;
+
+                LyricsList.SelectedIndex = selectedLyricIndex;
+                LyricsList.ScrollIntoView(lyricsItem);
+            }
+        }
     }
 }

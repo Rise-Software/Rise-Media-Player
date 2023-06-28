@@ -1,7 +1,7 @@
 ﻿using Rise.App.Dialogs;
-using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,8 +20,6 @@ namespace Rise.App.Settings
         private void ExpanderControl_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InsiderWallpapers));
-            SettingsDialogContainer.Breadcrumbs.
-                Add(ResourceLoaders.SidebarLoader.GetString("Walls"));
         }
     }
 }

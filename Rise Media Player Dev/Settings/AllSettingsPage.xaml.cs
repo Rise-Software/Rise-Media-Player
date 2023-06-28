@@ -1,8 +1,9 @@
-﻿using System;
-using System.Linq;
-using Rise.App.Dialogs;
-using Rise.Common.Extensions;
+﻿using Rise.App.Views;
+using Rise.App.Web;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,122 +26,56 @@ namespace Rise.App.Settings
             Current = this;
 
             TitleBar.SetTitleBarForCurrentView();
-        }
 
-        private void SettingsSidebar_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
-            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
-            if (selectedItem != null)
-            {
-                string selectedItemTag = selectedItem.Tag as string;
-
-                switch (selectedItemTag)
-                {
-                    case "Appearance":
-                        SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
-                        break;
-                    case "MediaLibrary":
-                        SettingsMainFrame.Navigate(typeof(MediaLibraryBasePage));
-                        break;
-                    case "Navigation":
-                        SettingsMainFrame.Navigate(typeof(NavigationPage));
-                        break;
-                    case "Playback":
-                        SettingsMainFrame.Navigate(typeof(PlaybackPage));
-                        break;
-                    case "Sync":
-                        SettingsMainFrame.Navigate(typeof(ComingSoonPage));
-                        break;
-                    case "Behaviour":
-                        SettingsMainFrame.Navigate(typeof(WindowsBehavioursPage));
-                        break;
-                    case "Components":
-                        SettingsMainFrame.Navigate(typeof(ComingSoonPage));
-                        break;
-                    case "About":
-                        SettingsMainFrame.Navigate(typeof(AboutPage));
-                        break;
-                    default:
-                        SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
-                        break;
-                }
-
-                FinishNavigation();
-            }
+            _ = SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
+            FinishNavigation();
         }
 
         private async void FeedbackSettings_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(Web.FeedbackPage).
-                ShowInApplicationViewAsync(null, 375, 600, true);
+            _ = await FeedbackPage.TryShowAsync();
         }
 
         private void Insider_Click(object sender, RoutedEventArgs e)
         {
-            SettingsMainFrame.Navigate(typeof(InsiderPage));
+            _ = SettingsMainFrame.Navigate(typeof(InsiderPage));
             FinishNavigation();
         }
 
         private void Language_Click(object sender, RoutedEventArgs e)
         {
-            SettingsMainFrame.Navigate(typeof(LanguagePage));
+            _ = SettingsMainFrame.Navigate(typeof(LanguagePage));
             FinishNavigation();
         }
 
         private void SettingsSidebar_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            //var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.InvokedItem;
-            //string selectedItemTag = selectedItem.Tag as string;
-
-            //switch (selectedItemTag)
-            //{
-            //    case "Appearance":
-            //        MainSettingsHeaderIcon.Glyph = "\uE771";
-            //        MainSettingsHeader.Text = "Appearance";
-            //        SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
-            //        break;
-            //    case "MediaLibrary":
-            //        MainSettingsHeaderIcon.Glyph = "\uEA69";
-            //        MainSettingsHeader.Text = "Media library";
-            //        SettingsMainFrame.Navigate(typeof(MediaLibraryBasePage));
-            //        break;
-            //    case "Navigation":
-            //        MainSettingsHeaderIcon.Glyph = "\uE8B0";
-            //        MainSettingsHeader.Text = "Navigation";
-            //        SettingsMainFrame.Navigate(typeof(NavigationPage));
-            //        break;
-            //    case "Playback":
-            //        MainSettingsHeaderIcon.Glyph = "\uF4C3";
-            //        MainSettingsHeader.Text = "Playback & sound";
-            //        SettingsMainFrame.Navigate(typeof(PlaybackPage));
-            //        break;
-        }
-
-        private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
-        {
-            if (Frame.CanGoBack)
+            string tag = args?.InvokedItemContainer?.Tag?.ToString();
+            if (tag != null)
             {
-                Frame.GoBack();
-            }
+                Type page = tag switch
+                {
+                    "Appearance" => typeof(AppearanceBasePage),
+                    "MediaLibrary" => typeof(MediaLibraryBasePage),
+                    "Navigation" => typeof(NavigationPage),
+                    "Playback" => typeof(PlaybackPage),
+                    "Behaviour" => typeof(WindowsBehavioursPage),
+                    "About" => typeof(AboutPage),
+                    _ => typeof(MediaSourcesPage),
+                };
 
-            var diag = new SettingsDialogContainer();
-            diag.Content = new SettingsPage();
+                if (SettingsMainFrame.CurrentSourcePageType != page)
+                {
+                    _ = SettingsMainFrame.Navigate(page, null, args.RecommendedNavigationTransitionInfo);
+                    SettingsMainFrame.BackStack.Clear();
 
-            _ = await diag.ShowAsync();
-            _ = SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
-            {
-                rootFrame.GoBack();
+                    FinishNavigation();
+                }
             }
         }
 
         private void FinishNavigation()
         {
-            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Collapsed;
             string type = SettingsMainFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
 
@@ -148,43 +83,39 @@ namespace Rise.App.Settings
             {
                 case "AppearanceBasePage":
                     MainSettingsHeaderIcon.Glyph = "\uE771";
-                    MainSettingsHeader.Text = "Appearance";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("Appearance");
                     break;
                 case "MediaLibraryBasePage":
                     MainSettingsHeaderIcon.Glyph = "\uEA69";
-                    MainSettingsHeader.Text = "Media library";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("MediaLibrary");
                     break;
                 case "NavigationPage":
                     MainSettingsHeaderIcon.Glyph = "\uE8B0";
-                    MainSettingsHeader.Text = "Navigation";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("Navigation");
                     break;
                 case "PlaybackPage":
                     MainSettingsHeaderIcon.Glyph = "\uF4C3";
-                    MainSettingsHeader.Text = "Playback & sound";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("PlaybackAndSound");
                     break;
                 case "ComingSoonPage":
                     MainSettingsHeaderIcon.Glyph = "\uE115";
-                    MainSettingsHeader.Text = "Coming soon...";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("ComingSoon");
                     break;
                 case "WindowsBehavioursPage":
                     MainSettingsHeaderIcon.Glyph = "\uEC7A";
-                    MainSettingsHeader.Text = "System behaviours";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("SystemBehaviors");
                     break;
                 case "AboutPage":
                     MainSettingsHeaderIcon.Glyph = "\uE946";
-                    MainSettingsHeader.Text = "About";
-                    break;
-                case "MediaSourcesPage":
-                    MainSettingsHeaderIcon.Glyph = "\uE115";
-                    MainSettingsHeader.Text = "Media Sources";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("About");
                     break;
                 case "InsiderPage":
                     MainSettingsHeaderIcon.Glyph = "\uF1AD";
-                    MainSettingsHeader.Text = "Insider Hub";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("InsiderHub");
                     break;
                 case "LanguagePage":
                     MainSettingsHeaderIcon.Glyph = "\uE12B";
-                    MainSettingsHeader.Text = "Language";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("Language");
                     break;
             }
         }
@@ -195,13 +126,15 @@ namespace Rise.App.Settings
             {
                 SettingsMainFrame.GoBack();
                 FinishNavigation();
-                GOBACKPAGE.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void GoBackToMain_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.GoBack();
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+            else
+                _ = Frame.Navigate(typeof(MainPage));
         }
     }
 }

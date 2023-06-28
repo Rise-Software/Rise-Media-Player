@@ -1,4 +1,5 @@
 ﻿using Rise.Common;
+using Rise.Common.Extensions.Markup;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
-    public class ArtistViewModel : ViewModel<Artist>
+    public sealed class ArtistViewModel : ViewModel<Artist>
     {
 
         #region Constructor
@@ -29,10 +30,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Name == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.Name;
             }
             set
@@ -62,21 +60,23 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the artist's song count.
+        /// Gets the artist's song count.
         /// </summary>
-        public int SongCount => App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
-        public string Songs => SongCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Songs");
+        public int SongCount
+            => App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
+        public string LocalizedSongCount
+            => ResourceHelper.GetLocalizedCount("Song", SongCount);
 
         /// <summary>
-        /// Gets or sets the artist's album count.
+        /// Gets the artist's album count.
         /// </summary>
-        public int AlbumCount => App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name);
-        public string Albums => AlbumCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Albums");
+        public int AlbumCount
+            => App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name);
+        public string LocalizedAlbumCount
+            => ResourceHelper.GetLocalizedCount("Album", AlbumCount);
 
-        /// <summary>
-        /// Combination of artist's song count and album count.
-        /// </summary>
-        public string SongsNAlbums => Albums + ", " + Songs;
+        public string LocalizedSongsAndAlbums
+            => $"{LocalizedSongCount}, {LocalizedAlbumCount}";
         #endregion
 
         #region Backend
@@ -98,52 +98,6 @@ namespace Rise.App.ViewModels
             {
                 await NewRepository.Repository.UpsertAsync(Model);
             }
-        }
-
-        /// <summary>
-        /// Deletes item data from the backend.
-        /// </summary>
-        public async Task DeleteAsync()
-        {
-            if (App.MViewModel.Artists.Contains(this))
-            {
-                App.MViewModel.Artists.Remove(this);
-                await NewRepository.Repository.DeleteAsync(Model);
-            }
-        }
-
-        /// <summary>
-        /// Checks whether or not the item is available. If it's not,
-        /// delete it.
-        /// </summary>
-        public async Task CheckAvailabilityAsync()
-        {
-            var songCount = (await NewRepository.Repository.GetItemsAsync<Song>()).Count(s => s.Artist == Model.Name);
-            var albumCount = (await NewRepository.Repository.GetItemsAsync<Album>()).Count(a => a.Artist == Model.Name);
-
-            if (songCount == 0 && albumCount == 0)
-            {
-                await DeleteAsync();
-            }
-        }
-        #endregion
-
-        #region Editing
-        /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        /*public async Task StartEditAsync()
-        {
-            _ = await typeof(PropertiesPage).
-                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
-        }*/
-
-        /// <summary>
-        /// Discards any edits that have been made, restoring the original values.
-        /// </summary>
-        public async Task CancelEditsAsync()
-        {
-            Model = await NewRepository.Repository.GetItemAsync<Artist>(Model.Id);
         }
         #endregion
     }

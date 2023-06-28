@@ -1,9 +1,9 @@
-﻿using Rise.App.ViewModels;
-using Rise.Common;
-using Rise.Common.Extensions;
+﻿using Rise.App.Dialogs;
+using Rise.App.ViewModels;
+using Rise.Common.Extensions.Markup;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -12,28 +12,32 @@ namespace Rise.App.Settings
         private SettingsViewModel ViewModel => App.SViewModel;
         private readonly List<string> Crossfade = new()
         {
-            ResourceLoaders.PlaybackLoader.GetString("Duration0"),
-            ResourceLoaders.PlaybackLoader.GetString("Duration3s"),
-            ResourceLoaders.PlaybackLoader.GetString("Duration5s"),
-            ResourceLoaders.PlaybackLoader.GetString("Duration10s")
+            ResourceHelper.GetString("NoCrossfade")
         };
 
         private readonly List<string> VideoScale = new()
         {
-            ResourceLoaders.PlaybackLoader.GetString("WindowSize"),
-            ResourceLoaders.PlaybackLoader.GetString("MatchRes")
+            ResourceHelper.GetString("ScaleToWindow"),
+            ResourceHelper.GetString("MatchResolution")
         };
 
         public PlaybackPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            string format = ResourceHelper.GetString("NSeconds");
+
+            Crossfade.Add(FormatSeconds("3"));
+            Crossfade.Add(FormatSeconds("5"));
+            Crossfade.Add(FormatSeconds("10"));
+
+            string FormatSeconds(string sec)
+                => string.Format(format, sec);
         }
 
-        private async void RiseEQLink_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnEqualizerExpanderClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            string uriToLaunch = @"https://github.com/Rise-Software/RiseEQ";
-            await uriToLaunch.LaunchAsync();
+            await new EqualizerDialog().ShowAsync();
         }
     }
 }

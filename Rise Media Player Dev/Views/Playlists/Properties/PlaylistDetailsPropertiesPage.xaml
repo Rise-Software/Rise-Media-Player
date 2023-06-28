@@ -3,8 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -18,112 +20,112 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <StackPanel Orientation="Vertical" Spacing="4">
-        <Border Style="{StaticResource SettingsCard}">
-            <StackPanel
-                Padding="0,4,0,0"
-                Orientation="Vertical"
-                Spacing="16">
-                <Grid ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="96" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <Border Style="{StaticResource BorderCardStyle}">
+                <StackPanel
+                    Padding="0,4,0,0"
+                    Orientation="Vertical"
+                    Spacing="16">
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="96" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <Border CornerRadius="5">
-                        <Image
-                            Width="96"
-                            Height="96"
-                            Stretch="UniformToFill">
-                            <Image.Source>
-                                <BitmapImage
-                                    DecodePixelHeight="96"
-                                    DecodePixelWidth="96"
-                                    UriSource="{x:Bind Playlist.Icon, Mode=OneWay}" />
-                            </Image.Source>
-                        </Image>
-                    </Border>
+                        <Border CornerRadius="5">
+                            <Image
+                                Width="96"
+                                Height="96"
+                                Stretch="UniformToFill">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{x:Bind Playlist.Icon, Mode=OneWay}" />
+                                </Image.Source>
+                            </Image>
+                        </Border>
 
-                    <StackPanel
-                        Grid.Column="1"
-                        Orientation="Vertical"
-                        Spacing="8">
+                        <StackPanel
+                            Grid.Column="1"
+                            Orientation="Vertical"
+                            Spacing="8">
+                            <TextBlock
+                                Margin="4,0,0,0"
+                                FontSize="22"
+                                MaxLines="2"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="{x:Bind Playlist.Title, Mode=OneWay}"
+                                TextTrimming="WordEllipsis" />
+
+                            <TextBlock
+                                Margin="3,-4,0,4"
+                                FontSize="14"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind Playlist.Description, Mode=OneWay}"
+                                TextTrimming="WordEllipsis" />
+
+                            <muxc:SplitButton Name="EditPlaylistIcon" Click="EditPlaylistIcon_Click">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon FontSize="16" Glyph="&#xE104;" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=EditPlaylist}" />
+                                </StackPanel>
+                                <muxc:SplitButton.Flyout>
+                                    <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                        <MenuFlyoutItem
+                                            Name="exportPlaylistArt"
+                                            Click="exportPlaylistArt_Click"
+                                            Text="{markup:ResourceHelper Name=ExportPlaylistIcon}">
+                                            <MenuFlyoutItem.Icon>
+                                                <FontIcon Glyph="&#xE159;" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </muxc:SplitButton.Flyout>
+                            </muxc:SplitButton>
+                        </StackPanel>
+                    </Grid>
+
+                    <Rectangle
+                        Height="1"
+                        Margin="-16,0,-16,-8"
+                        HorizontalAlignment="Stretch"
+                        Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+
+                    <Grid ColumnSpacing="12" RowSpacing="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32" />
+                            <RowDefinition Height="32" />
+                        </Grid.RowDefinitions>
+
                         <TextBlock
-                            Margin="4,0,0,0"
-                            FontSize="22"
-                            MaxLines="2"
-                            Style="{StaticResource TitleTextBlockStyle}"
-                            Text="{x:Bind Playlist.Title, Mode=OneWay}"
-                            TextTrimming="WordEllipsis" />
-
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=PlaylistTitle}" />
                         <TextBlock
-                            Margin="3,-4,0,4"
-                            FontSize="14"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{x:Bind Playlist.Description, Mode=OneWay}"
-                            TextTrimming="WordEllipsis" />
+                            Grid.Row="1"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=Description}" />
 
-                        <muxc:SplitButton Name="EditPlaylistIcon" Click="EditPlaylistIcon_Click">
-                            <StackPanel Orientation="Horizontal" Spacing="6">
-                                <FontIcon FontSize="16" Glyph="&#xE104;" />
-                                <TextBlock x:Uid="/Details/EditPlaylist" Style="{StaticResource BodyTextBlockStyle}" />
-                            </StackPanel>
-                            <muxc:SplitButton.Flyout>
-                                <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                    <MenuFlyoutItem
-                                        Name="exportPlaylistArt"
-                                        Click="exportPlaylistArt_Click"
-                                        Text="Export playlist icon">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xE159;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                </MenuFlyout>
-                            </muxc:SplitButton.Flyout>
-                        </muxc:SplitButton>
-                    </StackPanel>
-                </Grid>
+                        <TextBox Grid.Column="1" Text="{x:Bind Playlist.Title, Mode=TwoWay}" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{x:Bind Playlist.Description, Mode=TwoWay}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0,-16,-8"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                <Grid ColumnSpacing="12" RowSpacing="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="32" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock
-                        x:Uid="/Details/PlaylistTitle"
-                        Margin="0,-2,0,0"
-                        VerticalAlignment="Center" />
-                    <TextBlock
-                        x:Uid="/Details/PlaylistDescription"
-                        Grid.Row="1"
-                        Margin="0,-2,0,0"
-                        VerticalAlignment="Center" />
-
-                    <TextBox Grid.Column="1" Text="{x:Bind Playlist.Title, Mode=TwoWay}" />
-                    <TextBox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Text="{x:Bind Playlist.Description, Mode=TwoWay}" />
-                </Grid>
-            </StackPanel>
-        </Border>
-
-        <muxc:TeachingTip
-            x:Name="LocalTip"
-            x:Uid="/Details/Local"
-            IsLightDismissEnabled="True"
-            PreferredPlacement="Bottom" />
-    </StackPanel>
+            <muxc:TeachingTip
+                x:Name="LocalTip"
+                Title="{markup:ResourceHelper Name=MediaLocalTitle}"
+                IsLightDismissEnabled="True"
+                PreferredPlacement="Bottom"
+                Subtitle="{markup:ResourceHelper Name=MediaLocalDesc}" />
+        </StackPanel>
+    </ScrollViewer>
 </Page>

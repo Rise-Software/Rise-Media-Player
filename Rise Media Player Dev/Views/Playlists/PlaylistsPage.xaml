@@ -2,9 +2,9 @@
     x:Class="Rise.App.Views.PlaylistsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -12,12 +12,10 @@
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="320"
     d:DesignWidth="500"
-    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
         <conv:NullToBoolean x:Key="NullToBool" />
-        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -29,22 +27,19 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnPlaylist"
-            Title="Group with playlists"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnPlaylistH}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnPlaylistDesc}">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
+                <Image Source="ms-appx:///Assets/Branding/DiscyBanner.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <TextBlock
-            d:Text="Playlists"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=Playlists}" />
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -54,34 +49,46 @@
             <AppBarButton
                 Click="CreatePlaylistButton_Click"
                 Icon="Add"
-                Label="New playlist" />
+                Label="{markup:ResourceHelper Name=NewPlaylist}" />
 
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Delete"
                 Icon="Delete"
                 IsEnabled="False"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Label="{markup:ResourceHelper Name=RemoveThing}"
+                Style="{StaticResource AppBarButtonCompactStyle}" />
             <AppBarButton
-                x:Uid="/Information/Edit"
                 Command="{x:Bind EditItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Edit"
                 IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarButtonCompactStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=PropertiesInfo}" />
 
             <AppBarSeparator />
 
-            <AppBarButton
-                Click="ImportPlaylist_Click"
-                Icon="OpenFile"
-                Label="Import" />
+            <AppBarButton Icon="OpenFile" Label="{markup:ResourceHelper Name=Import}">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Click="ImportFromFile_Click" Text="{markup:ResourceHelper Name=FromFile}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE1A5;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Click="ImportFromFolder_Click" Text="{markup:ResourceHelper Name=FromFolder}">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE838;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
 
             <AppBarButton
                 Icon="Save"
                 IsEnabled="False"
-                Label="Export" />
+                Label="{markup:ResourceHelper Name=Export}" />
         </CommandBar>
 
         <GridView
@@ -89,8 +96,6 @@
             Grid.Row="2"
             Margin="-56,0"
             Padding="44,0,44,120"
-            animations:Connected.ListItemElementName="PlaylistThumb"
-            animations:Connected.ListItemKey="PlaylistArt"
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -99,43 +104,43 @@
             <GridView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/MediaLibrary/ShufflePlaylist"
                         Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Shuffle" />
+                        Icon="Shuffle"
+                        Text="{markup:ResourceHelper Name=ShufflePlaylist}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/Share"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
                         Click="DeletePlaylist_Click"
                         Icon="Delete"
-                        Text="Delete playlist" />
+                        Text="{markup:ResourceHelper Name=RemovePlaylist}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/EditPlaylistText"
                         Command="{x:Bind EditItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Edit" />
+                        Icon="Edit"
+                        Text="{markup:ResourceHelper Name=EditPlaylist}" />
                 </MenuFlyout>
             </GridView.ContextFlyout>
 
@@ -173,10 +178,8 @@
                                 FontWeight="Normal"
                                 MaxLines="1"
                                 Style="{StaticResource BaseTextBlockStyle}"
-                                TextWrapping="Wrap">
-                                <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />,
-                                <Run Text="{x:Bind VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind VideosCountString, Mode=OneWay}" />
-                            </TextBlock>
+                                Text="{x:Bind LocalizedSongsAndVideos}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

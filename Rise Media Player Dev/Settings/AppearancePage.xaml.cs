@@ -1,7 +1,7 @@
-﻿using Rise.App.Dialogs;
-using Rise.App.ViewModels;
-using Rise.Common;
+﻿using Rise.App.ViewModels;
 using Rise.Common.Enums;
+using Rise.Common.Extensions.Markup;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
@@ -9,8 +9,6 @@ using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -20,65 +18,118 @@ namespace Rise.App.Settings
 
         private readonly List<string> Themes = new()
         {
-            ResourceLoaders.AppearanceLoader.GetString("Light"),
-            ResourceLoaders.AppearanceLoader.GetString("Dark"),
-            ResourceLoaders.AppearanceLoader.GetString("System")
+            ResourceHelper.GetString("Light"),
+            ResourceHelper.GetString("Dark"),
+            ResourceHelper.GetString("UseSystemSetting")
         };
 
         private readonly List<string> ColorThemes = new()
         {
-            "No glaze",
-            "Use system accent colour",
-            "Use custom colour",
-            "Use album art"
+            ResourceHelper.GetString("/Settings/AppearanceNoGlaze"),
+            ResourceHelper.GetString("/Settings/AppearanceSystemGlazeColor"),
+            ResourceHelper.GetString("/Settings/AppearanceCustomGlazeColor"),
+            ResourceHelper.GetString("/Settings/AppearanceGlazeAlbumArt")
         };
+
+        private static List<NamedColor> _glazeColors;
+        private List<NamedColor> GlazeColors => _glazeColors;
 
         public AppearancePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
-            ChangeThemeTip.IsOpen = false;
 
-            foreach (Border border in RiseColorsPanel.Children)
+            if (_glazeColors == null)
             {
-                border.PointerPressed += ColorBorder_PointerPressed;
+                _glazeColors = new();
+                PopulateColors();
             }
         }
 
-        private void ColorBorder_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            Border border = (Border)sender;
+            ThemeChange.SelectionChanged += ThemeChange_SelectionChanged;
+            ColorThemeComboBox.SelectionChanged += ColorThemeComboBox_SelectionChanged;
 
-            var bg = border.Background as SolidColorBrush;
-            var color = bg.Color;
-
-            color.A = 25;
-            ViewModel.GlazeColors = color;
-
-            foreach (Border border1 in RiseColorsPanel.Children)
-            {
-                border1.BorderBrush = new SolidColorBrush();
-                border1.BorderThickness = new Thickness(0);
-            }
-
-            border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
-            border.BorderThickness = new Thickness(3);
+            ColorGrid.SelectionChanged += ColorGrid_SelectionChanged;
         }
 
-        private void SidebarCustomize_Click(object sender, RoutedEventArgs e)
+        private void PopulateColors()
         {
-            Frame.Navigate(typeof(NavigationPage));
+            AddColor(255, 185, 0);
+            AddColor(255, 140, 0);
+            AddColor(247, 99, 12);
+            AddColor(202, 80, 16);
+            AddColor(218, 59, 1);
+            AddColor(239, 105, 80);
+            AddColor(209, 52, 56);
+            AddColor(255, 67, 67);
+            AddColor(231, 72, 86);
+            AddColor(232, 17, 35);
+            AddColor(234, 0, 94);
+            AddColor(195, 0, 82);
+            AddColor(227, 0, 140);
+            AddColor(191, 0, 119);
+            AddColor(194, 57, 179);
+            AddColor(154, 0, 137);
+            AddColor(0, 120, 212);
+            AddColor(0, 99, 177);
+            AddColor(142, 140, 216);
+            AddColor(107, 105, 214);
+            AddColor(135, 100, 184);
+            AddColor(116, 77, 169);
+            AddColor(177, 70, 194);
+            AddColor(136, 23, 152);
+            AddColor(0, 153, 188);
+            AddColor(45, 125, 154);
+            AddColor(0, 183, 195);
+            AddColor(3, 131, 135);
+            AddColor(0, 178, 148);
+            AddColor(1, 133, 116);
+            AddColor(0, 204, 106);
+            AddColor(16, 137, 62);
+            AddColor(122, 117, 116);
+            AddColor(93, 90, 88);
+            AddColor(104, 118, 138);
+            AddColor(81, 92, 107);
+            AddColor(86, 124, 116);
+            AddColor(72, 104, 96);
+            AddColor(73, 130, 5);
+            AddColor(16, 124, 16);
+            AddColor(118, 118, 118);
+            AddColor(76, 74, 72);
+            AddColor(105, 121, 126);
+            AddColor(74, 84, 89);
+            AddColor(100, 124, 100);
+            AddColor(82, 94, 84);
+            AddColor(132, 117, 69);
+            AddColor(126, 115, 95);
 
-            SettingsDialogContainer.Breadcrumbs.
-                Add(ResourceLoaders.AppearanceLoader.GetString("Sidebar"));
+            static void AddColor(byte r, byte g, byte b)
+            {
+                var color = Color.FromArgb(255, r, g, b);
+                string name = ColorHelper.ToDisplayName(color);
+
+                _glazeColors.Add(new(name, color));
+            }
+        }
+    }
+
+    // Event handlers
+    public sealed partial class AppearancePage
+    {
+        private void ThemeChange_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ChangeThemeTip.IsOpen = true;
         }
 
         private void ColorThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.SelectedGlaze = (GlazeTypes)ColorThemeComboBox.SelectedIndex;
+            var glaze = (GlazeTypes)ColorThemeComboBox.SelectedIndex;
+            if (ViewModel.SelectedGlaze == glaze)
+                return;
 
-            string state = "CustomGlazeDisabled";
-            switch (ViewModel.SelectedGlaze)
+            ViewModel.SelectedGlaze = glaze;
+            switch (glaze)
             {
                 case GlazeTypes.None:
                     ViewModel.GlazeColors = Colors.Transparent;
@@ -93,37 +144,23 @@ namespace Rise.App.Settings
                     break;
 
                 case GlazeTypes.CustomColor:
-                    state = "CustomGlazeEnabled";
-                    foreach (Border border in RiseColorsPanel.Children)
-                    {
-                        border.BorderBrush = new SolidColorBrush();
-                        border.BorderThickness = new Thickness(0);
+                    var color = (NamedColor)ColorGrid.SelectedItem;
+                    var col = color.Color;
 
-                        var bg = border.Background as SolidColorBrush;
-                        var color = bg.Color;
-                        color.A = 25;
-
-                        if (ViewModel.GlazeColors.Equals(color))
-                        {
-                            border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
-                            border.BorderThickness = new Thickness(3);
-                            break;
-                        }
-                    }
+                    ViewModel.GlazeColors = Color.FromArgb(25, col.R, col.G, col.B);
                     break;
             }
+        }
 
-            VisualStateManager.GoToState(this, state, false);
+        private void ColorGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var color = (NamedColor)e.AddedItems[0];
+            var col = color.Color;
+
+            ViewModel.GlazeColors = Color.FromArgb(25, col.R, col.G, col.B);
         }
 
         private async void ChangeThemeTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-        {
-            await CoreApplication.RequestRestartAsync("Theme changed");
-        }
-
-        private void ThemeChange_DropDownClosed(object sender, object e)
-        {
-            ChangeThemeTip.IsOpen = true;
-        }
+            => _ = await CoreApplication.RequestRestartAsync("ThemeChanged");
     }
 }

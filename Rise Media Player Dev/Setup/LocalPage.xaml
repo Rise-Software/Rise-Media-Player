@@ -3,56 +3,42 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Setup"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:settings="using:Rise.App.Settings"
+    xmlns:visuals="using:Rise.App.AnimatedVisuals"
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock x:Uid="/Local/Header" Style="{StaticResource BaseTextBlockStyle}" />
-        <!--<StackPanel Orientation="Vertical" Spacing="4">
-            <uc:ExpanderControl x:Uid="/MediaLibrary/ChooseFolders"
-                                   ExpanderStyle="Button"
-                                Click="ExpanderControl_Click"
-                                   Icon="&#xE8B7;">
-                <FontIcon Glyph="&#xE2B4;"
-                          FontSize="16"
-                          VerticalAlignment="Center" />
-            </uc:ExpanderControl>
+        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=/Setup/LocalH}">
+            <local:SetupPageContent.Icon>
+                <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
+                    <muxc:AnimatedVisualPlayer.Source>
+                        <visuals:PatchLottie />
+                    </muxc:AnimatedVisualPlayer.Source>
+                </muxc:AnimatedVisualPlayer>
+            </local:SetupPageContent.Icon>
 
-            <uc:ExpanderControl x:Uid="/MediaLibrary/Deletion"
-                                   ExpanderStyle="Static"
-                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   Icon="&#xE74D;">
-        -->
-        <!--
-            ComboBox ItemsSource="{x:Bind Deletion}"
-            PlaceholderText="Delete from device"
-            SelectedIndex="{Binding Deletion, Mode=TwoWay}" /
-        -->
-        <!--
-            </uc:ExpanderControl>
+            <StackPanel>
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/LocalDesc}" />
+                <settings:MediaSourcesPage Margin="-48,0" />
+            </StackPanel>
+        </local:SetupPageContent>
 
-            <uc:ExpanderControl x:Uid="/MediaLibrary/SeparateLocal"
-                                   ExpanderStyle="Static"
-                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   Icon="&#xE145;">
-        -->
-        <!--  ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /  -->
-        <!--
-            </uc:ExpanderControl>
-        </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SizeStates">
+                <VisualState x:Name="LargeSizeState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="770" />
+                    </VisualState.StateTriggers>
 
-        <TextBlock x:Uid="/Local/Tip"
-                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                   Style="{StaticResource BodyTextBlockStyle}" />-->
-        <ScrollViewer Padding="0,48,0,0" HorizontalScrollBarVisibility="Auto">
-            <Frame
-                x:Name="SetupLocalFrame"
-                Width="486"
-                HorizontalAlignment="Left"
-                x:FieldModifier="public" />
-        </ScrollViewer>
+                    <VisualState.Setters>
+                        <Setter Target="SetupRoot.ShowIcon" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutExtrasH" xml:space="preserve">
+    <value>Sisäpiirin lisäominaisuudet</value>
+  </data>
+  <data name="AboutMoreCopyVersion" xml:space="preserve">
+    <value>Kopioi versio</value>
+  </data>
+  <data name="AboutMoreH" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="AboutMoreReleases" xml:space="preserve">
+    <value>Julkaisut</value>
+  </data>
+  <data name="AboutMoreTitle" xml:space="preserve">
+    <value>Lisää versiotietoja</value>
+  </data>
+  <data name="AboutSave" xml:space="preserve">
+    <value>Tallenna laitteelleni</value>
+  </data>
+  <data name="AboutSocialDesc" xml:space="preserve">
+    <value>Pysy ajan tasalla uusimmista päivityksistä.</value>
+  </data>
+  <data name="AboutSocialTitle" xml:space="preserve">
+    <value>Sosiaalinen media</value>
+  </data>
+  <data name="AboutWallsDesc" xml:space="preserve">
+    <value>Pääsy joihinkin yksinomaisiin RiseMP taustakuviin.</value>
+  </data>
+  <data name="AboutWallsTitle" xml:space="preserve">
+    <value>Työpöydän taustakuvat &amp; teemat</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Lisää tili</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Lisää kansio</value>
+  </data>
+  <data name="AddFolders" xml:space="preserve">
+    <value>Lisää kansioita</value>
+  </data>
+  <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
+    <value>Käytä albumin kansikuvaa</value>
+  </data>
+  <data name="AppearanceAppLayout" xml:space="preserve">
+    <value>Sovelluksen asettelu</value>
+  </data>
+  <data name="AppearanceAppWindow" xml:space="preserve">
+    <value>Sovelluksen ikkuna</value>
+  </data>
+  <data name="AppearanceChooseColor" xml:space="preserve">
+    <value>Valitse ikkunan lasitus</value>
+  </data>
+  <data name="AppearanceChooseTheme" xml:space="preserve">
+    <value>Valitse väri</value>
+  </data>
+  <data name="AppearanceCustomGlazeColor" xml:space="preserve">
+    <value>Aseta mukautettu väri</value>
+  </data>
+  <data name="AppearanceIconsAndFonts" xml:space="preserve">
+    <value>Kuvakkeet ja kirjasimet</value>
+  </data>
+  <data name="AppearanceItemDesc" xml:space="preserve">
+    <value>Mukauta sovelluksen värejä, teemoja, kuvakkeita, ulkoasuja ja liikettä.</value>
+  </data>
+  <data name="AppearanceNoGlaze" xml:space="preserve">
+    <value>Ei lasitusta</value>
+  </data>
+  <data name="AppearanceNothing" xml:space="preserve">
+    <value>Täällä ei ole mitään näytettävää. Jos haluat näyttää käytettävissä olevat värit, valitse 'Käytä mukautettua väriä' pudotusvalikosta.</value>
+  </data>
+  <data name="AppearanceOverview" xml:space="preserve">
+    <value>Yhteenveto</value>
+  </data>
+  <data name="AppearancePickUp" xml:space="preserve">
+    <value>Jatka siitä mihin jäit</value>
+  </data>
+  <data name="AppearanceStartupTitle" xml:space="preserve">
+    <value>Käynnistyksessä</value>
+  </data>
+  <data name="AppearanceSystemGlazeColor" xml:space="preserve">
+    <value>Käytä järjestelmän korostusväriä</value>
+  </data>
+  <data name="AppearanceTip" xml:space="preserve">
+    <value>*Tiiviin tilan muutokset eivät tule voimaan ennen kuin asennus on valmis.</value>
+  </data>
+  <data name="AppThemeChanged" xml:space="preserve">
+    <value>Sovelluksen teema muutettu</value>
+  </data>
+  <data name="ColorfulIcons" xml:space="preserve">
+    <value>Värikkäät kuvakkeet</value>
+  </data>
+  <data name="ConnectToLastFmDesc" xml:space="preserve">
+    <value>Tutustu äskettäin soitettuihin, kuunteluhistoriaan ja lähetä soittotiedot Internetiin.</value>
+  </data>
+  <data name="ConnectToLastFmH" xml:space="preserve">
+    <value>Yhdistä last.fm-palveluun</value>
+  </data>
+  <data name="CustomizedColors" xml:space="preserve">
+    <value>Mukautetut värit</value>
+  </data>
+  <data name="HighContrastIcons" xml:space="preserve">
+    <value>Korkeakontrastiset kuvakkeet</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Sisäpiirin Hub</value>
+  </data>
+  <data name="MatchSystemAppLang" xml:space="preserve">
+    <value>Käytä järjestelmän kieltä</value>
+  </data>
+  <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
+    <value>Skannaa tietyn ajan kun sovellus on auki.</value>
+  </data>
+  <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
+    <value>Säännöllinen skannaus</value>
+  </data>
+  <data name="MediaLibraryDeletionTitle" xml:space="preserve">
+    <value>Poistettaessa paikallista mediaa</value>
+  </data>
+  <data name="MediaLibraryDone" xml:space="preserve">
+    <value>Tyhjennä kaikki</value>
+  </data>
+  <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
+    <value>Skannaa uutta mediaa tapahtuman tai tapahtumien jälkeen.</value>
+  </data>
+  <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
+    <value>Skannaa kun irrotettava laite tai asema on yhdistetty</value>
+  </data>
+  <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
+    <value>Skannaa kun lisäät tiedostoja medialähteisiin</value>
+  </data>
+  <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
+    <value>Skannaa kun lisäät uuden median sijainnin</value>
+  </data>
+  <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
+    <value>Skannaa kun sovellus avataan</value>
+  </data>
+  <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
+    <value>Älykäs tapahtuman skannaus</value>
+  </data>
+  <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
+    <value>Hae tiedot Internetistä tarpeen mukaan</value>
+  </data>
+  <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
+    <value>Tiedostot ja kansiot</value>
+  </data>
+  <data name="MediaLibraryItemDesc" xml:space="preserve">
+    <value>Hallitse medialähteitä, verkkopalveluita ja skannauksen asetuksia.</value>
+  </data>
+  <data name="MediaLibraryLocalMediaH" xml:space="preserve">
+    <value>Paikallinen media &amp; laitteet</value>
+  </data>
+  <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
+    <value>Videoita, musiikkia ja muuta</value>
+  </data>
+  <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
+    <value>Hallinnoi paikallisia mediakansioita</value>
+  </data>
+  <data name="MediaLibraryManualScanDesc" xml:space="preserve">
+    <value>Skannaa kansiot, jotka olet jo lisännyt musiikille ja videoille lisätäksesi ne kirjastoon.</value>
+  </data>
+  <data name="MediaLibraryManualScanTitle" xml:space="preserve">
+    <value>Manuaalinen skannaus</value>
+  </data>
+  <data name="MediaLibraryMetadata" xml:space="preserve">
+    <value>Metatiedot</value>
+  </data>
+  <data name="MediaLibraryOnlineDataH" xml:space="preserve">
+    <value>Verkossa olevat tiedot</value>
+  </data>
+  <data name="MediaLibraryRemoveFolder" xml:space="preserve">
+    <value>Poista kansio</value>
+  </data>
+  <data name="MediaLibraryRippingDesc" xml:space="preserve">
+    <value>Valitse mitä haluat tapahtuvan kun kopioit musiikkia levyltä.</value>
+  </data>
+  <data name="MediaLibraryRippingTitle" xml:space="preserve">
+    <value>Levyn kopioinnin asetukset</value>
+  </data>
+  <data name="MediaSourcesContainsMusic" xml:space="preserve">
+    <value>Sisältää musiikkia</value>
+  </data>
+  <data name="MediaSourcesContainsVideos" xml:space="preserve">
+    <value>Sisältää videoita</value>
+  </data>
+  <data name="MediaSourcesInfo" xml:space="preserve">
+    <value>Etsimme jo mediaa oletusarvoisista mediapaikoista (Musiikki ja Videot). Jos tallennat mediasi vain niihin, ei ole tarvetta lisätä kansiota. Jos näin ei ole, valitse 'Lisää kansio' lisätäksesi kaikki mediakansiosi.</value>
+  </data>
+  <data name="NavigationAddRemoveH" xml:space="preserve">
+    <value>Lisää tai poista sivupalkin kohteita</value>
+  </data>
+  <data name="NavigationAppearanceH" xml:space="preserve">
+    <value>Ulkoasu</value>
+  </data>
+  <data name="NavigationGeneralItems" xml:space="preserve">
+    <value>Yleiset kohteet</value>
+  </data>
+  <data name="NavigationHamburgerTitle" xml:space="preserve">
+    <value>Näytä hampurilaispainike</value>
+  </data>
+  <data name="NavigationIconStyle" xml:space="preserve">
+    <value>Kuvakkeen tyyli</value>
+  </data>
+  <data name="NavigationItemDesc" xml:space="preserve">
+    <value>Muuta napsautuksen toimintoja, käynnistysvalintoja.</value>
+  </data>
+  <data name="NavigationResize" xml:space="preserve">
+    <value>Ikkunan koon muuttaminen</value>
+  </data>
+  <data name="NavigationShowHeader" xml:space="preserve">
+    <value>Näytä otsikko</value>
+  </data>
+  <data name="OpenClassicDialog" xml:space="preserve">
+    <value>Avaa klassinen valintaikkuna</value>
+  </data>
+  <data name="PlaybackCrossfadeDesc" xml:space="preserve">
+    <value>Sekoita musiikkikappaleiden loppu ja alku.</value>
+  </data>
+  <data name="PlaybackCrossfadeTitle" xml:space="preserve">
+    <value>Ristiinhäivytys</value>
+  </data>
+  <data name="PlaybackEQDesc" xml:space="preserve">
+    <value>Valitse erilaisia ääniprofiileja mediatiedoston tyypistä riippuen.</value>
+  </data>
+  <data name="PlaybackEQTitle" xml:space="preserve">
+    <value>Taajuuskorjain</value>
+  </data>
+  <data name="PlaybackGaplessDesc" xml:space="preserve">
+    <value>Siirrymme välittömästi seuraavaan kappaleeseen ilman odottamista.</value>
+  </data>
+  <data name="PlaybackGaplessTitle" xml:space="preserve">
+    <value>Aukoton toisto</value>
+  </data>
+  <data name="PlaybackGeneralH" xml:space="preserve">
+    <value>Yleiset</value>
+  </data>
+  <data name="PlaybackMusicH" xml:space="preserve">
+    <value>Musiikki</value>
+  </data>
+  <data name="PlaybackScalingDesc" xml:space="preserve">
+    <value>Säädä miten videon koko muuttuu ikkunan koosta riippuen.</value>
+  </data>
+  <data name="PlaybackScalingTitle" xml:space="preserve">
+    <value>Skaalaus</value>
+  </data>
+  <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
+    <value>Muuta videon resoluutiota ja musiikin bittinopeutta.</value>
+  </data>
+  <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
+    <value>Hallitse suoratoiston laatua</value>
+  </data>
+  <data name="PlaybackVideoH" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="PlaybackVisualizerTitle" xml:space="preserve">
+    <value>Visualisoija</value>
+  </data>
+  <data name="RecentColors" xml:space="preserve">
+    <value>Viimeaikaiset värit</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Palauta oletusarvot</value>
+  </data>
+  <data name="RunEvery" xml:space="preserve">
+    <value>Suorita joka:</value>
+  </data>
+  <data name="ScanNow" xml:space="preserve">
+    <value>Skannaa nyt</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Valitse kieli</value>
+  </data>
+  <data name="SelectLanguageDesc" xml:space="preserve">
+    <value>Valitse kieli käsin luettelosta.</value>
+  </data>
+  <data name="SettingsFluentColor" xml:space="preserve">
+    <value>Fluent väri</value>
+  </data>
+  <data name="SettingsHighContrast" xml:space="preserve">
+    <value>Korkea kontrasti</value>
+  </data>
+  <data name="SettingsMenuBar" xml:space="preserve">
+    <value>Valikkopalkki</value>
+  </data>
+  <data name="SettingsMenus" xml:space="preserve">
+    <value>Asetusvalikot</value>
+  </data>
+  <data name="SettingsSidebar" xml:space="preserve">
+    <value>Sivupalkki (klassinen)</value>
+  </data>
+  <data name="SettingsStyle" xml:space="preserve">
+    <value>Asetusten tyyli</value>
+  </data>
+  <data name="StartupSettings" xml:space="preserve">
+    <value>Käynnistysasetukset</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
+    <value>Tämä ominaisuus on poistettu käytöstä järjestelmänvalvojan nykyisten käytäntöjen vuoksi. Jos tämä on tarpeen, ota yhteyttä järjestelmänvalvojaan.</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
+    <value>Tämä ominaisuus on poistettu käytöstä nykyisten käynnistysasetusten vuoksi. Muokkaa näitä asetuksia napsauttamalla alla olevaa linkkiä, ja käynnistä sovellus uudelleen.</value>
+  </data>
+  <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
+    <value>Tämä ominaisuus on käytössä, mutta sitä ei voi muokata järjestelmänvalvojan nykyisten käytäntöjen vuoksi. Jos tämä on tarpeen, ota yhteyttä järjestelmänvalvojaan.</value>
+  </data>
+  <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
+    <value>Jotkin asetukset eivät ehkä ole käytettävissä, koska käytät Rise Media Playerin vuotanutta versiota.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
+    <value>Jotkut asetukset eivät ehkä ole käytettävissä. Voidaksesi käyttää niitä, päivitä tietokoneesi Windows 11 -versioon.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
+    <value>Käytössäsi on Windows 10</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
+    <value>Kaikkien asetusten pitäisi olla käytettävissä.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
+    <value>Käytössäsi on Windows 11</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Sovellusasetukset</value>
+  </data>
+  <data name="ViewColors" xml:space="preserve">
+    <value>Näytä värit</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Näytä tiedostot</value>
+  </data>
+  <data name="WindowsColors" xml:space="preserve">
+    <value>Windowsin värit</value>
+  </data>
+</root>

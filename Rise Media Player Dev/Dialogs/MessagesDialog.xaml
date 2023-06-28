@@ -2,10 +2,9 @@
     x:Class="Rise.App.Dialogs.MessagesDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:messages="using:Rise.Data.Messages"
     mc:Ignorable="d">
 
     <Grid
@@ -13,7 +12,6 @@
         Height="200"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
-        x:DefaultBindMode="OneWay"
         ColumnSpacing="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
@@ -24,7 +22,7 @@
             x:Name="NotificationsList"
             IsItemClickEnabled="True"
             IsRightTapEnabled="True"
-            ItemsSource="{x:Bind app:App.MViewModel.Notifications, Mode=OneTime}"
+            ItemsSource="{x:Bind NBackend.Items}"
             SelectedItem="{x:Bind SelectedNotification, Mode=TwoWay}"
             SelectionMode="Single">
             <ListView.ContextFlyout>
@@ -38,26 +36,26 @@
             </ListView.ContextFlyout>
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:NotificationViewModel">
+                <DataTemplate x:DataType="messages:BasicNotification">
                     <Grid Padding="10" ColumnSpacing="7">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="32" />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <FontIcon Glyph="{x:Bind Icon}" />
-
-                        <StackPanel Grid.Column="1" Orientation="Vertical">
-                            <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{x:Bind Title}" />
-                            <TextBlock Text="{x:Bind Description}" />
-                        </StackPanel>
+                        <FontIcon HorizontalAlignment="Center" Glyph="{x:Bind Icon}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind Title}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
         <ScrollViewer Grid.Column="1">
-            <StackPanel Spacing="8">
+            <StackPanel x:DefaultBindMode="OneWay" Spacing="8">
                 <StackPanel Orientation="Horizontal">
                     <FontIcon
                         Width="32"
@@ -69,7 +67,7 @@
                         FontWeight="SemiBold"
                         Text="{x:Bind SelectedNotification.Title}" />
                 </StackPanel>
-                <TextBlock IsTextSelectionEnabled="True" Text="{x:Bind SelectedNotification.Description}" />
+                <TextBlock IsTextSelectionEnabled="True" Text="{x:Bind SelectedNotification.Content}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

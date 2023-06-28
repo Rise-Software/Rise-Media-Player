@@ -2,26 +2,42 @@
     x:Class="Rise.App.Settings.AppearancePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Rise.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <Thickness x:Key="GridViewItemSelectedBorderThickness">3</Thickness>
+        <StaticResource x:Key="GridViewItemBackgroundSelected" ResourceKey="ApplicationForegroundThemeBrush" />
+        <StaticResource x:Key="GridViewItemBackgroundSelectedPointerOver" ResourceKey="ApplicationForegroundThemeBrush" />
+    </Page.Resources>
 
     <StackPanel
-        Margin="0,10,0,0"
+        Margin="0,12,0,12"
         Orientation="Vertical"
         Spacing="4">
+        <StackPanel.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </TransitionCollection>
+        </StackPanel.ChildrenTransitions>
+        
         <muxc:TeachingTip
             x:Name="ChangeThemeTip"
-            Title="App theme changed"
+            Title="{markup:ResourceHelper Name=/Settings/AppThemeChanged}"
             ActionButtonClick="ChangeThemeTip_ActionButtonClick"
-            ActionButtonContent="Restart now"
-            CloseButtonContent="Maybe later"
+            ActionButtonContent="{markup:ResourceHelper Name=RestartNow}"
+            CloseButtonContent="{markup:ResourceHelper Name=MaybeLater}"
             IsLightDismissEnabled="True"
-            Subtitle="You'll need to restart the app for your changes to take effect."
+            IsOpen="False"
+            Subtitle="{markup:ResourceHelper Name=RestartChangesEffect}"
             Target="{x:Bind ThemeChange}" />
 
         <Border
@@ -34,397 +50,104 @@
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="3"
-            Style="{StaticResource SettingsCard}">
+            Style="{StaticResource BorderCardStyle}">
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="18"
-                FontWeight="SemiBold"
-                Opacity="0.6"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                 Text="Themes and presets are coming soon. Stay tuned."
                 TextAlignment="Center"
                 TextTrimming="CharacterEllipsis"
                 TextWrapping="WrapWholeWords" />
         </Border>
 
-        <uc:ExpanderControl
-            x:Uid="/Appearance/ChooseTheme"
+        <labs:SettingsCard
             Margin="0,8,0,0"
-            Padding="0,10,0,0"
-            ExpanderStyle="Static"
-            Icon="&#xE790;">
+            Header="{markup:ResourceHelper Name=/Settings/AppearanceChooseTheme}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE790;}">
             <ComboBox
                 x:Name="ThemeChange"
-                DropDownClosed="ThemeChange_DropDownClosed"
                 ItemsSource="{x:Bind Themes}"
-                PlaceholderText="Use system setting"
                 SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
-        </uc:ExpanderControl>
+        </labs:SettingsCard>
 
-        <uc:ExpanderControl
+        <labs:SettingsExpander
             x:Name="ChooseColorExpander"
-            x:Uid="/Appearance/ChooseColor"
-            Icon="&#xE771;">
+            Header="{markup:ResourceHelper Name=/Settings/AppearanceChooseColor}"
+            HeaderIcon="{ui:FontIcon Glyph=&#xE771;}">
+            <ComboBox
+                x:Name="ColorThemeComboBox"
+                ItemsSource="{x:Bind ColorThemes}"
+                SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}" />
 
-            <uc:ExpanderControl.HeaderControls>
-                <ComboBox
-                    x:Name="ColorThemeComboBox"
-                    ItemsSource="{x:Bind ColorThemes}"
-                    PlaceholderText="No tint"
-                    RelativePanel.AlignRightWithPanel="True"
-                    SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}"
-                    SelectionChanged="ColorThemeComboBox_SelectionChanged" />
-            </uc:ExpanderControl.HeaderControls>
+            <labs:SettingsExpander.Items>
+                <labs:SettingsCard>
+                    <labs:SettingsCard.Header>
+                        <Grid>
+                            <TextBlock
+                                x:Name="Nothing"
+                                HorizontalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="Normal"
+                                HorizontalTextAlignment="Center"
+                                Text="{markup:ResourceHelper Name=/Settings/AppearanceNothing}"
+                                TextWrapping="WrapWholeWords" />
 
-            <StackPanel>
-                <TextBlock
-                    x:Name="Nothing"
-                    Padding="30,0,0,0"
-                    FontSize="14"
-                    FontWeight="Normal"
-                    Text="There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown."
-                    TextWrapping="WrapWholeWords" />
-                <StackPanel x:Name="TextForGlaze" Visibility="Collapsed">
-                    <TextBlock
-                        Padding="30,0,150,0"
-                        FontSize="14"
-                        FontWeight="Normal"
-                        Text="Recent colours" />
-                    <TextBlock
-                        Padding="30,0,150,0"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Text="Coming soon" />
-                    <TextBlock
-                        Padding="30,20,150,0"
-                        FontSize="14"
-                        FontWeight="Normal"
-                        Text="Windows colours" />
-                </StackPanel>
+                            <StackPanel Margin="0,4,0,0" x:Name="CustomColorPanel" Visibility="Collapsed">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/RecentColors}" />
+                                <TextBlock
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    Text="{markup:ResourceHelper Name=ComingSoon}" />
 
-                <controls:WrapPanel
-                    x:Name="RiseColorsPanel"
-                    Padding="30,5,150,5"
-                    HorizontalSpacing="3"
-                    VerticalSpacing="3"
-                    Visibility="Collapsed">
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#FFB900"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Yellow gold" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#FF8C00"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Gold" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#F7630C"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orange bright" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#CA5010"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orange dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#DA3B01"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Rust" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#EF6950"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Pale rust" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#D13438"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Brick red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#FF4343"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Mod red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#E74856"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Pale red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#E81123"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#EA005E"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Rose bright" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#C30052"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Rose" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#E3008C"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Plum light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#BF0077"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Plum" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#C239B3"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orchid light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#9A0089"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orchid" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#0078D4"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#0063B1"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Navy blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#8E8CD8"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Purple shadow" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#6B69D6"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Purple shadow dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#8764B8"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Iris pastel" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#744DA9"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Iris Spring" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#B146C2"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Violet red light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#881798"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Violet red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#0099BC"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Cool blue bright" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#2D7D9A"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Cool blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#00B7C3"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Seafoam" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#038387"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Seafoam teal" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#00B294"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Mint light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#018574"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Mint dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#00CC6A"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Turf green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#10893E"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Sport green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#7A7574"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Grey" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#5D5A58"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Grey brown" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#68768A"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Steel blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#515C6B"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Metal blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#567C73"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Pale moss" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#486860"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Moss" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#498205"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Meadow green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#107C10"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#767676"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Overcast" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#4C4A48"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Storm" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#69797E"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Blue grey" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#4A5459"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Grey dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#647C64"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Liddy green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#525E54"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Sage" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#847545"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Camouflage desert" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#7E735F"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Camouflage" />
-                </controls:WrapPanel>
-                <StackPanel x:Name="TheRest" Visibility="Collapsed">
-                    <Rectangle
-                        Height="1"
-                        Margin="-16,20,-16,0"
-                        HorizontalAlignment="Stretch"
-                        Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-                    <TextBlock
-                        Padding="30,16,150,0"
-                        FontSize="14"
-                        FontWeight="Normal"
-                        Text="Customised colours" />
-                    <Button
-                        Margin="0,-25,0,0"
-                        HorizontalAlignment="right"
-                        Content="View colours" />
-                </StackPanel>
-            </StackPanel>
-        </uc:ExpanderControl>
+                                <TextBlock
+                                    Margin="0,20,0,0"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{markup:ResourceHelper Name=/Settings/WindowsColors}" />
+                                <GridView
+                                    x:Name="ColorGrid"
+                                    MaxWidth="448"
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Left"
+                                    ItemsSource="{x:Bind GlazeColors}"
+                                    SelectedIndex="{x:Bind ViewModel.GlazeColorIndex, Mode=TwoWay}"
+                                    SelectionMode="Single">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:NamedColor">
+                                            <Border
+                                                Width="50"
+                                                Height="50"
+                                                ToolTipService.ToolTip="{x:Bind Name}">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{x:Bind Color}" />
+                                                </Border.Background>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                </GridView>
+                            </StackPanel>
+                        </Grid>
+                    </labs:SettingsCard.Header>
+                </labs:SettingsCard>
+
+                <labs:SettingsCard Header="{markup:ResourceHelper Name=/Settings/CustomizedColors}">
+                    <Button Grid.Column="1" Content="{markup:ResourceHelper Name=/Settings/ViewColors}" />
+                </labs:SettingsCard>
+            </labs:SettingsExpander.Items>
+        </labs:SettingsExpander>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="CustomGlazeStates">
                 <VisualState x:Name="CustomGlazeDisabled" />
                 <VisualState x:Name="CustomGlazeEnabled">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind ViewModel.ColorTheme.Equals(2), Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
                     <VisualState.Setters>
                         <Setter Target="Nothing.Visibility" Value="Collapsed" />
-                        <Setter Target="TextForGlaze.Visibility" Value="Visible" />
-                        <Setter Target="RiseColorsPanel.Visibility" Value="Visible" />
-                        <Setter Target="TheRest.Visibility" Value="Visible" />
+                        <Setter Target="CustomColorPanel.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

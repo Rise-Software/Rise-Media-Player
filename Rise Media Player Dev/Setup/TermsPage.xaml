@@ -4,23 +4,52 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Setup"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:visuals="using:Rise.App.AnimatedVisuals"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Spacing="20">
+    <Grid>
+        <local:SetupPageContent
+            x:Name="SetupRoot"
+            Header="{markup:ResourceHelper Name=/Setup/TermsH}"
+            IsBackButtonAutoPaddingEnabled="False">
+            <local:SetupPageContent.Icon>
+                <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
+                    <muxc:AnimatedVisualPlayer.Source>
+                        <visuals:EulaLottie />
+                    </muxc:AnimatedVisualPlayer.Source>
+                </muxc:AnimatedVisualPlayer>
+            </local:SetupPageContent.Icon>
 
-        <StackPanel Padding="0,4,0,0" Orientation="Vertical">
-            <TextBlock x:Uid="/Terms/TermsStart" Style="{StaticResource BaseTextBlockStyle}" />
-            <TextBlock x:Uid="/Terms/LastUpdated" Style="{StaticResource BodyTextBlockStyle}" />
-        </StackPanel>
+            <StackPanel Orientation="Vertical" Spacing="20">
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsStart}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsLastUpdated}" />
 
-        <TextBlock x:Uid="/Terms/BaseH" Style="{StaticResource BaseTextBlockStyle}" />
-        <TextBlock x:Uid="/Terms/BodyPart1" Style="{StaticResource BodyTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBaseH}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBodyPart1}" />
 
-        <TextBlock x:Uid="/Terms/LocalH" Style="{StaticResource BaseTextBlockStyle}" />
-        <TextBlock x:Uid="/Terms/BodyPart2" Style="{StaticResource BodyTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsLocalH}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBodyPart2}" />
 
-        <TextBlock x:Uid="/Terms/StreamingH" Style="{StaticResource BaseTextBlockStyle}" />
-        <TextBlock x:Uid="/Terms/BodyPart3" Style="{StaticResource BodyTextBlockStyle}" />
-    </StackPanel>
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsStreamingH}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBodyPart3}" />
+            </StackPanel>
+        </local:SetupPageContent>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SizeStates">
+                <VisualState x:Name="LargeSizeState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="770" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="SetupRoot.ShowIcon" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
 </Page>

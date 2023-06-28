@@ -1,64 +1,30 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.Common.Enums;
-using Rise.Data.Sources;
+﻿using Rise.Common.Enums;
+using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Windows.ApplicationModel;
-using Windows.Storage;
 using Windows.UI;
 
 namespace Rise.App.ViewModels
 {
     public sealed partial class SettingsViewModel : ViewModel
     {
-        private NavViewDataSource SBViewModel => App.NavDataSource;
-        public ICommand OpenFilesAtStartupCommand { get; }
-
         public SettingsViewModel()
         {
-            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenAtStartupAsync);
-
-            _ = DetectOpenAtStartupAsync();
+            UpdateStartupTaskInfo();
         }
 
-        public string[] OpenLocations = new string[8]
+        public string[] OpenLocations = new string[7]
         {
-            "HomePage", "NowPlayingPage", "PlaylistsPage", "SongsPage",
+            "HomePage", "PlaylistsPage", "SongsPage",
             "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
         };
 
-        private readonly string[] _iconPacks = new string[2]
-        {
-            "Default", "Colorful"
-        };
-
-        public List<string> GeneralTags = new()
-        {
-            "HomePage",
-            "PlaylistsPage",
-            "ConnectedDevicesPage",
-            "NowPlayingPage"
-        };
-
-        public List<string> MusicTags = new()
-        {
-            "SongsPage",
-            "ArtistsPage",
-            "AlbumsPage",
-            "GenresPage"
-        };
-
-        public List<string> VideoTags = new()
-        {
-            "LocalVideosPage",
-            "StreamingPage"
-        };
-
         #region Startup
+        public const string StartupTaskId = "6VQ93204-N7OY-0258-54G3-385B9X0FUHIB";
         public bool OpenInLogin
         {
             get => Get(false, "WindowsBehaviours");
@@ -79,68 +45,52 @@ namespace Rise.App.ViewModels
 
         public async Task OpenAtStartupAsync()
         {
-            var stateMode = await ReadStateAsync();
-
-            bool state = stateMode switch
+            var task = await StartupTask.GetAsync(StartupTaskId);
+            bool isEnabled = task.State switch
             {
                 StartupTaskState.Enabled => true,
                 StartupTaskState.EnabledByPolicy => true,
-                StartupTaskState.DisabledByPolicy => false,
-                StartupTaskState.DisabledByUser => false,
                 _ => false,
             };
 
-            if (state != OpenInLogin)
-            {
-                StartupTask startupTask = await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB");
-                if (OpenInLogin)
-                {
-                    await startupTask.RequestEnableAsync();
-                }
-                else
-                {
-                    startupTask.Disable();
-                }
-                await DetectOpenAtStartupAsync();
-            }
+            if (!isEnabled)
+                _ = await task.RequestEnableAsync();
+            else
+                task.Disable();
+
+            SetOpenAtStartupInfo(task.State);
         }
 
-        public async Task DetectOpenAtStartupAsync()
+        public void UpdateStartupTaskInfo()
         {
-            var stateMode = await ReadStateAsync();
-
-            switch (stateMode)
-            {
-                case StartupTaskState.Disabled:
-                    CanOpenInLogin = true;
-                    OpenInLogin = false;
-                    FLGStartupTask = 0;
-                    break;
-                case StartupTaskState.Enabled:
-                    CanOpenInLogin = true;
-                    OpenInLogin = true;
-                    FLGStartupTask = 0;
-                    break;
-                case StartupTaskState.DisabledByPolicy:
-                    CanOpenInLogin = false;
-                    OpenInLogin = false;
-                    FLGStartupTask = 1;
-                    break;
-                case StartupTaskState.DisabledByUser:
-                    CanOpenInLogin = false;
-                    OpenInLogin = false;
-                    FLGStartupTask = 2;
-                    break;
-                case StartupTaskState.EnabledByPolicy:
-                    CanOpenInLogin = false;
-                    OpenInLogin = true;
-                    FLGStartupTask = 3;
-                    break;
-            }
+            var task = StartupTask.GetAsync(StartupTaskId).Get();
+            SetOpenAtStartupInfo(task.State);
         }
 
-        public async Task<StartupTaskState> ReadStateAsync()
-            => (await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB")).State;
+        private void SetOpenAtStartupInfo(StartupTaskState state)
+        {
+            OpenInLogin = state switch
+            {
+                StartupTaskState.Enabled => true,
+                StartupTaskState.EnabledByPolicy => true,
+                _ => false,
+            };
+
+            CanOpenInLogin = state switch
+            {
+                StartupTaskState.Disabled => true,
+                StartupTaskState.Enabled => true,
+                _ => false,
+            };
+
+            FLGStartupTask = state switch
+            {
+                StartupTaskState.DisabledByPolicy => 1,
+                StartupTaskState.DisabledByUser => 2,
+                StartupTaskState.EnabledByPolicy => 3,
+                _ => 0,
+            };
+        }
 
         #endregion
 
@@ -161,6 +111,12 @@ namespace Rise.App.ViewModels
         {
             get => (GlazeTypes)Get<byte>(0, "Appearance");
             set => Set((byte)value, "Appearance");
+        }
+
+        public int GlazeColorIndex
+        {
+            get => Get(0, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public Color GlazeColors
@@ -237,28 +193,27 @@ namespace Rise.App.ViewModels
             set => Set(value, "MediaLibrary");
         }
 
-        public bool AutoIndexingEnabled
+        public bool IndexingTimerEnabled
         {
             get => Get(true, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 
-        /* 
-         
-         Indexing modes
-
-         -1: Never
-         0: Every 1 minute
-         1: Every 5 minutes
-         2: Every 10 minutes
-         3: Every 30 minutes
-         4: Every 1 hour
-
-         */
-
-        public int IndexingMode
+        public bool IndexingAtStartupEnabled
         {
-            get => Get(1, "MediaLibrary");
+            get => Get(false, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public bool IndexingFileTrackingEnabled
+        {
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public uint IndexingTimerInterval
+        {
+            get => Get((uint)5, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 
@@ -337,162 +292,10 @@ namespace Rise.App.ViewModels
             set => Set(value, "Navigation");
         }
 
-        public string CurrentPack => _iconPacks[IconPack];
-        public int IconPack
+        public string IconPack
         {
-            get => Get(0, "Local");
-            set => Set(value, "Local");
-        }
-
-        public bool ShowAllGeneral
-        {
-            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
-            set
-            {
-                ShowAtAGlance = value;
-                ShowPlaylists = value;
-                ShowHelpCentre = value;
-                ShowNowPlaying = value;
-
-                OnPropertyChanged(nameof(ShowAtAGlance));
-                OnPropertyChanged(nameof(ShowPlaylists));
-                OnPropertyChanged(nameof(ShowHelpCentre));
-                OnPropertyChanged(nameof(ShowNowPlaying));
-            }
-        }
-
-        public bool ShowAllMusic
-        {
-            get
-            {
-                bool vis = ShowSongs || ShowArtists || ShowAlbums || ShowGenres;
-                if (!vis)
-                {
-                    ShowMusicHeader = false;
-                }
-
-                OnPropertyChanged(nameof(ShowMusicHeader));
-                return vis;
-            }
-            set
-            {
-                ShowMusicHeader = value;
-                ShowSongs = value;
-                ShowArtists = value;
-                ShowAlbums = value;
-                ShowGenres = value;
-
-                OnPropertyChanged(nameof(ShowSongs));
-                OnPropertyChanged(nameof(ShowArtists));
-                OnPropertyChanged(nameof(ShowAlbums));
-                OnPropertyChanged(nameof(ShowGenres));
-            }
-        }
-
-        public bool ShowAllVideo
-        {
-            get
-            {
-                bool vis = ShowLocalVideos;
-                if (!vis)
-                {
-                    ShowVideoHeader = false;
-                }
-
-                OnPropertyChanged(nameof(ShowVideoHeader));
-                return vis;
-            }
-            set
-            {
-                ShowVideoHeader = value;
-                ShowLocalVideos = value;
-
-                OnPropertyChanged(nameof(ShowLocalVideos));
-            }
-        }
-
-        public bool ShowMusicHeader
-        {
-            get => SBViewModel.IsHeaderVisible("Music");
-            set => SBViewModel.ChangeHeaderVisibility("Music", value);
-        }
-
-        public bool ShowVideoHeader
-        {
-            get => SBViewModel.IsHeaderVisible("Videos");
-            set => SBViewModel.ChangeHeaderVisibility("Videos", value);
-        }
-
-        public bool ShowAtAGlance
-        {
-            get => SBViewModel.IsItemVisible("HomePage");
-            set => ChangeItemVisibility("HomePage", value);
-        }
-
-        public bool ShowPlaylists
-        {
-            get => SBViewModel.IsItemVisible("PlaylistsPage");
-            set => ChangeItemVisibility("PlaylistsPage", value);
-        }
-
-        public bool ShowSongs
-        {
-            get => SBViewModel.IsItemVisible("SongsPage");
-            set => ChangeItemVisibility("SongsPage", value);
-        }
-
-        public bool ShowArtists
-        {
-            get => SBViewModel.IsItemVisible("ArtistsPage");
-            set => ChangeItemVisibility("ArtistsPage", value);
-        }
-
-        public bool ShowAlbums
-        {
-            get => SBViewModel.IsItemVisible("AlbumsPage");
-            set => ChangeItemVisibility("AlbumsPage", value);
-        }
-
-        public bool ShowGenres
-        {
-            get => SBViewModel.IsItemVisible("GenresPage");
-            set => ChangeItemVisibility("GenresPage", value);
-        }
-
-        public bool ShowLocalVideos
-        {
-            get => SBViewModel.IsItemVisible("LocalVideosPage");
-            set => ChangeItemVisibility("LocalVideosPage", value);
-        }
-
-        public bool ShowHelpCentre
-        {
-            get => SBViewModel.IsItemVisible("DiscyPage");
-            set => ChangeItemVisibility("DiscyPage", value);
-        }
-
-        public bool ShowNowPlaying
-        {
-            get => SBViewModel.IsItemVisible("NowPlayingPage");
-            set => ChangeItemVisibility("NowPlayingPage", value);
-        }
-
-        private void ChangeItemVisibility(string tag, bool value)
-        {
-            SBViewModel.ChangeItemVisibility(tag, value);
-
-            if (GeneralTags.Contains(tag))
-            {
-                OnPropertyChanged(nameof(ShowAllGeneral));
-            }
-            else if (MusicTags.Contains(tag))
-            {
-                OnPropertyChanged(nameof(ShowAllMusic));
-            }
-            else
-            {
-                OnPropertyChanged(nameof(ShowAllVideo));
-            }
+            get => Get(string.Empty, "Navigation");
+            set => Set(value, "Navigation");
         }
         #endregion
 
@@ -531,14 +334,52 @@ namespace Rise.App.ViewModels
          * Visualizer types:
          * 
          * 0: None (don't show it)
-         * 1: Line
-         * 2: Bloom
+         * 1: Bloom
         */
 
         public int VisualizerType
         {
             get => Get(0, "Playback");
             set => Set(value, "Playback");
+        }
+
+        public bool EqualizerEnabled
+        {
+            get => Get(false, "Local");
+            set => Set(value, "Local");
+        }
+
+        private static float[] _defaultGain =
+            new float[10] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+
+        public float[] EqualizerGain
+        {
+            get => Get(_defaultGain, "Local");
+            set => Set(value, "Local");
+        }
+
+        public int SelectedEqualizerPreset
+        {
+            get => Get(0, "Local");
+            set => Set(value, "Local");
+        }
+
+        public double Volume
+        {
+            get
+            {
+                var value = Get(100, "Playback");
+
+                if (App.MPViewModel.Player.Volume != value)
+                    App.MPViewModel.Player.Volume = value;
+
+                return value;
+            }
+            set
+            {
+                Set(value, "Playback");
+                App.MPViewModel.Player.Volume = value;
+            }
         }
         #endregion
 
@@ -554,6 +395,12 @@ namespace Rise.App.ViewModels
             get => Get(0);
             set => Set(value);
         }
+
+        public bool IsFirstLaunch
+        {
+            get => Get(true, "Setup");
+            set => Set(value, "Setup");
+        }
         #endregion
 
         public int Language
@@ -566,91 +413,14 @@ namespace Rise.App.ViewModels
     // Getting and setting app settings
     public sealed partial class SettingsViewModel : ViewModel
     {
-        /// <summary>
-        /// Gets an app setting.
-        /// </summary>
-        /// <param name="defaultValue">Default setting value.</param>
-        /// <param name="store">Setting store name.</param>
-        /// <param name="setting">Setting name.</param>
-        /// <returns>App setting value.</returns>
-        /// <remarks>If the store parameter is "Local", a local setting will be returned.</remarks>
-        private Type Get<Type>(Type defaultValue, string store = "Local", [CallerMemberName] string setting = null)
+        /// <inheritdoc cref="SettingsHelpers.GetLocal{T}(T, string, string)"/>
+        private T Get<T>(T defaultValue, string container = "Local", [CallerMemberName] string setting = "")
+            => SettingsHelpers.GetLocal(defaultValue, container, setting);
+
+        /// <inheritdoc cref="SettingsHelpers.SetLocal{T}(T, string, string)"/>
+        private void Set<T>(T newValue, string container = "Local", [CallerMemberName] string setting = "")
         {
-            // If store == "Local", get a local setting
-            if (store == "Local")
-            {
-                // Get app settings
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-
-                // Check if the setting exists
-                if (localSettings.Values[setting] == null)
-                    localSettings.Values[setting] = defaultValue;
-
-                object val = localSettings.Values[setting];
-
-                // Return the setting if type matches
-                if (val is not Type)
-                    throw new ArgumentException("Type mismatch for \"" + setting + "\" in local store. Got " + val.GetType());
-
-                return (Type)val;
-            }
-
-            // Get desired composite value
-            ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-            ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
-
-            // If the store exists, check if the setting does as well
-            if (composite == null)
-                composite = new ApplicationDataCompositeValue();
-
-            if (composite[setting] == null)
-            {
-                composite[setting] = defaultValue;
-                roamingSettings.Values[store] = composite;
-            }
-
-            object value = composite[setting];
-
-            // Return the setting if type matches
-            if (value is not Type)
-                throw new ArgumentException("Type mismatch for \"" + setting + "\" in store \"" + store + "\". Current type is " + value.GetType());
-
-            return (Type)value;
-        }
-
-        /// <summary>
-        /// Sets an app setting.
-        /// </summary>
-        /// <param name="newValue">New setting value.</param>
-        /// <param name="store">Setting store name.</param>
-        /// <param name="setting">Setting name.</param>
-        /// <remarks>If the store parameter is "Local", a local setting will be set.</remarks>
-        private void Set<Type>(Type newValue, string store = "Local", [CallerMemberName] string setting = null)
-        {
-            // Try to get the setting, if types don't match, it'll throw an exception
-            _ = Get(newValue, store, setting);
-
-            // If store == "Local", set a local setting
-            if (store == "Local")
-            {
-                // Get app settings
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                localSettings.Values[setting] = newValue;
-                return;
-            }
-
-            // Get desired composite value
-            ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-            ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
-
-            // Store doesn't exist, create it
-            if (composite == null)
-                composite = new ApplicationDataCompositeValue();
-
-            // Set the setting to the desired value
-            composite[setting] = newValue;
-            roamingSettings.Values[store] = composite;
-
+            SettingsHelpers.SetLocal(newValue, container, setting);
             OnPropertyChanged(setting);
         }
     }

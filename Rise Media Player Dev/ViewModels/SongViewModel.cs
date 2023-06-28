@@ -1,21 +1,22 @@
 ﻿using Newtonsoft.Json;
-using Rise.Common;
+using Rise.App.Helpers;
+using Rise.Common.Constants;
+using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
+using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.IO;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Windows.Media;
-using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
-using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public partial class SongViewModel : ViewModel<Song>, IMediaItem
+    public sealed partial class SongViewModel : ViewModel<Song>, IMediaItem
     {
 
         #region Constructor
@@ -25,18 +26,10 @@ namespace Rise.App.ViewModels
         public SongViewModel(Song model = null)
         {
             Model = model ?? new Song();
-
-            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
-            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
         }
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Checks if the song is played from an online stream, playlist or song.
-        /// </summary>
-        public bool IsOnline { get; set; }
-
         /// <summary>
         /// Gets or sets the song title.
         /// </summary>
@@ -61,10 +54,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Artist == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.Artist;
             }
             set
@@ -122,10 +112,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Album == "UnknownAlbumResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownAlbumResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownAlbumResource");
                 return Model.Album;
             }
             set
@@ -146,10 +133,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.AlbumArtist == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.AlbumArtist;
             }
             set
@@ -170,10 +154,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Genres == "UnknownGenreResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownGenreResource");
                 return Model.Genres;
             }
             set
@@ -238,7 +219,7 @@ namespace Rise.App.ViewModels
         /// Gets the song filename.
         /// </summary>
         [JsonIgnore]
-        public string Filename => Path.GetFileName(Location);
+        public string FileName => Path.GetFileName(Location);
 
         /// <summary>
         /// Gets the song extension.
@@ -263,7 +244,7 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets the song album's thumbnail.
+        /// Gets the song's thumbnail.
         /// </summary>
         public string Thumbnail
         {
@@ -274,6 +255,69 @@ namespace Rise.App.ViewModels
                 {
                     Model.Thumbnail = value;
                     OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public bool IsLocal
+        {
+            get => Model.IsLocal;
+            set
+            {
+                if (value != Model.IsLocal)
+                {
+                    Model.IsLocal = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fetches lyrics for the song.
+        /// </summary>
+        /// <param name="fromOnlineService">Specifies whether to fetch lyrics from Musixmatch or from file metadata.</param>
+        /// <returns>A string with the song lyrics.</returns>
+        public async Task<string> GetLyricsAsync(bool fromOnlineService = true)
+        {
+            if (fromOnlineService)
+            {
+                try
+                {
+                    var lyrics = await MusixmatchHelper.GetLyricsAsync(Title, Artist);
+
+                    if (lyrics == null)
+                        return string.Empty;
+
+                    var builder = new StringBuilder(lyrics.Message.Body.Lyrics.LyricsBody);
+                    _ = builder.Append("\n\n");
+                    _ = builder.Append(lyrics.Message.Body.Lyrics.LyricsCopyright);
+                    _ = builder.Append("\n");
+
+                    var crForm = ResourceHelper.GetString("PoweredBy");
+                    _ = builder.Append(string.Format(crForm, "Musixmatch"));
+
+                    return builder.ToString();
+                }
+                catch (Exception e)
+                {
+                    e.WriteToOutput();
+                    return string.Empty;
+                }
+            }
+            else
+            {
+                try
+                {
+                    var file = await StorageFile.GetFileFromPathAsync(Location);
+                    var taglibFile = await Task.Run(() => TagLib.File.Create(new UwpStorageFileAbstraction(file)));
+
+                    return (await Task.Run(() => taglibFile.Tag)).Lyrics;
+                }
+                catch (Exception e)
+                {
+                    e.WriteToOutput();
+                    return string.Empty;
                 }
             }
         }
@@ -299,33 +343,6 @@ namespace Rise.App.ViewModels
                 await NewRepository.Repository.UpsertAsync(Model);
             }
         }
-
-        /// <summary>
-        /// Deletes item data from the backend.
-        /// </summary>
-        public async Task DeleteAsync()
-        {
-            App.MViewModel.Songs.Remove(this);
-
-            await NewRepository.Repository.DeleteAsync(Model);
-
-            AlbumViewModel album = App.MViewModel.Albums.
-                FirstOrDefault(a => a.Model.Title == Model.Album &&
-                           a.Model.Artist == Model.AlbumArtist);
-
-            if (album != null)
-            {
-                await album.CheckAvailabilityAsync();
-            }
-
-            ArtistViewModel artist = App.MViewModel.Artists.
-                FirstOrDefault(a => a.Model.Name == Model.Artist);
-
-            if (artist != null)
-            {
-                await artist.CheckAvailabilityAsync();
-            }
-        }
         #endregion
 
         #region Editing
@@ -336,6 +353,33 @@ namespace Rise.App.ViewModels
         {
             Model = await NewRepository.Repository.GetItemAsync<Song>(Model.Id);
         }
+
+        /// <summary>
+        /// Edits lyrics of a song in the file metadata.
+        /// </summary>
+        /// <param name="lyrics">The lyrics to save.</param>
+        /// <returns>A task which represents the operation.</returns>
+        public async Task<bool> SaveLyricsAsync(string lyrics)
+        {
+            try
+            {
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                var taglibFile = await Task.Run(() => TagLib.File.Create(new UwpStorageFileAbstraction(file)));
+
+                var tag = await Task.Run(() => taglibFile.Tag);
+
+                tag.Lyrics = lyrics;
+                await Task.Run(() => taglibFile.Save());
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                e.WriteToOutput();
+            }
+
+            return false;
+        }
         #endregion
 
         #region Playback
@@ -345,56 +389,37 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            try
+            var uri = new Uri(Location);
+            if (uri.IsFile)
             {
-                MediaSource source;
-                var uri = new Uri(Location);
-
-                if (uri.IsFile)
-                {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-                    source = MediaSource.CreateFromStorageFile(file);
-                }
-                else
-                {
-                    source = MediaSource.CreateFromUri(uri);
-                }
-
-                MediaPlaybackItem media = new(source);
-                MediaItemDisplayProperties props = media.GetDisplayProperties();
-
-                props.Type = MediaPlaybackType.Music;
-                props.MusicProperties.Title = Title;
-                props.MusicProperties.Artist = Artist;
-                props.MusicProperties.AlbumTitle = Album;
-                props.MusicProperties.AlbumArtist = AlbumArtist;
-                props.MusicProperties.TrackNumber = Track;
-
-
-                if (Thumbnail != null)
-                {
-                    props.Thumbnail = RandomAccessStreamReference.
-                        CreateFromUri(new Uri(Thumbnail));
-                }
-
-                media.ApplyDisplayProperties(props);
-                return media;
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                return await file.GetSongAsync();
             }
-            catch
-            {
 
-            }
-            return null;
+            return await WebHelpers.GetSongFromUriAsync(uri, Title, Artist, Thumbnail);
         }
         #endregion
     }
 
-    // IMediaItem implementation
-    public partial class SongViewModel : IMediaItem
+    public static class SongViewModelExtensions
     {
-        string IMediaItem.Subtitle => Artist;
-        string IMediaItem.ExtraInfo => Album;
+        public static Task<SongViewModel> AsSongAsync(this MediaPlaybackItem item)
+        {
+            var displayProps = item.GetDisplayProperties();
 
-        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
+            var song = new SongViewModel
+            {
+                Title = displayProps.MusicProperties.Title,
+                Artist = displayProps.MusicProperties.Artist,
+                Album = displayProps.MusicProperties.AlbumTitle,
+                AlbumArtist = displayProps.MusicProperties.AlbumArtist,
+                Genres = string.Join(";", displayProps.MusicProperties.Genres),
+                Location = item.Source.Uri.ToString(),
+                Length = (TimeSpan)item.Source.Duration,
+                Thumbnail = URIs.MusicThumb
+            };
+
+            return Task.FromResult(song);
+        }
     }
 }

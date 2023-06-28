@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutExtrasH" xml:space="preserve">
+    <value>इनसाइडर एक्स्ट्रास</value>
+  </data>
+  <data name="AboutMoreCopyVersion" xml:space="preserve">
+    <value>कॉपी संस्करण</value>
+  </data>
+  <data name="AboutMoreH" xml:space="preserve">
+    <value>और</value>
+  </data>
+  <data name="AboutMoreReleases" xml:space="preserve">
+    <value>रिलीज़ें</value>
+  </data>
+  <data name="AboutMoreTitle" xml:space="preserve">
+    <value>अतिरिक्त संस्करण जानकारी</value>
+  </data>
+  <data name="AboutSave" xml:space="preserve">
+    <value>उपकरण पर सेव करें</value>
+  </data>
+  <data name="AboutSocialDesc" xml:space="preserve">
+    <value>नवीनतम अपडेट्स के साथ बने रहें।</value>
+  </data>
+  <data name="AboutSocialTitle" xml:space="preserve">
+    <value>सोशल मीडिया</value>
+  </data>
+  <data name="AboutWallsDesc" xml:space="preserve">
+    <value>राइज़ म प ब्रांडेड कुछ विशेष वॉलपेपर का अभिगमन करें।</value>
+  </data>
+  <data name="AboutWallsTitle" xml:space="preserve">
+    <value>डेस्कटॉप वॉलपेपर एवं थीम</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>अकाउंट जोड़ें</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>फोलडर जोड़ें</value>
+  </data>
+  <data name="AddFolders" xml:space="preserve">
+    <value>फ़ोल्डर जोड़ें</value>
+  </data>
+  <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
+    <value>एल्बम कला इस्तेमाल करें</value>
+  </data>
+  <data name="AppearanceAppLayout" xml:space="preserve">
+    <value>ऐप अभिन्यास</value>
+  </data>
+  <data name="AppearanceAppWindow" xml:space="preserve">
+    <value>ऐप विंडो</value>
+  </data>
+  <data name="AppearanceChooseColor" xml:space="preserve">
+    <value>अपना विंडो ग्लेज़ चुनें</value>
+  </data>
+  <data name="AppearanceChooseTheme" xml:space="preserve">
+    <value>अपना रंग चुनें</value>
+  </data>
+  <data name="AppearanceCustomGlazeColor" xml:space="preserve">
+    <value>कस्टम रंग चुनें</value>
+  </data>
+  <data name="AppearanceIconsAndFonts" xml:space="preserve">
+    <value>आइकॉन एवं फ़ॉन्ट</value>
+  </data>
+  <data name="AppearanceItemDesc" xml:space="preserve">
+    <value>ऐप के रंग, थीम, आइकॉन, अभिन्यास एवं गति अनुकूलित करें।</value>
+  </data>
+  <data name="AppearanceNoGlaze" xml:space="preserve">
+    <value>कोई ग्लेज़ नहीं</value>
+  </data>
+  <data name="AppearanceNothing" xml:space="preserve">
+    <value>यहां पर कुछ भी दिखाने को नहीं है। उपलब्ध रंग दिखाने के लिए ड्रॉपडाउन से 'अनुकूलित रंग इस्तेमाल करें' का चयन करें।</value>
+  </data>
+  <data name="AppearanceOverview" xml:space="preserve">
+    <value>अवलोकन</value>
+  </data>
+  <data name="AppearancePickUp" xml:space="preserve">
+    <value>जहां से छोड़ा गया, वहीं से शुरू करें</value>
+  </data>
+  <data name="AppearanceStartupTitle" xml:space="preserve">
+    <value>शुरूआत होने पर</value>
+  </data>
+  <data name="AppearanceSystemGlazeColor" xml:space="preserve">
+    <value>सिस्टम एक्सेंट रंग का इस्तेमाल करें</value>
+  </data>
+  <data name="AppearanceTip" xml:space="preserve">
+    <value>*कॉम्पैक्ट मोड के बदलाव तब तक लागू नहीं होंगीं जब तक सेटअप ख़त्म नहीं हो जाता।</value>
+  </data>
+  <data name="AppThemeChanged" xml:space="preserve">
+    <value>ऐप थीम बदल चुका है</value>
+  </data>
+  <data name="ColorfulIcons" xml:space="preserve">
+    <value>रंगीन आइकॉन</value>
+  </data>
+  <data name="ConnectToLastFmDesc" xml:space="preserve">
+    <value>अपने हाल ही में चलाए हुए, सुनावट इतिहास को खोजें एवं इंटरनेट को स्क्रॉबल करें</value>
+  </data>
+  <data name="ConnectToLastFmH" xml:space="preserve">
+    <value>लास्ट.फ म से संयोजन करें</value>
+  </data>
+  <data name="CustomizedColors" xml:space="preserve">
+    <value>अनुकूलित रंग</value>
+  </data>
+  <data name="HighContrastIcons" xml:space="preserve">
+    <value>हाई कॉन्ट्रास्ट आईकॉन</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>इनसाइडर हब</value>
+  </data>
+  <data name="MatchSystemAppLang" xml:space="preserve">
+    <value>सिस्टम और ऐप भाषा मिलाएँ</value>
+  </data>
+  <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
+    <value>जब एप खुला हो, तब समय की निर्दिष्ट अवधिानुसार स्कैन करें।</value>
+  </data>
+  <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
+    <value>सामयिक स्कैनिंग</value>
+  </data>
+  <data name="MediaLibraryDeletionTitle" xml:space="preserve">
+    <value>लोकल मीडिया हटाने पर</value>
+  </data>
+  <data name="MediaLibraryDone" xml:space="preserve">
+    <value>सब हटा दें</value>
+  </data>
+  <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
+    <value>किसी घटना या घटना के घटित होने के बाद नई मीडिया के लिए स्कैन करें।</value>
+  </data>
+  <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
+    <value>जब एक हटाने योग्य उपकरण या ड्राइव जुड़ता है, तब स्कैन करें</value>
+  </data>
+  <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
+    <value>जब आपके मीडिया स्रोत में फ़ाईलें जुड़तीं हैं, तब स्कैन करें</value>
+  </data>
+  <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
+    <value>जब आप मीडिया की एक नए लोकेशन जोड़ते हैं, तब स्कैन करें</value>
+  </data>
+  <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
+    <value>जब एप खुला हो, तब स्कैन करें</value>
+  </data>
+  <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
+    <value>स्मार्ट घटना स्कैन</value>
+  </data>
+  <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
+    <value>जब ज़रूरत पड़े तब इंटरनेट से डाटा लाएँ</value>
+  </data>
+  <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
+    <value>फ़ाइल फ़ोल्डर</value>
+  </data>
+  <data name="MediaLibraryItemDesc" xml:space="preserve">
+    <value>अपने मीडिया स्रोत, ऑनलाईन सेवाएँ एवं स्कैनिंग सेटिंग्स प्रबंधित करें।</value>
+  </data>
+  <data name="MediaLibraryLocalMediaH" xml:space="preserve">
+    <value>लोकल मीडिया और उपकरण</value>
+  </data>
+  <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
+    <value>वीडियो, संगीत और बहुत कुछ</value>
+  </data>
+  <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
+    <value>लोकल मीडिया फ़ोल्डर प्रबंधित करें</value>
+  </data>
+  <data name="MediaLibraryManualScanDesc" xml:space="preserve">
+    <value>आपकी लाइब्रेरी में जोड़ने के लिए वही फ़ोल्डरों को स्कैन करता है जहां से आपने पहले ही संगीत एवं वीडियो जोड़े हैं।</value>
+  </data>
+  <data name="MediaLibraryManualScanTitle" xml:space="preserve">
+    <value>मैनुअल स्कैन</value>
+  </data>
+  <data name="MediaLibraryMetadata" xml:space="preserve">
+    <value>मेटाडाटा</value>
+  </data>
+  <data name="MediaLibraryOnlineDataH" xml:space="preserve">
+    <value>ऑनलाइन डाटा</value>
+  </data>
+  <data name="MediaLibraryRemoveFolder" xml:space="preserve">
+    <value>फोल्डर हटाएँ</value>
+  </data>
+  <data name="MediaLibraryRippingDesc" xml:space="preserve">
+    <value>चुनें कि डिस्क को रिप करते समय आप क्या करना चाहते हैं</value>
+  </data>
+  <data name="MediaLibraryRippingTitle" xml:space="preserve">
+    <value>डिस्क रिप्पिंग विकल्प</value>
+  </data>
+  <data name="MediaSourcesContainsMusic" xml:space="preserve">
+    <value>इसमें संगीत है</value>
+  </data>
+  <data name="MediaSourcesContainsVideos" xml:space="preserve">
+    <value>इसमें वीडियो हैं</value>
+  </data>
+  <data name="MediaSourcesInfo" xml:space="preserve">
+    <value>हम आपकी मीडिया के लिए डीफ़ॉल्ट मीडिया लोकेशन (संगीत एवं वीडियो) में पहले से ही देखते हैं। अगर आप यहीं पर अपनी मीडिया संग्रहित करते हैं, तब नए फ़ोल्डर जोड़ने की ज़रूरत नहीं है। अगर नहीं, तो अपने सभी मीडिया फ़ोल्डरों को जोड़ने के लिए 'फ़ोल्डर जोड़ें' पर क्लिक करें।</value>
+  </data>
+  <data name="NavigationAddRemoveH" xml:space="preserve">
+    <value>साइडबार आइटम जोडे़ं/हटाएँ</value>
+  </data>
+  <data name="NavigationAppearanceH" xml:space="preserve">
+    <value>दिखावट</value>
+  </data>
+  <data name="NavigationGeneralItems" xml:space="preserve">
+    <value>जनरल आइटम</value>
+  </data>
+  <data name="NavigationHamburgerTitle" xml:space="preserve">
+    <value>हैमबर्गर बटन दिखाएँ</value>
+  </data>
+  <data name="NavigationIconStyle" xml:space="preserve">
+    <value>आइकॉन स्टाईल</value>
+  </data>
+  <data name="NavigationItemDesc" xml:space="preserve">
+    <value>क्लिक क्रियाओं, स्टार्टअप विकल्पों को बदलें।</value>
+  </data>
+  <data name="NavigationResize" xml:space="preserve">
+    <value>विंडो आकार बदलाव</value>
+  </data>
+  <data name="NavigationShowHeader" xml:space="preserve">
+    <value>शीर्षणी दिखाएँ</value>
+  </data>
+  <data name="OpenClassicDialog" xml:space="preserve">
+    <value>क्लासिक डायलॉग खोलें</value>
+  </data>
+  <data name="PlaybackCrossfadeDesc" xml:space="preserve">
+    <value>अपने संगीत ट्रैकों के अंत और शुरूआतों को सम्मिश्रित करें</value>
+  </data>
+  <data name="PlaybackCrossfadeTitle" xml:space="preserve">
+    <value>क्रॉसफेड करें</value>
+  </data>
+  <data name="PlaybackEQDesc" xml:space="preserve">
+    <value>अपने मीडिया प्रकार के आधार पर भिन्न ध्वनि प्रोफ़ाइल चुनें।</value>
+  </data>
+  <data name="PlaybackEQTitle" xml:space="preserve">
+    <value>इक्वलाइज़र</value>
+  </data>
+  <data name="PlaybackGaplessDesc" xml:space="preserve">
+    <value>हम आपके अगले ट्रैक पर प्रतीक्षा किए बिना तुरंत चले जाएंगे।</value>
+  </data>
+  <data name="PlaybackGaplessTitle" xml:space="preserve">
+    <value>गैपलेस प्लेबैक</value>
+  </data>
+  <data name="PlaybackGeneralH" xml:space="preserve">
+    <value>जनरल</value>
+  </data>
+  <data name="PlaybackMusicH" xml:space="preserve">
+    <value>संगीत</value>
+  </data>
+  <data name="PlaybackScalingDesc" xml:space="preserve">
+    <value>विंडो के आकार के आधार पर समायोजित करें कि आपका वीडियो कैसे मपता है।</value>
+  </data>
+  <data name="PlaybackScalingTitle" xml:space="preserve">
+    <value>मापन</value>
+  </data>
+  <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
+    <value>विडियो रेज़ोल्यूशन और संगीत बिटरेट बदलें।</value>
+  </data>
+  <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
+    <value>स्ट्रीमिंग गुणवत्ता प्रबंधित करें</value>
+  </data>
+  <data name="PlaybackVideoH" xml:space="preserve">
+    <value>वीडियो</value>
+  </data>
+  <data name="PlaybackVisualizerTitle" xml:space="preserve">
+    <value>विज़्वालाइज़र</value>
+  </data>
+  <data name="RecentColors" xml:space="preserve">
+    <value>हाल के रंग</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>डीफ़ॉल्टों को पुन: स्थापित करें</value>
+  </data>
+  <data name="RunEvery" xml:space="preserve">
+    <value>इस समयानुसार चले:</value>
+  </data>
+  <data name="ScanNow" xml:space="preserve">
+    <value>अभी स्कैन करें</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>भाषा का चयन करें</value>
+  </data>
+  <data name="SelectLanguageDesc" xml:space="preserve">
+    <value>सूची से अपनी भाषा मैनुअली चुनें।</value>
+  </data>
+  <data name="SettingsFluentColor" xml:space="preserve">
+    <value>फ़्लूएंट रंग</value>
+  </data>
+  <data name="SettingsHighContrast" xml:space="preserve">
+    <value>उच्च विषमता</value>
+  </data>
+  <data name="SettingsMenuBar" xml:space="preserve">
+    <value>मेन्यू बार</value>
+  </data>
+  <data name="SettingsMenus" xml:space="preserve">
+    <value>सेटिंग्स मेन्यू</value>
+  </data>
+  <data name="SettingsSidebar" xml:space="preserve">
+    <value>साइडबार(क्लासिक)</value>
+  </data>
+  <data name="SettingsStyle" xml:space="preserve">
+    <value>सेटिंग्स स्टाईल</value>
+  </data>
+  <data name="StartupSettings" xml:space="preserve">
+    <value>स्टार्टअप सेटिंग्स</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
+    <value>यह फीचर आपके प्रशासक की वर्तमान नीतियों के कारण अक्षम है। अगर यह अति-आवश्यक है, तो कृपया अपने सिस्टम प्रशासक से संपर्क करें।</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
+    <value>यह फीचर आपके वर्तमान स्टार्टअप सेटिंग्स के कारण अक्षम है। इन सेटिंग्स को बदलने के लिए नीचे दिए गए लिंक पर क्लिक करें, फ़िर एप को पुनः आरंभ करें।</value>
+  </data>
+  <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
+    <value>यह फीचर सक्षम है किंतु प्रशासक की वर्तमान नीतियों के कारण बदला नहीं जा सकता। अगर यह अति-आवश्यक है, तो कृपया अपने सिस्टम प्रशासक से संपर्क करें।</value>
+  </data>
+  <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
+    <value>कुछ सेटिंग्स अनउपलब्ध हो सकते हैं क्योंकि आप राईज़ मीडिया प्लेयर लीक निर्माण पर चला रहे हैं।</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
+    <value>कुछ सेटिंग्स अनउपलब्ध हो सकते हैं। इन्हें इस्तेमाल करने के लिए अपने पीसी को विंडोज 11 में अपग्रेड करें।</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
+    <value>आप विंडोज़ 10 चला रहे हैं</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
+    <value>सभी सेटिंग्स उपलब्ध होने चाहिए।</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
+    <value>आप विंडोज़ 11 चला रहे हैं</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>ऐप सेटिंग्स</value>
+  </data>
+  <data name="ViewColors" xml:space="preserve">
+    <value>रंग देखें</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>फ़ाइलें देखें</value>
+  </data>
+  <data name="WindowsColors" xml:space="preserve">
+    <value>विंडोज़ रंग</value>
+  </data>
+</root>

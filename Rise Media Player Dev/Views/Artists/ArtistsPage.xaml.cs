@@ -1,9 +1,12 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
+using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,8 +19,9 @@ namespace Rise.App.Views
 {
     public sealed partial class ArtistsPage : MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private MainViewModel MViewModel => App.MViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         public ArtistViewModel SelectedItem
         {
@@ -25,49 +29,20 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly string Label = "Artists";
-        private double? _offset = null;
-
         public ArtistsPage()
-            : base("Name", App.MViewModel.Artists)
+            : base("GArtistName|ArtistName", SortDirection.Ascending, true, App.MViewModel.Artists, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-
-            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
-        }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
         }
     }
 
     // Playlists
     public sealed partial class ArtistsPage
     {
+        [RelayCommand]
         private Task AddToPlaylistAsync(PlaylistViewModel playlist)
         {
             var name = SelectedItem.Name;
@@ -78,9 +53,14 @@ namespace Rise.App.Views
                     items.Add(itm);
 
             if (playlist == null)
+            {
                 return PlaylistHelper.CreateNewPlaylistAsync(items);
+            }
             else
-                return playlist.AddSongsAsync(items);
+            {
+                playlist.AddItems(items);
+                return PBackend.SaveAsync();
+            }
         }
     }
 
@@ -91,7 +71,6 @@ namespace Rise.App.Views
         {
             if (e.ClickedItem is ArtistViewModel artist && !KeyboardHelpers.IsCtrlPressed())
             {
-                Frame.SetListDataItemForNextConnectedAnimation(artist);
                 _ = Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
             }
         }
@@ -124,22 +103,29 @@ namespace Rise.App.Views
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            StorageFile file = await picker.PickSingleFileAsync();
-
+            var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                var img = await file.GetBitmapAsync(200, 200);
-
-                var newFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync($@"modified-artist-{SelectedItem.Name}.png", CreationCollisionOption.ReplaceExisting);
-
-                var result = await img.SaveToFileAsync(newFile);
-
-                if (result)
+                // If this throws, there's no image to work with
+                try
                 {
-                    SelectedItem.Picture = $@"ms-appdata:///local/modified-artist-{SelectedItem.Name}.png";
-                    await SelectedItem.SaveAsync();
+                    var img = await file.GetBitmapAsync();
+                    if (img == null)
+                        return;
+
+                    img.Dispose();
                 }
+                catch { return; }
+
+                var artist = SelectedItem;
+                artist.Picture = URIs.ArtistThumb;
+
+                string filename = $@"artist-{artist.Model.Id}{file.FileType}";
+                _ = await file.CopyAsync(ApplicationData.Current.LocalFolder,
+                    filename, NameCollisionOption.ReplaceExisting);
+
+                artist.Picture = $@"ms-appdata:///local/{filename}";
+                await artist.SaveAsync();
             }
         }
 
@@ -147,8 +133,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();

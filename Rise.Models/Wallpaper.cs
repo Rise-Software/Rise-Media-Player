@@ -1,6 +1,6 @@
 ﻿namespace Rise.Models
 {
-    public class Wallpaper
+    public sealed class Wallpaper
     {
         public string Name { get; set; }
         public string ShortDescription { get; set; }

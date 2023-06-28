@@ -1,50 +1,42 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.Helpers;
-using Rise.App.UserControls;
+﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Numerics;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.Views
 {
     public sealed partial class GenreSongsPage : MediaPageBase
     {
         private MainViewModel MViewModel => App.MViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
-
-        private GenreViewModel SelectedGenre;
         public SongViewModel SelectedItem
         {
             get => (SongViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private double? _offset = null;
+        private GenreViewModel SelectedGenre;
+
+        private CompositionPropertySet _propSet;
+        private SpriteVisual _backgroundVisual;
 
         public GenreSongsPage()
-            : base("Title", App.MViewModel.Songs)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
 
-            PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -53,49 +45,22 @@ namespace Rise.App.Views
             {
                 SelectedGenre = MViewModel.Genres.
                     FirstOrDefault(g => g.Model.Id == id);
-
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Genres.Contains(SelectedGenre.Name);
             }
             else if (e.NavigationParameter is string str)
             {
                 SelectedGenre = MViewModel.Genres.
                     FirstOrDefault(g => g.Name == str);
-
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Genres.Contains(str);
             }
 
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
+            CreateViewModel("SongTitle", SortDirection.Ascending, false, IsGenre, MViewModel.Songs);
+            bool IsGenre(object s)
+                => ((SongViewModel)s).Genres == SelectedGenre.Name;
         }
 
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        private void OnMainListLoaded(object sender, RoutedEventArgs e)
         {
-            var scr = MainList.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
-
-            Frame.SetListDataItemForNextConnectedAnimation(SelectedGenre);
-        }
-    }
-
-    // Playlists
-    public sealed partial class GenreSongsPage
-    {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            var items = new List<SongViewModel>();
-
-            foreach (var itm in MediaViewModel.Items)
-                items.Add((SongViewModel)itm);
-
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(items);
-            else
-                return playlist.AddSongsAsync(items);
+            var surface = LoadedImageSurface.StartLoadFromUri(new("ms-appx:///Assets/BlankGenre.png"));
+            (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
         }
     }
 
@@ -117,6 +82,12 @@ namespace Rise.App.Views
                 fl.Hide();
             else
                 SelectedItem = (SongViewModel)cont;
+        }
+
+        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_backgroundVisual == null) return;
+            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
     }
 }

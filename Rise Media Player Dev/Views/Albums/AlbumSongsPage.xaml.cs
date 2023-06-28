@@ -1,17 +1,22 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Rise.App.Converters;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
+using Rise.Data.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Streams;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.Views
 {
@@ -21,7 +26,8 @@ namespace Rise.App.Views
     public sealed partial class AlbumSongsPage : MediaPageBase
     {
         public MainViewModel MViewModel => App.MViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
 
         private AlbumViewModel SelectedAlbum;
         public SongViewModel SelectedItem
@@ -30,28 +36,34 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly AdvancedCollectionView AlbumsByArtist = new();
-        private double? _offset = null;
+        private GroupedCollectionView AlbumsByArtist;
+
+        private bool MoreAlbumsExpanded;
+
+        private CompositionPropertySet _propSet;
+        private SpriteVisual _backgroundVisual;
 
         public AlbumSongsPage()
-            : base("Disc", App.MViewModel.Songs)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
-            PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        private void OnMainListLoaded(object sender, RoutedEventArgs e)
         {
-            if (_offset != null)
-                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+            var surface = LoadedImageSurface.StartLoadFromUri(new(SelectedAlbum.Thumbnail));
+            (_propSet, _backgroundVisual) = MainList.CreateParallaxGradientVisual(surface, BackgroundHost);
+        }
 
-            TrackCountName.Text = SelectedAlbum.TrackCount + " songs";
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            AlbumDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
 
             // Load more albums by artist only when necessary
             if (AlbumsByArtist.Count > 0)
@@ -64,94 +76,75 @@ namespace Rise.App.Views
             {
                 SelectedAlbum = App.MViewModel.Albums.
                     FirstOrDefault(a => a.Model.Id == id);
-
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
             }
             else if (e.NavigationParameter is string str)
             {
                 SelectedAlbum = App.MViewModel.Albums.FirstOrDefault(a => a.Title == str);
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Album == str;
             }
 
-            MediaViewModel.Items.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+            // Main collection
+            bool IsPartOfAlbum(object s)
+                => ((SongViewModel)s).Album == SelectedAlbum.Title;
 
-            AlbumsByArtist.Source = MViewModel.Albums;
-            AlbumsByArtist.Filter = a => ((AlbumViewModel)a).Title != SelectedAlbum.Title && ((AlbumViewModel)a).Artist == SelectedAlbum.Artist;
-            AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Descending));
+            CreateViewModel("SongDisc|SongTrack", SortDirection.Ascending, false, IsPartOfAlbum, App.MViewModel.Songs);
 
-            if (e.PageState != null)
+            // More from this artist
+            var yearSort = CollectionViewDelegates.GetDelegate("AlbumYear");
+            bool IsFromSameArtist(object a)
             {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
+                var album = (AlbumViewModel)a;
+                return album.Title != SelectedAlbum.Title && album.Artist == SelectedAlbum.Artist;
+            };
+
+            var (items, defer) = GroupedCollectionView.CreateDeferred();
+            items.Source = App.MViewModel.Albums;
+            items.Filter = IsFromSameArtist;
+
+            items.SortDescriptions.Add(new(SortDirection.Ascending, yearSort));
+            defer.Complete();
+
+            AlbumsByArtist = items;
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            var scr = MainList.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
-
-            AlbumsByArtist.Filter = null;
-            Frame.SetListDataItemForNextConnectedAnimation(SelectedAlbum);
+            AlbumsByArtist.Dispose();
         }
     }
 
     // Playlists
     public sealed partial class AlbumSongsPage
     {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            var items = new List<SongViewModel>();
-
-            foreach (var itm in MediaViewModel.Items)
-                items.Add((SongViewModel)itm);
-
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(items);
-            else
-                return playlist.AddSongsAsync(items);
-        }
-
         private async void LikeAlbum_Checked(object sender, RoutedEventArgs e)
         {
-            var songs = new List<SongViewModel>();
-
-            var playlist = App.MViewModel.Playlists.
-                FirstOrDefault(p => p.Title == "Liked");
-            var create = playlist == null;
-
-            if (create)
+            var playlist = PBackend.Items.FirstOrDefault(p => p.Title == "Liked");
+            if (playlist == null)
             {
                 playlist = new()
                 {
                     Title = $"Liked",
                     Description = "Your liked songs, albums and artists' songs go here.",
-                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                    Duration = "0"
+                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/LikedPlaylist.png"
                 };
+                PBackend.Items.Add(playlist);
             }
 
             foreach (var song in MediaViewModel.Items)
-                songs.Add((SongViewModel)song);
+                playlist.Songs.Add((SongViewModel)song);
 
-            await playlist.AddSongsAsync(songs, create);
+            await PBackend.SaveAsync();
         }
 
         private async void LikeAlbum_Unchecked(object sender, RoutedEventArgs e)
         {
-            var songs = new List<SongViewModel>();
-            var playlist = App.MViewModel.Playlists.
-                FirstOrDefault(p => p.Title == "Liked");
-
+            var playlist = PBackend.Items.FirstOrDefault(p => p.Title == "Liked");
             if (playlist == null)
                 return;
 
             foreach (var song in MediaViewModel.Items)
-                songs.Add((SongViewModel)song);
+                _ = playlist.Songs.Remove((SongViewModel)song);
 
-            await playlist.RemoveSongsAsync(songs);
+            await PBackend.SaveAsync();
         }
     }
 
@@ -184,6 +177,22 @@ namespace Rise.App.Views
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
         {
             DiscyOnSong.IsOpen = true;
+        }
+
+        private void UpDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (MoreAlbumsExpanded)
+                VisualStateManager.GoToState(this, "Collapsed", true);
+            else
+                VisualStateManager.GoToState(this, "Expanded", true);
+
+            MoreAlbumsExpanded = !MoreAlbumsExpanded;
+        }
+
+        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_backgroundVisual == null) return;
+            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
     }
 }

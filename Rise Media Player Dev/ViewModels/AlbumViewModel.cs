@@ -1,4 +1,4 @@
-﻿using Rise.Common;
+﻿using Rise.Common.Extensions.Markup;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
-    public class AlbumViewModel : ViewModel<Album>
+    public sealed class AlbumViewModel : ViewModel<Album>
     {
 
         #region Constructor
@@ -17,8 +17,6 @@ namespace Rise.App.ViewModels
         public AlbumViewModel(Album model = null)
         {
             Model = model ?? new Album();
-
-            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
         #endregion
 
@@ -31,10 +29,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Title == "UnknownAlbumResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownAlbumResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownAlbumResource");
                 return Model.Title;
             }
             set
@@ -55,10 +50,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Artist == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.Artist;
             }
             set
@@ -84,10 +76,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Genres == "UnknownGenreResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownGenreResource");
                 return Model.Genres;
             }
             set
@@ -99,12 +88,6 @@ namespace Rise.App.ViewModels
                 }
             }
         }
-
-        /// <summary>
-        /// Gets or sets the album song count.
-        /// </summary>
-        public int TrackCount =>
-            App.MViewModel.Songs.Count(s => s.Album == Model.Title);
 
         /// <summary>
         /// Gets or sets the album thumbnail.
@@ -134,71 +117,26 @@ namespace Rise.App.ViewModels
                 {
                     Model.Year = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(LocalizedYear));
                 }
             }
         }
 
-        private bool _isArtistVisible = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album title is displayed or not.
-        /// </summary>
-        public bool IsArtistVisible
+        public string LocalizedYear
         {
-            get => _isArtistVisible;
-            set => Set(ref _isArtistVisible, value);
+            get
+            {
+                string year = ResourceHelper.GetString("ReleaseYearN");
+                if (Year == 0)
+                    return string.Format(year, ResourceHelper.GetString("Unknown"));
+                return string.Format(year, Year);
+            }
         }
 
-        private bool _isThumbnailVisible = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album art is displayed or not.
-        /// </summary>
-        public bool IsThumbnailVisible
-        {
-            get => _isThumbnailVisible;
-            set => Set(ref _isThumbnailVisible, value);
-        }
-
-        private bool _isGenresVisible = false;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album genre is displayed or not.
-        /// </summary>
-        public bool IsGenresVisible
-        {
-            get => _isGenresVisible;
-            set => Set(ref _isGenresVisible, value);
-        }
-
-        private bool _isTitleVisible = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album title is displayed or not.
-        /// </summary>
-        public bool IsTitleVisible
-        {
-            get => _isTitleVisible;
-            set => Set(ref _isTitleVisible, value);
-        }
-
-        private bool _hasRoundedAlbumArt = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album art is rounded or not.
-        /// </summary>
-        public bool HasRoundedAlbumArt
-        {
-            get => _hasRoundedAlbumArt;
-            set => Set(ref _hasRoundedAlbumArt, value);
-        }
-
-        private bool _isReleaseYearVisible = false;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album release year is rounded or not.
-        /// </summary>
-        public bool IsReleaseYearVisible
-        {
-            get => _isReleaseYearVisible;
-            set => Set(ref _isReleaseYearVisible, value);
-        }
-
-
+        public int TrackCount
+            => App.MViewModel.Songs.Count(s => s.Album == Model.Title);
+        public string LocalizedTrackCount
+            => ResourceHelper.GetLocalizedCount("Song", TrackCount);
         #endregion
 
         #region Backend
@@ -219,40 +157,6 @@ namespace Rise.App.ViewModels
             else
             {
                 await NewRepository.Repository.UpsertAsync(Model);
-            }
-        }
-
-        /// <summary>
-        /// Deletes item data from the backend.
-        /// </summary>
-        public async Task DeleteAsync()
-        {
-            if (App.MViewModel.Albums.Contains(this))
-            {
-                App.MViewModel.Albums.Remove(this);
-                await NewRepository.Repository.DeleteAsync(Model);
-            }
-
-            ArtistViewModel artist = App.MViewModel.Artists.
-                FirstOrDefault(a => a.Model.Name == Model.Artist);
-
-            if (artist != null)
-            {
-                await artist.CheckAvailabilityAsync();
-            }
-        }
-
-        /// <summary>
-        /// Checks whether or not the item is available. If it's not,
-        /// delete it.
-        /// </summary>
-        public async Task CheckAvailabilityAsync()
-        {
-            var trackCount = (await NewRepository.Repository.GetItemsAsync<Song>()).Count(s => s.Album == Model.Title);
-
-            if (trackCount == 0)
-            {
-                await DeleteAsync();
             }
         }
         #endregion

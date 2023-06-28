@@ -3,18 +3,33 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+        <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+    </Page.Resources>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+        <Grid.Background>
+            <SolidColorBrush Color="{x:Bind app:App.SViewModel.GlazeColors, Mode=OneWay}" />
+        </Grid.Background>
+
+        <skuc:TitleBar
+            x:Name="TitleBar"
+            Title="{markup:ResourceHelper Name=/Settings/Title}"
+            Height="32"
+            Padding="36,0,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Icon="{ui:FontIcon Glyph=&#xE713;}" />
 
         <Button
             x:Name="BackButton"
@@ -24,11 +39,11 @@
             VerticalAlignment="Top"
             AutomationProperties.AutomationId="BackButton"
             AutomationProperties.ItemType="Navigation Button"
-            AutomationProperties.Name="Back"
+            AutomationProperties.Name="{markup:ResourceHelper Name=Back}"
             Click="BackButton_Click"
             CornerRadius="5"
             Style="{StaticResource TransparentButtonStyle}"
-            ToolTipService.ToolTip="Back">
+            ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
             <muxc:AnimatedIcon
                 x:Name="BackAnimatedIcon"
                 Width="16"
@@ -42,366 +57,174 @@
             </muxc:AnimatedIcon>
         </Button>
 
-        <skuc:ExtendedTitleBar
-            x:Name="TitleBar"
-            Margin="48,0,0,0"
-            HorizontalAlignment="Stretch">
-            <Grid x:Name="AppData" ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <FontIcon FontSize="16" Glyph="&#xE713;" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="App settings" />
-            </Grid>
-        </skuc:ExtendedTitleBar>
-
-        <Button
-            x:Name="SyncButton"
-            Width="40"
-            Height="28"
-            Margin="2,2,190,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            CornerRadius="5"
-            IsEnabled="False"
-            Style="{StaticResource TransparentButtonStyle}"
-            ToolTipService.ToolTip="Sync centre">
-            <Button.Flyout>
-                <Flyout>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Margin="0,2,0,12"
-                                Style="{ThemeResource BaseTextBlockStyle}"
-                                Text="Sync centre" />
-                            <Button
-                                Height="32"
-                                Margin="70,-9,-2,0"
-                                Content="Sync all"
-                                FontSize="12"
-                                FontStretch="Normal" />
-                        </StackPanel>
-                        <StackPanel Padding="25" Orientation="Vertical">
-                            <FontIcon Height="32" Glyph="" />
-                            <TextBlock
-                                FontSize="14"
-                                FontWeight="Normal"
-                                Text="Coming soon"
-                                TextAlignment="Center" />
-
-                        </StackPanel>
-                    </StackPanel>
-
-                </Flyout>
-            </Button.Flyout>
-            <FontIcon FontSize="14" Glyph="" />
-        </Button>
-
-        <Grid Grid.Row="1" Margin="16,0,16,16">
+        <Grid Padding="0,32,0,12" Canvas.ZIndex="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
+
+            <!--  Sidebar container  -->
             <Border
-                x:Name="SidebarContainer"
+                x:Name="SidebarBorder"
                 Width="114"
-                Margin="0,0,13,0"
-                HorizontalAlignment="Left"
+                Margin="12,0,0,0"
+                Padding="32"
                 VerticalAlignment="Stretch"
-                Background="{ThemeResource LayerFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
                 CornerRadius="8"
+                Style="{StaticResource BorderCardStyle}"
                 Visibility="Collapsed">
                 <Grid>
-                    <StackPanel Margin="32,32,32,0">
-                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                            <Button
-                                x:Name="SmallSettingsButton"
-                                Margin="5.4"
-                                Padding="4"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Flyout="{x:Bind MoreFlyout}">
-                                <Button.Content>
-                                    <FontIcon
-                                        HorizontalAlignment="Center"
-                                        FontSize="28"
-                                        Glyph="" />
-                                </Button.Content>
-                            </Button>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
 
-                            <TextBlock
-                                x:Name="SettingsTitle"
-                                Margin="5"
-                                FontSize="28"
-                                FontWeight="SemiBold"
-                                Text="Settings"
-                                Visibility="Collapsed" />
-                            <StackPanel
-                                Margin="40,0,0,0"
-                                HorizontalAlignment="Right"
-                                Orientation="Horizontal">
-                                <Button
-                                    Height="36"
-                                    HorizontalAlignment="Right"
-                                    Style="{StaticResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="More">
-                                    <FontIcon FontSize="16" Glyph="" />
-                                    <Button.Flyout>
-                                        <MenuFlyout x:Name="MoreFlyout">
-                                            <MenuFlyoutSubItem Text="Settings menus">
-                                                <MenuFlyoutSubItem.Icon>
-                                                    <FontIcon Glyph="&#xE145;" />
-                                                </MenuFlyoutSubItem.Icon>
-                                                <muxc:RadioMenuFlyoutItem
-                                                    IsChecked="True"
-                                                    IsEnabled="False"
-                                                    Text="Left" />
-                                                <muxc:RadioMenuFlyoutItem
-                                                    IsChecked="False"
-                                                    IsEnabled="False"
-                                                    Text="Top" />
-                                            </MenuFlyoutSubItem>
+                    <!--  Header  -->
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            x:Name="SmallSettingsButton"
+                            Margin="6,0,0,0"
+                            Padding="6"
+                            Content="{ui:FontIcon FontSize=24,
+                                                  Glyph=&#xE713;}"
+                            Flyout="{x:Bind MoreFlyout}"
+                            Style="{StaticResource TransparentButtonStyle}"
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
+                            Visibility="Collapsed" />
 
-                                            <MenuFlyoutSubItem Text="Header">
-                                                <MenuFlyoutSubItem.Icon>
-                                                    <FontIcon Glyph="&#xE185;" />
-                                                </MenuFlyoutSubItem.Icon>
-                                                <muxc:RadioMenuFlyoutItem
-                                                    IsChecked="True"
-                                                    IsEnabled="False"
-                                                    Text="Left" />
+                        <TextBlock
+                            x:Name="SettingsTitle"
+                            Margin="6,0"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{markup:ResourceHelper Name=Settings}"
+                            Visibility="Collapsed" />
 
-                                                <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Centre" />
+                        <Button
+                            x:Name="MoreButton"
+                            Height="36"
+                            Margin="40,0,0,0"
+                            Content="{ui:FontIcon Glyph=&#xE712;}"
+                            Style="{StaticResource TransparentButtonStyle}"
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
+                            Visibility="Collapsed">
+                            <Button.Flyout>
+                                <MenuFlyout x:Name="MoreFlyout">
+                                    <MenuFlyoutItem
+                                        x:Name="LanguageItem"
+                                        Click="Language_Click"
+                                        Icon="{ui:FontIcon Glyph=&#xE774;}"
+                                        Text="{markup:ResourceHelper Name=Language}" />
 
-                                                <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Right" />
-                                            </MenuFlyoutSubItem>
+                                    <MenuFlyoutItem
+                                        x:Name="Insider"
+                                        Click="Insider_Click"
+                                        Icon="{ui:FontIcon Glyph=&#xF1AD;}"
+                                        Text="{markup:ResourceHelper Name=/Settings/InsiderHub}" />
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
 
-                                            <MenuFlyoutSubItem Text="Icons">
-                                                <MenuFlyoutSubItem.Icon>
-                                                    <FontIcon Glyph="&#xE91B;" />
-                                                </MenuFlyoutSubItem.Icon>
-                                                <muxc:RadioMenuFlyoutItem
-                                                    IsChecked="True"
-                                                    IsEnabled="False"
-                                                    Text="High Contrast" />
-                                                <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Fluent Colour" />
-                                            </MenuFlyoutSubItem>
-
-                                            <MenuFlyoutSeparator />
-
-                                            <MenuFlyoutItem
-                                                x:Name="LanguageItem"
-                                                Click="Language_Click"
-                                                Text="Language">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-
-                                            <MenuFlyoutItem
-                                                x:Name="Insider"
-                                                Click="Insider_Click"
-                                                Text="Insider Hub">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xF1AD;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-
-                                            <MenuFlyoutSeparator />
-
-                                            <MenuFlyoutItem
-                                                x:Name="ClassicDialog"
-                                                Click="ClassicDialog_Click"
-                                                Text="Open classic dialog">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xE17C;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-
-                                            <MenuFlyoutItem
-                                                x:Name="RestoreDefaultSettings"
-                                                IsEnabled="False"
-                                                Text="Restore defaults">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons" Glyph="&#xE359;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-
-                                        </MenuFlyout>
-
-                                    </Button.Flyout>
-                                </Button>
-                                <Button
-                                    Name="FeedbackSettings"
-                                    Height="36"
-                                    HorizontalAlignment="Right"
-                                    Click="FeedbackSettings_Click"
-                                    Style="{StaticResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Feedback">
-                                    <FontIcon FontSize="16" Glyph="" />
-                                </Button>
-                            </StackPanel>
-                        </StackPanel>
+                        <Button
+                            x:Name="FeedbackButton"
+                            Height="36"
+                            HorizontalAlignment="Right"
+                            Click="FeedbackSettings_Click"
+                            Content="{ui:FontIcon Glyph=&#xED15;}"
+                            Style="{StaticResource TransparentButtonStyle}"
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=Feedback}"
+                            Visibility="Collapsed" />
                     </StackPanel>
 
+                    <!--  Sidebar  -->
                     <muxc:NavigationView
                         x:Name="SettingsSidebar"
-                        Width="235"
-                        Margin="32,76,32,30"
-                        HorizontalAlignment="Left"
-                        AlwaysShowHeader="False"
-                        ExpandedModeThresholdWidth="500"
+                        Grid.Row="1"
+                        CompactModeThresholdWidth="0"
+                        ExpandedModeThresholdWidth="204"
                         IsBackButtonVisible="Collapsed"
-                        IsBackEnabled="False"
                         IsPaneToggleButtonVisible="False"
                         IsSettingsVisible="False"
-                        IsTabStop="False"
                         IsTitleBarAutoPaddingEnabled="False"
                         ItemInvoked="SettingsSidebar_ItemInvoked"
-                        PaneDisplayMode="Left"
-                        SelectedItem="{x:Bind Appearance}"
-                        SelectionChanged="SettingsSidebar_SelectionChanged"
-                        SelectionFollowsFocus="Disabled">
-
-                        <muxc:NavigationView.Resources>
-                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
-                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
-                        </muxc:NavigationView.Resources>
-
+                        SelectedItem="{x:Bind Appearance}">
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem
                                 x:Name="Appearance"
-                                Content="Appearance"
+                                Content="{markup:ResourceHelper Name=Appearance}"
+                                Icon="{ui:FontIcon Glyph=&#xE771;}"
                                 Tag="Appearance"
-                                ToolTipService.ToolTip="Customise app colours, themes, icons, layouts and motion.">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/AppearanceItemDesc}" />
+
                             <muxc:NavigationViewItem
                                 x:Name="MediaLibrary"
-                                Content="Media library"
+                                Content="{markup:ResourceHelper Name=MediaLibrary}"
+                                Icon="{ui:FontIcon Glyph=&#xEA69;}"
                                 Tag="MediaLibrary"
-                                ToolTipService.ToolTip="Manage media sources, your online services and scanning settings.">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/MediaLibraryItemDesc}" />
+
                             <muxc:NavigationViewItem
                                 x:Name="Navigation"
-                                Content="Navigation"
+                                Content="{markup:ResourceHelper Name=Navigation}"
+                                Icon="{ui:FontIcon Glyph=&#xE8B0;}"
                                 Tag="Navigation"
-                                ToolTipService.ToolTip="Change click actions, startup options.">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/NavigationItemDesc}" />
+
                             <muxc:NavigationViewItem
                                 x:Name="Playback"
-                                Content="Playback &amp; sound"
-                                Tag="Playback">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="Sync"
-                                Content="Syncing"
-                                Tag="Sync">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                Content="{markup:ResourceHelper Name=PlaybackAndSound}"
+                                Icon="{ui:FontIcon Glyph=&#xF4C3;}"
+                                Tag="Playback" />
                         </muxc:NavigationView.MenuItems>
-
-                        <muxc:NavigationView.PaneCustomContent>
-                            <HyperlinkButton
-                                x:Name="PaneHyperlink"
-                                Margin="12,0"
-                                Content="More info"
-                                Visibility="Collapsed" />
-                        </muxc:NavigationView.PaneCustomContent>
-
-                        <muxc:NavigationView.AutoSuggestBox>
-                            <AutoSuggestBox
-                                Margin="-12,0,-12,0"
-                                AutomationProperties.Name="Search"
-                                PlaceholderText="Search"
-                                QueryIcon="Find" />
-                        </muxc:NavigationView.AutoSuggestBox>
 
                         <muxc:NavigationView.FooterMenuItems>
                             <muxc:NavigationViewItem
                                 x:Name="Behaviour"
-                                Content="System behaviours"
-                                Tag="Behaviour">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="&#xEC7A;" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="Components"
-                                Content="Manage components"
-                                Tag="Components">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                Content="{markup:ResourceHelper Name=SystemBehaviors}"
+                                Icon="{ui:FontIcon Glyph=&#xEC7A;}"
+                                Tag="Behaviour" />
+
                             <muxc:NavigationViewItem
                                 x:Name="About"
-                                Content="About"
-                                Tag="About">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
+                                Content="{markup:ResourceHelper Name=About}"
+                                Icon="{ui:FontIcon Glyph=&#xE946;}"
+                                Tag="About" />
                         </muxc:NavigationView.FooterMenuItems>
                     </muxc:NavigationView>
                 </Grid>
-
             </Border>
 
             <Border
                 Grid.Column="1"
-                Margin="0,0,0,0"
-                HorizontalAlignment="Stretch"
+                Margin="12,0"
+                Padding="0,32,0,0"
                 VerticalAlignment="Stretch"
-                Background="{ThemeResource LayerFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
+                CornerRadius="8"
+                Style="{StaticResource BorderCardStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
 
-                <Grid Margin="0,37,0,0">
                     <StackPanel
                         x:Name="HeaderArea"
-                        Padding="37,0,37,0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        x:FieldModifier="public"
+                        MaxWidth="1300"
+                        Padding="48,0"
                         Orientation="Horizontal">
                         <Button
-                            x:Name="GOBACKPAGE"
+                            x:Name="GoBackPage"
                             Height="36"
-                            Margin="0,4,12,0"
-                            Padding="8,4,8,4"
+                            Margin="0,0,12,0"
+                            Padding="8"
                             VerticalAlignment="Center"
-                            x:FieldModifier="public"
                             AutomationProperties.AutomationId="BackButton1"
                             AutomationProperties.ItemType="Navigation Button"
-                            AutomationProperties.Name="Back"
+                            AutomationProperties.Name="{markup:ResourceHelper Name=Back}"
                             Click="GoBackAPage_Click"
-                            CornerRadius="5"
                             Style="{StaticResource TransparentButtonStyle}"
-                            ToolTipService.ToolTip="Back"
-                            Visibility="Collapsed">
-                            <muxc:AnimatedIcon Width="20" Height="20">
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}"
+                            Visibility="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay}">
+                            <muxc:AnimatedIcon>
                                 <muxc:AnimatedIcon.Source>
                                     <animatedvisuals:AnimatedBackVisualSource />
                                 </muxc:AnimatedIcon.Source>
@@ -410,64 +233,41 @@
                                 </muxc:AnimatedIcon.FallbackIconSource>
                             </muxc:AnimatedIcon>
                         </Button>
+
                         <FontIcon
                             x:Name="MainSettingsHeaderIcon"
-                            Margin="0,4,0,0"
+                            Margin="0,4,12,0"
                             x:FieldModifier="public"
                             FontSize="28"
                             Glyph="" />
                         <TextBlock
                             x:Name="MainSettingsHeader"
-                            Margin="12,0,0,0"
                             x:FieldModifier="public"
-                            FontSize="28"
-                            FontWeight="SemiBold"
-                            Text="No page selected"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{markup:ResourceHelper Name=NoPageSelected}"
                             TextTrimming="CharacterEllipsis"
                             TextWrapping="WrapWholeWords" />
                     </StackPanel>
-                    <Grid>
-                        <ScrollViewer
-                            Margin="0,49,0,0"
-                            Padding="37,0,37,0"
-                            CornerRadius="8"
-                            VerticalScrollBarVisibility="Auto">
 
-                            <Frame
-                                x:Name="SettingsMainFrame"
-                                HorizontalAlignment="Stretch"
-                                x:FieldModifier="public">
-                                <TextBlock
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    Opacity="0.6"
-                                    Text="Select an item from the sidebar to continue."
-                                    TextTrimming="CharacterEllipsis"
-                                    TextWrapping="WrapWholeWords" />
-                                <Frame.ContentTransitions>
-                                    <TransitionCollection>
-                                        <NavigationThemeTransition />
-                                    </TransitionCollection>
-                                </Frame.ContentTransitions>
-                            </Frame>
-                        </ScrollViewer>
-                    </Grid>
+                    <Frame
+                        x:Name="SettingsMainFrame"
+                        Grid.Row="1"
+                        MaxWidth="1300"
+                        x:FieldModifier="public" />
                 </Grid>
             </Border>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">
-                <VisualState x:Name="NormalWindow">
+                <VisualState x:Name="MediumWindow">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="650" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="SidebarContainer.Visibility" Value="Visible" />
-                        <Setter Target="SidebarContainer.Width" Value="114" />
-
-                        <Setter Target="SettingsSidebar.PaneDisplayMode" Value="LeftCompact" />
+                        <Setter Target="SidebarBorder.Visibility" Value="Visible" />
+                        <Setter Target="SmallSettingsButton.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -477,13 +277,12 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
+                        <Setter Target="SidebarBorder.Visibility" Value="Visible" />
+                        <Setter Target="SidebarBorder.Width" Value="300" />
+
                         <Setter Target="SettingsTitle.Visibility" Value="Visible" />
-                        <Setter Target="SmallSettingsButton.Visibility" Value="Collapsed" />
-
-                        <Setter Target="SidebarContainer.Visibility" Value="Visible" />
-                        <Setter Target="SidebarContainer.Width" Value="301" />
-
-                        <Setter Target="SettingsSidebar.PaneDisplayMode" Value="Left" />
+                        <Setter Target="MoreButton.Visibility" Value="Visible" />
+                        <Setter Target="FeedbackButton.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

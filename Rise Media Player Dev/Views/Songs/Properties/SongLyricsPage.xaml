@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="Rise.App.Views.SongLyricsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
+
+    <ScrollViewer d:Padding="16">
+        <StackPanel>
+            <muxc:ProgressRing
+                x:Name="LoadingRing"
+                IsActive="True"
+                Visibility="Visible" />
+
+            <TextBlock
+                x:Name="Lyrics"
+                d:Text="Lyrics"
+                TextWrapping="WrapWholeWords" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

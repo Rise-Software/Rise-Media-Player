@@ -5,11 +5,12 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     d:DesignHeight="64"
     d:DesignWidth="600"
-    PointerCanceled="OnPointerExited"
-    PointerCaptureLost="OnPointerExited"
     PointerEntered="OnPointerEntered"
     PointerExited="OnPointerExited"
     mc:Ignorable="d">
@@ -18,136 +19,158 @@
         <conv:TimeSpanToString x:Key="TimeToStr" />
     </UserControl.Resources>
 
-    <Border
+    <Grid
+        x:Name="RootBorder"
         Padding="{x:Bind Padding, Mode=OneWay}"
         HorizontalAlignment="Stretch"
         x:DefaultBindMode="OneWay"
         Background="{x:Bind Background, Mode=OneWay}"
         BorderBrush="{x:Bind BorderBrush, Mode=OneWay}"
         BorderThickness="{x:Bind BorderThickness, Mode=OneWay}"
-        CornerRadius="4">
-        <Grid ColumnSpacing="12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="36" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        ColumnSpacing="12"
+        CornerRadius="{x:Bind CornerRadius, Mode=OneWay}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="36" />
+            <ColumnDefinition Width="1.6*" />
+            <ColumnDefinition
+                x:Name="ArtistColumn"
+                Width="0"
+                d:Width="*" />
+            <ColumnDefinition
+                x:Name="AlbumColumn"
+                Width="0"
+                d:Width="*" />
+            <ColumnDefinition
+                x:Name="GenreColumn"
+                Width="0"
+                d:Width="*" />
 
-            <TextBlock
-                Width="24"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Text="{x:Bind Song.Track}"
-                TextAlignment="Center"
-                Visibility="{x:Bind ShowTrackNumber}" />
+            <ColumnDefinition x:Name="SideControlsColumn" Width="*" />
+        </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="1">
-                <Button
-                    x:Name="PlayButton"
-                    x:Uid="/Information/Play"
-                    Width="36"
-                    Height="36"
-                    Padding="0"
-                    Command="{x:Bind PlayCommand}"
-                    CommandParameter="{x:Bind Song}"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    Visibility="Collapsed">
-                    <FontIcon FontSize="16" Glyph="&#xE102;" />
-                </Button>
+        <TextBlock
+            Width="24"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Text="{x:Bind Song.Track}"
+            TextAlignment="Center"
+            Visibility="{x:Bind ShowTrackNumber}" />
 
-                <Border
-                    x:Name="AlbumThumb"
-                    Width="36"
-                    Height="36"
-                    CornerRadius="{x:Bind ThumbnailCornerRadius}"
-                    Visibility="{x:Bind ShowThumbnail}">
-                    <Border.Background>
-                        <ImageBrush Stretch="UniformToFill">
-                            <ImageBrush.ImageSource>
-                                <BitmapImage
-                                    DecodePixelHeight="36"
-                                    DecodePixelType="Logical"
-                                    DecodePixelWidth="36"
-                                    UriSource="{x:Bind Song.Thumbnail}" />
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
-                    </Border.Background>
-                </Border>
-            </Grid>
+        <Grid Grid.Column="1">
+            <Button
+                x:Name="PlayButton"
+                Width="36"
+                Height="36"
+                Padding="0"
+                Command="{x:Bind PlayCommand}"
+                CommandParameter="{x:Bind Song}"
+                Style="{StaticResource TransparentButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}"
+                Visibility="Collapsed">
+                <FontIcon
+                    FontSize="16"
+                    Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                    Glyph="&#xE102;" />
+            </Button>
 
-            <RelativePanel Grid.Column="2" VerticalAlignment="Center">
-                <TextBlock
-                    x:Name="SongTitle"
-                    MaxLines="2"
-                    Text="{x:Bind Song.Title}"
-                    TextTrimming="CharacterEllipsis"
-                    TextWrapping="Wrap" />
-
-                <HyperlinkButton
-                    x:Name="ArtistName"
-                    Margin="16,0,0,0"
-                    Padding="0"
-                    VerticalAlignment="Center"
-                    Command="{x:Bind GoToArtistCommand}"
-                    CommandParameter="{x:Bind Song.Artist}"
-                    FontSize="14"
-                    FontWeight="SemiBold"
-                    RelativePanel.RightOf="SongTitle"
-                    Visibility="{x:Bind ShowArtist}">
-                    <TextBlock Text="{x:Bind Song.Artist}" TextTrimming="CharacterEllipsis" />
-                </HyperlinkButton>
-
-                <TextBlock
-                    x:Name="Pill"
-                    Margin="8,0,0,0"
-                    VerticalAlignment="Center"
-                    RelativePanel.RightOf="ArtistName"
-                    Text="•"
-                    Visibility="{x:Bind helpers:BindingHelpers.BooleansToVisibility(ShowArtist, ShowAlbum)}" />
-
-                <HyperlinkButton
-                    Margin="8,0,0,0"
-                    Padding="0"
-                    VerticalAlignment="Center"
-                    Command="{x:Bind GoToAlbumCommand}"
-                    CommandParameter="{x:Bind Song.Album}"
-                    FontSize="14"
-                    FontWeight="SemiBold"
-                    RelativePanel.RightOf="Pill"
-                    Visibility="{x:Bind ShowAlbum}">
-                    <TextBlock Text="{x:Bind Song.Album}" TextTrimming="CharacterEllipsis" />
-                </HyperlinkButton>
-            </RelativePanel>
-
-            <StackPanel
-                Grid.Column="3"
-                Orientation="Horizontal"
-                Spacing="4">
-                <Button
-                    x:Name="EditButton"
-                    x:Uid="/Information/Props"
-                    Width="36"
-                    Height="36"
-                    Padding="0"
-                    Command="{x:Bind EditCommand}"
-                    CommandParameter="{x:Bind Song}"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    Visibility="Collapsed">
-                    <FontIcon FontSize="16" Glyph="&#xE104;" />
-                </Button>
-
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Text="{x:Bind Song.Length, Converter={StaticResource TimeToStr}}"
-                    Visibility="{x:Bind ShowLength}" />
-            </StackPanel>
+            <tkitctrls:ImageEx
+                x:Name="AlbumThumb"
+                Width="36"
+                Height="36"
+                CornerRadius="{x:Bind ThumbnailCornerRadius}"
+                DecodePixelHeight="36"
+                DecodePixelWidth="36"
+                Source="{x:Bind Song.Thumbnail}"
+                Stretch="UniformToFill"
+                Visibility="{x:Bind ShowThumbnail}" />
         </Grid>
 
+        <TextBlock
+            x:Name="SongTitle"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            d:Text="Song Title"
+            FontSize="12"
+            MaxLines="2"
+            Text="{x:Bind Song.Title}"
+            TextTrimming="CharacterEllipsis"
+            TextWrapping="Wrap" />
+
+        <HyperlinkButton
+            x:Name="ArtistName"
+            Grid.Column="3"
+            Margin="16,0,0,0"
+            VerticalAlignment="Center"
+            Command="{x:Bind GoToArtistCommand}"
+            CommandParameter="{x:Bind Song.Artist}"
+            FontSize="12"
+            Visibility="{x:Bind ShowArtist}">
+            <TextBlock
+                d:Text="Unknown Artist"
+                Text="{x:Bind Song.Artist}"
+                TextTrimming="CharacterEllipsis" />
+        </HyperlinkButton>
+
+        <HyperlinkButton
+            x:Name="AlbumTitle"
+            Grid.Column="4"
+            Margin="8,0,0,0"
+            VerticalAlignment="Center"
+            Command="{x:Bind GoToAlbumCommand}"
+            CommandParameter="{x:Bind Song.Album}"
+            FontSize="12">
+            <TextBlock
+                d:Text="Unknown Album"
+                Text="{x:Bind Song.Album}"
+                TextTrimming="CharacterEllipsis" />
+        </HyperlinkButton>
+
+        <HyperlinkButton
+            x:Name="GenreTitle"
+            Grid.Column="5"
+            Margin="8,0,0,0"
+            VerticalAlignment="Center"
+            Command="{x:Bind GoToGenreCommand}"
+            CommandParameter="{x:Bind Song.Genres}"
+            FontSize="12">
+            <TextBlock
+                d:Text="Unknown Genre"
+                Text="{x:Bind Song.Genres}"
+                TextTrimming="CharacterEllipsis" />
+        </HyperlinkButton>
+
+        <StackPanel
+            Grid.Column="6"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            Spacing="4">
+            <ContentPresenter x:Name="SideControlContentPresenter" Content="{x:Bind SideControlContent, Mode=OneWay}" />
+
+            <Button
+                x:Name="EditButton"
+                Width="36"
+                Height="36"
+                Padding="0"
+                Command="{x:Bind EditCommand}"
+                CommandParameter="{x:Bind Song}"
+                Style="{StaticResource TransparentButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=PropertiesInfo}"
+                Visibility="Collapsed">
+                <FontIcon FontSize="16" Glyph="&#xE104;" />
+            </Button>
+
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="12"
+                Text="{x:Bind Song.Length, Converter={StaticResource TimeToStr}}"
+                Visibility="{x:Bind ShowLength}" />
+        </StackPanel>
+
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="HoverStates">
-                <VisualState x:Name="Default" />
-                <VisualState x:Name="Hovered">
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
                     <VisualState.Setters>
                         <Setter Target="AlbumThumb.IsHitTestVisible" Value="False" />
                         <Setter Target="AlbumThumb.Opacity" Value="0" />
@@ -157,6 +180,64 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+
+            <VisualStateGroup x:Name="ArtistVisibilityStates">
+                <VisualState x:Name="ArtistHidden" />
+                <VisualState x:Name="ArtistVisible">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind ShowArtist, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="ArtistColumn.Width" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="AlbumStates">
+                <VisualState x:Name="AlbumHidden" />
+                <VisualState x:Name="AlbumVisible">
+                    <VisualState.StateTriggers>
+                        <ui:ControlSizeTrigger
+                            MinWidth="620"
+                            CanTrigger="{x:Bind ShowAlbum, Mode=OneWay}"
+                            TargetElement="{x:Bind RootBorder, Mode=OneTime}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="AlbumColumn.Width" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="GenreStates">
+                <VisualState x:Name="GenreHidden" />
+                <VisualState x:Name="GenreVisible">
+                    <VisualState.StateTriggers>
+                        <ui:ControlSizeTrigger
+                            MinWidth="800"
+                            CanTrigger="{x:Bind ShowGenre, Mode=OneWay}"
+                            TargetElement="{x:Bind RootBorder, Mode=OneTime}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="GenreColumn.Width" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="SideControlContentStates">
+                <VisualState x:Name="NoContent" />
+                <VisualState x:Name="WithContent">
+                    <VisualState.StateTriggers>
+                        <ui:IsNotEqualStateTrigger Value="{x:Bind SideControlContent}" To="{x:Null}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SideControlsColumn.Width" Value="Auto" />
+                        <Setter Target="SideControlContentPresenter.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-    </Border>
+    </Grid>
 </UserControl>
