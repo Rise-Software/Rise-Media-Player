@@ -146,9 +146,6 @@
     <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
       <DependentUpon>EqualizerDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
-      <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\SetupDialogContent.xaml.cs">
       <DependentUpon>SetupDialogContent.xaml</DependentUpon>
     </Compile>
@@ -156,9 +153,6 @@
     <Compile Include="Helpers\CollectionViewDelegates.cs" />
     <Compile Include="Helpers\GroupingLabelComparer.cs" />
     <Compile Include="Helpers\MusixmatchHelper.cs" />
-    <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
-      <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
@@ -672,10 +666,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\LibraryPageEditDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\MessagesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -769,10 +759,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\InsiderWallpapers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
