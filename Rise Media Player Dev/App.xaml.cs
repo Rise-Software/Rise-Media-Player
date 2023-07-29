@@ -14,8 +14,10 @@ using Rise.Data.ViewModels;
 using Rise.Effects;
 using Rise.NewRepository;
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
@@ -23,6 +25,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
+using Windows.Storage.Search;
 using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -36,7 +39,7 @@ namespace Rise.App
     /// </summary>
     public sealed partial class App : Application
     {
-        private static Timer IndexingTimer;
+        private static System.Timers.Timer IndexingTimer;
 
         // No lazy init (used very early on, so lazy init is not needed)
         public static MainViewModel MViewModel { get; } = new();
@@ -59,6 +62,8 @@ namespace Rise.App
         private readonly static Lazy<StorageLibrary> _videoLibrary
             = new(OnStorageLibraryRequested(KnownLibraryId.Videos));
         public static StorageLibrary VideoLibrary => _videoLibrary.Value;
+
+        private readonly static SemaphoreSlim _trackingSemaphore = new SemaphoreSlim(1);
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -273,17 +278,83 @@ namespace Rise.App
         {
             if (SViewModel.IndexingFileTrackingEnabled)
             {
-                _ = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
-                var result = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
-
-                // If the trackers were registered successfully, we also have to
-                // track definition changes
-                if (result == BackgroundTaskRegistrationStatus.Successful ||
-                    result == BackgroundTaskRegistrationStatus.AlreadyExists)
+                /*try
                 {
+                    _ = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
+                    var result = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
+
+                    // If the trackers were registered successfully, we also have to
+                    // track definition changes
+                    if (result == BackgroundTaskRegistrationStatus.Successful ||
+                        result == BackgroundTaskRegistrationStatus.AlreadyExists)
+                    {
+                        MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+                        VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+                        return;
+                    }
+                } catch (Exception ex)
+                {
+                    ex.WriteToOutput();
+                }*/
+
+                try
+                {
+                    foreach (var folder in MusicLibrary.Folders)
+                    {
+                        // Ignore network paths
+                        if (PathUtils.PathIsNetworkPathW(folder.Path))
+                            continue;
+
+                        try
+                        {
+                            await folder.GetFilesAsync(CommonFileQuery.DefaultQuery, 0, 1);
+                        } catch (Exception ex)
+                        {
+                            // We couldn't access the folder for some reason, don't track it.
+                            ex.WriteToOutput();
+                            continue;
+                        }
+
+                        var tracker = folder.TrackForeground();
+
+                        tracker.Created += OnFileSystemWatcherChanged;
+                        tracker.Changed += OnFileSystemWatcherChanged;
+                        tracker.Deleted += OnFileSystemWatcherChanged;
+                        tracker.Renamed += OnFileSystemWatcherChanged;
+                    }
+
+                    foreach (var folder in VideoLibrary.Folders)
+                    {
+                        // Ignore network paths
+                        if (PathUtils.PathIsNetworkPathW(folder.Path))
+                            continue;
+
+                        try
+                        {
+                            await folder.GetFilesAsync(CommonFileQuery.DefaultQuery, 0, 1);
+                        }
+                        catch (Exception ex)
+                        {
+                            // We couldn't access the folder for some reason, don't track it.
+                            ex.WriteToOutput();
+                            continue;
+                        }
+
+                        var tracker = folder.TrackForeground();
+
+                        tracker.Created += OnFileSystemWatcherChanged;
+                        tracker.Changed += OnFileSystemWatcherChanged;
+                        tracker.Deleted += OnFileSystemWatcherChanged;
+                        tracker.Renamed += OnFileSystemWatcherChanged;
+                    }
+
                     MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
                     VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
-                    return;
+                }
+                catch (Exception ex)
+                {
+                    // We couldn't make use of foreground tracking, so give up and use the indexing timer.
+                    ex.WriteToOutput();
                 }
             }
 
@@ -292,8 +363,29 @@ namespace Rise.App
             RestartIndexingTimer();
         }
 
+        private static async void OnFileSystemWatcherChanged(object sender, FileSystemEventArgs e)
+        {
+            await _trackingSemaphore.WaitAsync();
+
+            await MViewModel.HandleLibraryChangesAsync(e);
+
+            _trackingSemaphore.Release();
+        }
+
         private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
         {
+            IndexingExtensions.CleanWatchers();
+
+            foreach (var folder in sender.Folders)
+            {
+                var tracker = folder.TrackForeground();
+
+                tracker.Created += OnFileSystemWatcherChanged;
+                tracker.Changed += OnFileSystemWatcherChanged;
+                tracker.Deleted += OnFileSystemWatcherChanged;
+                tracker.Renamed += OnFileSystemWatcherChanged;
+            }
+
             await MViewModel.StartFullCrawlAsync();
         }
 

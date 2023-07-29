@@ -2,6 +2,7 @@
 using Rise.Common.Enums;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
@@ -14,6 +15,8 @@ namespace Rise.Common.Extensions
 {
     public static class IndexingExtensions
     {
+        private static readonly List<FileSystemWatcher> _watchers = new();
+
         #region Indexing
         /// <summary>
         /// Indexes a library's contents based on personalized
@@ -199,6 +202,33 @@ namespace Rise.Common.Extensions
         }
 
         /// <summary>
+        /// Registers a foreground change tracker.
+        /// </summary>
+        /// <param name="folder">The folder to use for the watcher.</param>
+        /// <param name="bufferSize">The buffer size for the watcher.</param>
+        /// <param name="includeSubdirectories">Whether to also watch subdirectories or not.</param>
+        /// <returns>The watcher.</returns>
+        public static FileSystemWatcher TrackForeground(this StorageFolder folder, int bufferSize = 64, bool includeSubdirectories = true)
+        {
+            var watcher = _watchers.FirstOrDefault(x => x.Path == folder.Path);
+
+            if (watcher != null)
+                return watcher;
+
+            watcher = new FileSystemWatcher()
+            {
+                IncludeSubdirectories = includeSubdirectories,
+                Path = folder.Path,
+                EnableRaisingEvents = true,
+                InternalBufferSize = bufferSize
+            };
+
+            _watchers.Add(watcher);
+
+            return watcher;
+        }
+
+        /// <summary>
         /// Registers a background <see cref="StorageLibraryChangeTracker"/>.
         /// </summary>
         /// <param name="library">Library to track.</param>
@@ -238,6 +268,14 @@ namespace Rise.Common.Extensions
             _ = builder.Register();
 
             return BackgroundTaskRegistrationStatus.Successful;
+        }
+
+        public static void CleanWatchers()
+        {
+            foreach (var watcher in _watchers)
+                watcher.Dispose();
+
+            _watchers.Clear();
         }
         #endregion
     }

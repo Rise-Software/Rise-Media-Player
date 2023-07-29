@@ -11,6 +11,7 @@ using Rise.Models;
 using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -207,24 +208,27 @@ namespace Rise.App.ViewModels
             if (!WebHelpers.IsInternetAccessAvailable())
                 return;
 
-            foreach (var artist in Artists)
+            try
             {
-                if (token != null && token.IsCancellationRequested)
-                    return;
+                foreach (var artist in Artists)
+                {
+                    if (token != null && token.IsCancellationRequested)
+                        return;
 
-                // The ms-appx prefix is used for files within the app
-                // bundle, and if it isn't present, it means a custom
-                // image has already been applied
-                if (!artist.Picture.StartsWith("ms-appx"))
-                    return;
+                    // The ms-appx prefix is used for files within the app
+                    // bundle, and if it isn't present, it means a custom
+                    // image has already been applied
+                    if (!artist.Picture.StartsWith("ms-appx"))
+                        return;
 
-                if (!WebHelpers.IsInternetAccessAvailable())
-                    return;
+                    if (!WebHelpers.IsInternetAccessAvailable())
+                        return;
 
-                string pic = await GetArtistImageAsync(artist.Name, wc).ConfigureAwait(false);
-                if (!string.IsNullOrEmpty(pic))
-                    artist.Picture = pic;
-            }
+                    string pic = await GetArtistImageAsync(artist.Name, wc).ConfigureAwait(false);
+                    if (!string.IsNullOrEmpty(pic))
+                        artist.Picture = pic;
+                }
+            } catch (InvalidOperationException) { }
         }
 
         /// <summary>
@@ -512,6 +516,69 @@ namespace Rise.App.ViewModels
     // Change handling
     public sealed partial class MainViewModel
     {
+        public async Task HandleLibraryChangesAsync(FileSystemEventArgs e)
+        {
+            var isSupportedMusicFile = SupportedFileTypes.MusicFiles.Contains(Path.GetExtension(e.FullPath).ToLowerInvariant());
+            var isSupportedVideoFile = SupportedFileTypes.VideoFiles.Contains(Path.GetExtension(e.FullPath).ToLowerInvariant());
+
+            if (!isSupportedMusicFile || !isSupportedVideoFile)
+                // Not interested in any other types of files.
+                return;
+
+            switch (e.ChangeType)
+            {
+                case WatcherChangeTypes.Created:
+                    if (!Path.HasExtension(e.FullPath))
+                    {
+                        // Not interested in folders.
+                        break;
+                    }
+
+                    var file = await StorageFile.GetFileFromPathAsync(e.FullPath);
+
+                    if (isSupportedMusicFile)
+                        _ = await SaveMusicModelsAsync(file);
+                    else if (isSupportedVideoFile)
+                        _ = await SaveVideoModelAsync(file);
+                    break;
+                case WatcherChangeTypes.Deleted:
+                    if (isSupportedMusicFile)
+                    {
+                        var song = Songs.FirstOrDefault(s => s.Location == e.FullPath);
+
+                        if (song != null)
+                            await RemoveSongAsync(song, false);
+                    } else
+                    {
+                        var video = Videos.FirstOrDefault(v => v.Location == e.FullPath);
+
+                        if (video != null)
+                            await video.DeleteAsync();
+                    }
+                    break;
+                case WatcherChangeTypes.Renamed:
+                    var renameArgs = e as RenamedEventArgs;
+
+                    if (isSupportedMusicFile)
+                    {
+                        var song = Songs.FirstOrDefault(s => s.Location == renameArgs.OldFullPath);
+
+                        song.Location = e.FullPath;
+
+                        await song.SaveAsync();
+                    }
+                    else
+                    {
+                        var video = Videos.FirstOrDefault(v => v.Location == renameArgs.OldFullPath);
+
+                        video.Location = e.FullPath;
+
+                        await video.SaveAsync();
+                    }
+                    break;
+            }
+        }
+
         public async Task HandleLibraryChangesAsync(ChangedLibraryType type, bool queue = false)
         {
             switch (type)
@@ -542,7 +609,7 @@ namespace Rise.App.ViewModels
 
             foreach (var addedItem in changes.AddedItems)
             {
-                _ = await SaveMusicModelsAsync(addedItem, queue);
+                var saved = await SaveMusicModelsAsync(addedItem, queue);
             }
 
             foreach (var removedItemPath in changes.RemovedItems)
@@ -573,7 +640,7 @@ namespace Rise.App.ViewModels
                 if (string.IsNullOrEmpty(removedItemPath))
                     continue;
 
-                var video = App.MViewModel.Videos.FirstOrDefault(v => v.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
+                var video = Videos.FirstOrDefault(v => v.Location.Equals(removedItemPath, StringComparison.OrdinalIgnoreCase));
 
                 if (video == null)
                     continue;
