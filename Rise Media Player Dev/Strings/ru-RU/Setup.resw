@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+    <value>Настройте по своему</value>
   </data>
   <data name="ConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+    <value>Подключите интернет-аккаунт</value>
   </data>
   <data name="DoneH" xml:space="preserve">
-    <value>You're done!</value>
+    <value>Все готово!</value>
   </data>
   <data name="Intro" xml:space="preserve">
-    <value>We're glad you're here. You just need to go through a few simple steps and you'll be all up and running!</value>
+    <value>Рады видеть вас здесь. Вам нужно выполнить несколько простых шагов, после чего все будет готово к использованию!</value>
   </data>
   <data name="LocalH" xml:space="preserve">
-    <value>Add your personal media</value>
+    <value>Добавьте свои личные медиа</value>
   </data>
   <data name="PrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Конфиденциальность и рекомендации</value>
   </data>
   <data name="SetupPre" xml:space="preserve">
-    <value>Pre-setup</value>
+    <value>Предварительная настройка</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start setup</value>
