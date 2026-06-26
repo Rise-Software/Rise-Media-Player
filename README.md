@@ -58,7 +58,7 @@ In order to learn how to build RiseMP from source, check out [the documentation]
 git clone https://github.com/Rise-Software/Rise-Media-Player.git
 ```
 
-#### Prepare credentials
+# Prepare credentials
 
 Create a file called `LastFM.cs` in `Rise.Common.Constants`, and paste the following contents:
 
